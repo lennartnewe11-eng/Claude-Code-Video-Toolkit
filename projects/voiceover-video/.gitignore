@@ -5,6 +5,7 @@ assets/footage/*
 assets/music/*
 renders/*
 !assets/footage/.gitkeep
+!assets/footage/CREDITS.md
 !assets/music/.gitkeep
 !renders/.gitkeep
 node_modules/
