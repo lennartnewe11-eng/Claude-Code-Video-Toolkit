@@ -20,9 +20,11 @@
 html,body{width:1920px;height:1080px;background:var(--paper);color:var(--ink);
   font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;}
 .stage{position:relative;width:1920px;height:1080px;background:var(--paper);overflow:hidden;}
-/* very subtle paper grain */
-.stage::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.05;
-  background-image:radial-gradient(rgba(0,0,0,.6) .5px,transparent .6px);background-size:3px 3px;}
+/* real crumpled-paper texture (cream-tinted) as the stage surface */
+.stage::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:url('../assets/textures/paper_bg.png') center/cover no-repeat;}
+/* keep content above the texture */
+.stage > *{position:relative;z-index:1;}
 
 /* ---------- TYPOGRAPHY ---------- */
 .serif{font-family:'Fraunces',serif;}
