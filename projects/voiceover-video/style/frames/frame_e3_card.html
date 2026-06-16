@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="editorial.css">
+<style>
+  .block.b1{left:0;bottom:90px;width:380px;height:150px;background:var(--tan);}
+  .block.b2{right:120px;top:90px;width:150px;height:60px;background:var(--sage);}
+  /* peeking secondary clip on left edge */
+  .peek{left:-120px;top:300px;width:330px;height:300px;transform:rotate(-3deg);}
+  .peek .ph{background:linear-gradient(160deg,#bdb9ad,#615f57);}
+  /* main media card centered-ish */
+  .main{left:560px;top:170px;width:820px;height:540px;transform:rotate(1deg);}
+  .main .ph{background:
+     linear-gradient(0deg,rgba(20,18,15,.35),transparent 40%),
+     linear-gradient(120deg,#9a958c,#44423d);}
+  .cap{position:absolute;right:300px;bottom:230px;}
+  .cap .label{font-size:40px;}
+  .crosshair-grp .mark-plus{position:absolute;}
+</style></head>
+<body><div class="stage">
+  <div class="block b1"></div><div class="block b2"></div>
+
+  <!-- registration marks framing the media -->
+  <div class="mark-plus" style="left:520px;top:120px"></div>
+  <div class="mark-plus" style="left:1390px;top:120px"></div>
+  <div class="bracket tl" style="left:520px;top:130px"></div>
+  <div class="bracket br" style="right:430px;bottom:300px"></div>
+
+  <div class="card peek duo"><div class="ph"></div></div>
+
+  <div class="card main"><div class="ph"></div>
+    <span class="tag">Archiv · 1969 · Platzhalter</span>
+  </div>
+
+  <div class="cap">
+    <span class="label">Metroliner <span class="arrow">&rarr;</span></span>
+  </div>
+
+  <div class="source">Beleg: Penn Central / Amtrak · Platzhalter</div>
+  <div class="chapter-tag">07:30 · Geschichte des HSR</div>
+</div></body></html>

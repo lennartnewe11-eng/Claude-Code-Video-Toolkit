@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="editorial.css">
+<style>
+  /* HOOK = full-bleed, fast-cut archival. One beat shown here. */
+  .broll{position:absolute;inset:0;}
+  .broll .ph{position:absolute;inset:0;background:
+      linear-gradient(0deg,rgba(20,18,15,.55),rgba(20,18,15,0) 45%),
+      linear-gradient(110deg,rgba(239,237,225,.10),transparent 30%),
+      linear-gradient(115deg,#8f8a80 0%,#3c3a35 100%);
+    filter:saturate(.85) contrast(1.03);}
+  /* motion-blur streaks to imply a fast-moving train */
+  .streak{position:absolute;left:0;right:0;height:3px;background:rgba(255,255,255,.18);}
+  .grain{position:absolute;inset:0;opacity:.10;mix-blend-mode:overlay;
+    background-image:radial-gradient(rgba(255,255,255,.9) .5px,transparent .6px);background-size:3px 3px;}
+  .corner{position:absolute;left:96px;bottom:150px;}
+  .corner .loc{font:700 30px Inter;letter-spacing:.04em;color:#fff;}
+  .corner .big{font-family:'Fraunces';font-weight:600;font-style:italic;font-size:120px;color:#fff;line-height:.95;}
+  .corner .big b{font-style:normal;font-weight:600;}
+  .ru{position:absolute;color:#fff;}
+</style></head>
+<body><div class="stage">
+  <div class="broll"><div class="ph"></div>
+    <div class="streak" style="top:24%"></div><div class="streak" style="top:55%;height:5px"></div>
+    <div class="streak" style="top:78%;opacity:.12"></div>
+  </div>
+  <div class="grain"></div>
+
+  <!-- editorial overlays kept minimal in the hook -->
+  <div class="segbar"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+  <div class="mark-plus" style="left:880px;top:120px;filter:invert(1)"></div>
+  <span class="label" style="position:absolute;right:96px;bottom:150px;color:#fff">bullet train <span class="arrow">&rarr;</span></span>
+
+  <div class="corner">
+    <div class="loc">JAPAN · 1964</div>
+    <div class="big"><b>320</b> <span style="font-size:64px">km/h</span></div>
+  </div>
+  <div class="source" style="color:rgba(255,255,255,.8)">Archiv-Montage · schnelle Schnitte · Platzhalter</div>
+  <div class="chapter-tag" style="color:rgba(255,255,255,.85)">00:00 · Hook</div>
+</div></body></html>

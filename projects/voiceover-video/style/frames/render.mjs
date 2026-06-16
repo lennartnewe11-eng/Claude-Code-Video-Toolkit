@@ -4,7 +4,8 @@ import path from 'path';
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const out = path.join(dir, 'out');
-const frames = ['frame_01_hook', 'frame_02_chart', 'frame_03_archival'];
+const frames = (process.argv[2] ? process.argv.slice(2)
+  : ['frame_e1_hook', 'frame_e2_explainer', 'frame_e3_card', 'frame_e4_cutout']);
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 });

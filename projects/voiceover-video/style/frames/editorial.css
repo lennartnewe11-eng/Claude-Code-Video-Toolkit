@@ -1,0 +1,74 @@
+/* ============================================================
+   STYLE SYSTEM v2 — "Editorial Kinetic Collage" (Prof-G / Galloway)
+   Reference: ScreenRecording style_code.zip
+   16:9 · 1920x1080 · light cream + olive · kinetic typography + collage
+   ============================================================ */
+@font-face { font-family:'Fraunces'; src:url('../assets/fonts/Fraunces.ttf') format('truetype'); font-weight:100 900; font-style:normal; }
+@font-face { font-family:'Fraunces'; src:url('../assets/fonts/Fraunces-Italic.ttf') format('truetype'); font-weight:100 900; font-style:italic; }
+@font-face { font-family:'Inter'; src:url('../assets/fonts/Inter.ttf') format('truetype'); font-weight:100 900; }
+
+:root{
+  --paper:#EFEDE1;   /* main cream */
+  --paper-2:#E6E3D2; /* darker cream */
+  --tan:#D4CFBB;     /* beige block */
+  --sage:#505B4B;    /* olive marks / blocks */
+  --sage-2:#7C876E;  /* lighter sage */
+  --ink:#141312;     /* near-black */
+  --ink-2:#4A4843;   /* secondary */
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:1920px;height:1080px;background:var(--paper);color:var(--ink);
+  font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;}
+.stage{position:relative;width:1920px;height:1080px;background:var(--paper);overflow:hidden;}
+/* very subtle paper grain */
+.stage::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.05;
+  background-image:radial-gradient(rgba(0,0,0,.6) .5px,transparent .6px);background-size:3px 3px;}
+
+/* ---------- TYPOGRAPHY ---------- */
+.serif{font-family:'Fraunces',serif;}
+.sans{font-family:'Inter',sans-serif;}
+.kin{line-height:1.05;letter-spacing:-.01em;}          /* kinetic line block */
+.kin .lg{font-family:'Fraunces',serif;font-weight:600;}
+.kin .display{font-family:'Fraunces',serif;font-weight:600;text-transform:uppercase;letter-spacing:-.02em;line-height:.92;}
+.kin .it{font-family:'Fraunces',serif;font-style:italic;font-weight:500;}
+.kin .sn{font-family:'Inter',sans-serif;font-weight:400;}
+.kin .sb{font-family:'Inter',sans-serif;font-weight:700;}
+.strike{position:relative;color:var(--ink-2);}
+.strike::after{content:'';position:absolute;left:-4%;right:-4%;top:52%;height:3px;background:var(--ink);transform:rotate(-4deg);}
+
+/* ---------- EDITORIAL MARKS ---------- */
+.label{font-family:'Fraunces',serif;font-style:italic;font-weight:500;color:var(--ink);font-size:30px;display:inline-flex;align-items:center;gap:14px;}
+.label.vert{position:absolute;writing-mode:vertical-rl;transform:rotate(180deg);left:40px;top:60px;color:var(--ink-2);font-size:26px;}
+.arrow{font-style:normal;font-family:'Inter';font-weight:400;}
+.mark-plus,.mark-corner{position:absolute;color:var(--sage);}
+.mark-plus{width:46px;height:46px;}
+.mark-plus::before,.mark-plus::after{content:'';position:absolute;background:var(--sage);}
+.mark-plus::before{left:50%;top:0;width:2px;height:100%;transform:translateX(-50%);}
+.mark-plus::after{top:50%;left:0;height:2px;width:100%;transform:translateY(-50%);}
+.bracket{position:absolute;width:54px;height:54px;border:2px solid var(--sage);}
+.bracket.tl{border-right:0;border-bottom:0;} .bracket.tr{border-left:0;border-bottom:0;}
+.bracket.bl{border-right:0;border-top:0;}    .bracket.br{border-left:0;border-top:0;}
+
+/* segmented progress / chapter bar */
+.segbar{position:absolute;top:60px;right:96px;display:flex;gap:8px;}
+.segbar i{width:34px;height:12px;background:var(--sage-2);opacity:.45;}
+.segbar i.on{opacity:1;background:var(--sage);}
+
+/* blocks (collage geometry) */
+.block{position:absolute;background:var(--tan);}
+.block.sage{background:var(--sage);}
+.block.green-tint{background:#E2E8D3;}
+
+/* media card (archival clip / cutout placeholder) */
+.card{position:absolute;background:var(--paper-2);box-shadow:0 26px 60px rgba(20,18,15,.20);overflow:hidden;}
+.card .ph{position:absolute;inset:0;}
+.card .tag{position:absolute;left:14px;bottom:12px;font:600 18px Inter;letter-spacing:.12em;
+  text-transform:uppercase;color:#fff;background:rgba(20,18,15,.55);padding:6px 12px;border-radius:4px;}
+/* grayscale archival placeholder fills */
+.ph-train{background:linear-gradient(120deg,#9a958c,#54514b);}
+.ph-port{background:radial-gradient(70% 60% at 50% 35%,#cbc8c0,#6b6862);}
+.ph-road{background:linear-gradient(160deg,#bdb9ad,#615f57);}
+.duo{filter:grayscale(1) contrast(1.05);}
+
+.source{position:absolute;left:96px;bottom:62px;font:400 20px Inter;color:var(--ink-2);opacity:.8;}
+.chapter-tag{position:absolute;right:96px;bottom:62px;font:italic 500 24px Fraunces;color:var(--ink-2);}

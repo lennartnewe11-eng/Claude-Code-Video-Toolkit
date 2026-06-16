@@ -1,80 +1,99 @@
 # Style Guide — "Warum Amerika seine Züge verlor"
 
-**Richtung:** Sachlich-datengetrieben (Referenzen: Wendover Productions, Vox)
-**Format:** 16:9 · 1920×1080 (Master in 4K möglich) · 30 fps
-**Sprache:** Deutsch · Tonalität: ruhig, autoritär-erklärend, faktenstark
+**Richtung:** Editorial Kinetic Collage (Referenz: `style_code.zip` — Prof-G / Scott-Galloway-Look)
+**Format:** 16:9 · 1920×1080 (Master 4K möglich) · 30 fps · Sprache: Deutsch
+**Zwei Modi:**
+1. **Hook** — *ausschließlich* schnell geschnittenes Archivmaterial, footage-forward, minimale Typo.
+2. **Erklärender Part** — kinetische Editorial-Typografie + Collage im Referenz-Stil.
 
 ---
 
-## 1. Farbsystem
+## 0. Analyse der Referenz (`ScreenRecording … _1.mp4`, 30 s, 60 fps)
+
+Beobachteter Stil ("Prof G"-Editorial):
+- **Heller Cream-Hintergrund** statt dunkel; warme Papieranmutung, feines Korn.
+- **Gemischte Typografie in EINER Zeile:** neutrale Grotesk-Sans für Verbindungswörter + **fette Sans** für Keywords + *kursive High-Contrast-Serife* für Betonung + **RIESIGE Display-Serife in Caps** für das Schlüsselwort (z. B. „SOCIAL SECURITY", „BIGGEST"). Wort-für-Wort-Reveal.
+- **Witzige Text-Edits:** Durchstreichen + Ersetzen (~~my~~ his age).
+- **S/W-Freisteller** (Personen, z. B. Galloway) + **3D-Props** (fallende Geldscheine, Münztürme) als Collage rechts.
+- **Collage-Schnipsel:** Karo-/Millimeterpapier, Tan- und Sage-Blöcke, leicht rotiert.
+- **Editorial-Marks:** dünne Fadenkreuze (+), Eckwinkel (⌐ ¬), Tickmarks — in Olivgrün; technische Layout-Ästhetik.
+- **Kursive Rand-Labels mit Pfeil:** „daylight robbery →", „train robbery →"; Namens-Label mit handgezeichnetem Bogen-Pfeil („scott galloway").
+- **Media-Cards:** Archiv-/Stockclips als gerahmte Karten mit Schatten, leicht gedreht/geschichtet, von Marks umrahmt.
+- **Segmentierte Fortschrittsleiste** oben rechts (kleine Quadrate) = Kapitel-Indikator.
+- **Footage-Grade:** leicht entsättigt, warm an die Cream-Palette angeglichen.
+
+---
+
+## 1. Farbsystem (aus Referenz gesampelt)
 
 | Token | Hex | Einsatz |
 |-------|-----|---------|
-| `--bg` | `#14171C` | Grundfläche (Charcoal) |
-| `--bg-2` | `#1B1F26` | Panels, Karten, Pills |
-| `--line` | `#2A2F38` | Hairlines, Grid, Achsen |
-| `--ink` | `#FFFFFF` | Primärtext |
-| `--ink-2` | `#A2A9B4` | Sekundärtext |
-| `--ink-3` | `#6B727C` | Captions, Quellen |
-| `--accent` | `#FFD23F` | **Signatur-Gelb** — Key-Zahlen, Betonung |
-| `--usa` | `#FF5A4D` | Negativ / Niedergang / USA |
-| `--rail` | `#38D996` | Positiv / Erfolg (Japan, EU, China) |
-| `--blue` | `#5B8DEF` | Neutrale Datenreihe |
+| `--paper` | `#EFEDE1` | Haupt-Hintergrund (Cream) |
+| `--paper-2` | `#E6E3D2` | dunkleres Cream / Cards |
+| `--tan` | `#D4CFBB` | Beige-Blöcke |
+| `--sage` | `#505B4B` | Oliv — Marks, Blöcke, aktive Segmente |
+| `--sage-2` | `#7C876E` | helleres Sage |
+| `--ink` | `#141312` | Text (Near-Black) |
+| `--ink-2` | `#4A4843` | Sekundärtext / Labels |
 
-Prinzip: **dunkle Bühne, eine Signaturfarbe (Gelb) für Betonung**, Rot/Grün nur semantisch (Niedergang vs. Erfolg). Nie mehr als 2 Akzente pro Frame.
+Prinzip: **warmes Cream + Schwarz + Oliv.** Farbe extrem sparsam; Wirkung kommt aus Typo-Kontrast und Collage, nicht aus Farbe.
 
 ## 2. Typografie
 
-- **Schrift:** Inter (Variable). Lokal unter `style/assets/fonts/Inter.ttf`.
-- **Zahlen:** Tabellenziffern (`font-feature-settings: 'tnum'`) — Stats stehen sauber untereinander.
-- Headline 64–92 px / 800 · Subtitle 28–32 px / 500 · Kicker 26 px / 700, `letter-spacing .28em`, uppercase, gelb.
-- Negatives Tracking (−.02em) bei großen Headlines.
+- **Display/Serife:** **Fraunces** (Variable, roman + italic) — High-Contrast-Didone. Für Caps-Schlüsselwörter & kursive Betonung. Lokal: `style/assets/fonts/Fraunces*.ttf`.
+- **Grotesk/Sans:** **Inter** — neutral, für Verbindungswörter & Bold-Keywords.
+- **Mischsatz-Regel:** pro Aussage 1 Schlüsselwort als Display-Serif-Caps; 1–2 Wörter kursiv-serif (Betonung); Rest Sans (regular + bold gemischt). Nicht überladen.
+- **Rand-Labels:** Fraunces *italic*, klein, mit `→`/Bogen-Pfeil.
 
-## 3. Bausteine (Komponenten)
+## 3. Komponenten
 
-- **Kicker** — gelber Balken + Kapitel-Label oben links.
-- **Stat-Card** — Panel mit farbigem Seitenbalken (grün/rot), Land, große Zahl, Subtext. Für Vergleiche (Hook, Fazit).
-- **Daten-Chart** — dunkler Grund, gestrichelte Gridlines, eine kräftige Linie + Verlaufs-Fläche, Annotation-Pills an Wendepunkten. Für Kosten, Netzlänge, Zeitreihen.
-- **Lower-Third** — Jahr (groß, gelb) + Titel + ein Satz Kontext + Akzentbalken. Über Archiv-B-Roll.
-- **Map-Inset** — kleine Karte oben rechts, abstrahierte Landmasse + gestrichelte Route + Stadt-Punkte. Für Strecken (Transkontinental, NEC, Brightline).
-- **Quellen-Beleg** — klein unten links; **Pflicht** bei jeder Zahl und jedem Archivclip.
-- **Chapter-Tag** — Timecode + Kapitel unten rechts (nur intern/Arbeitsversion).
+- **Kinetic-Type-Block** — gemischte Zeile, Wort-für-Wort animiert.
+- **Text-Edit** — Strike-through + Ersatz für Pointen.
+- **S/W-Freisteller** — Person/Objekt freigestellt, Duoton, vor Collage-Schnipsel; Namens-Label mit Bogen-Pfeil.
+- **Media-Card** — Clip als gerahmte, leicht gedrehte Karte mit Schatten; Tag unten; Fadenkreuze/Eckwinkel rundherum; oft eine zweite Karte „peekend" am Rand.
+- **3D-Prop / Collage-Objekt** — Geld, Münzen, Schiene/Highway als getiltete Blöcke.
+- **Editorial-Marks** — `+` Fadenkreuze, Eckwinkel, Tickmarks (Oliv).
+- **Segbar** — Kapitel-Fortschritt oben rechts.
+- **Quellen-Beleg** unten links (Pflicht bei Zahlen/Archiv) · **Chapter-Tag** unten rechts (intern).
 
-## 4. Footage-Behandlung (Archivmaterial)
+## 4. Hook — Sonderregel (Wunsch des Auftraggebers)
 
-- Leichter Color-Grade auf die Palette: warme Lichter, abgesenkte Schwarzwerte (`#14171C`-Floor).
-- Dezente Vignette + sehr feines Korn; optional minimaler Scanline-Hauch bei echtem Archiv.
-- **Immer** Quelle einblenden (Library of Congress, Prelinger Archive, Periscope Film etc.).
-- Ken-Burns (langsamer Push-in 3–6 %) auf Standbildern.
-- Balance Ziel: **~50 % Archiv / 50 % Grafik**.
+- **Ausschließlich echtes, schnell geschnittenes Archivmaterial.** Keine Stat-Cards.
+- Rapid Montage: Shinkansen, TGV, China-HSR, dann verfallende US-Bahn/leere Bahnhöfe.
+- Schnitte hart auf den Beat / auf VO-Pausen (`analysis/voiceover_pauses.txt`).
+- Footage warm an Cream gegradet; **minimale** Overlays: ein großes kursiv-serifes Stat-Wort (z. B. *320 km/h*), kleines Location-Label, „→"-Randlabel, Segbar.
+- Übergang zum erklärenden Part: harter Cut auf Cream-Bühne.
 
-## 5. Motion (für die Umsetzung in Remotion)
-
-- Zahlen **zählen hoch** (count-up) statt hart zu erscheinen.
-- Charts **wachsen** von links (stroke-dashoffset / clip).
-- Karten-Routen **zeichnen sich** (dashed line draw-on).
-- Übergänge: kurze Cuts auf Sprechpausen (siehe `analysis/voiceover_pauses.txt`), gelegentlich Whip/Match-Cut.
-- Tempo: ruhig, aber nie statisch — pro Aussage ein visueller Beat.
-
-## 6. Sounddesign
-
-- **Score:** zurückhaltendes, treibendes Doku-Bett (tief, perkussiv), lauter im Hook/Fazit, leiser unter Sprache (Ducking −12 dB).
-- **SFX:** UI-Ticks bei Zahlen/Chart-Beats, Whoosh bei Kartenübergängen, dezenter „Schienen/Zug"-Layer in Kapitel-Intros. Sammlung unter `assets/sfx/`.
-- VO-Master bereits sauber (−17,8 dB mean). Mix: VO −3 dB peak, Musik darunter.
-
-## 7. Quellen für echtes Material (lizenzkonform)
+## 5. Footage- & Material-Beschaffung (lizenzkonform)
 
 - **Archiv/Public Domain:** Library of Congress, Internet Archive (Prelinger), Wikimedia Commons.
 - **Stock (frei):** Pexels, Pixabay, Coverr.
-- **Karten/Daten:** Natural Earth, OpenRailwayMap, eigene Charts.
-- Pro Asset: Quelle + Lizenz in `assets/footage/SOURCES.md` dokumentieren.
+- **Freisteller:** S/W, sauber maskiert; Personen aus PD-/CC-Quellen.
+- **Karten/Daten:** Natural Earth, OpenRailwayMap.
+- Pro Asset: Quelle + Lizenz in `assets/footage/SOURCES.md`.
+
+## 6. Sounddesign
+
+- Score: zurückhaltend, treibend; Hook & Fazit lauter, unter Sprache Ducking (−12 dB).
+- SFX: Tick/Type-Pops bei Wort-Reveals, Whoosh bei Card-/Mark-Einblendung, Schienen/Zug-Layer in Kapitel-Intros, „Cash"-Sounds bei Geld-Props. Sammlung: `assets/sfx/`.
+- VO-Master sauber (−17,8 dB mean). Mix: VO −3 dB peak.
+
+## 7. Motion (Umsetzung in Remotion)
+
+- Wort-für-Wort-Reveal (kurzer Y-Offset + Fade), Display-Wort mit leichtem Scale-Pop.
+- 3D-Props fallen/tumbeln hinein; Cards sliden + leichte Rotation; Marks „snappen".
+- Routen/Charts (falls genutzt) zeichnen sich; Zahlen zählen hoch.
+- Tempo schnell, an die Sprache geschnitten; pro Aussage ein visueller Beat.
 
 ---
 
-### Style-Frames
-Gerenderte Beispiele in `style/frames/out/`:
-1. `frame_01_hook.png` — Hook: Länder-Vergleich (Stat-Cards)
-2. `frame_02_chart.png` — California HSR Kostenexplosion (Daten-Chart)
-3. `frame_03_archival.png` — 1869 Transkontinental (Archiv + Lower-Third + Map-Inset)
+### Style-Frames (Editorial — aktueller Stand)
+In `style/frames/out/`:
+1. `frame_e1_hook.png` — Hook: full-bleed Archiv (320 km/h) · footage-forward
+2. `frame_e2_explainer.png` — Kinetic Type + Collage-Props (Highway vs. Schiene)
+3. `frame_e3_card.png` — Media-Card mit Registration-Marks (Metroliner)
+4. `frame_e4_cutout.png` — S/W-Freisteller + Strike-Edit (Eisenhower)
 
-Neu rendern: `node style/frames/render.mjs`
+Render: `node style/frames/render.mjs`  · alte dunkle Variante: `node style/frames/render.mjs frame_01_hook frame_02_chart frame_03_archival`
+
+> Vorherige Richtung (dunkel, Wendover/Vox) liegt noch als `frame_0x_*.html` vor, ist aber **verworfen**.
