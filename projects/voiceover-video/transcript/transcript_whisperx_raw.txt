@@ -1,0 +1,230 @@
+[   1.38s -    4.98s]  In Japan kommst du mit dem Zug in unter drei Stunden von Tokio nach Osaka.
+[   5.32s -    8.95s]  In Frankreich rast der TGW mit über 300 kmh durchs Land.
+[   9.33s -   14.03s]  China hat in nur 15 Jahren das größte Hochgeschwindigkeitsnetz der Welt aus dem Boden gestampft.
+[  14.65s -   16.17s]  Und dann gibt es die USA.
+[  16.55s -   17.77s]  Das reichste Land der Erde.
+[  18.05s -   20.14s]  Die größte Wirtschaftsmacht der Geschichte.
+[  20.59s -   23.98s]  Ein Land, das einmal mit Abstand das beste Eisenbahnnetz der Welt hatte.
+[  24.46s -   27.16s]  Und das diesen Vorsprung heute komplett verspielt hat.
+[  27.72s -   30.37s]  Die große Frage ist, wie kann das sein?
+[  30.49s -   35.60s]  Wie verliert eine Nation, die das Reisen mit der Bahn praktisch erfunden hat, ausgerechnet die Bahn?
+[  36.22s -   38.44s]  Das goldene Zeitalter.
+[  38.96s -   44.82s]  Um zu verstehen, wie tief Amerika gefallen ist, muss man erst sehen, wo Amerika zu Beginn des Eisenbahnzeitalters stand.
+[  45.50s -   49.47s]  Im 19. Jahrhundert war die Eisenbahn in den USA nicht irgendein Verkehrsmittel.
+[  49.73s -   51.06s]  Sie war das Verkehrsmittel.
+[  52.46s -   55.96s]  1869 wird die erste transkontinentale Eisenbahn fertiggestellt.
+[  56.58s -   62.50s]  Plötzlich konnte man in wenigen Tagen ein Land durchqueren, für das Siedler vorher Monate in Planwagen gebraucht hatten.
+[  63.08s -   66.32s]  Die Eisenbahn hat den amerikanischen Westen im Grunde erst erschlossen.
+[  66.88s -   68.25s]  Und es geht nicht nur um Reisen.
+[  68.35s -   70.94s]  Ganze Städte entstehen, weil dort eine Bahnlinie verläuft.
+[  71.34s -   73.94s]  Wer keinen Bahnanschluss bekam, verschwand von der Landkarte.
+[  74.48s -   77.82s]  Die Eisenbahngesellschaften waren die mächtigsten Konzerne ihrer Zeit.
+[  78.32s -   80.68s]  Die Tech-Giganten des 19. Jahrhunderts, wenn man so will.
+[  81.26s -   85.68s]  Auf dem Höhepunkt rund um den Ersten Weltkrieg hatten die USA ein Schienennetz von etwa 200 Schienen.
+[  86.02s -   86.53s]  54.000 Meilen.
+[  87.88s -   91.94s]  Zur Einordnung, das ist mehr als das gesamte Schienennetz von ganz Europa damals.
+[  92.52s -   94.68s]  Praktisch jede Kleinstadt hatte einen Bahnhof.
+[  95.28s -   96.70s]  Und das Reisen war komfortabel.
+[  97.24s -   98.44s]  Pullman-Schlafwagen.
+[  98.94s -  100.26s]  Speisewagen mit Kellnern.
+[ 100.62s -  101.22s]  Aussichtswagen.
+[ 101.72s -  103.32s]  Mit der Bahn fahren war normal.
+[ 103.90s -  108.70s]  Die Eisenbahn war so dominant, dass sich niemand vorstellen konnte, dass sich das jemals ändern würde.
+[ 109.24s -  113.62s]  Aber genau in diesem Moment, auf dem absoluten Höhepunkt, tauchte ein Konkurrent auf.
+[ 114.02s -  114.92s]  Das Auto.
+[ 115.96s -  118.96s]  Im Jahr 1908 bringt Henry Ford die Model T auf den Markt.
+[ 118.96s -  120.96s]  Am Anfang ist das Auto ein Spielzeug.
+[ 121.00s -  125.96s]  Teuer, unzuverlässig und es gibt fast keine asphaltierten Straßen, auf denen man fahren könnte.
+[ 126.34s -  129.24s]  Zunächst also kein ernstzunehmender Konkurrent für die Eisenbahn.
+[ 129.96s -  131.96s]  Doch Ford macht etwas Revolutionäres.
+[ 132.08s -  133.96s]  Die Fließbandfertigung.
+[ 133.96s -  135.96s]  Die Massenproduktion drückt den Preis radikal.
+[ 136.54s -  140.96s]  Auf einmal kann sich nicht nur die Oberschicht ein Auto leisten, sondern die breite Mittelschicht.
+[ 141.22s -  143.96s]  Und das Auto bietet etwas, das die Eisenbahn niemals konnte.
+[ 144.67s -  145.96s]  Totale Freiheit.
+[ 145.98s -  146.76s]  Kein Fahrplan.
+[ 147.14s -  147.96s]  Keine feste Strecke.
+[ 148.43s -  149.96s]  Du fährst wann du willst, wohin du willst.
+[ 150.67s -  151.96s]  Von deiner Haustür bis zum Ziel.
+[ 152.70s -  156.96s]  Dieses Gefühl, diese Freiheit wird zum Kern der amerikanischen Identität.
+[ 157.28s -  158.96s]  Das Auto ist nicht nur Transport.
+[ 159.24s -  160.96s]  Es ist ein Versprechen.
+[ 160.96s -  163.96s]  Außerdem hatte das Auto einen entscheidenden Vorteil.
+[ 164.24s -  165.96s]  Eisenbahnen waren private Unternehmen.
+[ 166.74s -  170.94s]  Sie mussten ihre Gleise selbst bauen, selbst warten und selbst bezahlen.
+[ 171.69s -  173.96s]  Die Straßen dagegen baute der Staat.
+[ 174.08s -  174.96s]  Mit Steuergeld.
+[ 175.28s -  176.96s]  Kostenlos für jeden, der ein Auto hatte.
+[ 177.87s -  179.96s]  Das ist ein brutal ungleicher Wettkampf.
+[ 180.04s -  183.96s]  Die Bahn muss ihre komplette Infrastruktur selbst stemmen und Gewinn machen.
+[ 184.24s -  186.96s]  Und das Auto kommt seiner Infrastruktur geschenkt.
+[ 187.50s -  189.96s]  Ein Wettkampf, den die Bahn fast nur verlieren konnte.
+[ 190.60s -  192.96s]  Die größte Subvention der Geschichte.
+[ 194.18s -  196.51s]  1956 unterschreibt Präsident Y.D.
+[ 196.63s -  198.96s]  Eisenhower den Federal Aid Highway Act.
+[ 199.40s -  203.96s]  Eisenhower war im zweiten Weltkrieg beeindruckt von den deutschen Autobahnen und wollte etwas ähnliches.
+[ 204.74s -  208.96s]  Auch aus militärischen Gründen, um im Ernstfall schnell Truppen verlegen zu können.
+[ 209.16s -  211.96s]  Das Ergebnis ist das Interstate Highway System.
+[ 212.44s -  215.70s]  Das größte öffentliche Bauprojekt in der Geschichte der USA.
+[ 216.34s -  222.96s]  Zehntausende Kilometer Autobahn, größtenteils vom Staat finanziert, welcher rund 90% der Kosten übernimmt.
+[ 222.98s -  224.96s]  Für die Bahn gab es nichts Vergleichbares.
+[ 225.29s -  225.53s]  Null.
+[ 225.96s -  227.96s]  Und parallel passiert dasselbe in der Luft.
+[ 228.34s -  232.96s]  Der Staat baut Flughäfen, finanziert die Flugsicherung und fördert die junge Luftfahrtindustrie.
+[ 234.19s -  237.60s]  Fürs Reisen über lange Distanzen ist das Flugzeug schneller als jeder Zug.
+[ 238.12s -  241.74s]  Für mittlere und kurze Strecken fährt das Auto auf der Gratis-Autobahn.
+[ 242.32s -  244.96s]  Die Bahn wird von beiden Seiten in die Zange genommen.
+[ 245.26s -  247.96s]  Und das Auto formt jetzt sogar wie Amerika gebaut wird.
+[ 248.53s -  249.96s]  Die Vororte explodieren.
+[ 250.26s -  253.96s]  Riesige Wohnsiedlungen weit verstreuten, nur mit dem Auto erreichbar.
+[ 254.06s -  255.96s]  Supermärkte mit riesigen Parkplätzen.
+[ 256.53s -  257.80s]  Drive-Thru's.
+[ 257.96s -  260.96s]  Diese zersiedelte Bauweise macht Bahnverkehr fast unmöglich.
+[ 261.47s -  261.96s]  Ein Zug braucht Dichte.
+[ 262.79s -  264.96s]  Viele Menschen auf engem Raum, die zum selben Ziel wollen.
+[ 265.74s -  268.96s]  Aber die amerikanische Vorstadt ist das genaue Gegenteil von Dichte.
+[ 269.83s -  271.96s]  Damit ist die Bahn nicht nur finanziell abgehängt.
+[ 272.36s -  274.96s]  Sie passt schlicht nicht mehr zu der Art, wie Amerikaner leben.
+[ 275.52s -  278.96s]  Die Geschichte des Hochgeschwindigkeitszugs.
+[ 279.08s -  284.96s]  Anfang der 1960er Jahre ist der Personenverkehr für Amerikas Bahnunternehmen kaum mehr als ein Verlustgeschäft.
+[ 285.54s -  287.96s]  Ihr Geld verdienen sie längst mit Güterverkehr.
+[ 288.08s -  289.96s]  Und die Fahrgäste empfinden sie nur noch als Last.
+[ 290.54s -  296.96s]  Während die amerikanische Bahn so im eigenen Land langsam stirbt, passiert auf der anderen Seite der Welt das genaue Gegenteil.
+[ 297.54s -  300.96s]  1964 stellt Japan zu den Olympischen Spielen den Shunkansen vor.
+[ 301.54s -  303.96s]  Den ersten echten Hochgeschwindigkeitszug der Welt.
+[ 304.62s -  307.96s]  Der seine Fahrgäste mit über 200 Kilometern pro Stunde durchs Land trägt.
+[ 308.88s -  313.96s]  Der Bullet Train wird über Nacht zum Weltwunder und feuert den Startschuss für ein globales Wettrennen ab.
+[ 314.28s -  315.94s]  Überall stellt man sich dieselbe Frage.
+[ 316.55s -  317.96s]  Welches Land baut den nächsten Schnellzug?
+[ 319.05s -  321.96s]  In der Pole Position steht ausgerechnet die größte Technologiemacht der Welt.
+[ 322.04s -  322.36s]  Die USA.
+[ 324.30s -  328.96s]  Aber natürlich hatte unsere Technologiemacht Lex begonnen mit Geschwindigkeit zu experimentieren.
+[ 329.72s -  335.96s]  Schon Ende der 1950er wagte die New York Central Railroad in Ohio einen geradezu absurden Versuch.
+[ 337.16s -  346.96s]  Die Ingenieure schraubten zwei echte Flugzeugdüsentriebwerke auf das Dach eines ganz normalen Personenwagons und jagten dieses Gefährt über eine schnurgerade flache Teststrecke.
+[ 347.86s -  356.96s]  Der umgebaute Waggon erreichte dabei über 270 Kilometer pro Stunde und war damit auf dem Papier schneller als alles, was sonst auf amerikanischen Schienen unterwegs war.
+[ 357.46s -  359.96s]  Ein ernsthaftes Transportkonzept war das natürlich nie.
+[ 360.58s -  364.92s]  Niemand wollte Pendler dauerhaft hinter brüllenden Düsentriebwerken durch die Landschaft schicken.
+[ 366.02s -  369.96s]  Doch dieser Stunt verrät die amerikanische Denkweise dieser Jahre ziemlich genau.
+[ 370.64s -  372.96s]  Geschwindigkeit gleitet als reines Ingenieursproblem.
+[ 373.62s -  375.96s]  Als technisches Spielzeug, das man mit genug Erfindergeist einfach auslöst.
+[ 378.35s -  381.96s]  Genau dieser Irrtum sollte dem Land später teuer zu stehen kommen.
+[ 382.75s -  384.96s]  Auch die Politik wollte nun aufholen.
+[ 384.96s -  389.96s]  Präsident Lyndon B. Johnson hatte sich vorgenommen, Amerika gründlich zu modernisieren.
+[ 389.96s -  392.96s]  Und für ihn war die Sache auch eine Frage des nationalen Stolzes.
+[ 393.32s -  400.96s]  Dass ausgerechnet Japan die Welt anführte, ein Land, mit dem die USA 20 Jahre zuvor noch im Krieg gelegen hatten, wollte er nicht hinnehmen.
+[ 401.76s -  404.96s]  1965 unterzeichnete er den High-Speed Ground Transportation Act.
+[ 404.96s -  405.96s]  Damit gab er das Ziel auf, dass die USA die Welt nicht mehr verändern.
+[ 405.96s -  411.48s]  Und damit gab er das Ziel aus, einen amerikanischen Schnellzug zu bauen, der den japanischen Bullet Train alt aussehen ließ.
+[ 412.22s -  417.54s]  Als Schauplatz wählte man den dicht besiedelten Nord-Ost-Korridor zwischen New York und Washington.
+[ 417.96s -  425.72s]  Diese Strecke war seit den 1930er Jahren bereits elektrifiziert und verband die wirtschaftliche Hauptstadt des Landes mit der politischen Hauptstadt.
+[ 425.96s -  429.50s]  Der neue Zug bekam einen Namen, der nach Zukunft klingen sollte.
+[ 429.96s -  431.96s]  Man taufte ihn Metro Liner.
+[ 431.96s -  433.96s]  Und genau hier beginnt das eigentliche Drama.
+[ 434.32s -  437.43s]  Die Regierung verlangte einen Zug, der mindestens 240 km pro Stunde erreichte.
+[ 439.38s -  441.96s]  Denn alles darunter hätte den Shinkansen nicht übertroffen.
+[ 442.54s -  448.96s]  Die Pennsylvania Railroad, der die Strecke gehörte, wollte aus Kostengründen jedoch lieber langsamere und billigere Züge.
+[ 449.14s -  450.96s]  Über diesen Streit verstrich wertvolle Zeit.
+[ 451.82s -  454.96s]  Am Ende blieb kein Spielraum mehr, um einen völlig neuen Zug zu entwickeln.
+[ 455.54s -  460.96s]  Also griff man zu einer Notlösung und baute kurzerhand vorhandene Waggons zu Hochgeschwindigkeitszügen um.
+[ 461.14s -  462.96s]  Das größte Problem war damit aber noch gar nicht angesprochen.
+[ 464.34s -  471.96s]  Der Metro Liner sollte auf der alten Trasse fahren, auf denselben gewundenen Gleisen, auf denen schon 100 Jahre zuvor Züge gerollt waren.
+[ 472.56s -  475.96s]  Eine Strecke für echte Hochgeschwindigkeit sieht völlig anders aus.
+[ 476.22s -  481.48s]  Sie braucht lückenlos verschweißte Schienen, möglichst sanfte Kurven und eine stabile Stromversorgung.
+[ 482.16s -  485.96s]  Nichts davon ließ sich auf der vorhandenen Trasse mehr als notdürftig nachrüsten.
+[ 486.32s -  491.96s]  Im Testbetrieb auf einem idealen, geraden Abschnitt knackte der Metro Liner die geforderten 240 km pro Stunde tatsächlich.
+[ 494.01s -  498.50s]  Im Alltag jedoch, auf der kurvigen Bestandsstrecke, kam er im Schnitt nur auf rund 177.
+[ 500.06s -  504.96s]  Dazu war der unter großem Zeitdruck zusammengebaute Zug anfällig für Defekte und fiel immer wieder aus.
+[ 505.10s -  507.96s]  Das war keine technische Niederlage im eigentlichen Sinne.
+[ 508.22s -  511.96s]  Es war eine Leere, die Amerika bis heute nicht verinnerlicht hat.
+[ 512.89s -  514.96s]  Japan hatte nämlich einen entscheidenden Schritt anders gemacht.
+[ 516.35s -  520.96s]  Statt seine alten Gleise mühsam aufzurüsten, baute das Land eine vollständig neue, schnurgerade Strecke.
+[ 522.48s -  524.96s]  Die einzig und allein für hohe Geschwindigkeit gedacht war.
+[ 525.70s -  528.96s]  Das Wort Shinkansen bedeutet wortwörtlich nichts anderes als Hauptlinie.
+[ 529.88s -  532.96s]  Darin steckt die zentrale Erkenntnis dieser ganzen Geschichte.
+[ 533.46s -  535.96s]  Hochgeschwindigkeit ist kein Zug, den man auf alte Schienen setzt.
+[ 536.94s -  540.96s]  Sie verlangt eine eigene Trasse, sorgfältige Planung und sehr viel Geduld.
+[ 542.12s -  546.96s]  Während Amerika noch an seinem halbfertigen Schnellzug arbeitete, brach das übrige System zusammen.
+[ 547.20s -  550.96s]  1970 meldete die Penn Central Insolvenz an.
+[ 551.52s -  553.96s]  Der größte Bahnkonzern des Landes.
+[ 553.96s -  557.96s]  Es war die bis dahin größte Firmenpleite in der gesamten Geschichte der USA.
+[ 558.16s -  561.80s]  Die Antwort des Staates kam ein Jahr später in Form von Amtrak.
+[ 561.96s -  566.96s]  Diese halbstaatliche Gesellschaft übernahm 1971 den gesamten Personenverkehr.
+[ 567.12s -  568.96s]  Darunter auch den Metroliner.
+[ 569.06s -  573.96s]  Und befreite die privaten Konzerne von der Aufgabe, die für sie längst zur Last geworden war.
+[ 574.14s -  575.96s]  Der Personenverkehr.
+[ 575.96s -  578.96s]  Eine Investition in die Zukunft war das jedoch nicht.
+[ 579.16s -  580.92s]  Es glich eher einer Sterbebegleitung.
+[ 581.50s -  582.37s]  Die Lektion.
+[ 582.96s -  585.96s]  Jetzt kommt der strukturelle Haken, der bis heute alles erklärt.
+[ 586.68s -  588.96s]  Amtrak besitzt kaum eigene Gleise.
+[ 589.22s -  593.86s]  Außerhalb des Nord-Ost-Korridors fahren Personenzüge auf den Schienen der privaten Güterbahn.
+[ 594.34s -  598.96s]  Wenn es eng wird, hat deshalb der Güterzug Vorrang und der Personenzug muss warten.
+[ 599.08s -  601.96s]  Verspätung ist auf diese Weise fest ins System eingebaut.
+[ 602.54s -  607.96s]  Und genau hier liegt der Grund, warum man in den USA nicht einfach schnelle Züge auf die vorhandenen Gleise setzen kann.
+[ 608.72s -  611.96s]  Es ist die Lektion des Metroliners, die sich immer wieder vom Neuen wiederholt.
+[ 613.11s -  616.96s]  Wer Hochgeschwindigkeit will, braucht eine eigene neue gerade Strecke.
+[ 617.30s -  619.96s]  Und genau an diesem Punkt scheitert Amerika bis heute.
+[ 620.26s -  622.96s]  Das beste Beispiel dafür ist California High Speed Rail.
+[ 623.82s -  626.94s]  2008 stürmten die Wählerinnen und Wähler für das Projekt.
+[ 627.50s -  636.22s]  Versprochen wurden ihnen damals Kosten von 33 Milliarden Dollar und eine fertige Verbindung zwischen San Francisco und Los Angeles bis zum Jahr 2020.
+[ 637.36s -  640.96s]  Die Wirklichkeit im Jahr 2026 sieht völlig anders aus.
+[ 641.00s -  647.88s]  Es ist kein einziger Kilometer an Betrieb, es existiert kein fertiger Zug und ausgegeben wurden bereits rund 18 Milliarden Dollar.
+[ 648.56s -  651.20s]  Für die Gesamtstrecke rechnet man inzwischen mit mehr als 120 Milliarden.
+[ 652.80s -  656.96s]  Dabei macht Kalifornien diesmal vieles richtig und baut tatsächlich eine neue Trasse.
+[ 657.48s -  660.96s]  Doch genau das bedeutet, dass tausende Grundstücke gekauft werden müssen.
+[ 661.16s -  663.96s]  In den USA wird daraus ein juristischer Albtraum.
+[ 664.12s -  666.94s]  Da jeder einzelne Eigentümer über Jahre dagegen klagen kann.
+[ 667.40s -  669.96s]  Hinzu kommt ein hausgemachter Fehler.
+[ 669.96s -  677.96s]  Man begann den Bau im dünn besiedelten Central Valley statt in den großen Metropolen und schuf so einen Zug, der vorerst kaum jemanden irgendwo hinbringt.
+[ 678.76s -  683.96s]  2025 zog die Trump Administration, dann schließt sich rund 4 Milliarden Dollar an Fördergeldern wieder zurück.
+[ 684.28s -  687.50s]  In Texas wiederholt sich dieselbe Geschichte mit anderen Vorzeichen.
+[ 687.96s -  691.96s]  Dort wollte ein privates Unternehmen Dallas und Houston miteinander verbinden.
+[ 692.10s -  695.88s]  Auch hier stiegen die geschätzten Kosten von 12 auf über 40 Milliarden Dollar.
+[ 696.82s -  700.92s]  Die Investoren sprangen nach und nach ab und am Ende strich auch der Staat seine Förderung.
+[ 701.71s -  703.96s]  Dahinter steckt ein wiederkehrendes Muster.
+[ 704.30s -  710.96s]  Bei einem solchen Projekt reden der Bund, der Bundesstaat, einzelne Bezirke und einzelne Städte gleichzeitig mit.
+[ 711.08s -  713.96s]  Und jede dieser Ebenen kann das Vorhaben aufhalten.
+[ 714.38s -  717.96s]  Niemand hat die Macht einfach zu entscheiden, dass nun gebaut wird.
+[ 718.06s -  720.96s]  Was folgt sind jahrelange Gerichtsprozesse.
+[ 720.96s -  723.96s]  Und doch gibt es ein Projekt, das tatsächlich gebaut wird.
+[ 723.96s -  727.96s]  Es heißt Brightline West und soll Las Vegas mit Südkalifornien verbinden.
+[ 728.10s -  731.96s]  Dass ausgerechnet dieses Vorhaben gelingt, hat einen einfachen Grund.
+[ 732.02s -  734.96s]  Es weicht allen genannten Hürden geschickt aus.
+[ 734.96s -  738.80s]  Diese Strecke verläuft fast vollständig im Mittelstreifen einer bestehenden Autobahn.
+[ 739.26s -  741.36s]  Dadurch ist sie von Natur aus gerade und flach.
+[ 741.96s -  743.96s]  Es gibt keinen jahrelangen Kampf um Grundstücke.
+[ 744.26s -  746.96s]  Und trotzdem entsteht eine eigene neue Trasse.
+[ 747.14s -  752.40s]  Damit befolgt Brightline endlich genau jene Lehre, die schon der Metroliner im Jahr 1965 erteilt hatte.
+[ 754.42s -  756.96s]  Und damit sind wir beim eigentlichen Kern der Sache.
+[ 757.10s -  759.96s]  Amerikas Schnellzüge scheitern nicht an der Technik.
+[ 760.20s -  768.96s]  Sie scheitern am teuren Land, am fehlenden Geld, in einer zersplitterten Politik und einer Bürokratie, die nie lang genug an einem Strang zieht.
+[ 769.18s -  774.96s]  Hochgeschwindigkeit ist, wie Japan schon vor 60 Jahren bewiesen hat, kein technisches Problem.
+[ 774.96s -  776.96s]  Sie ist vor allem ein Triumph der Geduld.
+[ 777.50s -  778.25s]  Fazit
+[ 778.96s -  782.90s]  Warum funktioniert die Bahn in Europa, Japan und China aber nicht in den USA?
+[ 783.60s -  785.96s]  Auf diese Frage gibt es nicht die eine Antwort.
+[ 786.28s -  787.96s]  Es ist die Summe vieler Ursachen.
+[ 788.24s -  789.68s]  Die erste ist die Geografie.
+[ 790.20s -  793.94s]  Europa und Japan sind kompakt und dicht besiedelt und damit wie geschaffen für die Bahn.
+[ 794.60s -  796.96s]  Amerika dagegen ist riesig und weit zersiedelt.
+[ 797.67s -  798.96s]  Die zweite ist das Timing.
+[ 799.64s -  806.96s]  Als das Auto aufkam, war es in den USA sofort für die breite Masse erschwinglich und die Städte wurden anschließend ganz um das Auto herum gebaut.
+[ 807.56s -  809.96s]  Europa besaß seine dichten Städte schon lange vorher.
+[ 810.91s -  811.96s]  Die dritte ist das Geld.
+[ 812.66s -  818.40s]  Über Jahrzehnte flossen hunderte Milliarden in Straßen und Flughäfen, während die Schiene fast leer ausging.
+[ 819.18s -  821.92s]  Andere Länder verstanden ihre Bahn als öffentliche Aufgabe.
+[ 822.54s -  824.96s]  In den USA sollte sie Gewinn abwerfen.
+[ 824.96s -  826.96s]  Die vierte ist die Eigentumsfrage.
+[ 827.22s -  832.96s]  Die Gleise gehören dem Güterverkehr und der Personenzug bleibt der ungebetene Gast auf fremdem Grund.
+[ 833.04s -  834.92s]  Und die fünfte ist der moderne Faktor.
+[ 835.36s -  839.96s]  Wer es heute mit Hochgeschwindigkeit noch einmal versucht, schadet an teurem Land, an endlosen Klagen,
+[ 840.26s -  844.96s]  an zersplitterter Zuständigkeit und an Fördergeldern, die nie lange genug fließen.
+[ 846.05s -  847.96s]  Amerika hat seine Züge nicht durch einen Unfall verloren.
+[ 848.56s -  855.96s]  Dahinter steht eine lange Kette von Entscheidungen, die meist bequem waren, kurzfristig logisch wirkten und manchmal schlecht im Eigennutz dienten.
+[ 856.20s -  858.96s]  Jeder einzelne davon war physisch genommen nachvollziehbar.
+[ 859.26s -  861.96s]  Zusammengenommen haben sie das beste Bahnnetz der Welt demontiert.
+[ 863.09s -  864.96s]  Immerhin gibt es einen Hoffnungsschimmer.
+[ 865.08s -  867.96s]  Private Anbieter wie Brightline bauen neue Strecken.
+[ 868.16s -  871.96s]  In den Nord-Ost-Korridor fließt wieder Geld und das Umweltbewusstsein wächst.
+[ 872.54s -  877.96s]  Doch 70 Jahre Rückstand und eine ganz auf das Auto ausgerichtete Gesellschaft lassen sich nicht über Nacht umkehren.
+[ 878.62s -  881.96s]  Der Weg zurück ist viel länger als der Weg nach unten es je war.
