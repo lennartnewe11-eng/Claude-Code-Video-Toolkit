@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="editorial.css">
+<style>
+  /* B&W cutout portrait placeholder, right side */
+  .cut{position:absolute;right:230px;bottom:0;width:560px;height:760px;}
+  .cut .ph{position:absolute;inset:0;
+    background:radial-gradient(60% 50% at 50% 30%,#d9d6ce,#8d8a83 60%,#56534d);
+    -webkit-mask:radial-gradient(48% 60% at 50% 38%,#000 60%,transparent 72%);
+            mask:radial-gradient(48% 60% at 50% 38%,#000 60%,transparent 72%);}
+  .cut .pl{position:absolute;left:50%;top:34%;transform:translate(-50%,-50%);
+    font:600 22px Inter;letter-spacing:.12em;text-transform:uppercase;color:#3c3a35;text-align:center;width:280px;}
+  /* collage scraps behind cutout */
+  .scrap{position:absolute;right:200px;bottom:120px;width:560px;height:540px;
+    background:repeating-linear-gradient(0deg,#d7d3c4 0 1px,transparent 1px 28px),
+              repeating-linear-gradient(90deg,#d7d3c4 0 1px,transparent 1px 28px),#E2E8D3;
+    transform:rotate(4deg);}
+  .block.s{right:170px;top:120px;width:130px;height:54px;background:var(--sage);}
+  /* kinetic edit headline */
+  .kinblock{position:absolute;left:120px;top:330px;max-width:880px;font-size:96px;}
+  /* curved arrow + name label */
+  .attr{position:absolute;right:170px;bottom:250px;}
+  .attr .label{font-size:38px;}
+  svg.curve{position:absolute;right:430px;bottom:300px;width:240px;height:160px;overflow:visible;}
+  svg.curve path{fill:none;stroke:var(--ink);stroke-width:2.5;}
+</style></head>
+<body><div class="stage">
+  <div class="mark-plus" style="left:120px;top:180px"></div>
+  <div class="scrap"></div><div class="block s"></div>
+
+  <div class="cut"><div class="ph"></div><div class="pl">S/W-Freisteller<br>Eisenhower<br>· Platzhalter ·</div></div>
+
+  <div class="kinblock kin">
+    <span class="lg" style="font-weight:600">Amerika</span> <span class="sn">wählte</span><br>
+    <span class="strike serif" style="font-style:italic;font-weight:500">die Schiene</span><br>
+    <span class="display" style="font-size:128px">das Auto.</span>
+  </div>
+
+  <svg class="curve"><path d="M0,150 C90,150 150,80 230,20"/></svg>
+  <div class="attr"><span class="label">Dwight D. Eisenhower</span></div>
+
+  <div class="source">Beleg: Interstate Highway Act, 1956 · Platzhalter</div>
+  <div class="chapter-tag">03:12 · Die größte Subvention</div>
+</div></body></html>

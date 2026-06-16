@@ -1,0 +1,12 @@
+# Regenerable from voiceover_master.m4a
+assets/voiceover.wav
+# Large downloaded footage / renders - keep out of git
+assets/footage/*
+assets/music/*
+renders/*
+!assets/footage/.gitkeep
+!assets/music/.gitkeep
+!renders/.gitkeep
+node_modules/
+package-lock.json
+style/frames/out/

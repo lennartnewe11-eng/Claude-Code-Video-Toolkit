@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .safe { display: flex; flex-direction: column; }
+  h1 { font-size: 92px; font-weight: 800; line-height: 1.02; letter-spacing: -.02em;
+       margin-top: 34px; max-width: 1500px; }
+  h1 em { color: var(--accent); font-style: normal; }
+  .row { display: flex; gap: 28px; margin-top: auto; }
+  .card { flex: 1; background: var(--bg-2); border: 1px solid var(--line);
+          border-radius: 18px; padding: 34px 36px; position: relative; overflow: hidden; }
+  .card .bar { position: absolute; left: 0; top: 0; bottom: 0; width: 8px; }
+  .card.good .bar { background: var(--rail); }
+  .card.bad  .bar { background: var(--usa); }
+  .card .country { font-size: 28px; color: var(--ink-2); font-weight: 600; }
+  .card .big { font-size: 76px; font-weight: 800; letter-spacing: -.02em; margin-top: 8px; }
+  .card .sub { font-size: 24px; color: var(--ink-3); margin-top: 6px; }
+  .card.good .big { color: var(--rail); }
+  .card.bad  .big { color: var(--usa); }
+  .trend { font-size: 30px; margin-left: 10px; }
+</style></head>
+<body><div class="stage"><div class="safe">
+  <span class="kicker">Der verlorene Vorsprung</span>
+  <h1>Das reichste Land der Erde hatte einmal das <em>beste Bahnnetz der Welt</em> — und hat es komplett verspielt.</h1>
+  <div class="row">
+    <div class="card good"><div class="bar"></div><div class="country">🇯🇵 Japan · Shinkansen</div><div class="big">320 <span class="trend">km/h</span></div><div class="sub">Tokyo → Osaka in &lt; 3 h</div></div>
+    <div class="card good"><div class="bar"></div><div class="country">🇫🇷 Frankreich · TGV</div><div class="big">300+ <span class="trend">km/h</span></div><div class="sub">landesweites Schnellnetz</div></div>
+    <div class="card good"><div class="bar"></div><div class="country">🇨🇳 China</div><div class="big">#1 <span class="trend">weltweit</span></div><div class="sub">größtes Netz in 15 Jahren</div></div>
+    <div class="card bad"><div class="bar"></div><div class="country">🇺🇸 USA</div><div class="big">0 ↓</div><div class="sub">kein echtes HSR im Betrieb</div></div>
+  </div>
+</div>
+<div class="source">Quellen-Beleg · Platzhalter</div>
+<div class="chapter-tag">00:00 · Hook</div>
+</div></body></html>

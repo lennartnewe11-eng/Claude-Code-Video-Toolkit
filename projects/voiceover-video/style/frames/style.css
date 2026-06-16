@@ -1,0 +1,68 @@
+/* ============================================================
+   STYLE SYSTEM — "Sachlich-datengetrieben" (Wendover / Vox)
+   16:9 · 1920x1080 · data-driven documentary
+   ============================================================ */
+@font-face {
+  font-family: 'Inter';
+  src: url('../assets/fonts/Inter.ttf') format('truetype');
+  font-weight: 100 900;
+}
+
+:root {
+  /* Surfaces */
+  --bg:        #14171C;   /* charcoal base */
+  --bg-2:      #1B1F26;   /* panel */
+  --line:      #2A2F38;   /* hairlines / grid */
+  /* Text */
+  --ink:       #FFFFFF;
+  --ink-2:     #A2A9B4;   /* secondary */
+  --ink-3:     #6B727C;   /* captions / sources */
+  /* Accents */
+  --accent:    #FFD23F;   /* signature yellow — emphasis, key numbers */
+  --usa:       #FF5A4D;   /* decline / USA / negative */
+  --rail:      #38D996;   /* success / Japan-EU-China / positive */
+  --blue:      #5B8DEF;   /* neutral data series */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 1920px; height: 1080px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: 'tnum' 1, 'ss01' 1;   /* tabular numerals */
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+.stage { position: relative; width: 1920px; height: 1080px; }
+
+/* subtle vignette + dot grid (motion-graphics texture) */
+.stage::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 46px 46px; opacity: .25;
+}
+.stage::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0,0,0,.55) 100%);
+}
+
+/* ---- shared bits ---- */
+.kicker {
+  font-size: 26px; font-weight: 700; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--accent);
+  display: inline-flex; align-items: center; gap: 16px;
+}
+.kicker::before { content: ''; width: 46px; height: 4px; background: var(--accent); }
+
+.source {
+  position: absolute; left: 96px; bottom: 70px;
+  font-size: 20px; color: var(--ink-3); letter-spacing: .02em;
+}
+.chapter-tag {
+  position: absolute; right: 96px; bottom: 70px;
+  font-size: 20px; color: var(--ink-3); letter-spacing: .06em;
+}
+.safe { position: absolute; inset: 84px 96px; }
