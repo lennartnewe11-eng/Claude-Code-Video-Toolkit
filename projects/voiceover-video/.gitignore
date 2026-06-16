@@ -7,3 +7,6 @@ renders/*
 !assets/footage/.gitkeep
 !assets/music/.gitkeep
 !renders/.gitkeep
+node_modules/
+package-lock.json
+style/frames/out/

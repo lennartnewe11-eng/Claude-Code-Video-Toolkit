@@ -1,0 +1,67 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css">
+<style>
+  .safe { display: flex; flex-direction: column; }
+  .head { display: flex; justify-content: space-between; align-items: flex-start; }
+  h1 { font-size: 64px; font-weight: 800; letter-spacing: -.02em; margin-top: 22px; }
+  h1 em { color: var(--usa); font-style: normal; }
+  .chartwrap { flex: 1; margin-top: 30px; position: relative; }
+  svg { width: 100%; height: 100%; overflow: visible; }
+  .axis { stroke: var(--line); stroke-width: 2; }
+  .gridline { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 8; opacity:.6; }
+  .ylab, .xlab { fill: var(--ink-3); font: 600 22px Inter; }
+  .area { fill: url(#g); }
+  .line { fill: none; stroke: var(--usa); stroke-width: 5; stroke-linecap: round; }
+  .dot { fill: var(--bg); stroke: var(--usa); stroke-width: 5; }
+  .anno { fill: var(--ink); font: 700 26px Inter; }
+  .anno-sub { fill: var(--ink-2); font: 500 21px Inter; }
+  .pill { fill: var(--bg-2); stroke: var(--line); }
+  .legend { position:absolute; right:0; top:0; text-align:right; }
+  .legend .promise { color: var(--rail); font: 700 26px Inter; }
+  .legend .real { color: var(--usa); font: 700 26px Inter; }
+</style></head>
+<body><div class="stage"><div class="safe">
+  <div class="head">
+    <div>
+      <span class="kicker">Versprochen vs. Realität</span>
+      <h1>California High-Speed Rail: <em>aus 33 wurden 120+ Milliarden $</em></h1>
+    </div>
+  </div>
+  <div class="chartwrap">
+    <svg viewBox="0 0 1700 560" preserveAspectRatio="none">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FF5A4D" stop-opacity=".42"/>
+        <stop offset="1" stop-color="#FF5A4D" stop-opacity="0"/>
+      </linearGradient></defs>
+      <!-- gridlines -->
+      <line class="gridline" x1="120" y1="80"  x2="1660" y2="80"/>
+      <line class="gridline" x1="120" y1="230" x2="1660" y2="230"/>
+      <line class="gridline" x1="120" y1="380" x2="1660" y2="380"/>
+      <line class="axis" x1="120" y1="500" x2="1660" y2="500"/>
+      <text class="ylab" x="40" y="88">120 Mrd</text>
+      <text class="ylab" x="56" y="238">80 Mrd</text>
+      <text class="ylab" x="56" y="388">40 Mrd</text>
+      <!-- area + line: 2008 (33B) -> 2026 (120B+) -->
+      <path class="area" d="M120,460 L560,430 L1000,300 L1400,150 L1660,70 L1660,500 L120,500 Z"/>
+      <path class="line" d="M120,460 L560,430 L1000,300 L1400,150 L1660,70"/>
+      <circle class="dot" cx="120"  cy="460" r="11"/>
+      <circle class="dot" cx="1660" cy="70"  r="13"/>
+      <!-- x labels -->
+      <text class="xlab" x="120"  y="540" text-anchor="middle">2008</text>
+      <text class="xlab" x="560"  y="540" text-anchor="middle">2012</text>
+      <text class="xlab" x="1000" y="540" text-anchor="middle">2018</text>
+      <text class="xlab" x="1400" y="540" text-anchor="middle">2023</text>
+      <text class="xlab" x="1660" y="540" text-anchor="middle">2026</text>
+      <!-- annotations -->
+      <rect class="pill" x="150" y="380" rx="12" width="330" height="84"/>
+      <text class="anno" x="172" y="416">2008 · 33 Mrd $ versprochen</text>
+      <text class="anno-sub" x="172" y="446">SF → LA bis 2020</text>
+      <rect class="pill" x="1300" y="60" rx="12" width="350" height="120" transform="translate(-360,0)"/>
+      <text class="anno" x="958" y="98">2026 · 120+ Mrd $</text>
+      <text class="anno-sub" x="958" y="128">0 km in Betrieb</text>
+      <text class="anno-sub" x="958" y="156">18 Mrd $ bereits ausgegeben</text>
+    </svg>
+  </div>
+</div>
+<div class="source">Quellen-Beleg · Platzhalter</div>
+<div class="chapter-tag">10:25 · Die Lektion</div>
+</div></body></html>
