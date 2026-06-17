@@ -1,6 +1,7 @@
 import {AbsoluteFill, Audio, staticFile} from 'remotion';
 import {FPS} from './timeline';
 import {GraphPaper, TypeHeading, Headline, TapedPhoto, BodyBlock, MapPlate, RouteLine, XMark, CircleLabel, Crosshair, Highlight} from './style/Evidence';
+import {Sfx, TypeClicks, DroneBed} from './style/Sound';
 
 const START = 36.22;
 export const P1EV_DURATION = Math.round(13.4 * FPS);
@@ -56,6 +57,19 @@ export const Ch1P1Ev: React.FC = () => {
       {/* the line: not just any means of transport */}
       <Highlight x={600} y={918} w={760} at={f(9.6)} h={26} />
       <Headline text="Nicht irgendein Verkehrsmittel" x={600} y={905} size={78} at={f(9.7)} />
+
+      {/* ── sound design, synced to the animations ── */}
+      <DroneBed durationInFrames={P1EV_DURATION} />
+      <TypeClicks at={f(0.2)} n={6} gap={4} />
+      <Sfx src="sfx_paper.mp3" at={f(1.2)} volume={0.5} />
+      <Sfx src="sfx_paper.mp3" at={f(3.0)} volume={0.5} />
+      <Sfx src="sfx_draw.mp3" at={f(4.2)} volume={0.6} />
+      <Sfx src="sfx_draw.mp3" at={f(5.0)} volume={0.4} />
+      <Sfx src="sfx_draw.mp3" at={f(5.6)} volume={0.5} />
+      <Sfx src="sfx_draw.mp3" at={f(6.0)} volume={0.5} />
+      <TypeClicks at={f(6.2)} n={6} gap={5} />
+      <Sfx src="sfx_paper.mp3" at={f(7.6)} volume={0.5} />
+      <Sfx src="sfx_stamp.mp3" at={f(9.7)} volume={0.7} />
 
       <Audio src={staticFile('audio/vo.m4a')} startFrom={Math.round(START * FPS)} volume={1} />
     </AbsoluteFill>

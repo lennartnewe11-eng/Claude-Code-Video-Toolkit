@@ -170,6 +170,31 @@ export const Highlight: React.FC<{x: number; y: number; w: number; at?: number; 
   return <div style={{position: 'absolute', left: x, top: y, width: w * p, height: h, background: EV.yellow, opacity: 0.85, transform: 'skewX(-8deg)'}} />;
 };
 
+/** Red rubber stamp — slams in slightly oversized then settles, rotated. */
+export const Stamp: React.FC<{text: string; x: number; y: number; size?: number; at?: number; rot?: number}> = ({
+  text, x, y, size = 64, at = 0, rot = -8,
+}) => {
+  const {s} = useReveal(at);
+  const sc = interpolate(s, [0, 0.5, 1], [1.8, 0.95, 1]);
+  const op = interpolate(s, [0, 0.25], [0, 1], {extrapolateRight: 'clamp'});
+  return (
+    <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%,-50%) rotate(${rot}deg) scale(${sc})`, opacity: op * 0.92}}>
+      <div style={{fontFamily: cond, fontWeight: 700, fontSize: size, letterSpacing: '0.04em', textTransform: 'uppercase', color: EV.red, border: `5px solid ${EV.red}`, padding: '6px 22px', borderRadius: 6}}>{text}</div>
+    </div>
+  );
+};
+
+/** Big red marker number/annotation. */
+export const RedNote: React.FC<{text: string; x: number; y: number; size?: number; at?: number; rot?: number}> = ({
+  text, x, y, size = 80, at = 0, rot = -3,
+}) => {
+  const {s, o} = useReveal(at);
+  const sc = interpolate(s, [0, 1], [0.7, 1]);
+  return (
+    <div style={{position: 'absolute', left: x, top: y, transform: `translate(-50%,-50%) rotate(${rot}deg) scale(${sc})`, opacity: o, fontFamily: cond, fontWeight: 700, fontSize: size, color: EV.red, whiteSpace: 'nowrap'}}>{text}</div>
+  );
+};
+
 /** Redaction bar. */
 export const Redaction: React.FC<{x: number; y: number; w: number; at?: number; h?: number}> = ({x, y, w, at = 0, h = 20}) => {
   const {o} = useReveal(at);

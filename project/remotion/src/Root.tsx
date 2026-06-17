@@ -5,6 +5,7 @@ import {StyleProof, PROOF_DURATION} from './StyleProof';
 import {Chapter1, CH1_DURATION} from './Chapter1';
 import {Ch1P1, P1_DURATION} from './Ch1P1';
 import {Ch1P1Ev, P1EV_DURATION} from './Ch1P1Ev';
+import {Ch1P2Ev, P2EV_DURATION} from './Ch1P2Ev';
 import {DURATION_IN_FRAMES, FPS, WIDTH, HEIGHT} from './timeline';
 
 loadFont('normal', {
@@ -52,6 +53,14 @@ export const RemotionRoot: React.FC = () => {
         id="Ch1P1Ev"
         component={Ch1P1Ev}
         durationInFrames={P1EV_DURATION}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Composition
+        id="Ch1P2Ev"
+        component={Ch1P2Ev}
+        durationInFrames={P2EV_DURATION}
         fps={FPS}
         width={WIDTH}
         height={HEIGHT}
