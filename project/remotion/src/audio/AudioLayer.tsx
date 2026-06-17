@@ -19,6 +19,11 @@ export const AudioLayer: React.FC = () => {
 
   return (
     <>
+      {/* Voiceover — the spine everything is cut to. */}
+      {AUDIO.vo ? (
+        <Audio src={staticFile(`audio/${AUDIO.vo}`)} volume={1} />
+      ) : null}
+
       {AUDIO.musicBed ? (
         <Audio
           src={staticFile(`audio/${AUDIO.musicBed}`)}
@@ -34,7 +39,7 @@ export const AudioLayer: React.FC = () => {
                 questionF, // start swelling
                 questionF + 70,
               ],
-              [0.9, 0.9, 0.04, 0.18, 0.25, 0.8],
+              [0.6, 0.6, 0.03, 0.13, 0.18, 0.55],
               {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}
             )
           }

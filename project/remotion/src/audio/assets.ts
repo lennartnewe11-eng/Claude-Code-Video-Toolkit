@@ -1,19 +1,20 @@
 /**
- * Audio asset registry. Files live in public/audio and are downloaded by
- * project/tools/fetch_audio.sh (music from Incompetech CC-BY, SFX from
- * Freesound / archive.org). A value of `null` means "not yet downloaded" —
- * the AudioLayer then simply skips it, so the comp always renders.
- *
- * Fill these in as files land in public/audio.
+ * Audio asset registry. Files live in public/audio (gitignored, fetched by
+ * project/tools/fetch_audio.sh). `null` = not yet downloaded -> AudioLayer
+ * skips it, so the comp always renders.
  */
 export const AUDIO = {
-  // Driving music bed for the "race" phase (loud) that carries under the
-  // whole hook with volume automation handled in AudioLayer.
-  musicBed: null as string | null, // e.g. 'music-bed.mp3'
+  // Voiceover — the full narration track extracted from 0615_2.mov.
+  // The hook comp starts at 0:00, so the VO sits at its natural timing
+  // (first word @ 1.38s) and every cut is locked to it.
+  vo: 'vo.m4a' as string | null,
 
-  // One-shot SFX
-  whoosh: null as string | null, // cut transitions in race phase
-  impact: null as string | null, // the hard break on "Und dann gibt es die USA"
-  riser: null as string | null, // build under the closing question
-  boom: null as string | null, // final hit on the title card
+  // Driving music bed ("Crypto" by Kevin MacLeod, Incompetech, CC-BY 4.0).
+  musicBed: 'musicBed.mp3' as string | null,
+
+  // One-shot SFX (Freesound, CC0)
+  whoosh: 'whoosh.mp3' as string | null,
+  impact: 'impact.mp3' as string | null,
+  riser: 'riser.mp3' as string | null,
+  boom: 'impact.mp3' as string | null, // reuse the impact as the title hit
 };
