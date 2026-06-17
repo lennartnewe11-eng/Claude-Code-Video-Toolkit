@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash project/tools/setup.sh >/tmp/video-setup.log 2>&1 || echo 'setup.sh failed — see /tmp/video-setup.log' >&2"
+          }
+        ]
+      }
+    ]
+  }
+}

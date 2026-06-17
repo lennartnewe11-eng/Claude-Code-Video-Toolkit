@@ -1,0 +1,230 @@
+[   1.38 -    4.98] In Japan kommst du mit dem Zug in unter drei Stunden von Tokio nach Osaka.
+[   5.32 -    8.95] In Frankreich rast der TGW mit über 300 kmh durchs Land.
+[   9.33 -   14.03] China hat in nur 15 Jahren das größte Hochgeschwindigkeitsnetz der Welt aus dem Boden gestampft.
+[  14.65 -   16.17] Und dann gibt es die USA.
+[  16.55 -   17.77] Das reichste Land der Erde.
+[  18.05 -   20.14] Die größte Wirtschaftsmacht der Geschichte.
+[  20.59 -   23.98] Ein Land, das einmal mit Abstand das beste Eisenbahnnetz der Welt hatte.
+[  24.46 -   27.16] Und das diesen Vorsprung heute komplett verspielt hat.
+[  27.72 -   30.37] Die große Frage ist, wie kann das sein?
+[  30.49 -   35.60] Wie verliert eine Nation, die das Reisen mit der Bahn praktisch erfunden hat, ausgerechnet die Bahn?
+[  36.22 -   38.44] Das goldene Zeitalter.
+[  38.96 -   44.82] Um zu verstehen, wie tief Amerika gefallen ist, muss man erst sehen, wo Amerika zu Beginn des Eisenbahnzeitalters stand.
+[  45.50 -   49.47] Im 19. Jahrhundert war die Eisenbahn in den USA nicht irgendein Verkehrsmittel.
+[  49.73 -   51.06] Sie war das Verkehrsmittel.
+[  52.46 -   55.96] 1869 wird die erste transkontinentale Eisenbahn fertiggestellt.
+[  56.58 -   62.50] Plötzlich konnte man in wenigen Tagen ein Land durchqueren, für das Siedler vorher Monate in Planwagen gebraucht hatten.
+[  63.08 -   66.32] Die Eisenbahn hat den amerikanischen Westen im Grunde erst erschlossen.
+[  66.88 -   68.25] Und es geht nicht nur um Reisen.
+[  68.35 -   70.94] Ganze Städte entstehen, weil dort eine Bahnlinie verläuft.
+[  71.34 -   73.94] Wer keinen Bahnanschluss bekam, verschwand von der Landkarte.
+[  74.48 -   77.82] Die Eisenbahngesellschaften waren die mächtigsten Konzerne ihrer Zeit.
+[  78.32 -   80.68] Die Tech-Giganten des 19. Jahrhunderts, wenn man so will.
+[  81.26 -   85.68] Auf dem Höhepunkt rund um den Ersten Weltkrieg hatten die USA ein Schienennetz von etwa 200 Schienen.
+[  86.02 -   86.53] 54.000 Meilen.
+[  87.88 -   91.94] Zur Einordnung, das ist mehr als das gesamte Schienennetz von ganz Europa damals.
+[  92.52 -   94.68] Praktisch jede Kleinstadt hatte einen Bahnhof.
+[  95.28 -   96.70] Und das Reisen war komfortabel.
+[  97.24 -   98.44] Pullman-Schlafwagen.
+[  98.94 -  100.26] Speisewagen mit Kellnern.
+[ 100.62 -  101.22] Aussichtswagen.
+[ 101.72 -  103.32] Mit der Bahn fahren war normal.
+[ 103.90 -  108.70] Die Eisenbahn war so dominant, dass sich niemand vorstellen konnte, dass sich das jemals ändern würde.
+[ 109.24 -  113.62] Aber genau in diesem Moment, auf dem absoluten Höhepunkt, tauchte ein Konkurrent auf.
+[ 114.02 -  114.92] Das Auto.
+[ 115.96 -  118.96] Im Jahr 1908 bringt Henry Ford die Model T auf den Markt.
+[ 118.96 -  120.96] Am Anfang ist das Auto ein Spielzeug.
+[ 121.00 -  125.96] Teuer, unzuverlässig und es gibt fast keine asphaltierten Straßen, auf denen man fahren könnte.
+[ 126.34 -  129.24] Zunächst also kein ernstzunehmender Konkurrent für die Eisenbahn.
+[ 129.96 -  131.96] Doch Ford macht etwas Revolutionäres.
+[ 132.08 -  133.96] Die Fließbandfertigung.
+[ 133.96 -  135.96] Die Massenproduktion drückt den Preis radikal.
+[ 136.54 -  140.96] Auf einmal kann sich nicht nur die Oberschicht ein Auto leisten, sondern die breite Mittelschicht.
+[ 141.22 -  143.96] Und das Auto bietet etwas, das die Eisenbahn niemals konnte.
+[ 144.67 -  145.96] Totale Freiheit.
+[ 145.98 -  146.76] Kein Fahrplan.
+[ 147.14 -  147.96] Keine feste Strecke.
+[ 148.43 -  149.96] Du fährst wann du willst, wohin du willst.
+[ 150.67 -  151.96] Von deiner Haustür bis zum Ziel.
+[ 152.70 -  156.96] Dieses Gefühl, diese Freiheit wird zum Kern der amerikanischen Identität.
+[ 157.28 -  158.96] Das Auto ist nicht nur Transport.
+[ 159.24 -  160.96] Es ist ein Versprechen.
+[ 160.96 -  163.96] Außerdem hatte das Auto einen entscheidenden Vorteil.
+[ 164.24 -  165.96] Eisenbahnen waren private Unternehmen.
+[ 166.74 -  170.94] Sie mussten ihre Gleise selbst bauen, selbst warten und selbst bezahlen.
+[ 171.69 -  173.96] Die Straßen dagegen baute der Staat.
+[ 174.08 -  174.96] Mit Steuergeld.
+[ 175.28 -  176.96] Kostenlos für jeden, der ein Auto hatte.
+[ 177.87 -  179.96] Das ist ein brutal ungleicher Wettkampf.
+[ 180.04 -  183.96] Die Bahn muss ihre komplette Infrastruktur selbst stemmen und Gewinn machen.
+[ 184.24 -  186.96] Und das Auto kommt seiner Infrastruktur geschenkt.
+[ 187.50 -  189.96] Ein Wettkampf, den die Bahn fast nur verlieren konnte.
+[ 190.60 -  192.96] Die größte Subvention der Geschichte.
+[ 194.18 -  196.51] 1956 unterschreibt Präsident Y.D.
+[ 196.63 -  198.96] Eisenhower den Federal Aid Highway Act.
+[ 199.40 -  203.96] Eisenhower war im zweiten Weltkrieg beeindruckt von den deutschen Autobahnen und wollte etwas ähnliches.
+[ 204.74 -  208.96] Auch aus militärischen Gründen, um im Ernstfall schnell Truppen verlegen zu können.
+[ 209.16 -  211.96] Das Ergebnis ist das Interstate Highway System.
+[ 212.44 -  215.70] Das größte öffentliche Bauprojekt in der Geschichte der USA.
+[ 216.34 -  222.96] Zehntausende Kilometer Autobahn, größtenteils vom Staat finanziert, welcher rund 90% der Kosten übernimmt.
+[ 222.98 -  224.96] Für die Bahn gab es nichts Vergleichbares.
+[ 225.29 -  225.53] Null.
+[ 225.96 -  227.96] Und parallel passiert dasselbe in der Luft.
+[ 228.34 -  232.96] Der Staat baut Flughäfen, finanziert die Flugsicherung und fördert die junge Luftfahrtindustrie.
+[ 234.19 -  237.60] Fürs Reisen über lange Distanzen ist das Flugzeug schneller als jeder Zug.
+[ 238.12 -  241.74] Für mittlere und kurze Strecken fährt das Auto auf der Gratis-Autobahn.
+[ 242.32 -  244.96] Die Bahn wird von beiden Seiten in die Zange genommen.
+[ 245.26 -  247.96] Und das Auto formt jetzt sogar wie Amerika gebaut wird.
+[ 248.53 -  249.96] Die Vororte explodieren.
+[ 250.26 -  253.96] Riesige Wohnsiedlungen weit verstreuten, nur mit dem Auto erreichbar.
+[ 254.06 -  255.96] Supermärkte mit riesigen Parkplätzen.
+[ 256.53 -  257.80] Drive-Thru's.
+[ 257.96 -  260.96] Diese zersiedelte Bauweise macht Bahnverkehr fast unmöglich.
+[ 261.47 -  261.96] Ein Zug braucht Dichte.
+[ 262.79 -  264.96] Viele Menschen auf engem Raum, die zum selben Ziel wollen.
+[ 265.74 -  268.96] Aber die amerikanische Vorstadt ist das genaue Gegenteil von Dichte.
+[ 269.83 -  271.96] Damit ist die Bahn nicht nur finanziell abgehängt.
+[ 272.36 -  274.96] Sie passt schlicht nicht mehr zu der Art, wie Amerikaner leben.
+[ 275.52 -  278.96] Die Geschichte des Hochgeschwindigkeitszugs.
+[ 279.08 -  284.96] Anfang der 1960er Jahre ist der Personenverkehr für Amerikas Bahnunternehmen kaum mehr als ein Verlustgeschäft.
+[ 285.54 -  287.96] Ihr Geld verdienen sie längst mit Güterverkehr.
+[ 288.08 -  289.96] Und die Fahrgäste empfinden sie nur noch als Last.
+[ 290.54 -  296.96] Während die amerikanische Bahn so im eigenen Land langsam stirbt, passiert auf der anderen Seite der Welt das genaue Gegenteil.
+[ 297.54 -  300.96] 1964 stellt Japan zu den Olympischen Spielen den Shunkansen vor.
+[ 301.54 -  303.96] Den ersten echten Hochgeschwindigkeitszug der Welt.
+[ 304.62 -  307.96] Der seine Fahrgäste mit über 200 Kilometern pro Stunde durchs Land trägt.
+[ 308.88 -  313.96] Der Bullet Train wird über Nacht zum Weltwunder und feuert den Startschuss für ein globales Wettrennen ab.
+[ 314.28 -  315.94] Überall stellt man sich dieselbe Frage.
+[ 316.55 -  317.96] Welches Land baut den nächsten Schnellzug?
+[ 319.05 -  321.96] In der Pole Position steht ausgerechnet die größte Technologiemacht der Welt.
+[ 322.04 -  322.36] Die USA.
+[ 324.30 -  328.96] Aber natürlich hatte unsere Technologiemacht Lex begonnen mit Geschwindigkeit zu experimentieren.
+[ 329.72 -  335.96] Schon Ende der 1950er wagte die New York Central Railroad in Ohio einen geradezu absurden Versuch.
+[ 337.16 -  346.96] Die Ingenieure schraubten zwei echte Flugzeugdüsentriebwerke auf das Dach eines ganz normalen Personenwagons und jagten dieses Gefährt über eine schnurgerade flache Teststrecke.
+[ 347.86 -  356.96] Der umgebaute Waggon erreichte dabei über 270 Kilometer pro Stunde und war damit auf dem Papier schneller als alles, was sonst auf amerikanischen Schienen unterwegs war.
+[ 357.46 -  359.96] Ein ernsthaftes Transportkonzept war das natürlich nie.
+[ 360.58 -  364.92] Niemand wollte Pendler dauerhaft hinter brüllenden Düsentriebwerken durch die Landschaft schicken.
+[ 366.02 -  369.96] Doch dieser Stunt verrät die amerikanische Denkweise dieser Jahre ziemlich genau.
+[ 370.64 -  372.96] Geschwindigkeit gleitet als reines Ingenieursproblem.
+[ 373.62 -  375.96] Als technisches Spielzeug, das man mit genug Erfindergeist einfach auslöst.
+[ 378.35 -  381.96] Genau dieser Irrtum sollte dem Land später teuer zu stehen kommen.
+[ 382.75 -  384.96] Auch die Politik wollte nun aufholen.
+[ 384.96 -  389.96] Präsident Lyndon B. Johnson hatte sich vorgenommen, Amerika gründlich zu modernisieren.
+[ 389.96 -  392.96] Und für ihn war die Sache auch eine Frage des nationalen Stolzes.
+[ 393.32 -  400.96] Dass ausgerechnet Japan die Welt anführte, ein Land, mit dem die USA 20 Jahre zuvor noch im Krieg gelegen hatten, wollte er nicht hinnehmen.
+[ 401.76 -  404.96] 1965 unterzeichnete er den High-Speed Ground Transportation Act.
+[ 404.96 -  405.96] Damit gab er das Ziel auf, dass die USA die Welt nicht mehr verändern.
+[ 405.96 -  411.48] Und damit gab er das Ziel aus, einen amerikanischen Schnellzug zu bauen, der den japanischen Bullet Train alt aussehen ließ.
+[ 412.22 -  417.54] Als Schauplatz wählte man den dicht besiedelten Nord-Ost-Korridor zwischen New York und Washington.
+[ 417.96 -  425.72] Diese Strecke war seit den 1930er Jahren bereits elektrifiziert und verband die wirtschaftliche Hauptstadt des Landes mit der politischen Hauptstadt.
+[ 425.96 -  429.50] Der neue Zug bekam einen Namen, der nach Zukunft klingen sollte.
+[ 429.96 -  431.96] Man taufte ihn Metro Liner.
+[ 431.96 -  433.96] Und genau hier beginnt das eigentliche Drama.
+[ 434.32 -  437.43] Die Regierung verlangte einen Zug, der mindestens 240 km pro Stunde erreichte.
+[ 439.38 -  441.96] Denn alles darunter hätte den Shinkansen nicht übertroffen.
+[ 442.54 -  448.96] Die Pennsylvania Railroad, der die Strecke gehörte, wollte aus Kostengründen jedoch lieber langsamere und billigere Züge.
+[ 449.14 -  450.96] Über diesen Streit verstrich wertvolle Zeit.
+[ 451.82 -  454.96] Am Ende blieb kein Spielraum mehr, um einen völlig neuen Zug zu entwickeln.
+[ 455.54 -  460.96] Also griff man zu einer Notlösung und baute kurzerhand vorhandene Waggons zu Hochgeschwindigkeitszügen um.
+[ 461.14 -  462.96] Das größte Problem war damit aber noch gar nicht angesprochen.
+[ 464.34 -  471.96] Der Metro Liner sollte auf der alten Trasse fahren, auf denselben gewundenen Gleisen, auf denen schon 100 Jahre zuvor Züge gerollt waren.
+[ 472.56 -  475.96] Eine Strecke für echte Hochgeschwindigkeit sieht völlig anders aus.
+[ 476.22 -  481.48] Sie braucht lückenlos verschweißte Schienen, möglichst sanfte Kurven und eine stabile Stromversorgung.
+[ 482.16 -  485.96] Nichts davon ließ sich auf der vorhandenen Trasse mehr als notdürftig nachrüsten.
+[ 486.32 -  491.96] Im Testbetrieb auf einem idealen, geraden Abschnitt knackte der Metro Liner die geforderten 240 km pro Stunde tatsächlich.
+[ 494.01 -  498.50] Im Alltag jedoch, auf der kurvigen Bestandsstrecke, kam er im Schnitt nur auf rund 177.
+[ 500.06 -  504.96] Dazu war der unter großem Zeitdruck zusammengebaute Zug anfällig für Defekte und fiel immer wieder aus.
+[ 505.10 -  507.96] Das war keine technische Niederlage im eigentlichen Sinne.
+[ 508.22 -  511.96] Es war eine Leere, die Amerika bis heute nicht verinnerlicht hat.
+[ 512.89 -  514.96] Japan hatte nämlich einen entscheidenden Schritt anders gemacht.
+[ 516.35 -  520.96] Statt seine alten Gleise mühsam aufzurüsten, baute das Land eine vollständig neue, schnurgerade Strecke.
+[ 522.48 -  524.96] Die einzig und allein für hohe Geschwindigkeit gedacht war.
+[ 525.70 -  528.96] Das Wort Shinkansen bedeutet wortwörtlich nichts anderes als Hauptlinie.
+[ 529.88 -  532.96] Darin steckt die zentrale Erkenntnis dieser ganzen Geschichte.
+[ 533.46 -  535.96] Hochgeschwindigkeit ist kein Zug, den man auf alte Schienen setzt.
+[ 536.94 -  540.96] Sie verlangt eine eigene Trasse, sorgfältige Planung und sehr viel Geduld.
+[ 542.12 -  546.96] Während Amerika noch an seinem halbfertigen Schnellzug arbeitete, brach das übrige System zusammen.
+[ 547.20 -  550.96] 1970 meldete die Penn Central Insolvenz an.
+[ 551.52 -  553.96] Der größte Bahnkonzern des Landes.
+[ 553.96 -  557.96] Es war die bis dahin größte Firmenpleite in der gesamten Geschichte der USA.
+[ 558.16 -  561.80] Die Antwort des Staates kam ein Jahr später in Form von Amtrak.
+[ 561.96 -  566.96] Diese halbstaatliche Gesellschaft übernahm 1971 den gesamten Personenverkehr.
+[ 567.12 -  568.96] Darunter auch den Metroliner.
+[ 569.06 -  573.96] Und befreite die privaten Konzerne von der Aufgabe, die für sie längst zur Last geworden war.
+[ 574.14 -  575.96] Der Personenverkehr.
+[ 575.96 -  578.96] Eine Investition in die Zukunft war das jedoch nicht.
+[ 579.16 -  580.92] Es glich eher einer Sterbebegleitung.
+[ 581.50 -  582.37] Die Lektion.
+[ 582.96 -  585.96] Jetzt kommt der strukturelle Haken, der bis heute alles erklärt.
+[ 586.68 -  588.96] Amtrak besitzt kaum eigene Gleise.
+[ 589.22 -  593.86] Außerhalb des Nord-Ost-Korridors fahren Personenzüge auf den Schienen der privaten Güterbahn.
+[ 594.34 -  598.96] Wenn es eng wird, hat deshalb der Güterzug Vorrang und der Personenzug muss warten.
+[ 599.08 -  601.96] Verspätung ist auf diese Weise fest ins System eingebaut.
+[ 602.54 -  607.96] Und genau hier liegt der Grund, warum man in den USA nicht einfach schnelle Züge auf die vorhandenen Gleise setzen kann.
+[ 608.72 -  611.96] Es ist die Lektion des Metroliners, die sich immer wieder vom Neuen wiederholt.
+[ 613.11 -  616.96] Wer Hochgeschwindigkeit will, braucht eine eigene neue gerade Strecke.
+[ 617.30 -  619.96] Und genau an diesem Punkt scheitert Amerika bis heute.
+[ 620.26 -  622.96] Das beste Beispiel dafür ist California High Speed Rail.
+[ 623.82 -  626.94] 2008 stürmten die Wählerinnen und Wähler für das Projekt.
+[ 627.50 -  636.22] Versprochen wurden ihnen damals Kosten von 33 Milliarden Dollar und eine fertige Verbindung zwischen San Francisco und Los Angeles bis zum Jahr 2020.
+[ 637.36 -  640.96] Die Wirklichkeit im Jahr 2026 sieht völlig anders aus.
+[ 641.00 -  647.88] Es ist kein einziger Kilometer an Betrieb, es existiert kein fertiger Zug und ausgegeben wurden bereits rund 18 Milliarden Dollar.
+[ 648.56 -  651.20] Für die Gesamtstrecke rechnet man inzwischen mit mehr als 120 Milliarden.
+[ 652.80 -  656.96] Dabei macht Kalifornien diesmal vieles richtig und baut tatsächlich eine neue Trasse.
+[ 657.48 -  660.96] Doch genau das bedeutet, dass tausende Grundstücke gekauft werden müssen.
+[ 661.16 -  663.96] In den USA wird daraus ein juristischer Albtraum.
+[ 664.12 -  666.94] Da jeder einzelne Eigentümer über Jahre dagegen klagen kann.
+[ 667.40 -  669.96] Hinzu kommt ein hausgemachter Fehler.
+[ 669.96 -  677.96] Man begann den Bau im dünn besiedelten Central Valley statt in den großen Metropolen und schuf so einen Zug, der vorerst kaum jemanden irgendwo hinbringt.
+[ 678.76 -  683.96] 2025 zog die Trump Administration, dann schließt sich rund 4 Milliarden Dollar an Fördergeldern wieder zurück.
+[ 684.28 -  687.50] In Texas wiederholt sich dieselbe Geschichte mit anderen Vorzeichen.
+[ 687.96 -  691.96] Dort wollte ein privates Unternehmen Dallas und Houston miteinander verbinden.
+[ 692.10 -  695.88] Auch hier stiegen die geschätzten Kosten von 12 auf über 40 Milliarden Dollar.
+[ 696.82 -  700.92] Die Investoren sprangen nach und nach ab und am Ende strich auch der Staat seine Förderung.
+[ 701.71 -  703.96] Dahinter steckt ein wiederkehrendes Muster.
+[ 704.30 -  710.96] Bei einem solchen Projekt reden der Bund, der Bundesstaat, einzelne Bezirke und einzelne Städte gleichzeitig mit.
+[ 711.08 -  713.96] Und jede dieser Ebenen kann das Vorhaben aufhalten.
+[ 714.38 -  717.96] Niemand hat die Macht einfach zu entscheiden, dass nun gebaut wird.
+[ 718.06 -  720.96] Was folgt sind jahrelange Gerichtsprozesse.
+[ 720.96 -  723.96] Und doch gibt es ein Projekt, das tatsächlich gebaut wird.
+[ 723.96 -  727.96] Es heißt Brightline West und soll Las Vegas mit Südkalifornien verbinden.
+[ 728.10 -  731.96] Dass ausgerechnet dieses Vorhaben gelingt, hat einen einfachen Grund.
+[ 732.02 -  734.96] Es weicht allen genannten Hürden geschickt aus.
+[ 734.96 -  738.80] Diese Strecke verläuft fast vollständig im Mittelstreifen einer bestehenden Autobahn.
+[ 739.26 -  741.36] Dadurch ist sie von Natur aus gerade und flach.
+[ 741.96 -  743.96] Es gibt keinen jahrelangen Kampf um Grundstücke.
+[ 744.26 -  746.96] Und trotzdem entsteht eine eigene neue Trasse.
+[ 747.14 -  752.40] Damit befolgt Brightline endlich genau jene Lehre, die schon der Metroliner im Jahr 1965 erteilt hatte.
+[ 754.42 -  756.96] Und damit sind wir beim eigentlichen Kern der Sache.
+[ 757.10 -  759.96] Amerikas Schnellzüge scheitern nicht an der Technik.
+[ 760.20 -  768.96] Sie scheitern am teuren Land, am fehlenden Geld, in einer zersplitterten Politik und einer Bürokratie, die nie lang genug an einem Strang zieht.
+[ 769.18 -  774.96] Hochgeschwindigkeit ist, wie Japan schon vor 60 Jahren bewiesen hat, kein technisches Problem.
+[ 774.96 -  776.96] Sie ist vor allem ein Triumph der Geduld.
+[ 777.50 -  778.25] Fazit
+[ 778.96 -  782.90] Warum funktioniert die Bahn in Europa, Japan und China aber nicht in den USA?
+[ 783.60 -  785.96] Auf diese Frage gibt es nicht die eine Antwort.
+[ 786.28 -  787.96] Es ist die Summe vieler Ursachen.
+[ 788.24 -  789.68] Die erste ist die Geografie.
+[ 790.20 -  793.94] Europa und Japan sind kompakt und dicht besiedelt und damit wie geschaffen für die Bahn.
+[ 794.60 -  796.96] Amerika dagegen ist riesig und weit zersiedelt.
+[ 797.67 -  798.96] Die zweite ist das Timing.
+[ 799.64 -  806.96] Als das Auto aufkam, war es in den USA sofort für die breite Masse erschwinglich und die Städte wurden anschließend ganz um das Auto herum gebaut.
+[ 807.56 -  809.96] Europa besaß seine dichten Städte schon lange vorher.
+[ 810.91 -  811.96] Die dritte ist das Geld.
+[ 812.66 -  818.40] Über Jahrzehnte flossen hunderte Milliarden in Straßen und Flughäfen, während die Schiene fast leer ausging.
+[ 819.18 -  821.92] Andere Länder verstanden ihre Bahn als öffentliche Aufgabe.
+[ 822.54 -  824.96] In den USA sollte sie Gewinn abwerfen.
+[ 824.96 -  826.96] Die vierte ist die Eigentumsfrage.
+[ 827.22 -  832.96] Die Gleise gehören dem Güterverkehr und der Personenzug bleibt der ungebetene Gast auf fremdem Grund.
+[ 833.04 -  834.92] Und die fünfte ist der moderne Faktor.
+[ 835.36 -  839.96] Wer es heute mit Hochgeschwindigkeit noch einmal versucht, schadet an teurem Land, an endlosen Klagen,
+[ 840.26 -  844.96] an zersplitterter Zuständigkeit und an Fördergeldern, die nie lange genug fließen.
+[ 846.05 -  847.96] Amerika hat seine Züge nicht durch einen Unfall verloren.
+[ 848.56 -  855.96] Dahinter steht eine lange Kette von Entscheidungen, die meist bequem waren, kurzfristig logisch wirkten und manchmal schlecht im Eigennutz dienten.
+[ 856.20 -  858.96] Jeder einzelne davon war physisch genommen nachvollziehbar.
+[ 859.26 -  861.96] Zusammengenommen haben sie das beste Bahnnetz der Welt demontiert.
+[ 863.09 -  864.96] Immerhin gibt es einen Hoffnungsschimmer.
+[ 865.08 -  867.96] Private Anbieter wie Brightline bauen neue Strecken.
+[ 868.16 -  871.96] In den Nord-Ost-Korridor fließt wieder Geld und das Umweltbewusstsein wächst.
+[ 872.54 -  877.96] Doch 70 Jahre Rückstand und eine ganz auf das Auto ausgerichtete Gesellschaft lassen sich nicht über Nacht umkehren.
+[ 878.62 -  881.96] Der Weg zurück ist viel länger als der Weg nach unten es je war.

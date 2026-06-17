@@ -1,0 +1,920 @@
+1
+00:00:01,380 --> 00:00:04,983
+In Japan kommst du mit dem Zug in unter drei Stunden von Tokio nach Osaka.
+
+2
+00:00:05,323 --> 00:00:08,946
+In Frankreich rast der TGW mit über 300 kmh durchs Land.
+
+3
+00:00:09,326 --> 00:00:14,030
+China hat in nur 15 Jahren das größte Hochgeschwindigkeitsnetz der Welt aus dem Boden gestampft.
+
+4
+00:00:14,650 --> 00:00:16,172
+Und dann gibt es die USA.
+
+5
+00:00:16,552 --> 00:00:17,773
+Das reichste Land der Erde.
+
+6
+00:00:18,053 --> 00:00:20,135
+Die größte Wirtschaftsmacht der Geschichte.
+
+7
+00:00:20,595 --> 00:00:23,978
+Ein Land, das einmal mit Abstand das beste Eisenbahnnetz der Welt hatte.
+
+8
+00:00:24,458 --> 00:00:27,160
+Und das diesen Vorsprung heute komplett verspielt hat.
+
+9
+00:00:27,721 --> 00:00:30,368
+Die große Frage ist, wie kann das sein?
+
+10
+00:00:30,488 --> 00:00:35,600
+Wie verliert eine Nation, die das Reisen mit der Bahn praktisch erfunden hat, ausgerechnet die Bahn?
+
+11
+00:00:36,221 --> 00:00:38,440
+Das goldene Zeitalter.
+
+12
+00:00:38,960 --> 00:00:44,820
+Um zu verstehen, wie tief Amerika gefallen ist, muss man erst sehen, wo Amerika zu Beginn des Eisenbahnzeitalters stand.
+
+13
+00:00:45,500 --> 00:00:49,474
+Im 19. Jahrhundert war die Eisenbahn in den USA nicht irgendein Verkehrsmittel.
+
+14
+00:00:49,735 --> 00:00:51,060
+Sie war das Verkehrsmittel.
+
+15
+00:00:52,461 --> 00:00:55,960
+1869 wird die erste transkontinentale Eisenbahn fertiggestellt.
+
+16
+00:00:56,582 --> 00:01:02,500
+Plötzlich konnte man in wenigen Tagen ein Land durchqueren, für das Siedler vorher Monate in Planwagen gebraucht hatten.
+
+17
+00:01:03,080 --> 00:01:06,320
+Die Eisenbahn hat den amerikanischen Westen im Grunde erst erschlossen.
+
+18
+00:01:06,880 --> 00:01:08,247
+Und es geht nicht nur um Reisen.
+
+19
+00:01:08,347 --> 00:01:10,940
+Ganze Städte entstehen, weil dort eine Bahnlinie verläuft.
+
+20
+00:01:11,340 --> 00:01:13,940
+Wer keinen Bahnanschluss bekam, verschwand von der Landkarte.
+
+21
+00:01:14,480 --> 00:01:17,820
+Die Eisenbahngesellschaften waren die mächtigsten Konzerne ihrer Zeit.
+
+22
+00:01:18,320 --> 00:01:20,680
+Die Tech-Giganten des 19. Jahrhunderts, wenn man so will.
+
+23
+00:01:21,262 --> 00:01:25,680
+Auf dem Höhepunkt rund um den Ersten Weltkrieg hatten die USA ein Schienennetz von etwa 200 Schienen.
+
+24
+00:01:26,021 --> 00:01:26,528
+54.000 Meilen.
+
+25
+00:01:27,880 --> 00:01:31,940
+Zur Einordnung, das ist mehr als das gesamte Schienennetz von ganz Europa damals.
+
+26
+00:01:32,520 --> 00:01:34,680
+Praktisch jede Kleinstadt hatte einen Bahnhof.
+
+27
+00:01:35,281 --> 00:01:36,700
+Und das Reisen war komfortabel.
+
+28
+00:01:37,240 --> 00:01:38,440
+Pullman-Schlafwagen.
+
+29
+00:01:38,940 --> 00:01:40,259
+Speisewagen mit Kellnern.
+
+30
+00:01:40,620 --> 00:01:41,220
+Aussichtswagen.
+
+31
+00:01:41,720 --> 00:01:43,320
+Mit der Bahn fahren war normal.
+
+32
+00:01:43,900 --> 00:01:48,700
+Die Eisenbahn war so dominant, dass sich niemand vorstellen konnte, dass sich das jemals ändern würde.
+
+33
+00:01:49,242 --> 00:01:53,620
+Aber genau in diesem Moment, auf dem absoluten Höhepunkt, tauchte ein Konkurrent auf.
+
+34
+00:01:54,020 --> 00:01:54,920
+Das Auto.
+
+35
+00:01:55,960 --> 00:01:58,960
+Im Jahr 1908 bringt Henry Ford die Model T auf den Markt.
+
+36
+00:01:58,960 --> 00:02:00,960
+Am Anfang ist das Auto ein Spielzeug.
+
+37
+00:02:01,000 --> 00:02:05,960
+Teuer, unzuverlässig und es gibt fast keine asphaltierten Straßen, auf denen man fahren könnte.
+
+38
+00:02:06,342 --> 00:02:09,236
+Zunächst also kein ernstzunehmender Konkurrent für die Eisenbahn.
+
+39
+00:02:09,960 --> 00:02:11,960
+Doch Ford macht etwas Revolutionäres.
+
+40
+00:02:12,081 --> 00:02:13,960
+Die Fließbandfertigung.
+
+41
+00:02:13,960 --> 00:02:15,960
+Die Massenproduktion drückt den Preis radikal.
+
+42
+00:02:16,542 --> 00:02:20,960
+Auf einmal kann sich nicht nur die Oberschicht ein Auto leisten, sondern die breite Mittelschicht.
+
+43
+00:02:21,222 --> 00:02:23,960
+Und das Auto bietet etwas, das die Eisenbahn niemals konnte.
+
+44
+00:02:24,667 --> 00:02:25,960
+Totale Freiheit.
+
+45
+00:02:25,980 --> 00:02:26,756
+Kein Fahrplan.
+
+46
+00:02:27,144 --> 00:02:27,960
+Keine feste Strecke.
+
+47
+00:02:28,425 --> 00:02:29,960
+Du fährst wann du willst, wohin du willst.
+
+48
+00:02:30,667 --> 00:02:31,960
+Von deiner Haustür bis zum Ziel.
+
+49
+00:02:32,703 --> 00:02:36,960
+Dieses Gefühl, diese Freiheit wird zum Kern der amerikanischen Identität.
+
+50
+00:02:37,283 --> 00:02:38,960
+Das Auto ist nicht nur Transport.
+
+51
+00:02:39,243 --> 00:02:40,960
+Es ist ein Versprechen.
+
+52
+00:02:40,960 --> 00:02:43,960
+Außerdem hatte das Auto einen entscheidenden Vorteil.
+
+53
+00:02:44,243 --> 00:02:45,960
+Eisenbahnen waren private Unternehmen.
+
+54
+00:02:46,743 --> 00:02:50,940
+Sie mussten ihre Gleise selbst bauen, selbst warten und selbst bezahlen.
+
+55
+00:02:51,685 --> 00:02:53,960
+Die Straßen dagegen baute der Staat.
+
+56
+00:02:54,082 --> 00:02:54,960
+Mit Steuergeld.
+
+57
+00:02:55,283 --> 00:02:56,960
+Kostenlos für jeden, der ein Auto hatte.
+
+58
+00:02:57,866 --> 00:02:59,960
+Das ist ein brutal ungleicher Wettkampf.
+
+59
+00:03:00,040 --> 00:03:03,960
+Die Bahn muss ihre komplette Infrastruktur selbst stemmen und Gewinn machen.
+
+60
+00:03:04,242 --> 00:03:06,960
+Und das Auto kommt seiner Infrastruktur geschenkt.
+
+61
+00:03:07,504 --> 00:03:09,960
+Ein Wettkampf, den die Bahn fast nur verlieren konnte.
+
+62
+00:03:10,604 --> 00:03:12,960
+Die größte Subvention der Geschichte.
+
+63
+00:03:14,184 --> 00:03:16,512
+1956 unterschreibt Präsident Y.D.
+
+64
+00:03:16,632 --> 00:03:18,960
+Eisenhower den Federal Aid Highway Act.
+
+65
+00:03:19,402 --> 00:03:23,960
+Eisenhower war im zweiten Weltkrieg beeindruckt von den deutschen Autobahnen und wollte etwas ähnliches.
+
+66
+00:03:24,743 --> 00:03:28,960
+Auch aus militärischen Gründen, um im Ernstfall schnell Truppen verlegen zu können.
+
+67
+00:03:29,161 --> 00:03:31,960
+Das Ergebnis ist das Interstate Highway System.
+
+68
+00:03:32,442 --> 00:03:35,699
+Das größte öffentliche Bauprojekt in der Geschichte der USA.
+
+69
+00:03:36,341 --> 00:03:42,960
+Zehntausende Kilometer Autobahn, größtenteils vom Staat finanziert, welcher rund 90% der Kosten übernimmt.
+
+70
+00:03:42,980 --> 00:03:44,960
+Für die Bahn gab es nichts Vergleichbares.
+
+71
+00:03:45,287 --> 00:03:45,531
+Null.
+
+72
+00:03:45,960 --> 00:03:47,960
+Und parallel passiert dasselbe in der Luft.
+
+73
+00:03:48,342 --> 00:03:52,960
+Der Staat baut Flughäfen, finanziert die Flugsicherung und fördert die junge Luftfahrtindustrie.
+
+74
+00:03:54,185 --> 00:03:57,599
+Fürs Reisen über lange Distanzen ist das Flugzeug schneller als jeder Zug.
+
+75
+00:03:58,121 --> 00:04:01,739
+Für mittlere und kurze Strecken fährt das Auto auf der Gratis-Autobahn.
+
+76
+00:04:02,322 --> 00:04:04,960
+Die Bahn wird von beiden Seiten in die Zange genommen.
+
+77
+00:04:05,262 --> 00:04:07,960
+Und das Auto formt jetzt sogar wie Amerika gebaut wird.
+
+78
+00:04:08,526 --> 00:04:09,960
+Die Vororte explodieren.
+
+79
+00:04:10,262 --> 00:04:13,960
+Riesige Wohnsiedlungen weit verstreuten, nur mit dem Auto erreichbar.
+
+80
+00:04:14,061 --> 00:04:15,960
+Supermärkte mit riesigen Parkplätzen.
+
+81
+00:04:16,526 --> 00:04:17,798
+Drive-Thru's.
+
+82
+00:04:17,960 --> 00:04:20,960
+Diese zersiedelte Bauweise macht Bahnverkehr fast unmöglich.
+
+83
+00:04:21,470 --> 00:04:21,960
+Ein Zug braucht Dichte.
+
+84
+00:04:22,786 --> 00:04:24,960
+Viele Menschen auf engem Raum, die zum selben Ziel wollen.
+
+85
+00:04:25,744 --> 00:04:28,960
+Aber die amerikanische Vorstadt ist das genaue Gegenteil von Dichte.
+
+86
+00:04:29,826 --> 00:04:31,960
+Damit ist die Bahn nicht nur finanziell abgehängt.
+
+87
+00:04:32,363 --> 00:04:34,960
+Sie passt schlicht nicht mehr zu der Art, wie Amerikaner leben.
+
+88
+00:04:35,523 --> 00:04:38,960
+Die Geschichte des Hochgeschwindigkeitszugs.
+
+89
+00:04:39,080 --> 00:04:44,960
+Anfang der 1960er Jahre ist der Personenverkehr für Amerikas Bahnunternehmen kaum mehr als ein Verlustgeschäft.
+
+90
+00:04:45,544 --> 00:04:47,960
+Ihr Geld verdienen sie längst mit Güterverkehr.
+
+91
+00:04:48,081 --> 00:04:49,960
+Und die Fahrgäste empfinden sie nur noch als Last.
+
+92
+00:04:50,542 --> 00:04:56,960
+Während die amerikanische Bahn so im eigenen Land langsam stirbt, passiert auf der anderen Seite der Welt das genaue Gegenteil.
+
+93
+00:04:57,543 --> 00:05:00,960
+1964 stellt Japan zu den Olympischen Spielen den Shunkansen vor.
+
+94
+00:05:01,544 --> 00:05:03,960
+Den ersten echten Hochgeschwindigkeitszug der Welt.
+
+95
+00:05:04,623 --> 00:05:07,960
+Der seine Fahrgäste mit über 200 Kilometern pro Stunde durchs Land trägt.
+
+96
+00:05:08,883 --> 00:05:13,960
+Der Bullet Train wird über Nacht zum Weltwunder und feuert den Startschuss für ein globales Wettrennen ab.
+
+97
+00:05:14,283 --> 00:05:15,940
+Überall stellt man sich dieselbe Frage.
+
+98
+00:05:16,546 --> 00:05:17,960
+Welches Land baut den nächsten Schnellzug?
+
+99
+00:05:19,045 --> 00:05:21,960
+In der Pole Position steht ausgerechnet die größte Technologiemacht der Welt.
+
+100
+00:05:22,041 --> 00:05:22,364
+Die USA.
+
+101
+00:05:24,301 --> 00:05:28,960
+Aber natürlich hatte unsere Technologiemacht Lex begonnen mit Geschwindigkeit zu experimentieren.
+
+102
+00:05:29,722 --> 00:05:35,960
+Schon Ende der 1950er wagte die New York Central Railroad in Ohio einen geradezu absurden Versuch.
+
+103
+00:05:37,162 --> 00:05:46,960
+Die Ingenieure schraubten zwei echte Flugzeugdüsentriebwerke auf das Dach eines ganz normalen Personenwagons und jagten dieses Gefährt über eine schnurgerade flache Teststrecke.
+
+104
+00:05:47,862 --> 00:05:56,960
+Der umgebaute Waggon erreichte dabei über 270 Kilometer pro Stunde und war damit auf dem Papier schneller als alles, was sonst auf amerikanischen Schienen unterwegs war.
+
+105
+00:05:57,463 --> 00:05:59,960
+Ein ernsthaftes Transportkonzept war das natürlich nie.
+
+106
+00:06:00,582 --> 00:06:04,920
+Niemand wollte Pendler dauerhaft hinter brüllenden Düsentriebwerken durch die Landschaft schicken.
+
+107
+00:06:06,024 --> 00:06:09,960
+Doch dieser Stunt verrät die amerikanische Denkweise dieser Jahre ziemlich genau.
+
+108
+00:06:10,645 --> 00:06:12,960
+Geschwindigkeit gleitet als reines Ingenieursproblem.
+
+109
+00:06:13,624 --> 00:06:15,960
+Als technisches Spielzeug, das man mit genug Erfindergeist einfach auslöst.
+
+110
+00:06:18,346 --> 00:06:21,960
+Genau dieser Irrtum sollte dem Land später teuer zu stehen kommen.
+
+111
+00:06:22,745 --> 00:06:24,960
+Auch die Politik wollte nun aufholen.
+
+112
+00:06:24,960 --> 00:06:29,960
+Präsident Lyndon B. Johnson hatte sich vorgenommen, Amerika gründlich zu modernisieren.
+
+113
+00:06:29,960 --> 00:06:32,960
+Und für ihn war die Sache auch eine Frage des nationalen Stolzes.
+
+114
+00:06:33,321 --> 00:06:40,960
+Dass ausgerechnet Japan die Welt anführte, ein Land, mit dem die USA 20 Jahre zuvor noch im Krieg gelegen hatten, wollte er nicht hinnehmen.
+
+115
+00:06:41,764 --> 00:06:44,960
+1965 unterzeichnete er den High-Speed Ground Transportation Act.
+
+116
+00:06:44,960 --> 00:06:45,960
+Damit gab er das Ziel auf, dass die USA die Welt nicht mehr verändern.
+
+117
+00:06:45,960 --> 00:06:51,478
+Und damit gab er das Ziel aus, einen amerikanischen Schnellzug zu bauen, der den japanischen Bullet Train alt aussehen ließ.
+
+118
+00:06:52,221 --> 00:06:57,539
+Als Schauplatz wählte man den dicht besiedelten Nord-Ost-Korridor zwischen New York und Washington.
+
+119
+00:06:57,960 --> 00:07:05,719
+Diese Strecke war seit den 1930er Jahren bereits elektrifiziert und verband die wirtschaftliche Hauptstadt des Landes mit der politischen Hauptstadt.
+
+120
+00:07:05,960 --> 00:07:09,498
+Der neue Zug bekam einen Namen, der nach Zukunft klingen sollte.
+
+121
+00:07:09,960 --> 00:07:11,960
+Man taufte ihn Metro Liner.
+
+122
+00:07:11,960 --> 00:07:13,960
+Und genau hier beginnt das eigentliche Drama.
+
+123
+00:07:14,321 --> 00:07:17,434
+Die Regierung verlangte einen Zug, der mindestens 240 km pro Stunde erreichte.
+
+124
+00:07:19,383 --> 00:07:21,960
+Denn alles darunter hätte den Shinkansen nicht übertroffen.
+
+125
+00:07:22,542 --> 00:07:28,960
+Die Pennsylvania Railroad, der die Strecke gehörte, wollte aus Kostengründen jedoch lieber langsamere und billigere Züge.
+
+126
+00:07:29,142 --> 00:07:30,960
+Über diesen Streit verstrich wertvolle Zeit.
+
+127
+00:07:31,824 --> 00:07:34,960
+Am Ende blieb kein Spielraum mehr, um einen völlig neuen Zug zu entwickeln.
+
+128
+00:07:35,542 --> 00:07:40,960
+Also griff man zu einer Notlösung und baute kurzerhand vorhandene Waggons zu Hochgeschwindigkeitszügen um.
+
+129
+00:07:41,142 --> 00:07:42,960
+Das größte Problem war damit aber noch gar nicht angesprochen.
+
+130
+00:07:44,343 --> 00:07:51,960
+Der Metro Liner sollte auf der alten Trasse fahren, auf denselben gewundenen Gleisen, auf denen schon 100 Jahre zuvor Züge gerollt waren.
+
+131
+00:07:52,563 --> 00:07:55,960
+Eine Strecke für echte Hochgeschwindigkeit sieht völlig anders aus.
+
+132
+00:07:56,221 --> 00:08:01,478
+Sie braucht lückenlos verschweißte Schienen, möglichst sanfte Kurven und eine stabile Stromversorgung.
+
+133
+00:08:02,161 --> 00:08:05,960
+Nichts davon ließ sich auf der vorhandenen Trasse mehr als notdürftig nachrüsten.
+
+134
+00:08:06,321 --> 00:08:11,960
+Im Testbetrieb auf einem idealen, geraden Abschnitt knackte der Metro Liner die geforderten 240 km pro Stunde tatsächlich.
+
+135
+00:08:14,006 --> 00:08:18,499
+Im Alltag jedoch, auf der kurvigen Bestandsstrecke, kam er im Schnitt nur auf rund 177.
+
+136
+00:08:20,064 --> 00:08:24,960
+Dazu war der unter großem Zeitdruck zusammengebaute Zug anfällig für Defekte und fiel immer wieder aus.
+
+137
+00:08:25,101 --> 00:08:27,960
+Das war keine technische Niederlage im eigentlichen Sinne.
+
+138
+00:08:28,221 --> 00:08:31,960
+Es war eine Leere, die Amerika bis heute nicht verinnerlicht hat.
+
+139
+00:08:32,886 --> 00:08:34,960
+Japan hatte nämlich einen entscheidenden Schritt anders gemacht.
+
+140
+00:08:36,345 --> 00:08:40,960
+Statt seine alten Gleise mühsam aufzurüsten, baute das Land eine vollständig neue, schnurgerade Strecke.
+
+141
+00:08:42,483 --> 00:08:44,960
+Die einzig und allein für hohe Geschwindigkeit gedacht war.
+
+142
+00:08:45,704 --> 00:08:48,960
+Das Wort Shinkansen bedeutet wortwörtlich nichts anderes als Hauptlinie.
+
+143
+00:08:49,885 --> 00:08:52,960
+Darin steckt die zentrale Erkenntnis dieser ganzen Geschichte.
+
+144
+00:08:53,463 --> 00:08:55,960
+Hochgeschwindigkeit ist kein Zug, den man auf alte Schienen setzt.
+
+145
+00:08:56,944 --> 00:09:00,960
+Sie verlangt eine eigene Trasse, sorgfältige Planung und sehr viel Geduld.
+
+146
+00:09:02,124 --> 00:09:06,960
+Während Amerika noch an seinem halbfertigen Schnellzug arbeitete, brach das übrige System zusammen.
+
+147
+00:09:07,201 --> 00:09:10,960
+1970 meldete die Penn Central Insolvenz an.
+
+148
+00:09:11,524 --> 00:09:13,960
+Der größte Bahnkonzern des Landes.
+
+149
+00:09:13,960 --> 00:09:17,960
+Es war die bis dahin größte Firmenpleite in der gesamten Geschichte der USA.
+
+150
+00:09:18,161 --> 00:09:21,799
+Die Antwort des Staates kam ein Jahr später in Form von Amtrak.
+
+151
+00:09:21,960 --> 00:09:26,960
+Diese halbstaatliche Gesellschaft übernahm 1971 den gesamten Personenverkehr.
+
+152
+00:09:27,122 --> 00:09:28,960
+Darunter auch den Metroliner.
+
+153
+00:09:29,060 --> 00:09:33,960
+Und befreite die privaten Konzerne von der Aufgabe, die für sie längst zur Last geworden war.
+
+154
+00:09:34,142 --> 00:09:35,960
+Der Personenverkehr.
+
+155
+00:09:35,960 --> 00:09:38,960
+Eine Investition in die Zukunft war das jedoch nicht.
+
+156
+00:09:39,162 --> 00:09:40,920
+Es glich eher einer Sterbebegleitung.
+
+157
+00:09:41,505 --> 00:09:42,374
+Die Lektion.
+
+158
+00:09:42,960 --> 00:09:45,960
+Jetzt kommt der strukturelle Haken, der bis heute alles erklärt.
+
+159
+00:09:46,685 --> 00:09:48,960
+Amtrak besitzt kaum eigene Gleise.
+
+160
+00:09:49,221 --> 00:09:53,860
+Außerhalb des Nord-Ost-Korridors fahren Personenzüge auf den Schienen der privaten Güterbahn.
+
+161
+00:09:54,342 --> 00:09:58,960
+Wenn es eng wird, hat deshalb der Güterzug Vorrang und der Personenzug muss warten.
+
+162
+00:09:59,081 --> 00:10:01,960
+Verspätung ist auf diese Weise fest ins System eingebaut.
+
+163
+00:10:02,542 --> 00:10:07,960
+Und genau hier liegt der Grund, warum man in den USA nicht einfach schnelle Züge auf die vorhandenen Gleise setzen kann.
+
+164
+00:10:08,724 --> 00:10:11,960
+Es ist die Lektion des Metroliners, die sich immer wieder vom Neuen wiederholt.
+
+165
+00:10:13,105 --> 00:10:16,960
+Wer Hochgeschwindigkeit will, braucht eine eigene neue gerade Strecke.
+
+166
+00:10:17,302 --> 00:10:19,960
+Und genau an diesem Punkt scheitert Amerika bis heute.
+
+167
+00:10:20,262 --> 00:10:22,960
+Das beste Beispiel dafür ist California High Speed Rail.
+
+168
+00:10:23,824 --> 00:10:26,940
+2008 stürmten die Wählerinnen und Wähler für das Projekt.
+
+169
+00:10:27,501 --> 00:10:36,219
+Versprochen wurden ihnen damals Kosten von 33 Milliarden Dollar und eine fertige Verbindung zwischen San Francisco und Los Angeles bis zum Jahr 2020.
+
+170
+00:10:37,362 --> 00:10:40,960
+Die Wirklichkeit im Jahr 2026 sieht völlig anders aus.
+
+171
+00:10:41,000 --> 00:10:47,880
+Es ist kein einziger Kilometer an Betrieb, es existiert kein fertiger Zug und ausgegeben wurden bereits rund 18 Milliarden Dollar.
+
+172
+00:10:48,563 --> 00:10:51,196
+Für die Gesamtstrecke rechnet man inzwischen mit mehr als 120 Milliarden.
+
+173
+00:10:52,803 --> 00:10:56,960
+Dabei macht Kalifornien diesmal vieles richtig und baut tatsächlich eine neue Trasse.
+
+174
+00:10:57,483 --> 00:11:00,960
+Doch genau das bedeutet, dass tausende Grundstücke gekauft werden müssen.
+
+175
+00:11:01,161 --> 00:11:03,960
+In den USA wird daraus ein juristischer Albtraum.
+
+176
+00:11:04,121 --> 00:11:06,940
+Da jeder einzelne Eigentümer über Jahre dagegen klagen kann.
+
+177
+00:11:07,403 --> 00:11:09,960
+Hinzu kommt ein hausgemachter Fehler.
+
+178
+00:11:09,960 --> 00:11:17,960
+Man begann den Bau im dünn besiedelten Central Valley statt in den großen Metropolen und schuf so einen Zug, der vorerst kaum jemanden irgendwo hinbringt.
+
+179
+00:11:18,763 --> 00:11:23,960
+2025 zog die Trump Administration, dann schließt sich rund 4 Milliarden Dollar an Fördergeldern wieder zurück.
+
+180
+00:11:24,282 --> 00:11:27,498
+In Texas wiederholt sich dieselbe Geschichte mit anderen Vorzeichen.
+
+181
+00:11:27,960 --> 00:11:31,960
+Dort wollte ein privates Unternehmen Dallas und Houston miteinander verbinden.
+
+182
+00:11:32,101 --> 00:11:35,880
+Auch hier stiegen die geschätzten Kosten von 12 auf über 40 Milliarden Dollar.
+
+183
+00:11:36,823 --> 00:11:40,920
+Die Investoren sprangen nach und nach ab und am Ende strich auch der Staat seine Förderung.
+
+184
+00:11:41,705 --> 00:11:43,960
+Dahinter steckt ein wiederkehrendes Muster.
+
+185
+00:11:44,301 --> 00:11:50,960
+Bei einem solchen Projekt reden der Bund, der Bundesstaat, einzelne Bezirke und einzelne Städte gleichzeitig mit.
+
+186
+00:11:51,081 --> 00:11:53,960
+Und jede dieser Ebenen kann das Vorhaben aufhalten.
+
+187
+00:11:54,382 --> 00:11:57,960
+Niemand hat die Macht einfach zu entscheiden, dass nun gebaut wird.
+
+188
+00:11:58,061 --> 00:12:00,960
+Was folgt sind jahrelange Gerichtsprozesse.
+
+189
+00:12:00,960 --> 00:12:03,960
+Und doch gibt es ein Projekt, das tatsächlich gebaut wird.
+
+190
+00:12:03,960 --> 00:12:07,960
+Es heißt Brightline West und soll Las Vegas mit Südkalifornien verbinden.
+
+191
+00:12:08,101 --> 00:12:11,960
+Dass ausgerechnet dieses Vorhaben gelingt, hat einen einfachen Grund.
+
+192
+00:12:12,020 --> 00:12:14,960
+Es weicht allen genannten Hürden geschickt aus.
+
+193
+00:12:14,960 --> 00:12:18,799
+Diese Strecke verläuft fast vollständig im Mittelstreifen einer bestehenden Autobahn.
+
+194
+00:12:19,262 --> 00:12:21,356
+Dadurch ist sie von Natur aus gerade und flach.
+
+195
+00:12:21,960 --> 00:12:23,960
+Es gibt keinen jahrelangen Kampf um Grundstücke.
+
+196
+00:12:24,262 --> 00:12:26,960
+Und trotzdem entsteht eine eigene neue Trasse.
+
+197
+00:12:27,141 --> 00:12:32,398
+Damit befolgt Brightline endlich genau jene Lehre, die schon der Metroliner im Jahr 1965 erteilt hatte.
+
+198
+00:12:34,423 --> 00:12:36,960
+Und damit sind wir beim eigentlichen Kern der Sache.
+
+199
+00:12:37,101 --> 00:12:39,960
+Amerikas Schnellzüge scheitern nicht an der Technik.
+
+200
+00:12:40,201 --> 00:12:48,960
+Sie scheitern am teuren Land, am fehlenden Geld, in einer zersplitterten Politik und einer Bürokratie, die nie lang genug an einem Strang zieht.
+
+201
+00:12:49,181 --> 00:12:54,960
+Hochgeschwindigkeit ist, wie Japan schon vor 60 Jahren bewiesen hat, kein technisches Problem.
+
+202
+00:12:54,960 --> 00:12:56,960
+Sie ist vor allem ein Triumph der Geduld.
+
+203
+00:12:57,505 --> 00:12:58,253
+Fazit
+
+204
+00:12:58,960 --> 00:13:02,900
+Warum funktioniert die Bahn in Europa, Japan und China aber nicht in den USA?
+
+205
+00:13:03,604 --> 00:13:05,960
+Auf diese Frage gibt es nicht die eine Antwort.
+
+206
+00:13:06,283 --> 00:13:07,960
+Es ist die Summe vieler Ursachen.
+
+207
+00:13:08,243 --> 00:13:09,677
+Die erste ist die Geografie.
+
+208
+00:13:10,201 --> 00:13:13,940
+Europa und Japan sind kompakt und dicht besiedelt und damit wie geschaffen für die Bahn.
+
+209
+00:13:14,604 --> 00:13:16,960
+Amerika dagegen ist riesig und weit zersiedelt.
+
+210
+00:13:17,667 --> 00:13:18,960
+Die zweite ist das Timing.
+
+211
+00:13:19,642 --> 00:13:26,960
+Als das Auto aufkam, war es in den USA sofort für die breite Masse erschwinglich und die Städte wurden anschließend ganz um das Auto herum gebaut.
+
+212
+00:13:27,564 --> 00:13:29,960
+Europa besaß seine dichten Städte schon lange vorher.
+
+213
+00:13:30,909 --> 00:13:31,960
+Die dritte ist das Geld.
+
+214
+00:13:32,662 --> 00:13:38,398
+Über Jahrzehnte flossen hunderte Milliarden in Straßen und Flughäfen, während die Schiene fast leer ausging.
+
+215
+00:13:39,181 --> 00:13:41,920
+Andere Länder verstanden ihre Bahn als öffentliche Aufgabe.
+
+216
+00:13:42,544 --> 00:13:44,960
+In den USA sollte sie Gewinn abwerfen.
+
+217
+00:13:44,960 --> 00:13:46,960
+Die vierte ist die Eigentumsfrage.
+
+218
+00:13:47,221 --> 00:13:52,960
+Die Gleise gehören dem Güterverkehr und der Personenzug bleibt der ungebetene Gast auf fremdem Grund.
+
+219
+00:13:53,041 --> 00:13:54,920
+Und die fünfte ist der moderne Faktor.
+
+220
+00:13:55,362 --> 00:13:59,960
+Wer es heute mit Hochgeschwindigkeit noch einmal versucht, schadet an teurem Land, an endlosen Klagen,
+
+221
+00:14:00,261 --> 00:14:04,960
+an zersplitterter Zuständigkeit und an Fördergeldern, die nie lange genug fließen.
+
+222
+00:14:06,047 --> 00:14:07,960
+Amerika hat seine Züge nicht durch einen Unfall verloren.
+
+223
+00:14:08,562 --> 00:14:15,960
+Dahinter steht eine lange Kette von Entscheidungen, die meist bequem waren, kurzfristig logisch wirkten und manchmal schlecht im Eigennutz dienten.
+
+224
+00:14:16,202 --> 00:14:18,960
+Jeder einzelne davon war physisch genommen nachvollziehbar.
+
+225
+00:14:19,262 --> 00:14:21,960
+Zusammengenommen haben sie das beste Bahnnetz der Welt demontiert.
+
+226
+00:14:23,088 --> 00:14:24,960
+Immerhin gibt es einen Hoffnungsschimmer.
+
+227
+00:14:25,081 --> 00:14:27,960
+Private Anbieter wie Brightline bauen neue Strecken.
+
+228
+00:14:28,161 --> 00:14:31,960
+In den Nord-Ost-Korridor fließt wieder Geld und das Umweltbewusstsein wächst.
+
+229
+00:14:32,542 --> 00:14:37,960
+Doch 70 Jahre Rückstand und eine ganz auf das Auto ausgerichtete Gesellschaft lassen sich nicht über Nacht umkehren.
+
+230
+00:14:38,623 --> 00:14:41,960
+Der Weg zurück ist viel länger als der Weg nach unten es je war.
+
