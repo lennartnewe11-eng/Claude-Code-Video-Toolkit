@@ -9,3 +9,5 @@ public/cutouts/*
 public/bg/*
 !public/cutouts/.gitkeep
 !public/bg/.gitkeep
+public/cutvid/*
+!public/cutvid/.gitkeep
