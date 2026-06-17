@@ -7,3 +7,8 @@ renders/*
 !renders/.gitkeep
 *.mov
 *.mp4
+
+# Secrets — never commit API keys
+.env
+*.env
+tools/secrets.env
