@@ -3,6 +3,7 @@ import {loadFont} from '@remotion/google-fonts/Inter';
 import {Hook} from './Hook';
 import {StyleProof, PROOF_DURATION} from './StyleProof';
 import {Chapter1, CH1_DURATION} from './Chapter1';
+import {Ch1P1, P1_DURATION} from './Ch1P1';
 import {DURATION_IN_FRAMES, FPS, WIDTH, HEIGHT} from './timeline';
 
 loadFont('normal', {
@@ -34,6 +35,14 @@ export const RemotionRoot: React.FC = () => {
         id="Chapter1"
         component={Chapter1}
         durationInFrames={CH1_DURATION}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+      <Composition
+        id="Ch1P1"
+        component={Ch1P1}
+        durationInFrames={P1_DURATION}
         fps={FPS}
         width={WIDTH}
         height={HEIGHT}
