@@ -5,3 +5,7 @@ public/footage/*
 public/audio/*
 !public/footage/.gitkeep
 !public/audio/.gitkeep
+public/cutouts/*
+public/bg/*
+!public/cutouts/.gitkeep
+!public/bg/.gitkeep
