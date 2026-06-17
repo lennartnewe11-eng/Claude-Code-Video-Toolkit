@@ -154,7 +154,7 @@ export const Chapter1: React.FC = () => {
           tokens={[{t: 'Auf'}, {t: 'dem'}, {t: 'Höhepunkt', w: 'boldItalic'}, {t: 'um'}, {t: '1916:'}]}
           cx={960} cy={210} width={1200} baseSize={50} align="center"
         />
-        <Counter target={254000} unit="Meilen Schiene" cx={960} cy={560} delay={A(86.02) - A(81.26)} countFrames={45} />
+        <Counter target={254000} unit="Meilen Schiene" cx={960} cy={560} delay={12} countFrames={140} />
       </Scene>
 
       {/* ── S8 · more than all of Europe (87.88) ─────────── */}
