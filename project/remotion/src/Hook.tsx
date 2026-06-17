@@ -1,15 +1,16 @@
-import {AbsoluteFill, Sequence} from 'remotion';
-import {SEGMENTS, sec, TITLE_FROM, HOOK_END, Segment} from './timeline';
+import {AbsoluteFill, interpolate, Sequence, useCurrentFrame} from 'remotion';
+import {SEGMENTS, sec, TITLE_FROM, HOOK_END, Segment, FPS} from './timeline';
 import {FOOTAGE, COLORS} from './footage';
 import {Clip} from './components/Clip';
 import {CountryLabel, SpeedOverlay, GrowthCounter} from './components/Overlays';
 import {KineticText} from './components/KineticText';
-import {FlashCut, BreakReveal, TitleCard} from './components/Extras';
+import {BreakReveal, TitleCard} from './components/Extras';
 import {AudioLayer} from './audio/AudioLayer';
 
-const dur = (seg: Segment) => sec(seg.to) - sec(seg.from);
+// Cross-dissolve length between clips. The break is a deliberate hard cut.
+const OVERLAP = Math.round(0.3 * FPS); // ~9 frames
 
-const SegmentView: React.FC<{seg: Segment}> = ({seg}) => {
+const SegmentBody: React.FC<{seg: Segment}> = ({seg}) => {
   const colors = COLORS[seg.id] ?? ['#0a0a12', '#16161f'];
   const src = FOOTAGE[seg.id];
 
@@ -18,7 +19,6 @@ const SegmentView: React.FC<{seg: Segment}> = ({seg}) => {
       return (
         <AbsoluteFill>
           <Clip src={src} colors={colors} placeholderLabel={seg.label} punch />
-          <FlashCut />
           {seg.label ? <CountryLabel text={seg.label} /> : null}
           {seg.id === 'china' ? (
             <GrowthCounter target={42000} suffix="km" />
@@ -31,7 +31,7 @@ const SegmentView: React.FC<{seg: Segment}> = ({seg}) => {
     case 'break':
       return (
         <AbsoluteFill style={{backgroundColor: '#000'}}>
-          <Clip src={src} colors={colors} placeholderLabel="" slowZoom />
+          <Clip src={src} colors={colors} slowZoom />
           <AbsoluteFill style={{backgroundColor: '#000', opacity: 0.45}} />
           <BreakReveal />
         </AbsoluteFill>
@@ -72,19 +72,41 @@ const SegmentView: React.FC<{seg: Segment}> = ({seg}) => {
   }
 };
 
+/** Wraps a segment with its cross-dissolve fade-in (0 = hard cut). */
+const FadeIn: React.FC<{frames: number; children: React.ReactNode}> = ({
+  frames,
+  children,
+}) => {
+  const frame = useCurrentFrame();
+  const opacity =
+    frames <= 0 ? 1 : interpolate(frame, [0, frames], [0, 1], {
+      extrapolateLeft: 'clamp',
+      extrapolateRight: 'clamp',
+    });
+  return <AbsoluteFill style={{opacity}}>{children}</AbsoluteFill>;
+};
+
 export const Hook: React.FC = () => {
   return (
     <AbsoluteFill style={{backgroundColor: '#000'}}>
-      {SEGMENTS.map((seg) => (
-        <Sequence
-          key={seg.id}
-          from={sec(seg.from)}
-          durationInFrames={dur(seg)}
-          name={seg.id}
-        >
-          <SegmentView seg={seg} />
-        </Sequence>
-      ))}
+      {SEGMENTS.map((seg, i) => {
+        const anchor = sec(seg.from);
+        const nextAnchor =
+          i + 1 < SEGMENTS.length ? sec(SEGMENTS[i + 1].from) : sec(HOOK_END);
+        // The break slams in on a hard cut; everything else cross-dissolves.
+        const fadeIn = i === 0 || seg.id === 'usa-break' ? 0 : OVERLAP;
+        const from = anchor - fadeIn;
+        // Extend past the next anchor so the incoming clip's dissolve always
+        // has this one underneath — no black ever shows between cuts.
+        const duration = nextAnchor - from + OVERLAP;
+        return (
+          <Sequence key={seg.id} from={from} durationInFrames={duration} name={seg.id}>
+            <FadeIn frames={fadeIn}>
+              <SegmentBody seg={seg} />
+            </FadeIn>
+          </Sequence>
+        );
+      })}
 
       {/* Title card overlaps the tail of the last question line */}
       <Sequence
