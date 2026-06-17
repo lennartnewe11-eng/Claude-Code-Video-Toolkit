@@ -1,0 +1,21 @@
+{
+  "name": "usa-train-hook",
+  "version": "1.0.0",
+  "description": "Remotion hook for the USA-train video",
+  "scripts": {
+    "start": "remotion studio",
+    "render": "remotion render Hook out/hook.mp4",
+    "render:draft": "remotion render Hook out/hook-draft.mp4 --scale=0.5"
+  },
+  "dependencies": {
+    "@remotion/google-fonts": "4.0.479",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "remotion": "4.0.479"
+  },
+  "devDependencies": {
+    "@remotion/cli": "4.0.479",
+    "@types/react": "19.0.0",
+    "typescript": "5.5.4"
+  }
+}
