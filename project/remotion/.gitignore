@@ -11,9 +11,6 @@ public/bg/*
 !public/bg/.gitkeep
 public/cutvid/*
 !public/cutvid/.gitkeep
-public/photos/*
-public/maps/*
-public/clips/*
-!public/photos/.gitkeep
-!public/maps/.gitkeep
-!public/clips/.gitkeep
+# Note: public/photos, public/maps, public/clips ARE versioned (modest source
+# stills/maps/clips used by the evidence-board parts). Keep individual files
+# under ~5 MB; downscale large downloads before committing.
