@@ -238,6 +238,25 @@ export const Highlight: React.FC<{x: number; y: number; w: number; at?: number; 
   return <div style={{position: 'absolute', left: x, top: y, width: w * p, height: h, background: EV.yellow, opacity: 0.85, transform: 'skewX(-8deg)'}} />;
 };
 
+/** Typewriter reveal — characters appear one by one with a blinking cursor. */
+export const Typewriter: React.FC<{
+  text: string; x: number; y: number; size?: number; at?: number; cps?: number; color?: string; bold?: boolean;
+}> = ({text, x, y, size = 42, at = 0, cps = 28, color = EV.ink, bold}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const elapsed = Math.max(0, frame - at);
+  const n = Math.floor((elapsed / fps) * cps);
+  const shown = text.slice(0, n);
+  const done = n >= text.length;
+  const cursor = !done && Math.floor(frame / 8) % 2 === 0;
+  if (elapsed <= 0) return null;
+  return (
+    <div style={{position: 'absolute', left: x, top: y, fontFamily: mono, fontWeight: bold ? 700 : 400, fontSize: size, letterSpacing: '0.02em', color, whiteSpace: 'pre'}}>
+      {shown}<span style={{opacity: cursor ? 1 : 0}}>▌</span>
+    </div>
+  );
+};
+
 /** Red rubber stamp — slams in slightly oversized then settles, rotated. */
 export const Stamp: React.FC<{text: string; x: number; y: number; size?: number; at?: number; rot?: number}> = ({
   text, x, y, size = 64, at = 0, rot = -8,
