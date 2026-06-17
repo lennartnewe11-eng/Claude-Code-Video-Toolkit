@@ -11,3 +11,9 @@ public/bg/*
 !public/bg/.gitkeep
 public/cutvid/*
 !public/cutvid/.gitkeep
+public/photos/*
+public/maps/*
+public/clips/*
+!public/photos/.gitkeep
+!public/maps/.gitkeep
+!public/clips/.gitkeep
