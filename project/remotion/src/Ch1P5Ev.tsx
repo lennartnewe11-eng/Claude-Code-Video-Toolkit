@@ -1,6 +1,6 @@
 import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {FPS} from './timeline';
-import {GraphPaper, TypeHeading, Headline, TapedPhoto, RouteLine, Circle, RedNote, Crosshair, Highlight, MapDot} from './style/Evidence';
+import {GraphPaper, TypeHeading, Headline, TapedPhoto, RouteLine, Circle, RedNote, Crosshair, Highlight, MapDot, MapBackdrop} from './style/Evidence';
 import {CompareBars} from './style/DataViz';
 import {Sfx, TypeClicks, DroneBed} from './style/Sound';
 
@@ -32,8 +32,11 @@ export const Ch1P5Ev: React.FC = () => {
 
       {/* ── A · more than all of Europe ── */}
       <Group show={[0, f(4.9)]}>
+        {/* period maps behind the comparison */}
+        <MapBackdrop src="america1852.jpg" cx={600} cy={560} w={1020} at={f(0.4)} opacity={0.34} rot={-2} />
+        <MapBackdrop src="europe1852.jpg" cx={1500} cy={560} w={720} at={f(0.7)} opacity={0.34} rot={2} />
         <TypeHeading text="Größer als ein Kontinent" x={110} y={124} size={22} at={f(0.6)} highlight />
-        <CompareBars cx={920} cy={520} width={1000} a={{label: 'USA', frac: 1.0}} b={{label: 'Europa', frac: 0.6}} delay={f(0.8)} />
+        <CompareBars cx={920} cy={540} width={1000} a={{label: 'USA', frac: 1.0}} b={{label: 'Europa', frac: 0.6}} delay={f(0.8)} />
         <RedNote text="Mehr als GANZ Europa" x={960} y={300} size={56} at={f(1.6)} rot={-2} />
       </Group>
 

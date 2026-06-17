@@ -145,6 +145,16 @@ export const MapPlate: React.FC<{cx: number; cy: number; w: number; at?: number;
   );
 };
 
+/** Faint antique map placed as a background texture (no frame). */
+export const MapBackdrop: React.FC<{src: string; cx: number; cy: number; w: number; at?: number; opacity?: number; rot?: number}> = ({
+  src, cx, cy, w, at = 0, opacity = 0.32, rot = 0,
+}) => {
+  const {o} = useReveal(at, 14);
+  return (
+    <Img src={staticFile(`maps/${src}`)} style={{position: 'absolute', left: cx, top: cy, width: w, transform: `translate(-50%,-50%) rotate(${rot}deg)`, opacity: o * opacity, filter: 'sepia(0.5) contrast(1.05) brightness(0.96)'}} />
+  );
+};
+
 /** Red marker route that draws on (SVG), with optional arrow head. */
 export const RouteLine: React.FC<{
   points: [number, number][]; at?: number; drawFrames?: number; arrow?: boolean; width?: number;
