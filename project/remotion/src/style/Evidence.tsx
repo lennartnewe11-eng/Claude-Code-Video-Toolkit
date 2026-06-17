@@ -1,7 +1,49 @@
 import {
-  AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig,
+  AbsoluteFill, Img, interpolate, OffthreadVideo, spring, staticFile, useCurrentFrame, useVideoConfig,
 } from 'remotion';
 import {EV, mono, cond, PHOTO_SHADOW} from './evidence';
+
+/**
+ * Full-screen archival video insert — breaks up the collage but stays in the
+ * documentary look (B/W, grain, vignette, slow push, typewriter caption).
+ * Place inside a <Sequence> so it plays from its start.
+ */
+export const FullScreenVideo: React.FC<{src: string; caption?: string; stamp?: string; durationFrames: number}> = ({
+  src, caption, stamp, durationFrames,
+}) => {
+  const frame = useCurrentFrame();
+  const scale = interpolate(frame, [0, durationFrames], [1.05, 1.12]);
+  const inOut = interpolate(frame, [0, 4, durationFrames - 5, durationFrames], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const flick = 0.92 + 0.08 * Math.abs(Math.sin(frame * 1.7));
+  return (
+    <AbsoluteFill style={{backgroundColor: '#000', opacity: inOut}}>
+      <OffthreadVideo src={staticFile(`clips/${src}`)} muted style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale})`, filter: `grayscale(1) contrast(1.15) brightness(${flick})`}} />
+      {/* grain + scanlines */}
+      <AbsoluteFill style={{backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 3px)', opacity: 0.5}} />
+      <AbsoluteFill style={{boxShadow: 'inset 0 0 260px rgba(0,0,0,0.85)'}} />
+      {stamp && (
+        <div style={{position: 'absolute', top: 60, right: 100, fontFamily: mono, fontWeight: 700, fontSize: 26, letterSpacing: '0.18em', color: '#e9e4d6'}}>{stamp}</div>
+      )}
+      {caption && (
+        <div style={{position: 'absolute', left: 70, bottom: 70, fontFamily: mono, fontSize: 30, letterSpacing: '0.08em', color: '#e9e4d6', borderLeft: `4px solid ${EV.red}`, paddingLeft: 18}}>{caption}</div>
+      )}
+    </AbsoluteFill>
+  );
+};
+
+/** Red marker ellipse that draws around something. */
+export const Circle: React.FC<{x: number; y: number; rx: number; ry: number; at?: number; rot?: number}> = ({
+  x, y, rx, ry, at = 0, rot = -5,
+}) => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame - at, [0, 20], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const C = 2 * Math.PI * Math.max(rx, ry);
+  return (
+    <svg style={{position: 'absolute', left: x - rx - 10, top: y - ry - 10}} width={rx * 2 + 20} height={ry * 2 + 20}>
+      <ellipse cx={rx + 10} cy={ry + 10} rx={rx} ry={ry} fill="none" stroke={EV.red} strokeWidth={4} strokeDasharray={C} strokeDashoffset={C * (1 - p)} transform={`rotate(${rot} ${rx + 10} ${ry + 10})`} />
+    </svg>
+  );
+};
 
 /** Graph-paper / case-file background. */
 export const GraphPaper: React.FC = () => (
