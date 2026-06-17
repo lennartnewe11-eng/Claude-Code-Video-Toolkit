@@ -101,15 +101,15 @@ export const Headline: React.FC<{text: string; x: number; y: number; size?: numb
 
 /** A taped B/W photo with caption + redaction bar. */
 export const TapedPhoto: React.FC<{
-  src: string; cx: number; cy: number; w: number; rot?: number; at?: number; caption?: string; folder?: string;
-}> = ({src, cx, cy, w, rot = 0, at = 0, caption, folder = 'photos'}) => {
+  src: string; cx: number; cy: number; w: number; rot?: number; at?: number; caption?: string; folder?: string; gray?: boolean;
+}> = ({src, cx, cy, w, rot = 0, at = 0, caption, folder = 'photos', gray = true}) => {
   const {s, o} = useReveal(at);
   const scale = interpolate(s, [0, 1], [0.86, 1]);
   return (
     <div style={{position: 'absolute', left: cx, top: cy, transform: `translate(-50%,-50%) rotate(${rot}deg) scale(${scale})`, opacity: o, background: '#fbf8ef', padding: 12, paddingBottom: caption ? 44 : 12, boxShadow: PHOTO_SHADOW, width: w}}>
       {/* tape */}
       <div style={{position: 'absolute', top: -16, left: '50%', transform: 'translateX(-50%) rotate(-4deg)', width: 110, height: 30, background: EV.tape, boxShadow: '0 1px 2px rgba(0,0,0,0.15)'}} />
-      <Img src={staticFile(`${folder}/${src}`)} style={{width: '100%', display: 'block', filter: 'grayscale(1) contrast(1.08) brightness(0.98)'}} />
+      <Img src={staticFile(`${folder}/${src}`)} style={{width: '100%', display: 'block', filter: gray ? 'grayscale(1) contrast(1.08) brightness(0.98)' : 'contrast(1.03) saturate(1.05)'}} />
       {caption && (
         <div style={{position: 'absolute', left: 14, bottom: 12, fontFamily: mono, fontSize: 18, color: EV.inkSoft, letterSpacing: '0.04em'}}>{caption}</div>
       )}
