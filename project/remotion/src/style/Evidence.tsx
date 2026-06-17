@@ -90,15 +90,15 @@ export const BodyBlock: React.FC<{lines: string[]; x: number; y: number; w: numb
   );
 };
 
-/** The annotated map plate (1867 map), darkened, slides in. */
-export const MapPlate: React.FC<{cx: number; cy: number; w: number; at?: number; rot?: number}> = ({
-  cx, cy, w, at = 0, rot = 0,
+/** An annotated antique map plate, darkened, slides in. */
+export const MapPlate: React.FC<{cx: number; cy: number; w: number; at?: number; rot?: number; src?: string}> = ({
+  cx, cy, w, at = 0, rot = 0, src = 'us1867.jpg',
 }) => {
   const {s, o} = useReveal(at, 12);
   const scale = interpolate(s, [0, 1], [0.92, 1]);
   return (
     <div style={{position: 'absolute', left: cx, top: cy, width: w, transform: `translate(-50%,-50%) rotate(${rot}deg) scale(${scale})`, opacity: o, boxShadow: PHOTO_SHADOW, border: '6px solid #1b1812'}}>
-      <Img src={staticFile('maps/us1867.jpg')} style={{width: '100%', display: 'block', filter: 'sepia(0.35) contrast(1.12) brightness(0.92) saturate(0.8)'}} />
+      <Img src={staticFile(`maps/${src}`)} style={{width: '100%', display: 'block', filter: 'sepia(0.35) contrast(1.12) brightness(0.92) saturate(0.8)'}} />
     </div>
   );
 };
@@ -151,6 +151,22 @@ export const CircleLabel: React.FC<{text: string; x: number; y: number; at?: num
         <ellipse cx={90} cy={48} rx={78} ry={36} fill="none" stroke={EV.red} strokeWidth={4} strokeDasharray={C} strokeDashoffset={C * (1 - p)} transform="rotate(-6 90 48)" />
       </svg>
       <div style={{opacity: o, fontFamily: mono, fontWeight: 700, fontSize: size, color: EV.ink, letterSpacing: '0.08em'}}>{text}</div>
+    </div>
+  );
+};
+
+/** A map marker: red dot pops in with a small typewriter label. */
+export const MapDot: React.FC<{x: number; y: number; label?: string; at?: number; struck?: boolean; below?: boolean}> = ({
+  x, y, label, at = 0, struck, below,
+}) => {
+  const {s, o} = useReveal(at);
+  const sc = interpolate(s, [0, 1], [0, 1]);
+  return (
+    <div style={{position: 'absolute', left: x, top: y}}>
+      <div style={{position: 'absolute', left: 0, top: 0, width: 18, height: 18, borderRadius: '50%', background: struck ? '#5d574c' : EV.red, border: `3px solid ${EV.paper}`, transform: `translate(-50%,-50%) scale(${sc})`}} />
+      {label && (
+        <div style={{position: 'absolute', left: 16, top: below ? 8 : -30, opacity: o, fontFamily: mono, fontWeight: 700, fontSize: 18, letterSpacing: '0.08em', color: EV.ink, whiteSpace: 'nowrap', textDecoration: struck ? 'line-through' : 'none'}}>{label}</div>
+      )}
     </div>
   );
 };
