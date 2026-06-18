@@ -296,6 +296,20 @@ export const Typewriter: React.FC<{
   );
 };
 
+/** Big red X drawn over a region (to strike something out). */
+export const BigX: React.FC<{x: number; y: number; w: number; h: number; at?: number}> = ({x, y, w, h, at = 0}) => {
+  const frame = useCurrentFrame();
+  const p1 = interpolate(frame - at, [0, 7], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const p2 = interpolate(frame - at, [6, 13], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const d = Math.hypot(w, h);
+  return (
+    <svg style={{position: 'absolute', left: x, top: y}} width={w} height={h}>
+      <line x1={0} y1={0} x2={w} y2={h} stroke={EV.red} strokeWidth={9} strokeLinecap="round" strokeDasharray={d} strokeDashoffset={d * (1 - p1)} />
+      <line x1={w} y1={0} x2={0} y2={h} stroke={EV.red} strokeWidth={9} strokeLinecap="round" strokeDasharray={d} strokeDashoffset={d * (1 - p2)} />
+    </svg>
+  );
+};
+
 /** Red rubber stamp — slams in slightly oversized then settles, rotated. */
 export const Stamp: React.FC<{text: string; x: number; y: number; size?: number; at?: number; rot?: number}> = ({
   text, x, y, size = 64, at = 0, rot = -8,
