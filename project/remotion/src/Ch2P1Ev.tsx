@@ -1,73 +1,85 @@
-import {AbsoluteFill, Audio, Easing, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Easing, Img, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig} from 'remotion';
 import {FPS} from './timeline';
-import {GraphPaper, TypeHeading, Typewriter, Stamp, Circle, Crosshair} from './style/Evidence';
-import {Sfx, DroneBed} from './style/Sound';
+import {GraphPaper, TypeHeading, Headline, Typewriter, Highlight, Crosshair, RedNote, Redaction} from './style/Evidence';
+import {Sfx, TypeClicks, DroneBed} from './style/Sound';
 import {CUTOUT_SHADOW} from './style/theme';
 
-export const C2P1_DURATION = Math.round(4.0 * FPS);
+const START = 109.24;
+export const C2P1_DURATION = Math.round(6.8 * FPS);
 const f = (s: number) => Math.round(s * FPS);
 
-const ENTER = f(0.6);   // car starts entering
-const REST = f(2.0);    // car has braked to rest
+const DROP = f(4.3);        // car starts falling
+const FALL = 13;            // frames to hit the ground
+const LAND = DROP + FALL;
 
-/**
- * Chapter 2 · opening shot. The Chapter-1 closing board ("...so DOMINANT...
- * nobody believed it could ever change") still holds — then a car slides in
- * from the side, brakes, and nearly covers the whole frame: the automobile
- * arrives.
- */
+const TYPE = 0.2, STAMP = 0.55, DRONE = 0.06;
+
 export const Ch2P1Ev: React.FC = () => {
   const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
 
-  const p = interpolate(frame, [ENTER, REST], [0, 1], {
-    extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.out(Easing.cubic),
-  });
-  const x = interpolate(p, [0, 1], [2500, 40]); // off-right -> ~centred
-  const blur = interpolate(frame, [ENTER, REST - 6], [16, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  // suspension bob on stop
-  const t = frame - REST;
-  const bob = t > 0 ? Math.sin(t / 3) * Math.max(0, 7 - t * 0.5) : 0;
-  // the railroad world dims as the car takes over
-  const dim = interpolate(frame, [REST - 14, REST + 8], [0, 0.45], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  // fall: accelerate down, then settle with a damped bounce
+  const fallP = interpolate(frame, [DROP, LAND], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.in(Easing.quad)});
+  const settle = spring({frame: frame - LAND, fps, config: {damping: 9, stiffness: 200, mass: 1.1}});
+  const restY = 430;
+  const tensionFade = interpolate(frame, [LAND, LAND + 10], [1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const carY = frame < LAND
+    ? interpolate(fallP, [0, 1], [-1250, restY])
+    : restY - interpolate(settle, [0, 1], [60, 0]) * Math.cos(Math.min(1, (frame - LAND) / 18) * Math.PI); // tiny overshoot
+  const fallBlur = interpolate(frame, [DROP, LAND - 2], [0, 22], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}) * (frame < LAND ? 1 : 0);
+
+  // impact screen shake
+  const sh = frame >= LAND ? Math.max(0, 1 - (frame - LAND) / 12) : 0;
+  const shake = sh * 14 * Math.sin((frame - LAND) * 3.1);
+  const dust = interpolate(frame, [LAND, LAND + 14], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
 
   return (
-    <AbsoluteFill>
-      {/* ── static Chapter-1 end frame ── */}
+    <AbsoluteFill style={{transform: `translate(${shake}px, ${shake * 0.5}px)`}}>
       <GraphPaper />
-      <AbsoluteFill style={{opacity: 0.16}}>
-        <Img src={staticFile('photos/goldenspike.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'grayscale(1) contrast(1.1)', transform: 'scale(1.12)'}} />
+
+      <TypeHeading text="Akte 02 — Der Herausforderer" x={110} y={70} size={26} at={f(0.2)} highlight />
+      <Crosshair x={1850} y={70} at={f(0.6)} />
+
+      {/* tension build (fades out on impact) */}
+      <AbsoluteFill style={{opacity: tensionFade}}>
+        <Typewriter text="Auf dem absoluten Höhepunkt —" x={150} y={210} size={40} at={f(0.5)} cps={26} />
+        <Headline text="taucht ein Konkurrent auf" x={150} y={290} size={66} at={f(1.8)} />
+        <Highlight x={150} y={300} w={760} at={f(2.2)} h={26} />
+        <RedNote text="?" x={1180} y={300} size={140} at={f(2.6)} rot={6} />
       </AbsoluteFill>
-      <AbsoluteFill style={{boxShadow: 'inset 0 0 320px rgba(40,34,22,0.55)'}} />
-      <TypeHeading text="Akte 01 — Das goldene Zeitalter" x={110} y={70} size={26} at={-30} />
-      <Crosshair x={1850} y={70} at={-30} />
-      <Typewriter text="Die Eisenbahn war so" x={560} y={320} size={46} at={-120} />
-      <Stamp text="Dominant" x={770} y={485} size={120} at={-30} rot={-4} />
-      <Typewriter text="dass niemand glaubte," x={560} y={650} size={44} at={-120} />
-      <Typewriter text="es könne sich jemals ändern." x={560} y={725} size={44} at={-120} />
-      <Circle x={870} y={747} rx={215} ry={40} at={-30} rot={-3} />
 
-      {/* darken as the car barges in */}
-      <AbsoluteFill style={{backgroundColor: '#0d0b08', opacity: dim}} />
+      {/* dust puffs on impact */}
+      {frame >= LAND && (
+        <>
+          <div style={{position: 'absolute', left: 430, top: 820, width: 360, height: 360, borderRadius: '50%', background: 'rgba(90,80,60,0.35)', transform: `translate(-50%,-50%) scale(${dust * 1.6})`, opacity: (1 - dust) * 0.6, filter: 'blur(24px)'}} />
+          <div style={{position: 'absolute', left: 1320, top: 820, width: 360, height: 360, borderRadius: '50%', background: 'rgba(90,80,60,0.35)', transform: `translate(-50%,-50%) scale(${dust * 1.6})`, opacity: (1 - dust) * 0.6, filter: 'blur(24px)'}} />
+        </>
+      )}
 
-      {/* ── the car ── */}
-      {frame >= ENTER - 1 && (
+      {/* the car falls in at "Das Auto" */}
+      {frame >= DROP - 1 && (
         <Img
-          src={staticFile('cutouts/car.png')}
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '58%',
-            width: 2400,
-            transform: `translate(-50%, -50%) translate(${x}px, ${bob}px)`,
-            filter: `${CUTOUT_SHADOW} blur(${blur}px)`,
-          }}
+          src={staticFile('cutouts/modelt.png')}
+          style={{position: 'absolute', left: '50%', top: 0, width: 1320, transform: `translate(-50%, ${carY}px)`, filter: `${CUTOUT_SHADOW} blur(${fallBlur}px)`}}
         />
       )}
 
+      {/* the reveal — big, on a yellow block in the clear upper area */}
+      {frame >= LAND - 1 && (
+        <>
+          <div style={{position: 'absolute', left: 600, top: 200, width: 720, height: 120, background: '#ffd83a', transform: 'skewX(-6deg)', opacity: interpolate(frame, [LAND, LAND + 6], [0, 0.95], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}} />
+          <Headline text="Das Auto" x={630} y={210} size={120} at={LAND} />
+        </>
+      )}
+
       {/* ── sound ── */}
-      <DroneBed durationInFrames={C2P1_DURATION} volume={0.06} />
-      <Sfx src="sfx_skid.mp3" at={ENTER} volume={0.45} dur={f(2.2)} />
-      <Sfx src="sfx_stamp.mp3" at={REST} volume={0.5} />
+      <DroneBed durationInFrames={C2P1_DURATION} volume={DRONE} />
+      <TypeClicks at={f(0.5)} n={8} gap={4} volume={TYPE} />
+      <Sfx src="sfx_stamp.mp3" at={f(2.2)} volume={0.4} />
+      <Sfx src="sfx_stamp.mp3" at={LAND} volume={STAMP} />
+      <Sfx src="sfx_stamp.mp3" at={LAND + 1} volume={0.4} />
+
+      <Audio src={staticFile('audio/vo.m4a')} startFrom={Math.round(START * FPS)} volume={1} />
     </AbsoluteFill>
   );
 };
