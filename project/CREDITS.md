@@ -17,6 +17,14 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Bestes Netz (1869) | `best-network.jpg` | „East and West Shaking hands…" — Andrew J. Russell (Restauration: Adam Cuerden) | Public domain |
 | Verspielt (Verfall) | `squandered.jpg` | „Abandoned railway" — Peter Moore (geograph.org.uk) | CC BY-SA 2.0 |
 
+## Kapitel 3 — Der verpasste Schnellzug
+
+| Beat | Datei | Quelle / Urheber | Lizenz |
+|---|---|---|---|
+| US-Güterzug (Akte 03) | `clips/freight.mp4` | US-Güterzug, B/W (Wikimedia Commons / Archive) | CC0 / PD |
+| Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
+| Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
+
 ## Audio
 
 | Rolle | Datei | Quelle / Urheber | Lizenz |
