@@ -26,14 +26,14 @@ export const Ch2P4Ev: React.FC = () => {
       <TypeHeading text="Vom Luxus zur Masse" x={110} y={124} size={22} at={f(0.5)} highlight />
       <Crosshair x={1850} y={70} at={f(0.8)} />
 
-      {/* Oberschicht — the few */}
-      <Img src={staticFile('cutouts/tophat.png')} style={{position: 'absolute', left: 320, top: 380, width: 180, transform: 'translate(-50%,-50%)', filter: CUTOUT_SHADOW}} />
-      <DashedBox x={210} y={300} w={230} h={210} at={f(0.7)} />
-      <TypeHeading text="nur die Oberschicht" x={210} y={540} size={22} at={f(0.9)} />
-      <RedNote text="nicht nur" x={330} y={250} size={34} at={f(1.0)} rot={-6} />
+      {/* Oberschicht — the few (an expensive luxury car) */}
+      <Img src={staticFile('cutouts/luxcar.png')} style={{position: 'absolute', left: 380, top: 430, width: 440, transform: 'translate(-50%,-50%)', filter: CUTOUT_SHADOW}} />
+      <DashedBox x={150} y={320} w={470} h={230} at={f(0.7)} />
+      <TypeHeading text="nur die Oberschicht" x={180} y={575} size={22} at={f(0.9)} />
+      <RedNote text="nicht nur" x={360} y={270} size={34} at={f(1.0)} rot={-6} />
 
       {/* arrow to the many */}
-      <RouteLine points={[[470, 410], [760, 430], [980, 430]]} at={f(2.0)} drawFrames={20} />
+      <RouteLine points={[[630, 430], [800, 435], [980, 430]]} at={f(2.0)} drawFrames={20} />
 
       {/* Mittelschicht — the many */}
       <TapedPhoto src="family.jpg" cx={1330} cy={420} w={560} rot={2} at={f(1.4)} caption="Familie mit Auto, ca. 1921" />
