@@ -223,6 +223,45 @@ export const MapDot: React.FC<{x: number; y: number; label?: string; at?: number
   );
 };
 
+/** Dashed box that draws/fades in around an area. */
+export const DashedBox: React.FC<{x: number; y: number; w: number; h: number; at?: number; color?: string}> = ({
+  x, y, w, h, at = 0, color = EV.ink,
+}) => {
+  const {o} = useReveal(at);
+  return <div style={{position: 'absolute', left: x, top: y, width: w, height: h, border: `2px dashed ${color}`, opacity: o * 0.85}} />;
+};
+
+/** Corner registration brackets framing a region. */
+export const CornerMarks: React.FC<{x: number; y: number; w: number; h: number; at?: number; size?: number; color?: string}> = ({
+  x, y, w, h, at = 0, size = 28, color = EV.red,
+}) => {
+  const {o} = useReveal(at);
+  const B = (st: React.CSSProperties) => <div style={{position: 'absolute', width: size, height: size, ...st}} />;
+  const line = `3px solid ${color}`;
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: w, height: h, opacity: o}}>
+      {B({top: 0, left: 0, borderTop: line, borderLeft: line})}
+      {B({top: 0, right: 0, borderTop: line, borderRight: line})}
+      {B({bottom: 0, left: 0, borderBottom: line, borderLeft: line})}
+      {B({bottom: 0, right: 0, borderBottom: line, borderRight: line})}
+    </div>
+  );
+};
+
+/** Round rubber seal/stamp (e.g. file authority). */
+export const Seal: React.FC<{text: string; x: number; y: number; at?: number; size?: number; rot?: number}> = ({
+  text, x, y, at = 0, size = 150, rot = -12,
+}) => {
+  const {s} = useReveal(at);
+  const sc = interpolate(s, [0, 0.5, 1], [1.6, 0.95, 1]);
+  const op = interpolate(s, [0, 0.25], [0, 1], {extrapolateRight: 'clamp'}) * 0.8;
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: size, height: size, transform: `translate(-50%,-50%) rotate(${rot}deg) scale(${sc})`, opacity: op, borderRadius: '50%', border: `4px double ${EV.red}`, display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', color: EV.red, fontFamily: mono, fontWeight: 700, fontSize: size * 0.13, letterSpacing: '0.12em', textTransform: 'uppercase', padding: size * 0.12, lineHeight: 1.2}}>
+      {text}
+    </div>
+  );
+};
+
 /** Crosshair registration mark. */
 export const Crosshair: React.FC<{x: number; y: number; at?: number}> = ({x, y, at = 0}) => {
   const {o} = useReveal(at);
