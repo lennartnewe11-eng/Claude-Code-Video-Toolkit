@@ -21,7 +21,7 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 
 | Beat | Datei | Quelle / Urheber | Lizenz |
 |---|---|---|---|
-| US-Güterzug (Akte 03) | `clips/freight.mp4` | US-Güterzug, B/W (Wikimedia Commons / Archive) | CC0 / PD |
+| US-Personenverkehr (Akte 03) | `clips/railpax.mp4` | „Big Trains Rolling" (1955), Bahnhof/Streamliner — Internet Archive (Prelinger) | Public domain |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 
