@@ -41,9 +41,9 @@ export const Ch2P8Ev: React.FC = () => {
       {/* highway (bottom) */}
       <VideoBand src="highway.mp4" top={gapBot} height={hwH} />
 
-      {/* the squeezed railroad in the middle */}
-      <Img src={staticFile('cutouts/train.png')} style={{position: 'absolute', left: '50%', top: trainY, width: 1000, transform: `translate(-50%,-50%) scaleY(${trainScaleY})`, filter: CUTOUT_SHADOW}} />
-      <div style={{position: 'absolute', left: '50%', top: trainY + 70 * trainScaleY, transform: 'translate(-50%,-50%)', fontFamily: cond, fontWeight: 700, fontSize: 30, color: EV.ink, opacity: interpolate(frame, [f(0.3), f(2)], [0, 1], {extrapolateRight: 'clamp'})}}>DIE BAHN</div>
+      {/* the squeezed railroad — rear at the left edge */}
+      <Img src={staticFile('cutouts/jrtrain.png')} style={{position: 'absolute', left: 0, top: trainY, width: 1680, transform: `translate(0,-50%) scaleY(${trainScaleY})`, filter: CUTOUT_SHADOW}} />
+      <div style={{position: 'absolute', left: 760, top: trainY + 130 * trainScaleY, transform: 'translate(-50%,-50%)', fontFamily: cond, fontWeight: 700, fontSize: 30, color: EV.ink, opacity: interpolate(frame, [f(0.3), f(2)], [0, 1], {extrapolateRight: 'clamp'})}}>DIE BAHN</div>
 
       {/* pincer arrows */}
       <div style={{position: 'absolute', left: 0, top: gapTop + 6, width: 1920, textAlign: 'center', color: EV.red, fontFamily: cond, fontSize: 50, opacity: arrowO, letterSpacing: 40}}>▼▼▼</div>
