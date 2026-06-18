@@ -340,3 +340,70 @@ export const Redaction: React.FC<{x: number; y: number; w: number; at?: number; 
   const {o} = useReveal(at);
   return <div style={{position: 'absolute', left: x, top: y, width: w, height: h, background: EV.ink, opacity: o}} />;
 };
+
+/** Risograph / newsprint halftone dot texture overlay. */
+export const Halftone: React.FC<{opacity?: number; size?: number; color?: string}> = ({opacity = 0.1, size = 7, color = 'rgba(20,16,10,1)'}) => (
+  <AbsoluteFill style={{backgroundImage: `radial-gradient(${color} 1px, transparent 1.5px)`, backgroundSize: `${size}px ${size}px`, opacity, mixBlendMode: 'multiply', pointerEvents: 'none'}} />
+);
+
+/** Typed case-file document: LABEL ........ value rows, revealed line by line,
+ *  with optional yellow highlight on key rows. */
+export const Dossier: React.FC<{
+  x: number; y: number; w: number; at?: number; title?: string; size?: number;
+  rows: {label: string; value: string; hl?: boolean}[];
+}> = ({x, y, w, at = 0, title, size = 22, rows}) => {
+  const frame = useCurrentFrame();
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: w, fontFamily: mono, color: EV.ink}}>
+      {title && (
+        <div style={{fontWeight: 700, fontSize: size * 0.92, letterSpacing: '0.16em', textTransform: 'uppercase', borderBottom: `2px solid ${EV.ink}`, paddingBottom: 6, marginBottom: 14, opacity: interpolate(frame - at, [0, 7], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>{title}</div>
+      )}
+      {rows.map((r, i) => {
+        const o = interpolate(frame - at - 8 - i * 7, [0, 7], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+        const hw = interpolate(frame - at - 8 - i * 7, [4, 14], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+        return (
+          <div key={i} style={{display: 'flex', alignItems: 'baseline', opacity: o, marginBottom: size * 0.62, position: 'relative'}}>
+            <span style={{fontSize: size * 0.74, fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: EV.inkSoft, whiteSpace: 'nowrap'}}>{r.label}</span>
+            <span style={{flex: 1, margin: '0 8px', borderBottom: `2px dotted ${EV.inkSoft}`, transform: 'translateY(-4px)', opacity: 0.6}} />
+            <span style={{position: 'relative', fontSize: size, fontWeight: 700, whiteSpace: 'nowrap'}}>
+              {r.hl && <span style={{position: 'absolute', left: -5, top: '14%', height: '78%', width: `calc(${hw * 100}% + 10px)`, background: EV.yellow, zIndex: -1, transform: 'skewX(-6deg)'}} />}
+              {r.value}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/** A taped quote / caption card (white slip with a handwritten-style quote). */
+export const QuoteBox: React.FC<{text: string; x: number; y: number; w: number; at?: number; rot?: number; size?: number; cite?: string}> = ({
+  text, x, y, w, at = 0, rot = -2, size = 26, cite,
+}) => {
+  const {s, o} = useReveal(at);
+  const sc = interpolate(s, [0, 1], [0.9, 1]);
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: w, transform: `rotate(${rot}deg) scale(${sc})`, opacity: o, background: '#fbf8ef', padding: '20px 22px', boxShadow: PHOTO_SHADOW}}>
+      <div style={{position: 'absolute', top: -14, left: 28, width: 90, height: 26, background: EV.tape, transform: 'rotate(-3deg)'}} />
+      <div style={{fontFamily: mono, fontSize: size, lineHeight: 1.35, color: EV.ink}}>{`„${text}"`}</div>
+      {cite && <div style={{fontFamily: mono, fontSize: size * 0.62, color: EV.inkSoft, marginTop: 10, textAlign: 'right'}}>— {cite}</div>}
+    </div>
+  );
+};
+
+/** A hand-drawn ink circle around a small filing number/annotation. */
+export const FileTag: React.FC<{text: string; x: number; y: number; at?: number; size?: number; color?: string}> = ({
+  text, x, y, at = 0, size = 64, color = EV.ink,
+}) => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame - at, [0, 18], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const C = 2 * Math.PI * (size * 0.5);
+  return (
+    <div style={{position: 'absolute', left: x, top: y, width: size, height: size, transform: 'translate(-50%,-50%)'}}>
+      <svg width={size} height={size} style={{position: 'absolute', left: 0, top: 0}}>
+        <ellipse cx={size / 2} cy={size / 2} rx={size * 0.46} ry={size * 0.42} fill="none" stroke={color} strokeWidth={3} strokeDasharray={C} strokeDashoffset={C * (1 - p)} transform={`rotate(-12 ${size / 2} ${size / 2})`} />
+      </svg>
+      <div style={{position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: cond, fontWeight: 700, fontSize: size * 0.42, color, opacity: interpolate(frame - at, [2, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>{text}</div>
+    </div>
+  );
+};
