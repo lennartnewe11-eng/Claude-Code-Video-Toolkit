@@ -24,6 +24,8 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | US-Personenverkehr (Akte 03) | `clips/railpax.mp4` | „Big Trains Rolling" (1955), Bahnhof/Streamliner — Internet Archive (Prelinger) | Public domain |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
+| Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
+| Düsen-Stunt: Triebwerk | `photos/j47.jpg` | General Electric J47-27 Turbojet (USAF, Wikimedia Commons) | Public domain |
 
 ## Audio
 
