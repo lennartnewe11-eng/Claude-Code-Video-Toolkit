@@ -7,7 +7,7 @@ import {Sfx, TypeClicks, DroneBed} from './style/Sound';
 const START = 324.30;
 export const C3P4_DURATION = Math.round(32.8 * FPS);
 const f = (s: number) => Math.round(s * FPS);
-const TYPE = 0.2, STAMP = 0.5, DRONE = 0.06, PAPER = 0.3;
+const TYPE = 0.2, STAMP = 0.5, DRONE = 0.06, PAPER = 0.3, DRAW = 0.3;
 
 const Group: React.FC<{show: [number, number]; children: React.ReactNode}> = ({show, children}) => {
   const frame = useCurrentFrame();
@@ -30,6 +30,56 @@ const VideoPanel: React.FC<{src: string; left: number; top: number; w: number; h
     </div>
   </div>
 );
+
+/** Blueprint reconstruction: a railcar with two jet engines bolted to the roof. */
+const JetSchematic: React.FC<{x: number; y: number; from: number}> = ({x, y, from}) => {
+  const frame = useCurrentFrame();
+  const p = interpolate(frame, [from, from + f(2.6)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const thrust = interpolate(frame, [from + f(2.4), from + f(3.4)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const drop = (1 - p) * -120; // engines descend onto the roof
+  const Engine: React.FC<{ex: number}> = ({ex}) => (
+    <g transform={`translate(${ex},${70 + drop})`} opacity={p}>
+      <rect x={0} y={0} width={150} height={46} rx={23} fill="#cfc8b6" stroke={EV.ink} strokeWidth={3} />
+      <ellipse cx={4} cy={23} rx={9} ry={22} fill="#2a261d" stroke={EV.ink} strokeWidth={2} />
+      <rect x={150} y={10} width={24} height={26} rx={4} fill="#2a261d" />
+      {/* mount struts */}
+      <line x1={28} y1={46} x2={28} y2={70} stroke={EV.ink} strokeWidth={3} />
+      <line x1={120} y1={46} x2={120} y2={70} stroke={EV.ink} strokeWidth={3} />
+      {/* thrust */}
+      <g opacity={thrust}>
+        {[0, 1, 2].map((i) => (
+          <line key={i} x1={176 + i * 14} y1={23} x2={196 + i * 14} y2={23} stroke={EV.red} strokeWidth={4 - i} />
+        ))}
+      </g>
+    </g>
+  );
+  return (
+    <svg style={{position: 'absolute', left: x, top: y}} width={900} height={320}>
+      {/* track */}
+      <line x1={20} y1={250} x2={880} y2={250} stroke={EV.ink} strokeWidth={3} />
+      <line x1={20} y1={258} x2={880} y2={258} stroke={EV.inkSoft} strokeWidth={2} strokeDasharray="14 10" />
+      {/* car body */}
+      <rect x={70} y={140} width={760} height={96} rx={16} fill="rgba(207,200,182,0.5)" stroke={EV.ink} strokeWidth={3} />
+      {/* cab nose (right) */}
+      <path d="M830 140 q40 8 40 48 q0 40 -40 48 Z" fill="rgba(207,200,182,0.5)" stroke={EV.ink} strokeWidth={3} />
+      {/* windows */}
+      {Array.from({length: 9}).map((_, i) => (
+        <rect key={i} x={96 + i * 78} y={158} width={52} height={30} rx={3} fill="#2a261d" opacity={0.85} />
+      ))}
+      {/* wheels */}
+      {[170, 250, 640, 720].map((wx) => (
+        <circle key={wx} cx={wx} cy={250} r={18} fill="none" stroke={EV.ink} strokeWidth={3} />
+      ))}
+      {/* the two jet engines */}
+      <Engine ex={150} />
+      <Engine ex={470} />
+      {/* annotations */}
+      <text x={150} y={36} fontFamily={mono} fontWeight={700} fontSize={20} fill={EV.ink} opacity={p}>2× GE J47 DÜSENTRIEBWERK</text>
+      <line x1={300} y1={44} x2={300} y2={66} stroke={EV.red} strokeWidth={3} opacity={p} />
+      <text x={360} y={206} fontFamily={mono} fontSize={18} fill={EV.inkSoft}>ganz normaler Personenwagon</text>
+    </svg>
+  );
+};
 
 /** Semicircular speed gauge counting up to a target. */
 const Speedo: React.FC<{x: number; y: number; from: number; to: number; target: number}> = ({x, y, from, to, target}) => {
@@ -96,25 +146,24 @@ export const Ch3P4Ev: React.FC = () => {
         <TypeHeading text="= das Ergebnis" x={1150} y={470} size={26} at={f(11.0)} highlight />
       </Group>
 
-      {/* ── Board 2: the real thing, marked up ── */}
+      {/* ── Board 2: the reconstruction (blueprint) ── */}
       <Group show={[f(12.1), f(23.2)]}>
-        <Headline text="Zwei Triebwerke aufs Dach" x={120} y={170} size={70} at={f(12.4)} />
-        <TypeHeading text="…geschraubt — und über eine schnurgerade Strecke gejagt" x={125} y={264} size={24} at={f(13.8)} color="#5d574c" />
+        <Headline text="Zwei Triebwerke aufs Dach" x={120} y={200} size={72} at={f(12.4)} />
+        <TypeHeading text="…geschraubt — und über eine schnurgerade Strecke gejagt" x={125} y={300} size={24} at={f(13.8)} color="#5d574c" />
 
-        {/* the real M-497, large, annotated */}
-        <TapedPhoto src="m497.jpg" cx={1170} cy={620} w={1080} rot={-1} at={f(13.2)} caption="M-497 »Black Beetle« — die echte Aufnahme" />
-        <RedNote text="2× J47" x={1560} y={345} size={46} at={f(15.6)} rot={-6} />
-        <div style={{position: 'absolute', left: 1500, top: 380, width: 2, height: 70, background: EV.red, opacity: interpolate(frame, [f(15.8), f(16.4)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}} />
+        <div style={{position: 'absolute', left: 470, top: 360, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.18em', color: EV.inkSoft}}>REKONSTRUKTION</div>
+        <JetSchematic x={470} y={400} from={f(13.4)} />
 
-        {/* looping period-rail panel = the test track motion */}
-        <VideoPanel src="railpax.mp4" left={110} top={560} w={330} h={240} loopFrames={RAIL} startFrom={Math.round(4.5 * FPS)} rot={-2} tape />
-        <div style={{position: 'absolute', left: 120, top: 812, fontFamily: mono, fontSize: 18, color: EV.inkSoft}}>schnurgerade Teststrecke (Symbolbild)</div>
+        {/* small looping period-rail panel = the test track motion */}
+        <VideoPanel src="railpax.mp4" left={110} top={430} w={330} h={240} loopFrames={RAIL} startFrom={Math.round(4.5 * FPS)} rot={-2} tape />
+        <div style={{position: 'absolute', left: 120, top: 682, fontFamily: mono, fontSize: 18, color: EV.inkSoft}}>schnurgerade Teststrecke (Symbolbild)</div>
 
-        <Dossier x={110} y={350} w={520} at={f(15.0)} title="Versuchsaufbau"
+        <Dossier x={1320} y={430} w={520} at={f(15.0)} title="Versuchsaufbau"
           rows={[
             {label: 'Träger', value: 'Budd RDC'},
             {label: 'Antrieb', value: '2× GE J47', hl: true},
             {label: 'Strecke', value: 'flach & gerade'},
+            {label: 'Ziel', value: 'reines Tempo', hl: true},
           ]} />
       </Group>
 
@@ -139,7 +188,7 @@ export const Ch3P4Ev: React.FC = () => {
       <Sfx src="sfx_paper.mp3" at={f(6.4)} volume={PAPER} />
       <Sfx src="sfx_paper.mp3" at={f(8.0)} volume={PAPER} />
       <Sfx src="sfx_stamp.mp3" at={f(10.6)} volume={0.45} />
-      <Sfx src="sfx_paper.mp3" at={f(13.2)} volume={PAPER} />
+      <Sfx src="sfx_draw.mp3" at={f(13.4)} volume={DRAW} />
       <TypeClicks at={f(15.0)} n={8} gap={5} volume={TYPE} />
       <Sfx src="sfx_skid.mp3" at={f(24.0)} volume={0.3} />
       <Sfx src="sfx_stamp.mp3" at={f(28.6)} volume={STAMP} />
