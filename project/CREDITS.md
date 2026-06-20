@@ -28,6 +28,7 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Düsen-Stunt: Triebwerk | `photos/j47.jpg` | General Electric J47-27 Turbojet (USAF, Wikimedia Commons) | Public domain |
 | Düsen-Stunt: M-497 (Seite) | `photos/m497.jpg` | M-497 „Black Beetle", New York Central, 1966 (vom Nutzer bereitgestellt) | Lizenz prüfen |
 | Düsen-Stunt: M-497 (Fahrt) | `photos/m497run.jpg` | M-497 „Black Beetle" Rekordfahrt, NYC, 1966 (vom Nutzer bereitgestellt) | Lizenz prüfen |
+| Teurer Irrtum: Geldschein | `photos/bill.jpg` | 100-USD-Note, Serie 1934 (Wikimedia Commons) | Public domain |
 
 ## Audio
 
