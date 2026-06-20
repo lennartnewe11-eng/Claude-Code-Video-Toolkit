@@ -26,6 +26,8 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
 | Düsen-Stunt: Triebwerk | `photos/j47.jpg` | General Electric J47-27 Turbojet (USAF, Wikimedia Commons) | Public domain |
+| Düsen-Stunt: M-497 (Seite) | `photos/m497.jpg` | M-497 „Black Beetle", New York Central, 1966 (vom Nutzer bereitgestellt) | Lizenz prüfen |
+| Düsen-Stunt: M-497 (Fahrt) | `photos/m497run.jpg` | M-497 „Black Beetle" Rekordfahrt, NYC, 1966 (vom Nutzer bereitgestellt) | Lizenz prüfen |
 
 ## Audio
 
