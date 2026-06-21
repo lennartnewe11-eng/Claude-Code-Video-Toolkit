@@ -30,6 +30,7 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Trasse: alte, gewundene Linie | `clips/oldline.mp4` | „Kiha 40 2046 … Nr.3 brug over de Ichi", 2019 (Wikimedia Commons) | CC BY 3.0 |
 | Prüfbericht: Metroliner | `photos/metroliner.jpg` | „Penn Central 864 Metroliner, Princeton Junction NJ, 1971" — railfan 44 (Wikimedia Commons) | Public domain |
 | Prüfbericht: Fahrgäste | `photos/metroliner_board.jpg` | „Amtrak passengers board a Metroliner, 30th St Station" — J. Pickerell, NARA DOCUMERICA | Public domain |
+| Japans Weg: Shinkansen (E4) | `clips/shinkansen2.mp4` | „Shinkansen E4 - 2021 Sep 30" — Nesnad (Wikimedia Commons) | CC BY-SA 4.0 |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |

@@ -29,6 +29,7 @@ import {Ch3P7Ev, C3P7_DURATION} from './Ch3P7Ev';
 import {Ch3P8Ev, C3P8_DURATION} from './Ch3P8Ev';
 import {Ch3P9Ev, C3P9_DURATION} from './Ch3P9Ev';
 import {Ch3P10Ev, C3P10_DURATION} from './Ch3P10Ev';
+import {Ch3P11Ev, C3P11_DURATION} from './Ch3P11Ev';
 import {DURATION_IN_FRAMES, FPS, WIDTH, HEIGHT} from './timeline';
 
 loadFont('normal', {
@@ -153,6 +154,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition id="Ch3P8Ev" component={Ch3P8Ev} durationInFrames={C3P8_DURATION} fps={FPS} width={WIDTH} height={HEIGHT} />
       <Composition id="Ch3P9Ev" component={Ch3P9Ev} durationInFrames={C3P9_DURATION} fps={FPS} width={WIDTH} height={HEIGHT} />
       <Composition id="Ch3P10Ev" component={Ch3P10Ev} durationInFrames={C3P10_DURATION} fps={FPS} width={WIDTH} height={HEIGHT} />
+      <Composition id="Ch3P11Ev" component={Ch3P11Ev} durationInFrames={C3P11_DURATION} fps={FPS} width={WIDTH} height={HEIGHT} />
     </>
   );
 };
