@@ -27,6 +27,7 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Metroliner: Acela (Bf) | `clips/acela2.mp4` | „Acela Acc 20150920" — AfricaAuddyTech (Wikimedia Commons) | CC BY 3.0 |
 | Metroliner: Acela 150 mph | `clips/acela3.mp4` | „Acela Kingston Station RI at 150 mph" — Z22 (Wikimedia Commons) | CC BY-SA 4.0 |
 | Metroliner: Güterzug | `clips/freight_us.mp4` | „BNSF freight train w snow … part 2" — CRSWW Rail Fan (Wikimedia Commons) | CC BY 3.0 |
+| Trasse: alte, gewundene Linie | `clips/oldline.mp4` | „Kiha 40 2046 … Nr.3 brug over de Ichi", 2019 (Wikimedia Commons) | CC BY 3.0 |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
