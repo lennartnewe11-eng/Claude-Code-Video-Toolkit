@@ -1,6 +1,6 @@
 import {AbsoluteFill, Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {FPS} from './timeline';
-import {GraphPaper, Halftone, TypeHeading, Headline, Highlight, RedNote, BigX, Stamp, FileTag, Crosshair} from './style/Evidence';
+import {GraphPaper, Halftone, TypeHeading, Headline, Highlight, RedNote, BigX, Stamp} from './style/Evidence';
 import {cond, mono, EV} from './style/evidence';
 import {Sfx, DroneBed} from './style/Sound';
 
@@ -49,23 +49,6 @@ const Punch: React.FC<{lines: string[]; at: number; yellow?: number}> = ({lines,
 const Tag: React.FC = () => (
   <div style={{position: 'absolute', left: 72, top: 60, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.2em', color: LIGHT, opacity: 0.85}}>AKTE 03 — DIE LEKTION</div>
 );
-const Clock: React.FC<{x: number; y: number; r: number; at: number}> = ({x, y, r, at}) => {
-  const frame = useCurrentFrame();
-  const o = interpolate(frame - at, [0, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const mh = (frame - at) * 11, hh = (frame - at) * 1.1;
-  return (
-    <svg style={{position: 'absolute', left: x - r - 14, top: y - r - 14, opacity: o}} width={(r + 14) * 2} height={(r + 14) * 2}>
-      <g transform={`translate(${r + 14} ${r + 14})`}>
-        <circle r={r} fill="#fbf8ef" stroke={EV.ink} strokeWidth={5} />
-        {Array.from({length: 12}).map((_, i) => <line key={i} x1={0} y1={-r + 6} x2={0} y2={-r + 15} stroke={EV.ink} strokeWidth={3} transform={`rotate(${i * 30})`} />)}
-        <line x1={0} y1={0} x2={0} y2={-r * 0.55} stroke={EV.ink} strokeWidth={6} transform={`rotate(${hh})`} />
-        <line x1={0} y1={0} x2={0} y2={-r * 0.8} stroke={EV.red} strokeWidth={4} transform={`rotate(${mh})`} />
-        <circle r={6} fill={EV.ink} />
-      </g>
-    </svg>
-  );
-};
-
 export const Ch3P13Ev: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -78,6 +61,7 @@ export const Ch3P13Ev: React.FC = () => {
       <Shot src="oldtracks.jpg" from={f(1.4)} dur={f(3.9)} />
       <Shot src="usrail70s.jpg" from={f(5.1)} dur={f(2.8)} />
       <Shot src="spfreight.jpg" from={f(7.6)} dur={f(5.4)} />
+      <Shot src="board_delays.jpg" from={f(17.5)} dur={f(3.7)} />
       <Shot src="metroliner.jpg" from={f(27.1)} dur={f(4.7)} />
       <Shot src="shinkansen0.jpg" from={f(31.5)} dur={f(4.5)} />
       <Shot src="squandered.jpg" folder="footage" from={f(35.7)} dur={C3P13_DURATION - f(35.7)} />
@@ -118,12 +102,11 @@ export const Ch3P13Ev: React.FC = () => {
         <RedNote text="Personenzug muss warten" x={760} y={720} size={48} at={f(15.0)} rot={-3} />
       </Group>
 
-      {/* 162 — delay is built in (collage) */}
+      {/* 162 — delay is built in (departure board showing delays) */}
       <Group show={[f(17.5), f(21.1)]}>
-        <Headline text="Verspätung —" x={120} y={300} size={92} at={f(17.7)} />
-        <Highlight x={120} y={440} w={760} at={f(18.4)} h={50} />
-        <Headline text="fest ins System eingebaut" x={120} y={420} size={70} at={f(18.3)} />
-        <Clock x={1500} y={460} r={150} at={f(17.8)} />
+        <Tag />
+        <Punch lines={['Verspätung —', 'fest ins System eingebaut']} at={f(17.8)} yellow={1} />
+        <div style={{position: 'absolute', left: 72, bottom: 60, fontFamily: mono, fontSize: 22, color: LIGHT, borderLeft: `4px solid ${EV.red}`, paddingLeft: 16}}>Anzeigetafel: „50 min LATE", „10 min LATE" …</div>
       </Group>
 
       {/* 163 — can't put fast trains on old tracks (collage) */}

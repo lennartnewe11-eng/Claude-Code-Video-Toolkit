@@ -36,6 +36,7 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Zusammenbruch: US-Bahn 1970er | `photos/usrail70s.jpg` | „Amtrak train, Harrisburg–Baltimore" — J. Pickerell, NARA DOCUMERICA | Public domain |
 | Lektion: Güterzug | `photos/spfreight.jpg` | „A SP freight in the Sacramento River Canyon" — railfan 44 (Wikimedia Commons) | Public domain |
 | Lektion: alte Gleise | `photos/oldtracks.jpg` | „Old Monon Railroad tracks" — Dmytro Sergiyenko (Wikimedia Commons) | CC BY-SA 4.0 |
+| Lektion: Verspätungs-Anzeige | `photos/board_delays.jpg` | „30th Street Station Solari board" (Amtrak, Philadelphia) — Dough4872 (Wikimedia Commons) | CC BY-SA 4.0 |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
