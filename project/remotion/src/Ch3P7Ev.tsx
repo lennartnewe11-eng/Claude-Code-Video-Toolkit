@@ -1,6 +1,6 @@
-import {AbsoluteFill, Audio, Img, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {FPS} from './timeline';
-import {GraphPaper, Halftone, TypeHeading, Headline, TapedPhoto, RouteLine, MapDot, Stamp, Highlight, RedNote, FileTag, Crosshair} from './style/Evidence';
+import {GraphPaper, Halftone, TypeHeading, Headline, TapedPhoto, MapBackdrop, RouteLine, MapDot, Stamp, Highlight, RedNote, FileTag, Crosshair} from './style/Evidence';
 import {cond, mono, EV} from './style/evidence';
 import {Sfx, TypeClicks, DroneBed} from './style/Sound';
 
@@ -15,10 +15,8 @@ const Group: React.FC<{show: [number, number]; children: React.ReactNode}> = ({s
   return <AbsoluteFill style={{opacity: o}}>{children}</AbsoluteFill>;
 };
 
-// city positions aligned to the framed 1850 corridor map (Board A)
-const MAP = {x: 1040, y: 150, w: 560, h: 634, s: 0.737};
-const city = (cx: number, cy: number): [number, number] => [MAP.x + cx * MAP.s, MAP.y + cy * MAP.s];
-const C: [number, number][] = [city(597, 253), city(362, 416), city(272, 543), city(217, 597)];
+// corridor dots laid out as a clean diagonal over the faint regional map
+const C: [number, number][] = [[1520, 300], [1230, 470], [1000, 600], [820, 720]];
 
 /** Dense population dots accumulating along the corridor (built-up motif). */
 const DensityField: React.FC<{from: number}> = ({from}) => {
@@ -61,18 +59,16 @@ export const Ch3P7Ev: React.FC = () => {
       <TypeHeading text="Akte — Der Schauplatz" x={210} y={78} size={26} at={f(0.2)} />
       <Crosshair x={1850} y={70} at={f(0.8)} />
 
-      {/* ── Board A: the corridor on a map of the region ── */}
+      {/* ── Board A: the corridor on a faint map of the region ── */}
       <Group show={[0, f(6.4)]}>
+        {/* faint antique map of the corridor region, blended into the paper */}
+        <MapBackdrop src="neccorridor.jpg" cx={1180} cy={540} w={1150} at={f(0.6)} opacity={0.34} rot={2} />
+
         <Highlight x={120} y={360} w={760} at={f(1.0)} h={48} />
         <Headline text="Der Nord-Ost-" x={120} y={250} size={84} at={f(0.6)} />
         <Headline text="Korridor" x={120} y={342} size={84} at={f(0.9)} />
         <TypeHeading text="dicht besiedelt — die Wahl fiel klar aus" x={125} y={470} size={26} at={f(1.4)} color="#5d574c" />
         <TypeHeading text="New York ↕ Washington" x={125} y={540} size={24} at={f(4.4)} highlight />
-
-        {/* framed antique map of the corridor region */}
-        <div style={{position: 'absolute', left: MAP.x, top: MAP.y, width: MAP.w, height: MAP.h, border: '8px solid #1b1812', boxShadow: '6px 10px 18px rgba(20,16,10,0.36)', opacity: interpolate(frame, [f(0.5), f(1.3)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
-          <Img src={staticFile('maps/neccorridor.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'sepia(0.3) contrast(1.06) brightness(1.02)'}} />
-        </div>
 
         <DensityField from={f(2.4)} />
         <RouteLine points={C} at={f(1.8)} drawFrames={34} arrow width={6} />
@@ -80,7 +76,7 @@ export const Ch3P7Ev: React.FC = () => {
         <MapDot x={C[1][0]} y={C[1][1]} label="Philadelphia" at={f(2.8)} />
         <MapDot x={C[2][0]} y={C[2][1]} label="Baltimore" at={f(3.3)} below />
         <MapDot x={C[3][0]} y={C[3][1]} label="Washington" at={f(3.8)} below />
-        <RedNote text="~360 km" x={920} y={760} size={40} at={f(4.6)} rot={-6} />
+        <RedNote text="~360 km" x={1430} y={760} size={40} at={f(4.6)} rot={-6} />
       </Group>
 
       {/* ── Board B: two capitals, electrified since the 1930s ── */}
