@@ -37,6 +37,10 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Lektion: Güterzug | `photos/spfreight.jpg` | „A SP freight in the Sacramento River Canyon" — railfan 44 (Wikimedia Commons) | Public domain |
 | Lektion: alte Gleise | `photos/oldtracks.jpg` | „Old Monon Railroad tracks" — Dmytro Sergiyenko (Wikimedia Commons) | CC BY-SA 4.0 |
 | Lektion: Verspätungs-Anzeige | `photos/board_delays.jpg` | „30th Street Station Solari board" (Amtrak, Philadelphia) — Dough4872 (Wikimedia Commons) | CC BY-SA 4.0 |
+| California HSR: Pitch-Render | `photos/cahsr_render.jpg` | „Fresno Station Render" — California High-Speed Rail Authority (Wikimedia Commons) | Public domain |
+| California HSR: Cedar-Viadukt | `photos/cahsr_cedar.jpg` | „CAHSR Cedar viaduct" — CA High-Speed Rail Authority (Wikimedia Commons) | Public domain |
+| California HSR: Bau (Drohne) | `photos/cahsr_drone.jpg` | „CAHSR Dji 0879" (Wikimedia Commons) | Public domain |
+| California HSR: Wasco-Viadukt | `photos/cahsr_wasco.jpg` | „CAHSR Wasco Viaduct" — CA High-Speed Rail Authority (Wikimedia Commons) | Public domain |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
