@@ -58,11 +58,11 @@ export const Ch3P8Ev: React.FC = () => {
   return (
     <AbsoluteFill style={{backgroundColor: '#000'}}>
       {/* ── full-bleed footage, phase by phase ── */}
-      <FB src="usrail_mountain.mp4" from={0} dur={f(6.4)} loopFrames={f(8)} />
-      <FB src="usrail_approach.mp4" from={f(6.2)} dur={f(2.6)} loopFrames={f(7)} />
-      <FB src="usrail_station.mp4" from={f(8.6)} dur={f(5.0)} loopFrames={f(7)} />
+      <FB src="acela1.mp4" from={0} dur={f(6.4)} loopFrames={f(5.7)} />
+      <FB src="acela2.mp4" from={f(6.2)} dur={f(2.6)} loopFrames={f(7.9)} />
+      <FB src="acela3.mp4" from={f(8.6)} dur={f(5.0)} loopFrames={f(3.4)} />
       <FB src="shinkansen_new.mp4" from={f(13.4)} dur={f(3.6)} loopFrames={f(7)} />
-      <FB src="archive_train.mp4" from={f(16.8)} dur={C3P8_DURATION - f(16.8)} loopFrames={f(6)} />
+      <FB src="freight_us.mp4" from={f(16.8)} dur={C3P8_DURATION - f(16.8)} loopFrames={f(8.9)} />
 
       {/* persistent dossier marks */}
       <div style={{position: 'absolute', left: 70, top: 60, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.2em', color: LIGHT, opacity: 0.85}}>AKTE 03 — DER METROLINER</div>
@@ -71,7 +71,7 @@ export const Ch3P8Ev: React.FC = () => {
       {/* A · naming (120–121) */}
       <Group show={[0, f(6.3)]}>
         <TypeHeading text="Ein Name, der nach Zukunft klingt" x={72} y={150} size={28} at={f(0.6)} color={LIGHT} />
-        <Cap text="US-Schienenverkehr · Archiv" />
+        <Cap text="Nord-Ost-Korridor · Hochgeschwindigkeit" />
         <div style={{position: 'absolute', left: 72, top: 360, opacity: interpolate(frame, [f(4.0), f(4.7)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>
           <div style={{position: 'absolute', left: -4, top: 92, height: 44, width: 612, background: EV.yellow, transform: 'skewX(-7deg)'}} />
           <div style={{fontFamily: cond, fontWeight: 700, fontSize: 150, lineHeight: 0.9, color: LIGHT, textTransform: 'uppercase', textShadow: '0 3px 22px rgba(0,0,0,0.9)'}}>Metroliner</div>
