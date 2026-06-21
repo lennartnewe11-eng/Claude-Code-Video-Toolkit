@@ -1,6 +1,6 @@
 import {AbsoluteFill, Audio, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {FPS} from './timeline';
-import {GraphPaper, Halftone, TypeHeading, Headline, Highlight, RedNote, Stamp, FileTag, Crosshair} from './style/Evidence';
+import {GraphPaper, Halftone, TypeHeading, Headline, TapedPhoto, Highlight, RedNote, Stamp, FileTag, Crosshair} from './style/Evidence';
 import {cond, mono, EV} from './style/evidence';
 import {Sfx, TypeClicks, DroneBed} from './style/Sound';
 
@@ -119,7 +119,10 @@ export const Ch3P11Ev: React.FC = () => {
         <Headline text="Hochgeschwindigkeit ist kein Zug," x={150} y={300} size={62} at={f(20.6)} />
         <Headline text="den man auf alte Schienen setzt" x={150} y={380} size={62} at={f(21.0)} />
         <TrackContrast from={f(17.4)} />
-        <Stamp text="eigene Trasse · Planung · Geduld" x={760} y={870} size={40} at={f(24.4)} rot={-4} />
+        {/* the jet-engine train: exactly that mistake */}
+        <TapedPhoto src="m497.jpg" cx={1480} cy={300} w={560} rot={3} at={f(21.6)} caption="M-497: ein Jet auf alten Gleisen" />
+        <RedNote text="genau dieser Irrtum" x={1320} y={120} size={36} at={f(22.6)} rot={-6} />
+        <Stamp text="eigene Trasse · Planung · Geduld" x={620} y={870} size={40} at={f(24.4)} rot={-4} />
       </Group>
 
       {/* ── sound ── */}
