@@ -1,4 +1,4 @@
-import {AbsoluteFill, Audio, interpolate, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {FPS} from './timeline';
 import {GraphPaper, Halftone, TypeHeading, Headline, TapedPhoto, BodyBlock, Dossier, QuoteBox, Stamp, Highlight, RedNote, FileTag, Seal, CornerMarks, Crosshair} from './style/Evidence';
 import {cond, mono, EV} from './style/evidence';
@@ -25,6 +25,25 @@ const Scrap: React.FC<{text: string; x: number; y: number; at?: number; rot?: nu
     <div style={{position: 'absolute', left: x, top: y, width: w, opacity: o, transform: `rotate(${rot}deg)`, background: '#fbf8ef', padding: '10px 14px', boxShadow: '3px 5px 9px rgba(20,16,10,0.28)', fontFamily: mono, fontSize: 18, color: EV.ink, lineHeight: 1.3}}>
       <Tape x={w / 2 - 40} y={-14} w={80} rot={3} />{text}
     </div>
+  );
+};
+
+/** Full-screen archival photo with Ken-Burns push, B/W grain and vignette. */
+const FullPhoto: React.FC<{src: string; from: number; dur: number}> = ({src, from, dur}) => (
+  <Sequence from={from} durationInFrames={dur} layout="none">
+    <FullPhotoInner src={src} dur={dur} />
+  </Sequence>
+);
+const FullPhotoInner: React.FC<{src: string; dur: number}> = ({src, dur}) => {
+  const frame = useCurrentFrame();
+  const io = interpolate(frame, [0, 8, dur - 10, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const scale = interpolate(frame, [0, dur], [1.06, 1.16]);
+  return (
+    <AbsoluteFill style={{backgroundColor: '#000', opacity: io}}>
+      <Img src={staticFile(`photos/${src}`)} style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale})`, filter: 'grayscale(1) contrast(1.14) brightness(1.02)'}} />
+      <AbsoluteFill style={{backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0) 3px)', opacity: 0.35}} />
+      <AbsoluteFill style={{boxShadow: 'inset 0 0 300px rgba(0,0,0,0.85)'}} />
+    </AbsoluteFill>
   );
 };
 
@@ -71,27 +90,38 @@ const DefectLog: React.FC<{x: number; y: number; from: number; rows: string[]}> 
 };
 
 export const Ch3P10Ev: React.FC = () => {
+  const frame = useCurrentFrame();
   return (
     <AbsoluteFill>
       <GraphPaper />
       <Halftone opacity={0.11} size={7} />
       <div style={{position: 'absolute', left: 0, top: 0, width: 150, height: 380, background: EV.red, opacity: 0.13, transform: 'skewX(-8deg) translateX(-60px)'}} />
 
-      {/* persistent header */}
-      <FileTag text="3·g" x={150} y={92} at={f(0.4)} size={62} />
-      <TypeHeading text="Akte — Prüfbericht: Metroliner" x={210} y={78} size={26} at={f(0.2)} />
-      <Crosshair x={1500} y={70} at={f(0.8)} />
-      <Seal text={'PRÜF-\nBERICHT\n1969'} x={1810} y={120} at={f(1.2)} size={150} rot={-10} />
+      {/* ── full-screen intro: the Metroliner photo (line 133) ── */}
+      <FullPhoto src="metroliner.jpg" from={0} dur={f(4.7)} />
+      <Group show={[0, f(4.7)]}>
+        <div style={{position: 'absolute', left: 72, top: 60, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.2em', color: '#f3efe4', opacity: 0.85}}>AKTE 03 — DER METROLINER</div>
+        <div style={{position: 'absolute', left: 72, top: 300, fontFamily: cond, fontWeight: 700, fontSize: 84, lineHeight: 0.96, textTransform: 'uppercase', color: '#f3efe4', textShadow: '0 2px 18px rgba(0,0,0,0.85)', opacity: interpolate(frame, [f(0.6), f(1.3)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})}}>Der fertige Zug</div>
+        <div style={{position: 'absolute', left: 72, bottom: 60, fontFamily: mono, fontSize: 24, letterSpacing: '0.06em', color: '#f3efe4', borderLeft: `4px solid ${EV.red}`, paddingLeft: 16}}>Penn Central Metroliner · 1971</div>
+      </Group>
 
-      {/* ── Board A: the test result ── */}
-      <Group show={[0, f(11.9)]}>
-        <Highlight x={120} y={250} w={720} at={f(0.9)} h={46} />
-        <Headline text="Auf dem Papier ein Erfolg" x={120} y={165} size={68} at={f(0.6)} />
+      {/* persistent header (collage phase) */}
+      <Group show={[f(4.3), C3P10_DURATION]}>
+        <FileTag text="3·g" x={150} y={92} at={f(4.6)} size={62} />
+        <TypeHeading text="Akte — Prüfbericht: Metroliner" x={210} y={78} size={26} at={f(4.4)} />
+        <Crosshair x={1500} y={70} at={f(4.8)} />
+        <Seal text={'PRÜF-\nBERICHT\n1969'} x={1810} y={120} at={f(4.8)} size={150} rot={-10} />
+      </Group>
 
-        <TapedPhoto src="metroliner.jpg" cx={420} cy={620} w={640} rot={-2} at={f(1.6)} caption="Penn Central Metroliner, 1971" />
-        <CornerMarks x={108} y={330} w={624} h={420} at={f(2.0)} />
+      {/* ── Board A: the test result (line 134) ── */}
+      <Group show={[f(4.3), f(11.9)]}>
+        <Highlight x={120} y={250} w={720} at={f(5.0)} h={46} />
+        <Headline text="Auf dem Papier ein Erfolg" x={120} y={165} size={68} at={f(4.7)} />
 
-        <BodyBlock x={870} y={330} w={520} at={f(3.0)} size={20}
+        <TapedPhoto src="metroliner.jpg" cx={420} cy={620} w={640} rot={-2} at={f(4.5)} caption="Penn Central Metroliner, 1971" />
+        <CornerMarks x={108} y={330} w={624} h={420} at={f(5.0)} />
+
+        <BodyBlock x={870} y={330} w={520} at={f(5.4)} size={20}
           lines={[
             'Befund: Auf der alten Trasse ließ',
             'sich kaum etwas nachrüsten — nur',
@@ -99,16 +129,14 @@ export const Ch3P10Ev: React.FC = () => {
             'auf einem idealen, geraden',
             'Abschnitt, lief der Zug frei.',
           ]} />
-        <div style={{position: 'absolute', left: 870, top: 540}}>
-          <RedNote text="240 km/h geknackt ✓" x={1140} y={40} size={48} at={f(7.4)} rot={-4} />
-        </div>
-        <Dossier x={870} y={600} w={620} at={f(8.0)} title="Testlauf — Idealstrecke"
+        <RedNote text="240 km/h geknackt ✓" x={1140} y={580} size={48} at={f(7.4)} rot={-4} />
+        <Dossier x={870} y={620} w={620} at={f(8.0)} title="Testlauf — Idealstrecke"
           rows={[
             {label: 'Strecke', value: 'gerade & frei'},
             {label: 'Spitze', value: '240 km/h', hl: true},
             {label: 'Vorgabe', value: 'erfüllt', hl: true},
           ]} />
-        <Scrap text="… aber nur unter Laborbedingungen." x={150} y={840} at={f(9.6)} rot={2} w={400} />
+        <Scrap text="… aber nur unter Laborbedingungen." x={150} y={845} at={f(9.6)} rot={2} w={400} />
       </Group>
 
       {/* ── Board B: the real-world gap + defects ── */}
