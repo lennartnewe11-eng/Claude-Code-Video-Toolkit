@@ -25,21 +25,6 @@ const VideoPanel: React.FC<{src: string; left: number; top: number; w: number; h
   </div>
 );
 
-/** A small drawn US flag (subtle wave). */
-const Flag: React.FC<{x: number; y: number; w?: number; at?: number; rot?: number}> = ({x, y, w = 240, at = 0, rot = -3}) => {
-  const frame = useCurrentFrame();
-  const o = interpolate(frame - at, [0, 10], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const wave = Math.sin(frame / 12) * 1.4;
-  const h = w * 0.53;
-  return (
-    <div style={{position: 'absolute', left: x, top: y, width: w, height: h, opacity: o, transform: `rotate(${rot + wave}deg)`, boxShadow: '4px 6px 12px rgba(20,16,10,0.34)', backgroundImage: `repeating-linear-gradient(0deg, #b3271c 0, #b3271c ${h / 13}px, #f3efe4 ${h / 13}px, #f3efe4 ${(h / 13) * 2}px)`, filter: 'grayscale(0.35) contrast(1.05)'}}>
-      <div style={{position: 'absolute', left: 0, top: 0, width: w * 0.42, height: (h / 13) * 7, background: '#23335c', display: 'flex', flexWrap: 'wrap', alignContent: 'center', justifyContent: 'center', gap: w * 0.018, padding: 6}}>
-        {Array.from({length: 24}).map((_, i) => <div key={i} style={{width: w * 0.022, height: w * 0.022, borderRadius: '50%', background: '#f3efe4'}} />)}
-      </div>
-    </div>
-  );
-};
-
 /** A stack of legislative acts that builds upward (accumulation motif). */
 const ActStack: React.FC<{x: number; y: number; from: number; labels: string[]}> = ({x, y, from, labels}) => {
   const frame = useCurrentFrame();
@@ -139,9 +124,9 @@ export const Ch3P6Ev: React.FC = () => {
 
         <ActStack x={780} y={400} from={f(3.6)} labels={['Civil Rights Act', 'Medicare', 'Voting Rights Act', 'Clean Air Act', 'Hochgeschwindigkeit?']} />
 
-        <Flag x={1540} y={210} w={250} at={f(7.2)} rot={-3} />
-        <TypeHeading text="eine Frage des" x={1500} y={420} size={26} at={f(7.4)} color="#5d574c" />
-        <Headline text="nationalen Stolzes" x={1500} y={460} size={48} at={f(7.6)} />
+        <TapedPhoto src="usflag.jpg" cx={1620} cy={350} w={420} rot={-3} at={f(7.2)} gray={false} caption="Stars and Stripes" />
+        <TypeHeading text="eine Frage des" x={1430} y={560} size={26} at={f(7.4)} color="#5d574c" />
+        <Headline text="nationalen Stolzes" x={1430} y={600} size={48} at={f(7.6)} />
       </Group>
 
       {/* ── Board B: Japan leads — of all nations ── */}

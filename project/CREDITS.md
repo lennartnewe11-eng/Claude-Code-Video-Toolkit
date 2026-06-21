@@ -29,6 +29,8 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Düsen-Stunt: M-497 (Seite) | `photos/m497.jpg` | M-497 „Black Beetle", New York Central, 1966 (vom Nutzer bereitgestellt) | Lizenz prüfen |
 | Düsen-Stunt: M-497 (Fahrt) | `photos/m497run.jpg` | M-497 „Black Beetle" Rekordfahrt, NYC, 1966 (vom Nutzer bereitgestellt) | Lizenz prüfen |
 | Teurer Irrtum: Geldschein | `photos/bill.jpg` | 100-USD-Note, Serie 1934 (Wikimedia Commons) | Public domain |
+| Politik: US-Flagge | `photos/usflag.jpg` | US-Flagge im Wind, Kent WA 2025 — Roc0ast3r (Wikimedia Commons) | CC0 |
+| Korridor: Regionalkarte | `maps/neccorridor.jpg` | „Die Staaten von New York, Pennsylvania, Maryland …", 1850 — Joseph Meyer (Wikimedia Commons) | Public domain |
 | Politik: L. B. Johnson | `photos/lbj.jpg` | Offizielles Porträt L. B. Johnson — Arnold Newman (Wikimedia Commons) | Public domain |
 | Politik: Gesetzunterzeichnung | `photos/lbjsign.jpg` | L. B. Johnson unterzeichnet ein Gesetz, 1965 — White House Press Office | Public domain |
 | Korridor: NY-Skyline | `photos/nyc.jpg` | Manhattan Skyline, South Street, 1936 — Berenice Abbott (Wikimedia Commons) | Public domain |
