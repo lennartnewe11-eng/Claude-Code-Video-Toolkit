@@ -81,9 +81,11 @@ export const Ch3P12Ev: React.FC = () => {
       <GraphPaper />
       <Halftone opacity={0.1} size={7} />
 
-      {/* full-screen photos (A, D) */}
+      {/* full-screen photos: collapse, Penn Central, Amtrak, 1970s decline */}
       <FullPhoto src="squandered.jpg" folder="footage" from={0} dur={f(5.2)} />
-      <FullPhoto src="passengertrain.jpg" from={f(26.6)} dur={C3P12_DURATION - f(26.6)} />
+      <FullPhoto src="penncentral.jpg" from={f(4.9)} dur={f(3.2)} />
+      <FullPhoto src="amtrak70s.jpg" from={f(15.7)} dur={f(3.3)} />
+      <FullPhoto src="usrail70s.jpg" from={f(26.6)} dur={C3P12_DURATION - f(26.6)} />
 
       {/* ── A (full-screen): the system collapses ── */}
       <Group show={[0, f(5.2)]}>
@@ -93,43 +95,58 @@ export const Ch3P12Ev: React.FC = () => {
         <Cap text="verlassene Bahnstrecke" />
       </Group>
 
+      {/* ── B-intro (full-screen): Penn Central ── */}
+      <Group show={[f(4.9), f(8.1)]}>
+        <div style={{position: 'absolute', left: 72, top: 60, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.2em', color: LIGHT, opacity: 0.85}}>AKTE 03 — DER ZUSAMMENBRUCH</div>
+        <OvBig text="1970: Penn Central" x={72} y={300} size={70} at={f(5.4)} />
+        <OvBig text="meldet Insolvenz" x={72} y={384} size={70} at={f(5.8)} color={EV.yellow} />
+        <Cap text="Penn Central — der größte Bahnkonzern der USA" />
+      </Group>
+
       {/* ── B (collage): Penn Central bankruptcy ── */}
-      <Group show={[f(4.9), f(16.2)]}>
-        <FileTag text="3·i" x={150} y={92} at={f(5.2)} size={62} />
-        <TypeHeading text="Akte — Der Zusammenbruch" x={210} y={78} size={26} at={f(5.0)} />
-        <Crosshair x={1500} y={70} at={f(5.4)} />
-        <Seal text={'INSOLVENZ\n1970'} x={1810} y={120} at={f(5.6)} size={150} rot={-10} />
+      <Group show={[f(7.8), f(15.8)]}>
+        <FileTag text="3·i" x={150} y={92} at={f(8.0)} size={62} />
+        <TypeHeading text="Akte — Der Zusammenbruch" x={210} y={78} size={26} at={f(7.9)} />
+        <Crosshair x={1500} y={70} at={f(8.2)} />
+        <Seal text={'INSOLVENZ\n1970'} x={1810} y={120} at={f(8.2)} size={150} rot={-10} />
 
-        <Highlight x={120} y={290} w={760} at={f(5.6)} h={48} />
-        <Headline text="Penn Central: Pleite" x={120} y={200} size={84} at={f(5.3)} />
-        <RedNote text="1970" x={300} y={420} size={64} at={f(5.8)} rot={-6} />
+        <Highlight x={120} y={290} w={760} at={f(8.4)} h={48} />
+        <Headline text="Penn Central: Pleite" x={120} y={200} size={84} at={f(8.1)} />
+        <RedNote text="1970" x={300} y={420} size={64} at={f(8.6)} rot={-6} />
 
-        <Dossier x={120} y={520} w={620} at={f(9.4)} title="Bilanz"
+        <Dossier x={120} y={520} w={620} at={f(9.6)} title="Bilanz"
           rows={[
             {label: 'Größter Bahnkonzern', value: 'der USA', hl: true},
             {label: 'Status', value: 'zahlungsunfähig'},
             {label: 'Rekord', value: 'größte Pleite bis dahin', hl: true},
           ]} />
-        <CrashChart x={1180} y={300} from={f(6.4)} />
-        <Stamp text="bankrott" x={1430} y={690} size={64} at={f(12.0)} rot={-8} />
+        <CrashChart x={1180} y={300} from={f(9.0)} />
+        <Stamp text="bankrott" x={1430} y={690} size={64} at={f(13.4)} rot={-8} />
+      </Group>
+
+      {/* ── C-intro (full-screen): Amtrak ── */}
+      <Group show={[f(15.7), f(19.0)]}>
+        <div style={{position: 'absolute', left: 72, top: 60, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.2em', color: LIGHT, opacity: 0.85}}>AKTE 03 — DIE STAATLICHE ANTWORT</div>
+        <OvBig text="1971: Amtrak" x={72} y={320} size={92} at={f(16.2)} color={EV.yellow} />
+        <Cap text="Amtrak übernimmt den US-Personenverkehr, 1971" />
       </Group>
 
       {/* ── C (collage): Amtrak 1971 ── */}
-      <Group show={[f(15.9), f(26.9)]}>
-        <TypeHeading text="Akte — Die staatliche Antwort" x={150} y={120} size={26} at={f(16.1)} />
-        <Crosshair x={1850} y={70} at={f(16.2)} />
-        <Highlight x={150} y={300} w={560} at={f(16.4)} h={50} />
-        <Headline text="1971: Amtrak" x={150} y={210} size={92} at={f(16.1)} />
-        <ArrowMark x={150} y={420} at={f(17.0)} />
+      <Group show={[f(18.7), f(26.9)]}>
+        <TypeHeading text="Akte — Die staatliche Antwort" x={150} y={120} size={26} at={f(18.9)} />
+        <Crosshair x={1850} y={70} at={f(19.0)} />
+        <Highlight x={150} y={300} w={560} at={f(19.2)} h={50} />
+        <Headline text="1971: Amtrak" x={150} y={210} size={92} at={f(18.9)} />
+        <ArrowMark x={150} y={420} at={f(19.6)} />
 
-        <Dossier x={620} y={420} w={680} at={f(17.6)} title="Halbstaatliche Gesellschaft"
+        <Dossier x={620} y={420} w={680} at={f(20.0)} title="Halbstaatliche Gesellschaft"
           rows={[
             {label: 'Übernimmt', value: 'den Personenverkehr', hl: true},
             {label: 'Ab', value: '1971'},
             {label: 'Darunter auch', value: 'der Metroliner', hl: true},
           ]} />
-        <TypeHeading text="Befreit die privaten Konzerne von der Last" x={150} y={700} size={28} at={f(22.0)} highlight />
-        <Stamp text="Personenverkehr = Last" x={520} y={820} size={42} at={f(24.0)} rot={-5} />
+        <TypeHeading text="Befreit die privaten Konzerne von der Last" x={150} y={700} size={28} at={f(22.4)} highlight />
+        <Stamp text="Personenverkehr = Last" x={520} y={820} size={42} at={f(24.4)} rot={-5} />
       </Group>
 
       {/* ── D (full-screen): not an investment — a hospice ── */}
@@ -138,18 +155,19 @@ export const Ch3P12Ev: React.FC = () => {
         <OvBig text="Keine Investition" x={72} y={300} size={70} at={f(33.4)} />
         <OvBig text="in die Zukunft —" x={72} y={384} size={70} at={f(33.8)} />
         <OvBig text="eher eine Sterbebegleitung" x={72} y={500} size={58} at={f(36.6)} color={EV.yellow} />
-        <Cap text="der US-Personenverkehr — verwaltet, nicht erneuert" />
+        <Cap text="US-Personenverkehr, 1970er — verwaltet, nicht erneuert" />
       </Group>
 
       {/* ── sound ── */}
       <DroneBed durationInFrames={C3P12_DURATION} volume={DRONE} />
       <Sfx src="whoosh.mp3" at={f(0.0)} volume={0.35} />
-      <TypeClicks at={f(5.0)} n={6} gap={4} volume={TYPE} />
-      <Sfx src="sfx_draw.mp3" at={f(6.4)} volume={DRAW} />
-      <Sfx src="sfx_stamp.mp3" at={f(12.0)} volume={STAMP} />
-      <Sfx src="whoosh.mp3" at={f(15.9)} volume={0.35} />
-      <TypeClicks at={f(16.1)} n={6} gap={4} volume={TYPE} />
-      <Sfx src="sfx_stamp.mp3" at={f(24.0)} volume={STAMP} />
+      <Sfx src="whoosh.mp3" at={f(4.9)} volume={0.35} />
+      <TypeClicks at={f(8.0)} n={6} gap={4} volume={TYPE} />
+      <Sfx src="sfx_draw.mp3" at={f(9.0)} volume={DRAW} />
+      <Sfx src="sfx_stamp.mp3" at={f(13.4)} volume={STAMP} />
+      <Sfx src="whoosh.mp3" at={f(15.7)} volume={0.35} />
+      <TypeClicks at={f(18.9)} n={6} gap={4} volume={TYPE} />
+      <Sfx src="sfx_stamp.mp3" at={f(24.4)} volume={STAMP} />
       <Sfx src="whoosh.mp3" at={f(26.6)} volume={0.35} />
 
       <Audio src={staticFile('audio/vo.m4a')} startFrom={Math.round(START * FPS)} volume={1} />

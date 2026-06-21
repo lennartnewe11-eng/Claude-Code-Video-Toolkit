@@ -31,6 +31,9 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Prüfbericht: Metroliner | `photos/metroliner.jpg` | „Penn Central 864 Metroliner, Princeton Junction NJ, 1971" — railfan 44 (Wikimedia Commons) | Public domain |
 | Prüfbericht: Fahrgäste | `photos/metroliner_board.jpg` | „Amtrak passengers board a Metroliner, 30th St Station" — J. Pickerell, NARA DOCUMERICA | Public domain |
 | Japans Weg: Shinkansen (E4) | `clips/shinkansen2.mp4` | „Shinkansen E4 - 2021 Sep 30" — Nesnad (Wikimedia Commons) | CC BY-SA 4.0 |
+| Zusammenbruch: Penn Central | `photos/penncentral.jpg` | „Boxcar, Penn Central" — Gary Lee Todd (Wikimedia Commons) | CC0 |
+| Zusammenbruch: Amtrak 1970er | `photos/amtrak70s.jpg` | „Amtrak's Broadway Limited, Fort Wayne" — J. Pickerell, NARA DOCUMERICA | Public domain |
+| Zusammenbruch: US-Bahn 1970er | `photos/usrail70s.jpg` | „Amtrak train, Harrisburg–Baltimore" — J. Pickerell, NARA DOCUMERICA | Public domain |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
