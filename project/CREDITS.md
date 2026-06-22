@@ -52,6 +52,7 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Texas: Pumpjack (Öl) | `photos/pumpjack.jpg`, `cutouts/pumpjack.png` | „Oil, Andrews TX" — Zorin09 (Wikimedia Commons) | CC BY 3.0 |
 | Brightline West: Bau | `photos/blwest.jpg` | „Las Vegas station (Brightline West), construction 2025" — Xnatedawgx (Wikimedia Commons) | CC BY-SA 4.0 |
 | Brightline West: I-15 | `photos/i15.jpg` | „California Interstate 15 Highway, Mojave Desert" — EgorovaSvetlana (Wikimedia Commons) | CC BY-SA 4.0 |
+| Brightline: Zug (Video) | `clips/brightline_run.mp4` | „Brightline SCB-40 with Venture" — His Providence Services (Wikimedia Commons) | CC BY 3.0 |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |

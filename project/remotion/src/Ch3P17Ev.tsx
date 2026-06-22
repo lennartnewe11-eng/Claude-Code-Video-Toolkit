@@ -1,4 +1,4 @@
-import {AbsoluteFill, Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {FPS} from './timeline';
 import {GraphPaper, Halftone, TypeHeading, Headline, TapedPhoto, Highlight, FileTag, Crosshair} from './style/Evidence';
 import {cond, mono, EV} from './style/evidence';
@@ -122,6 +122,20 @@ const ObstacleBypass: React.FC<{from: number}> = ({from}) => {
   );
 };
 
+/** Full-screen closer: the real Brightline train, running. */
+const Closer: React.FC<{dur: number}> = ({dur}) => {
+  const frame = useCurrentFrame();
+  const io = interpolate(frame, [0, 7, dur - 6, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const scale = interpolate(frame, [0, dur], [1.04, 1.1]);
+  return (
+    <AbsoluteFill style={{backgroundColor: '#000', opacity: io}}>
+      <OffthreadVideo src={staticFile('clips/brightline_run.mp4')} muted style={{width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${scale})`, filter: 'saturate(1.06) contrast(1.04)'}} />
+      <AbsoluteFill style={{background: 'linear-gradient(0deg, rgba(10,10,12,0.55) 0%, rgba(10,10,12,0) 40%)'}} />
+      <div style={{position: 'absolute', left: 84, bottom: 60, fontFamily: mono, fontSize: 24, color: LIGHT, borderLeft: `4px solid ${EV.red}`, paddingLeft: 16}}>… und tatsächlich fährt schon ein Brightline-Zug</div>
+    </AbsoluteFill>
+  );
+};
+
 export const Ch3P17Ev: React.FC = () => {
   const frame = useCurrentFrame();
 
@@ -156,7 +170,7 @@ export const Ch3P17Ev: React.FC = () => {
       </Group>
 
       {/* ── Board C: sailing over the hurdles + the 1965 lesson ── */}
-      <Group show={[f(20.6), C3P17_DURATION]}>
+      <Group show={[f(20.6), f(29.4)]}>
         <GraphPaper />
         <Halftone opacity={0.1} size={7} />
         <TypeHeading text="Akte — Warum es gelingt" x={150} y={120} size={26} at={f(20.8)} />
@@ -174,8 +188,14 @@ export const Ch3P17Ev: React.FC = () => {
         </svg>
       </Group>
 
+      {/* ── full-screen closer: the real Brightline train, actually running ── */}
+      <Sequence from={f(29.0)} durationInFrames={C3P17_DURATION - f(29.0)} layout="none">
+        <Closer dur={C3P17_DURATION - f(29.0)} />
+      </Sequence>
+
       {/* ── sound ── */}
       <DroneBed durationInFrames={C3P17_DURATION} volume={DRONE} />
+      <Sfx src="whoosh.mp3" at={f(29.0)} volume={0.4} />
       <Sfx src="riser.mp3" at={f(0.2)} volume={0.2} />
       <Sfx src="whoosh.mp3" at={f(7.1)} volume={0.32} />
       <Sfx src="whoosh.mp3" at={f(11.3)} volume={0.32} />
