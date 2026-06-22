@@ -55,6 +55,9 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Brightline: Zug (Video) | `clips/brightline_run.mp4` | „Brightline SCB-40 with Venture" — His Providence Services (Wikimedia Commons) | CC BY 3.0 |
 | Finale: ICE4 (Durchfahrt) | `clips/ice.mp4` | „Bahnhof Limburg-Süd — Durchfahrt ICE4" — ManuelB701 (Wikimedia Commons) | CC0 |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
+| Finale: Tokio (Shibuya) | `clips/tokyo.mp4` | „Shibuya Crossing, Tokyo, Japan (video)" — Basile Morin (Wikimedia Commons) | CC BY-SA 4.0 |
+| Finale: Luftbild Land | `clips/air.mp4` | Luftaufnahme Felder/Highway (Wikimedia Commons) | CC BY 3.0 |
+| Finale: Highway (Nacht) | `clips/highway.mp4` | US-Highway bei Nacht, Pkw-Verkehr (Wikimedia Commons) | CC BY 3.0 |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
 | Düsen-Stunt: Triebwerk | `photos/j47.jpg` | General Electric J47-27 Turbojet (USAF, Wikimedia Commons) | Public domain |
