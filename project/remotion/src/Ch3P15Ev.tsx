@@ -11,6 +11,26 @@ const DRONE = 0.06, STAMP = 0.5;
 const LIGHT = '#f3efe4';
 const GREEN = '#3f9d5a';
 
+/** Trump panel: blurred backdrop + the full portrait, fully visible on the right. */
+const TrumpPanel: React.FC<{from: number; dur: number}> = ({from, dur}) => (
+  <Sequence from={from} durationInFrames={dur} layout="none">
+    <TrumpInner dur={dur} />
+  </Sequence>
+);
+const TrumpInner: React.FC<{dur: number}> = ({dur}) => {
+  const frame = useCurrentFrame();
+  const io = interpolate(frame, [0, 6, dur - 7, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const scale = interpolate(frame, [0, dur], [1.02, 1.07]);
+  return (
+    <AbsoluteFill style={{backgroundColor: '#0a0c10', opacity: io}}>
+      <Img src={staticFile('photos/trump.jpg')} style={{position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(26px) brightness(0.45) saturate(1.1)', transform: 'scale(1.12)'}} />
+      <Img src={staticFile('photos/trump.jpg')} style={{position: 'absolute', right: 110, top: '4%', height: '92%', width: 'auto', objectFit: 'contain', transform: `scale(${scale})`, filter: 'contrast(1.05) saturate(1.05)', boxShadow: '0 18px 50px rgba(0,0,0,0.6)'}} />
+      <AbsoluteFill style={{background: 'linear-gradient(90deg, rgba(10,12,16,0.95) 0%, rgba(10,12,16,0.6) 40%, rgba(10,12,16,0.0) 70%)'}} />
+      <AbsoluteFill style={{boxShadow: 'inset 0 0 220px rgba(0,0,0,0.55)'}} />
+    </AbsoluteFill>
+  );
+};
+
 const Group: React.FC<{show: [number, number]; children: React.ReactNode}> = ({show, children}) => {
   const frame = useCurrentFrame();
   const o = interpolate(frame, [show[0], show[0] + 6, show[1] - 7, show[1]], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
@@ -80,7 +100,7 @@ export const Ch3P15Ev: React.FC = () => {
       <Shot src="valley.jpg" from={f(4.6)} dur={f(4.0)} />
       <Shot src="gavel.jpg" from={f(8.3)} dur={f(6.5)} />
       <Shot src="valley.jpg" from={f(14.5)} dur={f(11.5)} pos="center" />
-      <Shot src="trump.jpg" from={f(25.7)} dur={C3P15_DURATION - f(25.7)} pos="top" />
+      <TrumpPanel from={f(25.7)} dur={C3P15_DURATION - f(25.7)} />
       <Halftone opacity={0.06} size={7} />
 
       {/* 173 — they're doing it right (a real new line) */}
