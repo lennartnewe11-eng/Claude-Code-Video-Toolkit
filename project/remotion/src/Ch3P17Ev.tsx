@@ -1,15 +1,14 @@
 import {AbsoluteFill, Audio, Img, interpolate, Sequence, staticFile, useCurrentFrame} from 'remotion';
 import {FPS} from './timeline';
-import {GraphPaper, Halftone, TypeHeading, Headline, TapedPhoto, Stamp, Highlight, FileTag, Crosshair} from './style/Evidence';
+import {GraphPaper, Halftone, TypeHeading, Headline, TapedPhoto, Highlight, FileTag, Crosshair} from './style/Evidence';
 import {cond, mono, EV} from './style/evidence';
 import {Sfx, TypeClicks, DroneBed} from './style/Sound';
 
 const START = 720.96;
 export const C3P17_DURATION = Math.round(33.4 * FPS);
 const f = (s: number) => Math.round(s * FPS);
-const TYPE = 0.2, STAMP = 0.5, DRONE = 0.06, DRAW = 0.3, PAPER = 0.3;
+const TYPE = 0.2, DRONE = 0.06, DRAW = 0.3, PAPER = 0.3;
 const LIGHT = '#f3efe4';
-const GREEN = '#3f9d5a';
 
 const Group: React.FC<{show: [number, number]; children: React.ReactNode}> = ({show, children}) => {
   const frame = useCurrentFrame();
@@ -91,14 +90,35 @@ const MedianDiagram: React.FC<{x: number; y: number; from: number}> = ({x, y, fr
   );
 };
 
-const Check: React.FC<{text: string; x: number; y: number; at: number; dark?: boolean}> = ({text, x, y, at, dark}) => {
+/** Wordless "bypass" diagram: a dead-straight elevated Brightline line that
+ *  sails over the three hurdles that stopped the others (land, lawsuits,
+ *  old winding track). */
+const ObstacleBypass: React.FC<{from: number}> = ({from}) => {
   const frame = useCurrentFrame();
-  const o = interpolate(frame - at, [0, 6], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const deckY = 560, groundY = 830, x0 = 130, x1 = 1380;
+  const draw = interpolate(frame - from, [0, 26], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const obO = interpolate(frame - from, [4, 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const pillars = [x0 + 30, 460, 760, 1060, x1 - 30];
+  // faded obstacle icons sitting on the ground
+  const Obstacle: React.FC<{cx: number; kind: 'land' | 'law' | 'curve'}> = ({cx, kind}) => (
+    <g opacity={obO * 0.5} transform={`translate(${cx},${groundY})`} stroke={EV.ink} fill="none" strokeWidth={4}>
+      {kind === 'land' && [-60, -20, 20, 60].map((dx) => <g key={dx}><rect x={dx - 14} y={-44} width={28} height={44} /><path d={`M${dx - 16} -44 L${dx} -60 L${dx + 16} -44`} /></g>)}
+      {kind === 'law' && <g><line x1={-46} y1={0} x2={46} y2={0} strokeWidth={6} /><line x1={-30} y1={-8} x2={20} y2={-58} strokeWidth={10} strokeLinecap="round" /><rect x={6} y={-78} width={44} height={24} rx={4} transform="rotate(-45 28 -66)" fill={EV.ink} /></g>}
+      {kind === 'curve' && <path d="M-80,0 C -50,-46 -10,-46 20,-12 C 44,16 80,8 96,-30" strokeWidth={6} />}
+    </g>
+  );
   return (
-    <div style={{position: 'absolute', left: x, top: y, opacity: o, display: 'flex', alignItems: 'center'}}>
-      <span style={{fontFamily: cond, fontWeight: 700, fontSize: 56, color: GREEN, marginRight: 20}}>✓</span>
-      <span style={{fontFamily: cond, fontWeight: 700, fontSize: 52, color: dark ? EV.ink : LIGHT, textTransform: 'uppercase'}}>{text}</span>
-    </div>
+    <svg style={{position: 'absolute', left: 0, top: 0}} width={1920} height={1080}>
+      {/* the three hurdles (faded) */}
+      <Obstacle cx={330} kind="land" />
+      <Obstacle cx={760} kind="law" />
+      <Obstacle cx={1130} kind="curve" />
+      <line x1={120} y1={groundY} x2={1400} y2={groundY} stroke={EV.ink} strokeWidth={3} opacity={obO * 0.5} />
+      {/* the straight elevated Brightline line, sailing over everything */}
+      {pillars.map((px, i) => <line key={i} x1={px} y1={deckY + 8} x2={px} y2={groundY} stroke={EV.ink} strokeWidth={6} opacity={interpolate(frame - from, [10 + i * 3, 16 + i * 3], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />)}
+      <line x1={x0} y1={deckY} x2={x1} y2={deckY} stroke={EV.ink} strokeWidth={12} strokeDasharray={x1 - x0} strokeDashoffset={(x1 - x0) * (1 - draw)} strokeLinecap="round" />
+      <line x1={x0} y1={deckY + 16} x2={x0 + (x1 - x0) * draw} y2={deckY + 16} stroke={EV.red} strokeWidth={4} />
+    </svg>
   );
 };
 
@@ -133,24 +153,25 @@ export const Ch3P17Ev: React.FC = () => {
         <Highlight x={120} y={250} w={1000} at={f(12.0)} h={48} />
         <Headline text="Im Mittelstreifen der Autobahn" x={120} y={160} size={64} at={f(11.7)} />
         <MedianDiagram x={420} y={430} from={f(13.0)} />
-        <Check text="von Natur aus gerade & flach" x={130} y={470} at={f(18.4)} dark />
       </Group>
 
-      {/* ── Board C: why it works + the Metroliner lesson ── */}
+      {/* ── Board C: sailing over the hurdles + the 1965 lesson ── */}
       <Group show={[f(20.6), C3P17_DURATION]}>
         <GraphPaper />
         <Halftone opacity={0.1} size={7} />
         <TypeHeading text="Akte — Warum es gelingt" x={150} y={120} size={26} at={f(20.8)} />
         <Crosshair x={1850} y={70} at={f(21.0)} />
         <Highlight x={120} y={250} w={620} at={f(21.2)} h={48} />
-        <Headline text="Endlich richtig gemacht" x={120} y={160} size={72} at={f(20.9)} />
+        <Headline text="Über alle Hürden hinweg" x={120} y={160} size={72} at={f(20.9)} />
 
-        <Check text="kein Kampf um Grundstücke" x={130} y={380} at={f(21.4)} dark />
-        <Check text="und doch eine eigene neue Trasse" x={130} y={480} at={f(23.6)} dark />
-        <Check text="die Lehre des Metroliners (1965)" x={130} y={580} at={f(26.4)} dark />
+        <ObstacleBypass from={f(21.6)} />
+        <BulletTrain x={interpolate(frame, [f(22.2), f(27.2)], [60, 1440], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} y={560} at={f(22.2)} w={300} />
 
-        <TapedPhoto src="metroliner.jpg" cx={1450} cy={470} w={620} rot={3} at={f(26.6)} caption="Die Lehre von 1965 — endlich befolgt" />
-        <Stamp text="so geht es" x={1450} y={760} size={56} at={f(29.4)} rot={-6} />
+        {/* the 1965 lesson, finally applied — a dotted connector, no stamp */}
+        <TapedPhoto src="metroliner.jpg" cx={1560} cy={760} w={440} rot={3} at={f(27.0)} caption="1965" />
+        <svg style={{position: 'absolute', left: 0, top: 0}} width={1920} height={1080}>
+          <path d="M1440,575 C 1500,640 1540,680 1560,700" fill="none" stroke={EV.red} strokeWidth={4} strokeDasharray="3 10" strokeLinecap="round" opacity={interpolate(frame, [f(28.0), f(28.8)], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
+        </svg>
       </Group>
 
       {/* ── sound ── */}
@@ -161,8 +182,9 @@ export const Ch3P17Ev: React.FC = () => {
       <TypeClicks at={f(11.5)} n={6} gap={4} volume={TYPE} />
       <Sfx src="sfx_draw.mp3" at={f(13.0)} volume={DRAW} />
       <Sfx src="whoosh.mp3" at={f(20.6)} volume={0.32} />
-      <Sfx src="sfx_paper.mp3" at={f(26.6)} volume={PAPER} />
-      <Sfx src="sfx_stamp.mp3" at={f(29.4)} volume={STAMP} />
+      <Sfx src="sfx_paper.mp3" at={f(27.0)} volume={PAPER} />
+      <Sfx src="sfx_draw.mp3" at={f(21.6)} volume={DRAW} />
+      <Sfx src="sfx_draw.mp3" at={f(28.0)} volume={0.25} />
 
       <Audio src={staticFile('audio/vo.m4a')} startFrom={Math.round(START * FPS)} volume={1} />
     </AbsoluteFill>
