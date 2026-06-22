@@ -46,6 +46,10 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Recht: Gerichtshammer | `photos/gavel.jpg` | „Courtroom One Gavel" — Joe Gratz (Wikimedia Commons) | CC0 |
 | Förderstopp: D. Trump | `photos/trump.jpg` | „Donald Trump Portrait (2025–2029)" — offizielles Porträt | Public domain |
 | Texas: Houston (Ausschnitt) | `cutouts/houston.png` | „Downtown Houston Skyline" — Bill Bradford (Wikimedia Commons) | CC BY 2.0 |
+| Texas: Karte (1867) | `maps/texas.jpg` | „Pressler Traveller's Map of the State of Texas, 1867" — K. W. Pressler (UTA, Wikimedia Commons) | Public domain |
+| Texas: Bezirkskarte (1880) | `maps/texascounty.jpg` | „1880 County Map of the State of Texas" — Mitchell/Gamble (Wikimedia Commons) | Public domain |
+| Texas: Stadtplan Waco | `maps/wacomap.jpg` | „Major Street Plan for Waco, Texas" (1940 Census ED, NARA) | Public domain |
+| Texas: Pumpjack (Öl) | `photos/pumpjack.jpg`, `cutouts/pumpjack.png` | „Oil, Andrews TX" — Zorin09 (Wikimedia Commons) | CC BY 3.0 |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
