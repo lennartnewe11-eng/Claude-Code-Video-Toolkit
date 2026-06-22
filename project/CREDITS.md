@@ -41,6 +41,10 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | California HSR: Cedar-Viadukt | `photos/cahsr_cedar.jpg` | „CAHSR Cedar viaduct" — CA High-Speed Rail Authority (Wikimedia Commons) | Public domain |
 | California HSR: Bau (Drohne) | `photos/cahsr_drone.jpg` | „CAHSR Dji 0879" (Wikimedia Commons) | Public domain |
 | California HSR: Wasco-Viadukt | `photos/cahsr_wasco.jpg` | „CAHSR Wasco Viaduct" — CA High-Speed Rail Authority (Wikimedia Commons) | Public domain |
+| California HSR: Brücke (Bau) | `photos/cahsr_bridge.jpg` | „California HSR Dutch John Cut Bridge 2024" — CA High-Speed Rail Authority | Public domain |
+| Kalifornien: Central Valley | `photos/valley.jpg` | „Aerial view of fields in central California" — Scott Bauer (USDA, Wikimedia Commons) | Public domain |
+| Recht: Gerichtshammer | `photos/gavel.jpg` | „Courtroom One Gavel" — Joe Gratz (Wikimedia Commons) | CC0 |
+| Förderstopp: D. Trump | `photos/trump.jpg` | „Donald Trump Portrait (2025–2029)" — offizielles Porträt | Public domain |
 | Tokio 1964 (Olympia) | `clips/olympics64.mp4` | Olympische Spiele Tokio 1964, Marathon (Archivaufnahme) | CC0 / PD |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
