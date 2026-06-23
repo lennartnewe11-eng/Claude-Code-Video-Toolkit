@@ -72,6 +72,11 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Bahnhof bei Nacht | `clips/station_night.mp4` | „Berlin Gesundbrunnen station 2026-02-07 night" (Wikimedia Commons) | CC BY 4.0 |
 | Las Vegas (Brightline) | `clips/vegas.mp4` | „Fountains of Bellagio show" — Las Vegas (Wikimedia Commons) | CC BY-SA 3.0 |
 | US-Nahverkehr | `clips/subway.mp4` | „NYC Subway Train of R160 cars" (Wikimedia Commons) | CC BY-SA 4.0 |
+| Dichte Stadt (Nacht) | `clips/hknight.mp4` | „Hong Kong Skyline at Night" (Wikimedia Commons) | CC BY-SA 2.0 |
+| Europäische Stadt (Nacht) | `clips/brussels.mp4` | „9069 Brussels tramway noche de los museos 2k16" (Wikimedia Commons) | CC BY-SA 3.0 |
+| Teures Land (Ernte) | `clips/harvest.mp4` | „Harvest (20200822-NRCS-LSC-1077)" — USDA NRCS (Wikimedia Commons) | Public domain |
+| Hoffnung (Sonnenaufgang) | `clips/sunrise.mp4` | „Another Sunrise Time Lapse in 4K" (Wikimedia Commons) | CC BY 3.0 |
+| Leere Gleise | `clips/platform_pass.mp4` | „Durchfahrt von AVG 846 bei Hagen-Kabel Bahnhof" (Wikimedia Commons) | CC0 |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
 | Düsen-Stunt: Triebwerk | `photos/j47.jpg` | General Electric J47-27 Turbojet (USAF, Wikimedia Commons) | Public domain |

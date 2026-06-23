@@ -1,7 +1,7 @@
 import {AbsoluteFill, Audio, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame, useVideoConfig, spring} from 'remotion';
 import {FPS} from './timeline';
 import {cond, mono, EV} from './style/evidence';
-import {GraphPaper, TapedPhoto, Stamp, Seal, Crosshair, Halftone, Highlight} from './style/Evidence';
+import {GraphPaper, TapedPhoto, Stamp, Seal, Crosshair, Halftone} from './style/Evidence';
 import {Sfx, DroneBed, TypeClicks} from './style/Sound';
 
 const START = 777.5;
@@ -12,7 +12,7 @@ const YEL = EV.yellow;
 
 const isImg = (s: string) => /\.(jpg|jpeg|png)$/i.test(s);
 
-/** Shared synthwave / retro-cyber overlay — tuned darker so it reads on night footage. */
+/** Synthwave / retro-cyber overlay on the FOOTAGE (tuned darker for night clips). */
 const CyberGrade: React.FC<{bw?: boolean; frame: number}> = ({bw, frame}) => {
   const flick = 0.92 + 0.08 * Math.sin(frame * 0.7);
   return (
@@ -26,22 +26,19 @@ const CyberGrade: React.FC<{bw?: boolean; frame: number}> = ({bw, frame}) => {
   );
 };
 
-const NEON_TEXT = '0 0 22px rgba(255,40,170,0.6), 0 0 8px rgba(0,220,255,0.55), 0 3px 18px rgba(0,0,0,0.95)';
-
-/** Full-bleed shot — video (default) or image — graded + a YELLOW caption + optional cause number. */
-const Shot: React.FC<{src: string; from: number; dur: number; text?: string; center?: boolean; bw?: boolean; num?: string; trim?: number}> = ({src, from, dur, text, center, bw, num, trim}) => (
+/** Full-bleed shot — video (default) or image — graded + optional cause number. No baked-in caption. */
+const Shot: React.FC<{src: string; from: number; dur: number; bw?: boolean; num?: string; trim?: number}> = ({src, from, dur, bw, num, trim}) => (
   <Sequence from={from} durationInFrames={dur} layout="none">
-    <ShotInner src={src} dur={dur} text={text} center={center} bw={bw} num={num} trim={trim} />
+    <ShotInner src={src} dur={dur} bw={bw} num={num} trim={trim} />
   </Sequence>
 );
-const ShotInner: React.FC<{src: string; dur: number; text?: string; center?: boolean; bw?: boolean; num?: string; trim?: number}> = ({src, dur, text, center, bw, num, trim}) => {
+const ShotInner: React.FC<{src: string; dur: number; bw?: boolean; num?: string; trim?: number}> = ({src, dur, bw, num, trim}) => {
   const frame = useCurrentFrame();
   const io = interpolate(frame, [0, 4, dur - 4, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const img = isImg(src);
   const scale = img ? interpolate(frame, [0, dur], [1.1, 1.22]) : interpolate(frame, [0, dur], [1.06, 1.12]);
   const pan = img ? interpolate(frame, [0, dur], [-22, 22]) : 0;
   const to = interpolate(frame, [2, 8], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const tx = interpolate(frame, [2, 9], [-18, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   const vidFilter = bw ? 'grayscale(1) contrast(1.2) brightness(0.82)' : 'saturate(1.42) contrast(1.16) hue-rotate(-6deg) brightness(0.82)';
   const imgFilter = bw ? 'grayscale(1) contrast(1.16) brightness(0.8)' : 'sepia(0.15) saturate(1.35) contrast(1.12) brightness(0.82)';
   const media = {width: '100%', height: '100%', objectFit: 'cover' as const, transform: `scale(${scale}) translateX(${pan}px)`, filter: img ? imgFilter : vidFilter};
@@ -53,21 +50,16 @@ const ShotInner: React.FC<{src: string; dur: number; text?: string; center?: boo
       <CyberGrade bw={bw} frame={frame} />
       {num && (
         <div style={{position: 'absolute', right: 70, top: 70, textAlign: 'right', opacity: to}}>
-          <div style={{fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.28em', color: '#7df9ff', textShadow: '0 0 10px rgba(0,220,255,0.8)'}}>URSACHE</div>
-          <div style={{fontFamily: cond, fontWeight: 700, fontSize: 150, lineHeight: 0.8, color: YEL, textShadow: '0 0 30px rgba(255,40,170,0.7), 0 0 12px rgba(0,220,255,0.6)'}}>{num}</div>
-        </div>
-      )}
-      {text && (
-        <div style={{position: 'absolute', left: 80, ...(center ? {top: 420} : {bottom: 90}), opacity: to, transform: `translateX(${tx}px)`, maxWidth: 1280}}>
-          <div style={{fontFamily: cond, fontWeight: 700, fontSize: center ? 100 : 76, lineHeight: 0.98, textTransform: 'uppercase', color: YEL, textShadow: NEON_TEXT}}>{text}</div>
+          <div style={{fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.28em', color: '#7df9ff', textShadow: '0 2px 8px rgba(0,0,0,0.85)'}}>URSACHE</div>
+          <div style={{fontFamily: cond, fontWeight: 700, fontSize: 150, lineHeight: 0.8, color: YEL, textShadow: '0 3px 14px rgba(0,0,0,0.9)'}}>{num}</div>
         </div>
       )}
     </AbsoluteFill>
   );
 };
 
-/** Decision montage — cross-cycles VIDEO clips with one persistent yellow caption. */
-const Cycler: React.FC<{srcs: {src: string; trim?: number}[]; from: number; dur: number; text: string}> = ({srcs, from, dur, text}) => {
+/** Decision montage — cross-cycles VIDEO clips (subtitles run globally on top). */
+const Cycler: React.FC<{srcs: {src: string; trim?: number}[]; from: number; dur: number}> = ({srcs, from, dur}) => {
   const each = Math.floor(dur / srcs.length);
   return (
     <Sequence from={from} durationInFrames={dur} layout="none">
@@ -79,7 +71,6 @@ const Cycler: React.FC<{srcs: {src: string; trim?: number}[]; from: number; dur:
           </Sequence>
         );
       })}
-      <CycCaption text={text} dur={dur} />
     </Sequence>
   );
 };
@@ -94,12 +85,89 @@ const CycClip: React.FC<{src: string; trim?: number; dur: number}> = ({src, trim
     </AbsoluteFill>
   );
 };
-const CycCaption: React.FC<{text: string; dur: number}> = ({text, dur}) => {
+
+/** ── Classic centered subtitles — words fade in one by one, synced to the VO ── */
+const OUTLINE = '-2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000, 0 0 4px #000, 0 3px 8px rgba(0,0,0,0.95)';
+const SUBS: [number, number, string][] = [
+  [778.96, 781.0, 'Warum fährt die Bahn in Europa,'],
+  [781.0, 782.9, 'Japan und China — aber nicht in den USA?'],
+  [783.6, 784.9, 'Auf diese Frage gibt es'],
+  [784.9, 785.96, 'nicht die eine Antwort.'],
+  [786.28, 787.96, 'Es ist die Summe vieler Ursachen.'],
+  [788.24, 789.68, 'Die erste ist die Geografie.'],
+  [790.2, 791.5, 'Europa und Japan sind kompakt'],
+  [791.5, 792.7, 'und dicht besiedelt —'],
+  [792.7, 793.94, 'wie geschaffen für die Bahn.'],
+  [794.6, 795.9, 'Amerika dagegen ist riesig'],
+  [795.9, 796.96, 'und weit zersiedelt.'],
+  [797.67, 798.96, 'Die zweite ist das Timing.'],
+  [799.64, 800.9, 'Als das Auto aufkam,'],
+  [800.9, 802.3, 'war es in den USA sofort'],
+  [802.3, 803.9, 'für die breite Masse erschwinglich —'],
+  [803.9, 805.0, 'und die Städte wurden'],
+  [805.0, 806.96, 'ganz um das Auto herum gebaut.'],
+  [807.56, 808.9, 'Europa besaß seine dichten Städte'],
+  [808.9, 809.96, 'schon lange vorher.'],
+  [810.91, 811.96, 'Die dritte ist das Geld.'],
+  [812.66, 814.6, 'Über Jahrzehnte flossen Milliarden'],
+  [814.6, 816.2, 'in Straßen und Flughäfen,'],
+  [816.2, 818.4, 'während die Schiene fast leer ausging.'],
+  [819.18, 820.6, 'Andere Länder verstanden ihre Bahn'],
+  [820.6, 821.92, 'als öffentliche Aufgabe.'],
+  [822.54, 824.96, 'In den USA sollte sie Gewinn abwerfen.'],
+  [824.96, 826.96, 'Die vierte ist die Eigentumsfrage.'],
+  [827.22, 829.2, 'Die Gleise gehören dem Güterverkehr —'],
+  [829.2, 830.9, 'und der Personenzug bleibt'],
+  [830.9, 832.96, 'der ungebetene Gast auf fremdem Grund.'],
+  [833.04, 834.92, 'Und die fünfte ist der moderne Faktor.'],
+  [835.36, 837.0, 'Wer es heute noch einmal versucht:'],
+  [837.0, 838.5, 'teures Land,'],
+  [838.5, 839.96, 'endlose Klagen,'],
+  [840.26, 841.7, 'zersplitterte Zuständigkeit'],
+  [841.7, 843.2, 'und Fördergelder, die nie'],
+  [843.2, 844.96, 'lange genug fließen.'],
+  [846.05, 847.0, 'Amerika hat seine Züge nicht'],
+  [847.0, 847.96, 'durch einen Unfall verloren.'],
+  [848.56, 850.1, 'Dahinter steht eine lange Kette'],
+  [850.1, 851.6, 'von Entscheidungen, die meist'],
+  [851.6, 853.2, 'bequem waren, kurzfristig logisch —'],
+  [853.2, 854.4, 'und manchmal schlecht'],
+  [854.4, 855.96, 'im Eigennutz dienten.'],
+  [856.2, 857.6, 'Jeder einzelne davon war'],
+  [857.6, 858.96, 'für sich genommen nachvollziehbar.'],
+  [859.26, 860.8, 'Zusammen haben sie das beste'],
+  [860.8, 861.96, 'Bahnnetz der Welt demontiert.'],
+  [863.09, 864.96, 'Immerhin gibt es einen Hoffnungsschimmer.'],
+  [865.08, 866.6, 'Private wie Brightline'],
+  [866.6, 867.96, 'bauen neue Strecken.'],
+  [868.16, 869.5, 'In den Nordost-Korridor'],
+  [869.5, 870.7, 'fließt wieder Geld —'],
+  [870.7, 871.96, 'das Umweltbewusstsein wächst.'],
+  [872.54, 873.9, 'Doch 70 Jahre Rückstand'],
+  [873.9, 875.3, 'und eine ganz aufs Auto'],
+  [875.3, 876.5, 'ausgerichtete Gesellschaft'],
+  [876.5, 877.96, 'kehrt man nicht über Nacht um.'],
+  [878.62, 879.7, 'Der Weg zurück'],
+  [879.7, 880.8, 'ist viel länger als der Weg'],
+  [880.8, 881.96, 'nach unten es je war.'],
+];
+const Subtitles: React.FC = () => {
   const frame = useCurrentFrame();
-  const o = interpolate(frame, [2, 10, dur - 6, dur], [0, 1, 1, 0], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+  const t = frame / FPS + START;
+  const cue = SUBS.find(([s, e]) => t >= s && t < e);
+  if (!cue) return null;
+  const [s, e, text] = cue;
+  const words = text.split(' ');
+  const span = (e - s) * 0.6;
   return (
-    <div style={{position: 'absolute', left: 80, bottom: 90, opacity: o, maxWidth: 1280}}>
-      <div style={{fontFamily: cond, fontWeight: 700, fontSize: 76, lineHeight: 0.98, textTransform: 'uppercase', color: YEL, textShadow: NEON_TEXT}}>{text}</div>
+    <div style={{position: 'absolute', left: 0, right: 0, bottom: 82, textAlign: 'center', padding: '0 240px'}}>
+      <span style={{fontFamily: 'Inter, system-ui, sans-serif', fontWeight: 800, fontSize: 50, lineHeight: 1.22, color: YEL, textShadow: OUTLINE}}>
+        {words.map((w, i) => {
+          const wt = s + (i / words.length) * span;
+          const o = interpolate(t, [wt, wt + 0.12], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
+          return <span key={i} style={{opacity: o}}>{w}{i < words.length - 1 ? ' ' : ''}</span>;
+        })}
+      </span>
     </div>
   );
 };
@@ -160,7 +228,6 @@ const CollageInner: React.FC<{dur: number}> = ({dur}) => {
         <TapedPhoto key={i} src={p.src} cx={p.cx} cy={p.cy} w={p.w} rot={p.rot} at={i * 2} caption={p.cap} />
       ))}
       <Thread at={f(0.9)} />
-      {/* central verdict sheet pinned over the board */}
       <div style={{position: 'absolute', left: '50%', top: 540, width: 880, transform: `translate(-50%,-50%) rotate(-1deg) scale(${cardSc})`, opacity: cardO, background: '#f5f1e6', padding: '40px 56px 48px', boxShadow: '8px 14px 26px rgba(20,16,10,0.45)', zIndex: 10}}>
         <div style={{position: 'absolute', top: -16, left: '50%', transform: 'translateX(-50%) rotate(-3deg)', width: 150, height: 34, background: EV.tape}} />
         <div style={{position: 'absolute', top: -14, left: 60, transform: 'rotate(6deg)', width: 110, height: 30, background: EV.tape}} />
@@ -183,7 +250,7 @@ const CollageInner: React.FC<{dur: number}> = ({dur}) => {
 };
 
 const Tag: React.FC = () => (
-  <div style={{position: 'absolute', left: 80, top: 60, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.2em', color: '#7df9ff', opacity: 0.9, mixBlendMode: 'screen', textShadow: '0 0 10px rgba(0,220,255,0.8)'}}>FAZIT — DIE SUMME VIELER URSACHEN</div>
+  <div style={{position: 'absolute', left: 80, top: 60, fontFamily: mono, fontWeight: 700, fontSize: 22, letterSpacing: '0.2em', color: '#7df9ff', opacity: 0.85, textShadow: '0 2px 8px rgba(0,0,0,0.85)'}}>FAZIT — DIE SUMME VIELER URSACHEN</div>
 );
 
 const MusicBed: React.FC = () => {
@@ -199,58 +266,58 @@ const MusicBed: React.FC = () => {
 export const FazitEv: React.FC = () => {
   return (
     <AbsoluteFill style={{backgroundColor: '#05010f'}}>
-      {/* collage title + question */}
       <CollageTitle from={0} dur={f(6.1)} />
 
       {/* no single answer */}
-      <Shot src="clips/citynight.mp4" from={f(6.1)} dur={f(4.64)} text="Keine einzelne Antwort" />
+      <Shot src="clips/citynight.mp4" from={f(6.1)} dur={f(4.64)} />
 
       {/* CAUSE 1 — geography */}
-      <Shot src="clips/citynight.mp4" from={f(10.74)} dur={f(6.36)} trim={6} num="01" text="Kompakt. Dicht besiedelt." />
-      <Shot src="clips/highway.mp4" from={f(17.1)} dur={f(3.07)} text="Riesig. Weit zersiedelt." />
+      <Shot src="clips/hknight.mp4" from={f(10.74)} dur={f(6.36)} num="01" />
+      <Shot src="clips/air.mp4" from={f(17.1)} dur={f(3.07)} bw />
 
       {/* CAUSE 2 — timing */}
-      <Shot src="clips/carad.mp4" from={f(20.17)} dur={f(5.83)} num="02" text="Das Auto kam zuerst" bw />
-      <Shot src="clips/carcity.mp4" from={f(26.0)} dur={f(4.06)} text="Städte um das Auto gebaut" />
-      <Shot src="clips/station_night.mp4" from={f(30.06)} dur={f(3.35)} text="Europas Städte: längst dicht" />
+      <Shot src="clips/carad.mp4" from={f(20.17)} dur={f(5.83)} num="02" bw />
+      <Shot src="clips/carcity.mp4" from={f(26.0)} dur={f(4.06)} />
+      <Shot src="clips/brussels.mp4" from={f(30.06)} dur={f(3.35)} />
 
       {/* CAUSE 3 — money */}
-      <Shot src="clips/citynight.mp4" from={f(33.41)} dur={f(1.75)} trim={10} num="03" text="Das Geld" />
-      <Shot src="clips/highway.mp4" from={f(35.16)} dur={f(2.84)} trim={4} text="Milliarden für Straßen" />
-      <Shot src="clips/airport.mp4" from={f(38.0)} dur={f(3.68)} text="… und Flughäfen" />
-      <Shot src="clips/station_night.mp4" from={f(41.68)} dur={f(2.74)} trim={5} text="Anderswo: öffentliche Aufgabe" />
-      <Shot src="clips/vegas.mp4" from={f(45.04)} dur={f(2.42)} text="In den USA: muss Gewinn bringen" />
+      <Shot src="clips/vegas.mp4" from={f(33.41)} dur={f(1.75)} num="03" />
+      <Shot src="clips/highway.mp4" from={f(35.16)} dur={f(2.84)} />
+      <Shot src="clips/airport.mp4" from={f(38.0)} dur={f(3.68)} />
+      <Shot src="clips/shinkansen2.mp4" from={f(41.68)} dur={f(2.74)} />
+      <Shot src="clips/tokyo.mp4" from={f(45.04)} dur={f(2.42)} />
 
       {/* CAUSE 4 — ownership */}
-      <Shot src="clips/freight_us.mp4" from={f(47.46)} dur={f(3.0)} num="04" text="Die Eigentumsfrage" bw />
-      <Shot src="clips/station_night.mp4" from={f(50.46)} dur={f(5.0)} trim={8} text="Personenzug: Gast auf fremdem Grund" />
+      <Shot src="clips/freight_us.mp4" from={f(47.46)} dur={f(3.0)} num="04" bw />
+      <Shot src="clips/station_night.mp4" from={f(50.46)} dur={f(5.0)} />
 
       {/* CAUSE 5 — the modern factor */}
-      <Shot src="clips/citynight.mp4" from={f(55.54)} dur={f(2.32)} trim={2} num="05" text="Der moderne Faktor" />
-      <Shot src="clips/air.mp4" from={f(57.86)} dur={f(2.4)} text="Teures Land" bw />
-      <Shot src="clips/citynight.mp4" from={f(60.26)} dur={f(2.4)} trim={12} text="Endlose Klagen" />
-      <Shot src="clips/subway.mp4" from={f(62.66)} dur={f(2.4)} text="Zersplitterte Zuständigkeit" bw />
-      <Shot src="clips/highway.mp4" from={f(65.06)} dur={f(2.4)} trim={8} text="Versiegende Fördergelder" />
+      <Shot src="clips/shinkansen_new.mp4" from={f(55.54)} dur={f(2.32)} num="05" />
+      <Shot src="clips/harvest.mp4" from={f(57.86)} dur={f(2.4)} bw />
+      <Shot src="clips/oldline.mp4" from={f(60.26)} dur={f(2.4)} bw />
+      <Shot src="clips/subway.mp4" from={f(62.66)} dur={f(2.4)} bw />
+      <Shot src="clips/usrail_station.mp4" from={f(65.06)} dur={f(2.4)} bw />
 
       {/* synthesis */}
-      <Shot src="clips/station_night.mp4" from={f(68.55)} dur={f(2.5)} trim={11} text="Kein Unfall" />
-      <Cycler srcs={[{src: 'clips/citynight.mp4', trim: 3}, {src: 'clips/highway.mp4', trim: 2}, {src: 'clips/subway.mp4'}, {src: 'clips/vegas.mp4', trim: 1}]} from={f(71.06)} dur={f(7.4)} text="Eine Kette von Entscheidungen" />
-      <Shot src="clips/carcity.mp4" from={f(78.7)} dur={f(3.06)} trim={2} text="Einzeln nachvollziehbar" />
-      <Shot src="clips/station_night.mp4" from={f(81.76)} dur={f(3.83)} trim={1} text="Zusammen: das beste Netz demontiert" bw />
+      <Shot src="clips/archive_train.mp4" from={f(68.55)} dur={f(2.5)} bw />
+      <Cycler srcs={[{src: 'clips/tgv.mp4'}, {src: 'clips/china.mp4'}, {src: 'clips/acela1.mp4'}, {src: 'clips/ice.mp4'}]} from={f(71.06)} dur={f(7.4)} />
+      <Shot src="clips/usrail_approach.mp4" from={f(78.7)} dur={f(3.06)} bw />
+      <Shot src="clips/usrail_mountain.mp4" from={f(81.76)} dur={f(3.83)} bw />
 
       {/* hope */}
-      <Shot src="clips/vegas.mp4" from={f(85.59)} dur={f(1.99)} text="Ein Hoffnungsschimmer" />
-      <Shot src="clips/brightline_run.mp4" from={f(87.58)} dur={f(3.08)} text="Brightline baut" />
-      <Shot src="clips/acela3.mp4" from={f(90.66)} dur={f(1.9)} text="Geld für den Korridor" />
-      <Shot src="clips/wind.mp4" from={f(92.56)} dur={f(2.48)} text="Umweltbewusstsein wächst" />
+      <Shot src="clips/sunrise.mp4" from={f(85.59)} dur={f(1.99)} />
+      <Shot src="clips/brightline_run.mp4" from={f(87.58)} dur={f(3.08)} />
+      <Shot src="clips/acela3.mp4" from={f(90.66)} dur={f(1.9)} />
+      <Shot src="clips/wind.mp4" from={f(92.56)} dur={f(2.48)} />
 
       {/* reality check */}
-      <Shot src="clips/highway.mp4" from={f(95.04)} dur={f(6.08)} trim={2} text="70 Jahre Rückstand" />
+      <Shot src="clips/traffic.mp4" from={f(95.04)} dur={f(6.08)} />
 
       {/* closer */}
-      <Shot src="clips/station_night.mp4" from={f(101.12)} dur={FAZIT_DURATION - f(101.12)} trim={3} text="Der Weg zurück ist länger." center bw />
+      <Shot src="clips/platform_pass.mp4" from={f(101.12)} dur={FAZIT_DURATION - f(101.12)} bw />
 
       <Tag />
+      <Subtitles />
 
       {/* ── driving sound design ── */}
       <MusicBed />
