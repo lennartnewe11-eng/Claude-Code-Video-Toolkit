@@ -18,7 +18,7 @@ export const ThumbEv: React.FC = () => {
       <AbsoluteFill style={{background: 'radial-gradient(130% 90% at 50% 55%, transparent 28%, rgba(120,0,190,0.7) 100%)', mixBlendMode: 'screen', opacity: 0.6}} />
 
       {/* bottom neon horizon grid */}
-      <AbsoluteFill style={{top: 'auto', bottom: 0, height: 380, backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,235,255,0.7) 0px, rgba(0,235,255,0.7) 2px, transparent 2px, transparent 72px)', maskImage: 'linear-gradient(to top, black, transparent)', WebkitMaskImage: 'linear-gradient(to top, black, transparent)', mixBlendMode: 'screen', opacity: 0.34}} />
+      <AbsoluteFill style={{top: 'auto', bottom: 0, height: 420, backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,240,255,0.85) 0px, rgba(0,240,255,0.85) 2px, transparent 2px, transparent 68px)', maskImage: 'linear-gradient(to top, black, transparent)', WebkitMaskImage: 'linear-gradient(to top, black, transparent)', mixBlendMode: 'screen', opacity: 0.5}} />
 
       {/* 4 — Metroliner entering from the right, fills the right side, tall */}
       <Img
@@ -33,7 +33,7 @@ export const ThumbEv: React.FC = () => {
       />
 
       {/* scanlines (strong) + vignette */}
-      <AbsoluteFill style={{backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.42) 0px, rgba(0,0,0,0.42) 1px, transparent 1px, transparent 3px)', mixBlendMode: 'multiply', opacity: 0.7}} />
+      <AbsoluteFill style={{backgroundImage: 'repeating-linear-gradient(0deg, rgba(0,0,0,0.55) 0px, rgba(0,0,0,0.55) 1px, transparent 1px, transparent 3px)', mixBlendMode: 'multiply', opacity: 0.85}} />
       <AbsoluteFill style={{boxShadow: 'inset 0 0 420px rgba(3,0,10,0.98)'}} />
     </AbsoluteFill>
   );
