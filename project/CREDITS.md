@@ -68,6 +68,10 @@ benötigen keine Nennung, sind hier aber der Vollständigkeit halber gelistet.
 | Geld: Flughafen | `clips/airport.mp4` | „Airplane Landing at South Runway, HKIA 20210215" (Wikimedia Commons) | CC BY-SA 4.0 |
 | Hoffnung: Windrad | `clips/wind.mp4` | „Drone video of wind turbine near Kunda in Estonia" (Wikimedia Commons) | CC BY-SA 4.0 |
 | Realität: Stau | `clips/traffic.mp4` | „Congested traffic on the Dan Ryan Expy (10x timelapse)" — Chicago (Wikimedia Commons) | CC BY 4.0 |
+| Nacht-Skyline | `clips/citynight.mp4` | „City skyline (time lapse)" — Nachtaufnahme (Wikimedia Commons) | CC BY 3.0 |
+| Bahnhof bei Nacht | `clips/station_night.mp4` | „Berlin Gesundbrunnen station 2026-02-07 night" (Wikimedia Commons) | CC BY 4.0 |
+| Las Vegas (Brightline) | `clips/vegas.mp4` | „Fountains of Bellagio show" — Las Vegas (Wikimedia Commons) | CC BY-SA 3.0 |
+| US-Nahverkehr | `clips/subway.mp4` | „NYC Subway Train of R160 cars" (Wikimedia Commons) | CC BY-SA 4.0 |
 | Shinkansen Serie 0 | `photos/shinkansen0.jpg` | Shinkansen Serie 0 auf Brücke, Tōkaidō (Wikimedia Commons) | CC0 / PD |
 | Düsen-Stunt: Personenwagen | `photos/rdc.jpg` | B&O Budd RDC Nr. 1907, Beltsville MD, 1969 — Roger Puta (Wikimedia Commons) | Public domain |
 | Düsen-Stunt: Triebwerk | `photos/j47.jpg` | General Electric J47-27 Turbojet (USAF, Wikimedia Commons) | Public domain |
