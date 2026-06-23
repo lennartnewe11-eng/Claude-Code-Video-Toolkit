@@ -263,58 +263,61 @@ const MusicBed: React.FC = () => {
   );
 };
 
+type ShotDef = {at: number; src?: string; num?: string; bw?: boolean; trim?: number; cyc?: {src: string; trim?: number}[]};
+const SHOTS: ShotDef[] = [
+  {at: 6.1, src: 'clips/citynight.mp4'},
+  // CAUSE 1 — geography
+  {at: 10.74, src: 'clips/hknight.mp4', num: '01'},
+  {at: 17.1, src: 'clips/air.mp4', bw: true},
+  // CAUSE 2 — timing
+  {at: 20.17, src: 'clips/carad.mp4', num: '02', bw: true},
+  {at: 26.0, src: 'clips/carcity.mp4'},
+  {at: 30.06, src: 'clips/brussels.mp4'},
+  // CAUSE 3 — money
+  {at: 33.41, src: 'clips/vegas.mp4', num: '03'},
+  {at: 35.16, src: 'clips/highway.mp4'},
+  {at: 38.0, src: 'clips/airport.mp4'},
+  {at: 41.68, src: 'clips/shinkansen2.mp4'},
+  {at: 45.04, src: 'clips/tokyo.mp4'},
+  // CAUSE 4 — ownership
+  {at: 47.46, src: 'clips/freight_us.mp4', num: '04', bw: true},
+  {at: 50.46, src: 'clips/station_night.mp4'},
+  // CAUSE 5 — the modern factor
+  {at: 55.54, src: 'clips/shinkansen_new.mp4', num: '05'},
+  {at: 57.86, src: 'clips/harvest.mp4', bw: true},
+  {at: 60.26, src: 'clips/oldline.mp4', bw: true},
+  {at: 62.66, src: 'clips/subway.mp4', bw: true},
+  {at: 65.06, src: 'clips/usrail_station.mp4', bw: true},
+  // synthesis
+  {at: 68.55, src: 'clips/archive_train.mp4', bw: true},
+  {at: 71.06, cyc: [{src: 'clips/tgv.mp4'}, {src: 'clips/china.mp4'}, {src: 'clips/acela1.mp4'}, {src: 'clips/ice.mp4'}]},
+  {at: 78.7, src: 'clips/usrail_approach.mp4', bw: true},
+  {at: 81.76, src: 'clips/usrail_mountain.mp4', bw: true},
+  // hope
+  {at: 85.59, src: 'clips/sunrise.mp4'},
+  {at: 87.58, src: 'clips/brightline_run.mp4'},
+  {at: 90.66, src: 'clips/acela3.mp4'},
+  {at: 92.56, src: 'clips/wind.mp4'},
+  // reality check
+  {at: 95.04, src: 'clips/traffic.mp4'},
+  // closer
+  {at: 101.12, src: 'clips/platform_pass.mp4', bw: true},
+];
+
 export const FazitEv: React.FC = () => {
   return (
     <AbsoluteFill style={{backgroundColor: '#05010f'}}>
       <CollageTitle from={0} dur={f(6.1)} />
 
-      {/* no single answer */}
-      <Shot src="clips/citynight.mp4" from={f(6.1)} dur={f(4.64)} />
-
-      {/* CAUSE 1 — geography */}
-      <Shot src="clips/hknight.mp4" from={f(10.74)} dur={f(6.36)} num="01" />
-      <Shot src="clips/air.mp4" from={f(17.1)} dur={f(3.07)} bw />
-
-      {/* CAUSE 2 — timing */}
-      <Shot src="clips/carad.mp4" from={f(20.17)} dur={f(5.83)} num="02" bw />
-      <Shot src="clips/carcity.mp4" from={f(26.0)} dur={f(4.06)} />
-      <Shot src="clips/brussels.mp4" from={f(30.06)} dur={f(3.35)} />
-
-      {/* CAUSE 3 — money */}
-      <Shot src="clips/vegas.mp4" from={f(33.41)} dur={f(1.75)} num="03" />
-      <Shot src="clips/highway.mp4" from={f(35.16)} dur={f(2.84)} />
-      <Shot src="clips/airport.mp4" from={f(38.0)} dur={f(3.68)} />
-      <Shot src="clips/shinkansen2.mp4" from={f(41.68)} dur={f(2.74)} />
-      <Shot src="clips/tokyo.mp4" from={f(45.04)} dur={f(2.42)} />
-
-      {/* CAUSE 4 — ownership */}
-      <Shot src="clips/freight_us.mp4" from={f(47.46)} dur={f(3.0)} num="04" bw />
-      <Shot src="clips/station_night.mp4" from={f(50.46)} dur={f(5.0)} />
-
-      {/* CAUSE 5 — the modern factor */}
-      <Shot src="clips/shinkansen_new.mp4" from={f(55.54)} dur={f(2.32)} num="05" />
-      <Shot src="clips/harvest.mp4" from={f(57.86)} dur={f(2.4)} bw />
-      <Shot src="clips/oldline.mp4" from={f(60.26)} dur={f(2.4)} bw />
-      <Shot src="clips/subway.mp4" from={f(62.66)} dur={f(2.4)} bw />
-      <Shot src="clips/usrail_station.mp4" from={f(65.06)} dur={f(2.4)} bw />
-
-      {/* synthesis */}
-      <Shot src="clips/archive_train.mp4" from={f(68.55)} dur={f(2.5)} bw />
-      <Cycler srcs={[{src: 'clips/tgv.mp4'}, {src: 'clips/china.mp4'}, {src: 'clips/acela1.mp4'}, {src: 'clips/ice.mp4'}]} from={f(71.06)} dur={f(7.4)} />
-      <Shot src="clips/usrail_approach.mp4" from={f(78.7)} dur={f(3.06)} bw />
-      <Shot src="clips/usrail_mountain.mp4" from={f(81.76)} dur={f(3.83)} bw />
-
-      {/* hope */}
-      <Shot src="clips/sunrise.mp4" from={f(85.59)} dur={f(1.99)} />
-      <Shot src="clips/brightline_run.mp4" from={f(87.58)} dur={f(3.08)} />
-      <Shot src="clips/acela3.mp4" from={f(90.66)} dur={f(1.9)} />
-      <Shot src="clips/wind.mp4" from={f(92.56)} dur={f(2.48)} />
-
-      {/* reality check */}
-      <Shot src="clips/traffic.mp4" from={f(95.04)} dur={f(6.08)} />
-
-      {/* closer */}
-      <Shot src="clips/platform_pass.mp4" from={f(101.12)} dur={FAZIT_DURATION - f(101.12)} bw />
+      {/* Each shot runs until the next one starts — contiguous, no gaps. */}
+      {SHOTS.map((sh, i) => {
+        const from = f(sh.at);
+        const end = i < SHOTS.length - 1 ? f(SHOTS[i + 1].at) : FAZIT_DURATION;
+        const dur = end - from;
+        return sh.cyc
+          ? <Cycler key={i} srcs={sh.cyc} from={from} dur={dur} />
+          : <Shot key={i} src={sh.src!} from={from} dur={dur} num={sh.num} bw={sh.bw} trim={sh.trim} />;
+      })}
 
       <Tag />
       <Subtitles />
