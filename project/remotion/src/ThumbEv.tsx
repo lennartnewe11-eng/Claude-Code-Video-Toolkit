@@ -5,8 +5,8 @@ import {AbsoluteFill, Img, staticFile} from 'remotion';
 export const ThumbEv: React.FC = () => {
   return (
     <AbsoluteFill style={{backgroundColor: '#05010f'}}>
-      {/* 1 — US flag, full bleed, darkened */}
-      <Img src={staticFile('photos/usflag.jpg')} style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'saturate(1.15) contrast(1.1) brightness(0.42)'}} />
+      {/* 1 — US flag, full bleed (fills the whole background), darkened */}
+      <Img src={staticFile('photos/usflag_full.svg')} style={{width: '100%', height: '100%', objectFit: 'cover', filter: 'saturate(1.1) contrast(1.05) brightness(0.5)'}} />
 
       {/* 2 — rail map over the flag, glowing cyan lines */}
       <AbsoluteFill>
@@ -20,10 +20,10 @@ export const ThumbEv: React.FC = () => {
       {/* bottom neon horizon grid */}
       <AbsoluteFill style={{top: 'auto', bottom: 0, height: 340, backgroundImage: 'repeating-linear-gradient(90deg, rgba(0,235,255,0.6) 0px, rgba(0,235,255,0.6) 2px, transparent 2px, transparent 78px)', maskImage: 'linear-gradient(to top, black, transparent)', WebkitMaskImage: 'linear-gradient(to top, black, transparent)', mixBlendMode: 'screen', opacity: 0.22}} />
 
-      {/* 4 — Metroliner entering from the right, ~right half */}
+      {/* 4 — Metroliner entering from the right, fills the right side, tall */}
       <Img
         src={staticFile('cutouts/metroliner_crop.png')}
-        style={{position: 'absolute', right: -60, bottom: 150, width: 1180, filter: 'saturate(1.3) contrast(1.12) brightness(0.92) drop-shadow(0 0 26px rgba(0,225,255,0.55)) drop-shadow(0 18px 30px rgba(0,0,0,0.8))'}}
+        style={{position: 'absolute', right: -150, bottom: 36, width: 1360, filter: 'saturate(1.3) contrast(1.12) brightness(0.95) drop-shadow(0 0 28px rgba(0,225,255,0.55)) drop-shadow(0 18px 34px rgba(0,0,0,0.85))'}}
       />
 
       {/* 5 — Amtrak logo, large on the left, neon glow */}
