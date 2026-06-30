@@ -1,0 +1,1035 @@
+{
+  "language": "de",
+  "segments": [
+    {
+      "start": 0.751,
+      "end": 2.592,
+      "text": " Das ist ein See.",
+      "words": [
+        {
+          "word": "Das",
+          "start": 0.751,
+          "end": 1.351,
+          "score": 0.925
+        },
+        {
+          "word": "ist",
+          "start": 1.391,
+          "end": 1.551,
+          "score": 0.851
+        },
+        {
+          "word": "ein",
+          "start": 1.591,
+          "end": 1.731,
+          "score": 0.77
+        },
+        {
+          "word": "See.",
+          "start": 1.771,
+          "end": 2.592,
+          "score": 0.846
+        }
+      ],
+      "avg_logprob": -0.05564373188159045
+    },
+    {
+      "start": 2.632,
+      "end": 5.553,
+      "text": "Das, das ist auch ein See.",
+      "words": [
+        {
+          "word": "Das,",
+          "start": 2.632,
+          "end": 3.352,
+          "score": 0.813
+        },
+        {
+          "word": "das",
+          "start": 3.372,
+          "end": 3.492,
+          "score": 0.565
+        },
+        {
+          "word": "ist",
+          "start": 3.532,
+          "end": 3.672,
+          "score": 0.573
+        },
+        {
+          "word": "auch",
+          "start": 3.692,
+          "end": 3.892,
+          "score": 0.788
+        },
+        {
+          "word": "ein",
+          "start": 3.932,
+          "end": 4.092,
+          "score": 0.808
+        },
+        {
+          "word": "See.",
+          "start": 4.132,
+          "end": 5.553,
+          "score": 0.917
+        }
+      ],
+      "avg_logprob": -0.05564373188159045
+    },
+    {
+      "start": 5.573,
+      "end": 8.293,
+      "text": "Aber das, das ist kein See.",
+      "words": [
+        {
+          "word": "Aber",
+          "start": 5.573,
+          "end": 5.793,
+          "score": 0.913
+        },
+        {
+          "word": "das,",
+          "start": 5.833,
+          "end": 6.633,
+          "score": 0.724
+        },
+        {
+          "word": "das",
+          "start": 6.653,
+          "end": 6.793,
+          "score": 0.707
+        },
+        {
+          "word": "ist",
+          "start": 6.833,
+          "end": 7.013,
+          "score": 0.699
+        },
+        {
+          "word": "kein",
+          "start": 7.033,
+          "end": 7.253,
+          "score": 0.828
+        },
+        {
+          "word": "See.",
+          "start": 7.293,
+          "end": 8.293,
+          "score": 0.87
+        }
+      ],
+      "avg_logprob": -0.05564373188159045
+    },
+    {
+      "start": 8.313,
+      "end": 18.196,
+      "text": "Und das, obwohl diese drei Orte nur weniger als zwei Kilometer voneinander entfernt sind, sie die gleiche Erhebung haben und die gleichen Witterungsbedingungen auf sie einwirken.",
+      "words": [
+        {
+          "word": "Und",
+          "start": 8.313,
+          "end": 8.493,
+          "score": 0.71
+        },
+        {
+          "word": "das,",
+          "start": 8.513,
+          "end": 8.753,
+          "score": 0.818
+        },
+        {
+          "word": "obwohl",
+          "start": 8.773,
+          "end": 9.054,
+          "score": 0.831
+        },
+        {
+          "word": "diese",
+          "start": 9.074,
+          "end": 9.314,
+          "score": 0.832
+        },
+        {
+          "word": "drei",
+          "start": 9.334,
+          "end": 9.574,
+          "score": 0.877
+        },
+        {
+          "word": "Orte",
+          "start": 9.634,
+          "end": 9.914,
+          "score": 0.982
+        },
+        {
+          "word": "nur",
+          "start": 9.954,
+          "end": 10.094,
+          "score": 0.988
+        },
+        {
+          "word": "weniger",
+          "start": 10.134,
+          "end": 10.374,
+          "score": 0.786
+        },
+        {
+          "word": "als",
+          "start": 10.394,
+          "end": 10.594,
+          "score": 0.875
+        },
+        {
+          "word": "zwei",
+          "start": 10.634,
+          "end": 10.814,
+          "score": 0.992
+        },
+        {
+          "word": "Kilometer",
+          "start": 10.854,
+          "end": 11.254,
+          "score": 0.929
+        },
+        {
+          "word": "voneinander",
+          "start": 11.314,
+          "end": 11.814,
+          "score": 0.742
+        },
+        {
+          "word": "entfernt",
+          "start": 11.834,
+          "end": 12.254,
+          "score": 0.883
+        },
+        {
+          "word": "sind,",
+          "start": 12.294,
+          "end": 13.035,
+          "score": 0.885
+        },
+        {
+          "word": "sie",
+          "start": 13.055,
+          "end": 13.175,
+          "score": 0.59
+        },
+        {
+          "word": "die",
+          "start": 13.195,
+          "end": 13.315,
+          "score": 0.793
+        },
+        {
+          "word": "gleiche",
+          "start": 13.335,
+          "end": 13.695,
+          "score": 0.802
+        },
+        {
+          "word": "Erhebung",
+          "start": 13.735,
+          "end": 14.175,
+          "score": 0.879
+        },
+        {
+          "word": "haben",
+          "start": 14.195,
+          "end": 14.875,
+          "score": 0.917
+        },
+        {
+          "word": "und",
+          "start": 14.915,
+          "end": 15.035,
+          "score": 0.935
+        },
+        {
+          "word": "die",
+          "start": 15.055,
+          "end": 15.155,
+          "score": 0.767
+        },
+        {
+          "word": "gleichen",
+          "start": 15.195,
+          "end": 15.495,
+          "score": 0.812
+        },
+        {
+          "word": "Witterungsbedingungen",
+          "start": 15.515,
+          "end": 16.476,
+          "score": 0.842
+        },
+        {
+          "word": "auf",
+          "start": 16.516,
+          "end": 16.616,
+          "score": 0.874
+        },
+        {
+          "word": "sie",
+          "start": 16.656,
+          "end": 16.756,
+          "score": 0.936
+        },
+        {
+          "word": "einwirken.",
+          "start": 16.796,
+          "end": 18.196,
+          "score": 0.8
+        }
+      ],
+      "avg_logprob": -0.05564373188159045
+    },
+    {
+      "start": 18.216,
+      "end": 19.657,
+      "text": "Wie kann das sein?",
+      "words": [
+        {
+          "word": "Wie",
+          "start": 18.216,
+          "end": 18.376,
+          "score": 0.946
+        },
+        {
+          "word": "kann",
+          "start": 18.396,
+          "end": 18.596,
+          "score": 0.861
+        },
+        {
+          "word": "das",
+          "start": 18.616,
+          "end": 18.796,
+          "score": 0.878
+        },
+        {
+          "word": "sein?",
+          "start": 18.836,
+          "end": 19.657,
+          "score": 0.905
+        }
+      ],
+      "avg_logprob": -0.05564373188159045
+    },
+    {
+      "start": 19.697,
+      "end": 22.597,
+      "text": "Deswegen heute sehen und gesehen werden.",
+      "words": [
+        {
+          "word": "Deswegen",
+          "start": 19.697,
+          "end": 20.037,
+          "score": 0.865
+        },
+        {
+          "word": "heute",
+          "start": 20.057,
+          "end": 20.837,
+          "score": 0.94
+        },
+        {
+          "word": "sehen",
+          "start": 20.877,
+          "end": 21.157,
+          "score": 0.903
+        },
+        {
+          "word": "und",
+          "start": 21.177,
+          "end": 21.337,
+          "score": 0.939
+        },
+        {
+          "word": "gesehen",
+          "start": 21.377,
+          "end": 21.717,
+          "score": 0.904
+        },
+        {
+          "word": "werden.",
+          "start": 21.757,
+          "end": 22.597,
+          "score": 0.953
+        }
+      ],
+      "avg_logprob": -0.05564373188159045
+    },
+    {
+      "start": 22.617,
+      "end": 23.998,
+      "text": "Wie entsteht eigentlich ein See?",
+      "words": [
+        {
+          "word": "Wie",
+          "start": 22.617,
+          "end": 22.857,
+          "score": 0.867
+        },
+        {
+          "word": "entsteht",
+          "start": 22.898,
+          "end": 23.238,
+          "score": 0.703
+        },
+        {
+          "word": "eigentlich",
+          "start": 23.258,
+          "end": 23.618,
+          "score": 0.831
+        },
+        {
+          "word": "ein",
+          "start": 23.638,
+          "end": 23.798,
+          "score": 0.707
+        },
+        {
+          "word": "See?",
+          "start": 23.818,
+          "end": 23.998,
+          "score": 0.723
+        }
+      ],
+      "avg_logprob": -0.05564373188159045
+    },
+    {
+      "start": 24.91,
+      "end": 27.232,
+      "text": " Der See war schon immer ein verwunschener Ort.",
+      "words": [
+        {
+          "word": "Der",
+          "start": 24.91,
+          "end": 25.05,
+          "score": 0.625
+        },
+        {
+          "word": "See",
+          "start": 25.09,
+          "end": 25.23,
+          "score": 0.717
+        },
+        {
+          "word": "war",
+          "start": 25.25,
+          "end": 25.39,
+          "score": 0.444
+        },
+        {
+          "word": "schon",
+          "start": 25.41,
+          "end": 25.591,
+          "score": 0.726
+        },
+        {
+          "word": "immer",
+          "start": 25.631,
+          "end": 25.771,
+          "score": 0.818
+        },
+        {
+          "word": "ein",
+          "start": 25.811,
+          "end": 25.911,
+          "score": 0.544
+        },
+        {
+          "word": "verwunschener",
+          "start": 25.931,
+          "end": 26.571,
+          "score": 0.441
+        },
+        {
+          "word": "Ort.",
+          "start": 26.611,
+          "end": 27.232,
+          "score": 0.796
+        }
+      ],
+      "avg_logprob": -0.06288168150068119
+    },
+    {
+      "start": 27.252,
+      "end": 29.853,
+      "text": "Er ist die Bühne für Mythen über Monster.",
+      "words": [
+        {
+          "word": "Er",
+          "start": 27.252,
+          "end": 27.312,
+          "score": 0.919
+        },
+        {
+          "word": "ist",
+          "start": 27.352,
+          "end": 27.492,
+          "score": 0.637
+        },
+        {
+          "word": "die",
+          "start": 27.532,
+          "end": 27.632,
+          "score": 0.884
+        },
+        {
+          "word": "Bühne",
+          "start": 27.672,
+          "end": 27.952,
+          "score": 0.824
+        },
+        {
+          "word": "für",
+          "start": 27.972,
+          "end": 28.132,
+          "score": 0.856
+        },
+        {
+          "word": "Mythen",
+          "start": 28.172,
+          "end": 28.673,
+          "score": 0.832
+        },
+        {
+          "word": "über",
+          "start": 28.713,
+          "end": 28.853,
+          "score": 0.986
+        },
+        {
+          "word": "Monster.",
+          "start": 28.893,
+          "end": 29.853,
+          "score": 0.877
+        }
+      ],
+      "avg_logprob": -0.06288168150068119
+    },
+    {
+      "start": 29.893,
+      "end": 36.098,
+      "text": "Er ist der Ort, den man aufsucht, wenn man nachts von der Party abhaut, um nackt baden zu gehen, wie in einer Hollywood-Romance.",
+      "words": [
+        {
+          "word": "Er",
+          "start": 29.893,
+          "end": 29.953,
+          "score": 0.948
+        },
+        {
+          "word": "ist",
+          "start": 29.994,
+          "end": 30.114,
+          "score": 0.596
+        },
+        {
+          "word": "der",
+          "start": 30.154,
+          "end": 30.274,
+          "score": 0.973
+        },
+        {
+          "word": "Ort,",
+          "start": 30.334,
+          "end": 30.614,
+          "score": 0.844
+        },
+        {
+          "word": "den",
+          "start": 30.634,
+          "end": 30.754,
+          "score": 0.705
+        },
+        {
+          "word": "man",
+          "start": 30.774,
+          "end": 30.974,
+          "score": 0.929
+        },
+        {
+          "word": "aufsucht,",
+          "start": 30.994,
+          "end": 31.334,
+          "score": 0.859
+        },
+        {
+          "word": "wenn",
+          "start": 31.394,
+          "end": 31.515,
+          "score": 0.43
+        },
+        {
+          "word": "man",
+          "start": 31.535,
+          "end": 31.775,
+          "score": 0.813
+        },
+        {
+          "word": "nachts",
+          "start": 31.815,
+          "end": 32.075,
+          "score": 0.915
+        },
+        {
+          "word": "von",
+          "start": 32.095,
+          "end": 32.215,
+          "score": 0.903
+        },
+        {
+          "word": "der",
+          "start": 32.235,
+          "end": 32.355,
+          "score": 0.897
+        },
+        {
+          "word": "Party",
+          "start": 32.415,
+          "end": 32.735,
+          "score": 0.854
+        },
+        {
+          "word": "abhaut,",
+          "start": 32.775,
+          "end": 33.136,
+          "score": 0.941
+        },
+        {
+          "word": "um",
+          "start": 33.156,
+          "end": 33.276,
+          "score": 0.897
+        },
+        {
+          "word": "nackt",
+          "start": 33.296,
+          "end": 33.496,
+          "score": 0.789
+        },
+        {
+          "word": "baden",
+          "start": 33.536,
+          "end": 33.836,
+          "score": 0.68
+        },
+        {
+          "word": "zu",
+          "start": 33.856,
+          "end": 33.956,
+          "score": 0.69
+        },
+        {
+          "word": "gehen,",
+          "start": 33.996,
+          "end": 34.176,
+          "score": 0.886
+        },
+        {
+          "word": "wie",
+          "start": 34.196,
+          "end": 34.276,
+          "score": 0.812
+        },
+        {
+          "word": "in",
+          "start": 34.316,
+          "end": 34.376,
+          "score": 0.49
+        },
+        {
+          "word": "einer",
+          "start": 34.396,
+          "end": 34.537,
+          "score": 0.804
+        },
+        {
+          "word": "Hollywood-Romance.",
+          "start": 34.577,
+          "end": 36.098,
+          "score": 0.631
+        }
+      ],
+      "avg_logprob": -0.06288168150068119
+    },
+    {
+      "start": 36.138,
+      "end": 40.2,
+      "text": "Und der perfekte Ort, um jemanden ausfassend verschwinden zu lassen.",
+      "words": [
+        {
+          "word": "Und",
+          "start": 36.138,
+          "end": 36.238,
+          "score": 0.814
+        },
+        {
+          "word": "der",
+          "start": 36.278,
+          "end": 36.378,
+          "score": 0.918
+        },
+        {
+          "word": "perfekte",
+          "start": 36.418,
+          "end": 36.938,
+          "score": 0.916
+        },
+        {
+          "word": "Ort,",
+          "start": 36.998,
+          "end": 37.559,
+          "score": 0.962
+        },
+        {
+          "word": "um",
+          "start": 37.599,
+          "end": 37.719,
+          "score": 0.95
+        },
+        {
+          "word": "jemanden",
+          "start": 37.739,
+          "end": 38.079,
+          "score": 0.738
+        },
+        {
+          "word": "ausfassend",
+          "start": 38.119,
+          "end": 38.599,
+          "score": 0.632
+        },
+        {
+          "word": "verschwinden",
+          "start": 38.619,
+          "end": 39.06,
+          "score": 0.826
+        },
+        {
+          "word": "zu",
+          "start": 39.08,
+          "end": 39.16,
+          "score": 0.961
+        },
+        {
+          "word": "lassen.",
+          "start": 39.22,
+          "end": 40.2,
+          "score": 0.906
+        }
+      ],
+      "avg_logprob": -0.06288168150068119
+    },
+    {
+      "start": 40.22,
+      "end": 49.527,
+      "text": "Aber im Normalfall dient er im Sommer einfach als Zufluchtsort vor der Hitze, wenn man dem heißen Beton der Stadt mal kurz entkommen will und einen 3 Stunden Kurzurlaub benötigt.",
+      "words": [
+        {
+          "word": "Aber",
+          "start": 40.22,
+          "end": 40.401,
+          "score": 0.895
+        },
+        {
+          "word": "im",
+          "start": 40.421,
+          "end": 40.521,
+          "score": 0.605
+        },
+        {
+          "word": "Normalfall",
+          "start": 40.541,
+          "end": 41.161,
+          "score": 0.792
+        },
+        {
+          "word": "dient",
+          "start": 41.201,
+          "end": 41.361,
+          "score": 0.779
+        },
+        {
+          "word": "er",
+          "start": 41.421,
+          "end": 41.481,
+          "score": 0.345
+        },
+        {
+          "word": "im",
+          "start": 41.521,
+          "end": 41.601,
+          "score": 0.962
+        },
+        {
+          "word": "Sommer",
+          "start": 41.641,
+          "end": 41.922,
+          "score": 0.981
+        },
+        {
+          "word": "einfach",
+          "start": 41.942,
+          "end": 42.222,
+          "score": 0.83
+        },
+        {
+          "word": "als",
+          "start": 42.262,
+          "end": 42.462,
+          "score": 0.849
+        },
+        {
+          "word": "Zufluchtsort",
+          "start": 42.502,
+          "end": 43.242,
+          "score": 0.898
+        },
+        {
+          "word": "vor",
+          "start": 43.262,
+          "end": 43.363,
+          "score": 0.851
+        },
+        {
+          "word": "der",
+          "start": 43.403,
+          "end": 43.523,
+          "score": 0.904
+        },
+        {
+          "word": "Hitze,",
+          "start": 43.543,
+          "end": 44.303,
+          "score": 0.938
+        },
+        {
+          "word": "wenn",
+          "start": 44.323,
+          "end": 44.463,
+          "score": 0.856
+        },
+        {
+          "word": "man",
+          "start": 44.483,
+          "end": 44.603,
+          "score": 0.911
+        },
+        {
+          "word": "dem",
+          "start": 44.623,
+          "end": 44.743,
+          "score": 0.856
+        },
+        {
+          "word": "heißen",
+          "start": 44.783,
+          "end": 45.064,
+          "score": 0.915
+        },
+        {
+          "word": "Beton",
+          "start": 45.104,
+          "end": 45.384,
+          "score": 0.775
+        },
+        {
+          "word": "der",
+          "start": 45.424,
+          "end": 45.524,
+          "score": 0.804
+        },
+        {
+          "word": "Stadt",
+          "start": 45.544,
+          "end": 45.764,
+          "score": 0.88
+        },
+        {
+          "word": "mal",
+          "start": 45.784,
+          "end": 45.924,
+          "score": 0.666
+        },
+        {
+          "word": "kurz",
+          "start": 45.964,
+          "end": 46.124,
+          "score": 0.952
+        },
+        {
+          "word": "entkommen",
+          "start": 46.184,
+          "end": 46.485,
+          "score": 0.782
+        },
+        {
+          "word": "will",
+          "start": 46.505,
+          "end": 46.625,
+          "score": 0.606
+        },
+        {
+          "word": "und",
+          "start": 46.665,
+          "end": 46.765,
+          "score": 0.862
+        },
+        {
+          "word": "einen",
+          "start": 46.805,
+          "end": 46.945,
+          "score": 0.754
+        },
+        {
+          "word": "3",
+          "start": 47.065,
+          "end": 47.165,
+          "score": 0.679
+        },
+        {
+          "word": "Stunden",
+          "start": 47.185,
+          "end": 47.505,
+          "score": 0.885
+        },
+        {
+          "word": "Kurzurlaub",
+          "start": 47.545,
+          "end": 48.086,
+          "score": 0.665
+        },
+        {
+          "word": "benötigt.",
+          "start": 48.106,
+          "end": 49.527,
+          "score": 0.896
+        }
+      ],
+      "avg_logprob": -0.06288168150068119
+    },
+    {
+      "start": 49.567,
+      "end": 53.469,
+      "text": "Aber jetzt mal wirklich, warum ist in dieser Vertiefung Wasser und in dieser nicht?",
+      "words": [
+        {
+          "word": "Aber",
+          "start": 49.567,
+          "end": 49.727,
+          "score": 0.959
+        },
+        {
+          "word": "jetzt",
+          "start": 49.747,
+          "end": 49.887,
+          "score": 0.78
+        },
+        {
+          "word": "mal",
+          "start": 49.987,
+          "end": 50.107,
+          "score": 0.826
+        },
+        {
+          "word": "wirklich,",
+          "start": 50.127,
+          "end": 50.828,
+          "score": 0.538
+        },
+        {
+          "word": "warum",
+          "start": 50.868,
+          "end": 51.068,
+          "score": 0.984
+        },
+        {
+          "word": "ist",
+          "start": 51.108,
+          "end": 51.248,
+          "score": 0.799
+        },
+        {
+          "word": "in",
+          "start": 51.288,
+          "end": 51.408,
+          "score": 0.773
+        },
+        {
+          "word": "dieser",
+          "start": 51.448,
+          "end": 51.648,
+          "score": 0.78
+        },
+        {
+          "word": "Vertiefung",
+          "start": 51.688,
+          "end": 52.208,
+          "score": 0.959
+        },
+        {
+          "word": "Wasser",
+          "start": 52.228,
+          "end": 52.689,
+          "score": 0.917
+        },
+        {
+          "word": "und",
+          "start": 52.709,
+          "end": 52.849,
+          "score": 0.91
+        },
+        {
+          "word": "in",
+          "start": 52.889,
+          "end": 52.989,
+          "score": 0.946
+        },
+        {
+          "word": "dieser",
+          "start": 53.009,
+          "end": 53.269,
+          "score": 0.862
+        },
+        {
+          "word": "nicht?",
+          "start": 53.309,
+          "end": 53.469,
+          "score": 0.856
+        }
+      ],
+      "avg_logprob": -0.06288168150068119
+    },
+    {
+      "start": 54.514,
+      "end": 54.908,
+      "text": " Copyright WDR 2021",
+      "words": [
+        {
+          "word": "Copyright",
+          "start": 54.514,
+          "end": 54.711,
+          "score": 0.017
+        },
+        {
+          "word": "WDR",
+          "start": 54.733,
+          "end": 54.799,
+          "score": 0.015
+        },
+        {
+          "word": "2021",
+          "start": 54.82,
+          "end": 54.908,
+          "score": 0.081
+        }
+      ],
+      "avg_logprob": -0.8921270569165548
+    }
+  ]
+}
