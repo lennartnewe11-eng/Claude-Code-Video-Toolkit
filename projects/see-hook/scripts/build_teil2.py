@@ -128,8 +128,8 @@ def phase_a():
     # on near-white), fill the frame so there's no square seam.
     fc=("[0:v]negate,eq=saturation=0.14:brightness=0.16:contrast=1.05,"
         "scale=1920:1920:force_original_aspect_ratio=increase,crop=1920:1080,setsar=1[fl];"
-        "[1:v]scale=680:-1,pad=iw+26:ih+26:13:13:white,rotate=-0.06:c=white@0[ln];"
-        "[fl][ln]overlay=x=900:y=270:enable='gte(t,2.45)':eval=frame[b2];"
+        "[1:v]scale=560:-1,pad=iw+24:ih+24:12:12:white,rotate=-0.06:c=white@0[ln];"
+        "[fl][ln]overlay=x=1240:y=545:enable='gte(t,2.45)':eval=frame[b2];"
         f"[b2]ass={(BUILD/'mystic.ass').as_posix()}:fontsdir={FONTS.as_posix()},"
         "format=yuv420p[v]")
     run([FF,"-y","-stream_loop","-1","-i",FLOWER,"-i",LOCHNESS,
@@ -156,8 +156,8 @@ def build_segments():
     seg_graded(str(PX/"s12_lake.mp4"), 1.0, 3.10, "t2_s12a.mp4")
     seg_graded(str(PX/"s12_city.mp4"), 1.0, 3.10, "t2_s12b.mp4")
     build_s12c(3.13, "t2_s12c.mp4")
-    seg_graded(str(PX/"s13_lake.mp4"), 2.0, 2.04, "t2_s13a.mp4")
-    seg_graded(C2, 39.0, 2.03, "t2_s13b.mp4")
+    seg_graded(str(PX/"s13_lake.mp4"), 1.0, 3.17, "t2_s13a.mp4")  # lake stays until "...Wasser"
+    seg_graded(C2, 39.0, 0.90, "t2_s13b.mp4")                     # then cut to dry basin
     order=["t2_A","t2_tiktok","t2_s10a","t2_s10b","t2_s11",
            "t2_s12a","t2_s12b","t2_s12c","t2_s13a","t2_s13b"]
     (BUILD/"t2_concat.txt").write_text(
@@ -215,11 +215,15 @@ def final():
         f"[2:a]atrim={VO_B0}:53.60,asetpts=PTS-STARTPTS,volume=1.0[vob];"
         f"anullsrc=r=44100:cl=stereo,atrim=0:{silence}[sil];"
         f"[voa][sil][vob]concat=n=3:v=0:a=1[vo];"
-        # continued song bed, ducked under VO
-        f"[3:a]atrim=0:{TOTAL},volume=3.0,afade=t=out:st={TOTAL-1.0}:d=1.0[song];"
-        f"[song][vo]amix=inputs=2:normalize=0:duration=first,alimiter=limit=0.95[a]")
+        # continued song bed: quieter overall, DROP out just before "Aber jetzt
+        # mal wirklich" (T2 27.75) and stay silent after
+        f"[3:a]atrim=0:{TOTAL},volume=2.0,afade=t=out:st=27.45:d=0.30[song];"
+        # Tagesschau clip audio, in sync with its slot (T2 5.17-8.07)
+        f"[4:a]atrim=0:2.90,adelay=5170|5170,volume=1.15[tk];"
+        f"[song][vo][tk]amix=inputs=3:normalize=0:duration=first,alimiter=limit=0.95[a]")
     run([FF,"-y","-i",str(BUILD/"t2_full.mp4"),"-i",str(AUD/"voiceover.wav"),
          "-i",str(AUD/"voiceover.wav"),"-ss",str(SONG_OFFSET),"-i",str(AUD/"song.mp3"),
+         "-i",TIKTOK,
          "-filter_complex",fc,"-map","[v]","-map","[a]","-t",str(TOTAL),
          "-c:v","libx264","-preset","medium","-crf","19","-pix_fmt","yuv420p",
          "-c:a","aac","-b:a","192k","-movflags","+faststart",
