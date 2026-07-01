@@ -24,6 +24,18 @@ Aktueller Build: **`scripts/build_hook_v3.py`** (v1/v2 archiviert).
 | 25.7 | See **fährt animiert** aus Vollbild in kleinen Rahmen auf Weiß | Outro: schwarzes, quer über den Screen animiertes **„Seen oder geseen werden"** |
 | 28.6 | Schluss-See mit Fahrrädern (eigenes Footage) | „Wie entsteht eigentlich ein See?" |
 
+## Intro (separate ~12 s, kommt zwischen Hook und Hauptteil)
+
+**Output:** [`out/intro.mp4`](out/intro.mp4) — Build: `scripts/make_intro.py`
+
+- Hintergrund: das hochgeladene Feld-Video, weichgezeichnet + hell gewaschen
+  und leicht warm gegradet.
+- Vordergrund: die Bleistift-Zeichnung wird **Strich für Strich** aufgebaut —
+  Reveal entlang einer geodätischen „Zeichen-Reihenfolge" (der Stift läuft von
+  der Vase an den Stängeln hoch zu den Blüten). Umgesetzt in Python
+  (numpy/Pillow BFS über die Alpha-Maske → PNG-Sequenz → Overlay).
+- Unten rechts in Helvetica: „eine Past.Present.Future. Produktion".
+
 ## Look & Stil
 
 - **Format:** 16:9 (1920×1080).

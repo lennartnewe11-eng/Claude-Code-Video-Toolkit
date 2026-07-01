@@ -5,3 +5,4 @@ build/
 # bulky/unused user-footage originals (aliased copies are kept)
 user_footage/From Klickpin*
 user_footage/*.gif
+intro_assets/From Klickpin*
