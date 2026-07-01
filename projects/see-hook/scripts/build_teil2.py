@@ -45,7 +45,7 @@ C2       = str(A/"C2_notlake_37533724.mp4")
 NORM = ("scale=1920:1080:force_original_aspect_ratio=increase,"
         "crop=1920:1080,fps=30,setsar=1,format=yuv420p")
 SONG_OFFSET = 42.25          # continue the track from the end of the intro
-TOTAL = 31.78
+TOTAL = 31.71
 
 def run(cmd, label=""):
     p = subprocess.run(cmd, capture_output=True, text=True)
@@ -107,7 +107,7 @@ def write_mystic_ass(dur):
     lines=[]
     for i in range(5):
         y=150+i*185
-        d=int(2.55*1000)+i*90     # slide/fade in one after another
+        d=300+i*80                # appear early, one after another
         lines.append(f"Dialogue: 0,0:00:00.00,0:00:{dur:05.2f},M,,0,0,0,,"
                      f"{{\\an4\\pos(95,{y})\\fs150\\1c&H000000&\\bord0\\alpha&HFF&"
                      f"\\t({d},{d+260},\\alpha&H00&)}}mystic")
@@ -121,20 +121,44 @@ def write_mystic_ass(dur):
          + "\n".join(lines)+"\n")
     (BUILD/"mystic.ass").write_text(ass)
 
-def phase_a():
-    dur=5.17
+MYTH_YEAR = "1933"     # modern Loch Ness Monster myth (first reports, 1933)
+
+def phase_a1():
+    """Flower on white (short) with mystic x5 on the left."""
+    dur=2.53
     write_mystic_ass(dur)
-    # flower on white: negate the cyanotype (light bloom on dark -> dark bloom
-    # on near-white), fill the frame so there's no square seam.
     fc=("[0:v]negate,eq=saturation=0.14:brightness=0.16:contrast=1.05,"
         "scale=1920:1920:force_original_aspect_ratio=increase,crop=1920:1080,setsar=1[fl];"
-        "[1:v]scale=560:-1,pad=iw+24:ih+24:12:12:white,rotate=-0.06:c=white@0[ln];"
-        "[fl][ln]overlay=x=1240:y=545:enable='gte(t,2.45)':eval=frame[b2];"
-        f"[b2]ass={(BUILD/'mystic.ass').as_posix()}:fontsdir={FONTS.as_posix()},"
+        f"[fl]ass={(BUILD/'mystic.ass').as_posix()}:fontsdir={FONTS.as_posix()},"
         "format=yuv420p[v]")
-    run([FF,"-y","-stream_loop","-1","-i",FLOWER,"-i",LOCHNESS,
-         "-filter_complex",fc,"-map","[v]","-t",str(dur),"-r","30",
-         "-c:v","libx264","-preset","veryfast","-crf","18",str(BUILD/"t2_A.mp4")],"phaseA")
+    run([FF,"-y","-stream_loop","-1","-i",FLOWER,"-filter_complex",fc,
+         "-map","[v]","-t",str(dur),"-r","30","-c:v","libx264","-preset","veryfast",
+         "-crf","18",str(BUILD/"t2_A1.mp4")],"phaseA1")
+
+def write_year_ass(dur):
+    ass=("[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\n\n"
+         "[V4+ Styles]\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, "
+         "OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, "
+         "Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding\n"
+         "Style: Y,Liberation Sans,500,&H00000000,&H00000000,&H00000000,&H00000000,"
+         "-1,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1\n\n"
+         "[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n"
+         f"Dialogue: 0,0:00:00.00,0:00:{dur:05.2f},Y,,0,0,0,,"
+         f"{{\\an5\\pos(960,250)\\fad(280,0)}}{MYTH_YEAR}\n")
+    (BUILD/"year.ass").write_text(ass)
+
+def phase_a2():
+    """Loch Ness gets its own white frame, large, with the myth year big
+    behind/above it."""
+    dur=2.57
+    write_year_ass(dur)
+    fc=(f"color=c=white:s=1920x1080:r=30:d={dur}[bg];"
+        f"[bg]ass={(BUILD/'year.ass').as_posix()}:fontsdir={FONTS.as_posix()}[num];"
+        "[0:v]scale=780:-1,pad=iw+26:ih+26:13:13:white[ln];"
+        "[num][ln]overlay=x=(W-w)/2:y=345:shortest=1,format=yuv420p[v]")
+    run([FF,"-y","-loop","1","-t",str(dur),"-i",LOCHNESS,"-filter_complex",fc,
+         "-map","[v]","-t",str(dur),"-r","30","-c:v","libx264","-preset","veryfast",
+         "-crf","18",str(BUILD/"t2_A2.mp4")],"phaseA2")
 
 def phase_tiktok():
     dur=2.90
@@ -148,7 +172,8 @@ def phase_tiktok():
 
 # ---- assemble video --------------------------------------------------------
 def build_segments():
-    phase_a()
+    phase_a1()
+    phase_a2()
     phase_tiktok()
     seg_graded(WADE, 0, 3.11, "t2_s10a.mp4", loop=True)
     seg_graded(UNDER, 0, 3.10, "t2_s10b.mp4", loop=True)
@@ -158,7 +183,7 @@ def build_segments():
     build_s12c(3.13, "t2_s12c.mp4")
     seg_graded(str(PX/"s13_lake.mp4"), 1.0, 3.17, "t2_s13a.mp4")  # lake stays until "...Wasser"
     seg_graded(C2, 39.0, 0.90, "t2_s13b.mp4")                     # then cut to dry basin
-    order=["t2_A","t2_tiktok","t2_s10a","t2_s10b","t2_s11",
+    order=["t2_A1","t2_A2","t2_tiktok","t2_s10a","t2_s10b","t2_s11",
            "t2_s12a","t2_s12b","t2_s12c","t2_s13a","t2_s13b"]
     (BUILD/"t2_concat.txt").write_text(
         "\n".join(f"file '{(BUILD/f'{o}.mp4').as_posix()}'" for o in order)+"\n")
@@ -171,10 +196,10 @@ def at(t):
     if c==100: s+=1; c=0
     return f"{h:d}:{m:02d}:{s:02d}.{c:02d}"
 
-VO_A0, VO_B0, VO_B_T2 = 24.70, 29.89, 8.07   # trims / offset
+VO_A0, VO_A1, VO_B0, VO_B_T2 = 24.70, 29.80, 29.89, 8.00   # trims / offset
 
 def vo_to_t2(t):
-    if t < 29.87: return t - VO_A0            # phase A
+    if t < VO_A1: return t - VO_A0            # phase A
     return VO_B_T2 + (t - VO_B0)              # phase B (after tiktok)
 
 def write_captions():
@@ -211,19 +236,21 @@ def final():
     fc=(f"[0:v]ass={ass}:fontsdir={FONTS.as_posix()},"
         f"fade=t=in:d=0.4,fade=t=out:st={TOTAL-0.5}:d=0.5,format=yuv420p[v];"
         # VO part A, then silence during tiktok, then VO part B
-        f"[1:a]atrim={VO_A0}:29.87,asetpts=PTS-STARTPTS,volume=1.0[voa];"
+        f"[1:a]atrim={VO_A0}:{VO_A1},asetpts=PTS-STARTPTS,volume=1.0[voa];"
         f"[2:a]atrim={VO_B0}:53.60,asetpts=PTS-STARTPTS,volume=1.0[vob];"
         f"anullsrc=r=44100:cl=stereo,atrim=0:{silence}[sil];"
         f"[voa][sil][vob]concat=n=3:v=0:a=1[vo];"
-        # continued song bed: quieter overall, DROP out just before "Aber jetzt
-        # mal wirklich" (T2 27.75) and stay silent after
-        f"[3:a]atrim=0:{TOTAL},volume=2.0,afade=t=out:st=27.45:d=0.30[song];"
-        # Tagesschau clip audio, in sync with its slot (T2 5.17-8.07)
-        f"[4:a]atrim=0:2.90,adelay=5170|5170,volume=1.15[tk];"
-        f"[song][vo][tk]amix=inputs=3:normalize=0:duration=first,alimiter=limit=0.95[a]")
+        # song 1: quieter overall, DROPS out just before "Aber jetzt mal
+        # wirklich" (T2 27.68) and stays silent after
+        f"[3:a]atrim=0:{TOTAL},volume=2.0,afade=t=out:st=27.38:d=0.30[song];"
+        # Tagesschau clip audio, synced to its (slightly earlier) slot
+        f"[4:a]atrim=0:2.90,adelay=5100|5100,volume=1.15[tk];"
+        # soundtrack 2 (sachlicher): begins at the drop and runs to the end
+        f"[5:a]atrim=0:4.4,afade=t=in:d=0.8,volume=1.5,adelay=27680|27680[st2];"
+        f"[song][vo][tk][st2]amix=inputs=4:normalize=0:duration=first,alimiter=limit=0.95[a]")
     run([FF,"-y","-i",str(BUILD/"t2_full.mp4"),"-i",str(AUD/"voiceover.wav"),
          "-i",str(AUD/"voiceover.wav"),"-ss",str(SONG_OFFSET),"-i",str(AUD/"song.mp3"),
-         "-i",TIKTOK,
+         "-i",TIKTOK,"-i",str(AUD/"soundtrack2.mp3"),
          "-filter_complex",fc,"-map","[v]","-map","[a]","-t",str(TOTAL),
          "-c:v","libx264","-preset","medium","-crf","19","-pix_fmt","yuv420p",
          "-c:a","aac","-b:a","192k","-movflags","+faststart",
