@@ -23,7 +23,7 @@ FF = "ffmpeg"
 FPS = 30
 TOTAL = 12.0
 DRAW_START, DRAW_DUR = 0.6, 8.6      # sketch drawn between 0.6s and 9.2s
-INK = (26, 24, 22)                    # charcoal
+INK = (0, 0, 0)                       # pure black lines
 GLOW = (250, 250, 250)                # soft light halo so ink reads on the moody bg
 SONG_OFFSET = 30.25                   # continue the hook's song seamlessly (hook END)
 
@@ -100,10 +100,10 @@ def gen_frames():
         p = smooth((t-DRAW_START)/DRAW_DUR)
         factor = np.clip((p-order)/fw, 0, 1)          # 1 behind frontier, soft edge
         al = (np.minimum(alpha0*1.5, 255)*factor).astype(np.uint8)
-        # soft light halo behind the dark ink -> readable over the moody bg
-        glow_a = Image.fromarray(al, "L").filter(ImageFilter.GaussianBlur(7))
+        # soft light halo behind the black ink -> readable over the moody bg
+        glow_a = Image.fromarray(al, "L").filter(ImageFilter.GaussianBlur(5))
         glow_layer = glow_rgb.copy()
-        glow_layer[:, :, 3] = (np.array(glow_a).astype(np.float32)*0.65).astype(np.uint8)
+        glow_layer[:, :, 3] = (np.array(glow_a).astype(np.float32)*0.55).astype(np.uint8)
         ink_layer = ink_rgb.copy(); ink_layer[:, :, 3] = al
         out = Image.alpha_composite(Image.fromarray(glow_layer, "RGBA"),
                                     Image.fromarray(ink_layer, "RGBA"))
@@ -135,9 +135,9 @@ def compose():
         # NO video filter -- clean high-quality upscale only (better resolution)
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase:flags=lanczos,"
         "crop=1920:1080,fps=30,setsar=1[bg];"
-        # drawing overlay (with its own soft glow baked in), centred slightly high
-        "[1:v]scale=760:-1[draw];"
-        "[bg][draw]overlay=x=(W-w)/2:y=(H-h)/2-40:shortest=1[cmp];"
+        # drawing overlay (bigger; sized by height for the portrait sketch)
+        "[1:v]scale=-1:1010[draw];"
+        "[bg][draw]overlay=x=(W-w)/2:y=(H-h)/2-20:shortest=1[cmp];"
         f"[cmp]ass={(BUILD/'credit.ass').as_posix()},"
         f"fade=t=in:d=0.6,fade=t=out:st={TOTAL-0.6}:d=0.6,format=yuv420p[v];"
         # song: continue the hook's track from SONG_OFFSET, small fade-up
