@@ -14,6 +14,7 @@ from PIL import Image, ImageFilter
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IA, BUILD, OUT = ROOT/"intro_assets", ROOT/"build", ROOT/"out"
 BG = ROOT/"intro_assets_v2"/"newbg.mp4"      # new, higher-quality background
+DRAWING = ROOT/"intro_assets_v3"/"drawing.png"   # foreground sketch (new crowd png)
 AUD = ROOT/"audio"
 FRAMES = BUILD/"intro_frames"
 FRAMES.mkdir(parents=True, exist_ok=True)
@@ -70,11 +71,23 @@ def draw_order(alpha):
 def smooth(x):
     x = max(0.0, min(1.0, x)); return x*x*(3-2*x)
 
+def ink_strength(path):
+    """Return a 0..255 ink-coverage map from a drawing PNG, whether it has a
+    transparent background (use alpha) or a white background (use darkness)."""
+    im = Image.open(path).convert("RGBA")
+    a = np.array(im).astype(np.float32)
+    alpha = a[:, :, 3]
+    if (alpha < 250).mean() > 0.02:          # real transparency present
+        s = alpha
+    else:                                    # white bg -> ink = darkness
+        gray = a[:, :, :3].mean(2)
+        s = np.clip(255.0 - gray, 0, 255)
+        s[s < 28] = 0                        # drop near-white paper
+    return s
+
 def gen_frames():
-    im = Image.open(IA/"drawing.png").convert("RGBA")
-    a = np.array(im)
-    alpha0 = a[:, :, 3].astype(np.float32)
-    order, ink = draw_order(a[:, :, 3])
+    alpha0 = ink_strength(DRAWING)
+    order, ink = draw_order(alpha0)
     H, W = order.shape
     ink_rgb = np.zeros((H, W, 4), np.uint8)
     ink_rgb[:, :, 0], ink_rgb[:, :, 1], ink_rgb[:, :, 2] = INK
@@ -119,30 +132,24 @@ Dialogue: 0,0:00:06.00,0:00:12.00,Cr,,0,0,0,,{\\fad(650,300)\\blur6}eine Past.Pr
 def compose():
     write_credit_ass()
     vf = (
-        # light RETRO DIGITAL filter (no vignette): warm, mild chroma shift,
-        # faint scanlines, light noise, a touch of sharpening for the upscale.
-        "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,"
-        "fps=30,unsharp=5:5:0.5,eq=brightness=0.03:saturation=1.06:contrast=1.03,"
-        "colortemperature=temperature=5400:mix=0.4,rgbashift=rh=1:bh=-1[bgc];"
-        "[2:v]scale=1920:1080,setsar=1[scan];"
-        "[bgc][scan]blend=all_mode=multiply:all_opacity=0.18:shortest=1[bg];"
-        "[bg]noise=alls=4:allf=t[bgn];"
-        # drawing overlay (with its own glow baked in), centred slightly high
+        # NO video filter -- clean high-quality upscale only (better resolution)
+        "[0:v]scale=1920:1080:force_original_aspect_ratio=increase:flags=lanczos,"
+        "crop=1920:1080,fps=30,setsar=1[bg];"
+        # drawing overlay (with its own soft glow baked in), centred slightly high
         "[1:v]scale=760:-1[draw];"
-        "[bgn][draw]overlay=x=(W-w)/2:y=(H-h)/2-40:shortest=1[cmp];"
+        "[bg][draw]overlay=x=(W-w)/2:y=(H-h)/2-40:shortest=1[cmp];"
         f"[cmp]ass={(BUILD/'credit.ass').as_posix()},"
         f"fade=t=in:d=0.6,fade=t=out:st={TOTAL-0.6}:d=0.6,format=yuv420p[v];"
         # song: continue the hook's track from SONG_OFFSET, small fade-up
-        f"[3:a]atrim=0:{TOTAL},volume=4.2,afade=t=in:d=2.0,"
+        f"[2:a]atrim=0:{TOTAL},volume=4.2,afade=t=in:d=2.0,"
         f"afade=t=out:st={TOTAL-0.6}:d=0.6,alimiter=limit=0.95[a]"
     )
     run([FF, "-y",
          "-stream_loop", "-1", "-i", str(BG),
          "-framerate", str(FPS), "-i", str(FRAMES/"f_%04d.png"),
-         "-loop", "1", "-i", str(BUILD/"scanlines.png"),
          "-ss", str(SONG_OFFSET), "-i", str(AUD/"song.mp3"),
          "-filter_complex", vf, "-map", "[v]", "-map", "[a]", "-t", str(TOTAL),
-         "-r", str(FPS), "-c:v", "libx264", "-preset", "medium", "-crf", "19",
+         "-r", str(FPS), "-c:v", "libx264", "-preset", "medium", "-crf", "18",
          "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
          "-movflags", "+faststart", str(OUT/"intro.mp4")], "compose")
     print("  ->", OUT/"intro.mp4")
