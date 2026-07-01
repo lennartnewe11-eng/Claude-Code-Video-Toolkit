@@ -41,6 +41,24 @@ Aktueller Build: **`scripts/build_hook_v3.py`** (v1/v2 archiviert).
 - Ton: der **Song aus der Hook läuft nahtlos weiter** (ab Song-Zeit = Hook-Ende
   30.25 s) mit kleinem Lautstärke-Fade-hoch.
 
+## Teil 2 (~32 s, folgt auf Hook + Intro)
+
+**Output:** [`out/teil2.mp4`](out/teil2.mp4) — Build: `scripts/build_teil2.py`
+
+Deckt das Voiceover von 24.9 s–53.5 s ab; Musik läuft nahtlos weiter (Song ab
+42.25 s). Ablauf:
+
+| T2 | Bild | Ton/Text |
+|----|------|----------|
+| 0.0–5.2 | Blumen-Video (negiert → auf Weiß), Loch-Ness-Bild collagenartig überlappend, links **„mystic" ×5** groß schwarz Helvetica | „verwunschener Ort / Mythen über Monster" |
+| 5.2–8.1 | **Tagesschau-TikTok** (Riesenwels), zentriert auf Blur-BG | VO pausiert, nur Musik |
+| 8.1–14.3 | Schwimm-Clips | „nackt baden … Hollywood-Romance" |
+| 14.3–18.4 | **Augen-GIF** (rote Augen) | „jemanden verschwinden lassen" |
+| 18.4–27.7 | Sommer-See / Stadt-Hitze / Feld mit **animierter Fahrrad-Skizze** (Strich für Strich, auf den Weg gelegt) | „Zufluchtsort … 3 Stunden Kurzurlaub" |
+| 27.7–31.8 | See vs. trockenes Becken | „warum hier Wasser und hier nicht?" |
+
+Realistische Clips tragen den warmen CRT-Grade der Hook; Captions gelb mit Glow.
+
 ## Look & Stil
 
 - **Format:** 16:9 (1920×1080).
