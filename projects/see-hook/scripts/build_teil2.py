@@ -45,7 +45,8 @@ C2       = str(A/"C2_notlake_37533724.mp4")
 NORM = ("scale=1920:1080:force_original_aspect_ratio=increase,"
         "crop=1920:1080,fps=30,setsar=1,format=yuv420p")
 SONG_OFFSET = 42.25          # continue the track from the end of the intro
-TOTAL = 32.71
+TIKTOK_DUR = 4.84            # full length of the (new, better) Tagesschau excerpt
+TOTAL = 34.65
 
 def run(cmd, label=""):
     p = subprocess.run(cmd, capture_output=True, text=True)
@@ -161,7 +162,7 @@ def phase_a2():
          "-crf","18",str(BUILD/"t2_A2.mp4")],"phaseA2")
 
 def phase_tiktok():
-    dur=2.90
+    dur=TIKTOK_DUR
     fc=("[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,"
         "gblur=sigma=30,eq=brightness=-0.05[bg];"
         "[0:v]scale=-1:1040,setsar=1[fg];"
@@ -196,8 +197,8 @@ def at(t):
     if c==100: s+=1; c=0
     return f"{h:d}:{m:02d}:{s:02d}.{c:02d}"
 
-VO_A0, VO_A1, VO_B0, VO_B_T2 = 24.70, 29.80, 29.89, 9.00   # trims / offset
-# (VO_B_T2 = 9.00 leaves a ~1s silent beat after the TikTok before the VO resumes)
+VO_A0, VO_A1, VO_B0, VO_B_T2 = 24.70, 29.80, 29.89, 10.94   # trims / offset
+# VO_B_T2 = phaseA(5.10) + TikTok(4.84) + ~1s silent beat -> VO resumes at 10.94
 
 def vo_to_t2(t):
     if t < VO_A1: return t - VO_A0            # phase A
@@ -219,7 +220,11 @@ def write_captions():
            "-1,0,0,0,100,100,0.2,0,1,2,2,2,160,160,150,1")
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     for ln in lines:
-        s=vo_to_t2(ln[0]["start"]); e=vo_to_t2(ln[-1]["end"])
+        ts, te = ln[0]["start"], ln[-1]["end"]
+        if ts < VO_A1:                       # phase A line: map both ends in A
+            s, e = ts-VO_A0, min(te-VO_A0, 5.08)
+        else:                                # phase B line
+            s, e = VO_B_T2+(ts-VO_B0), VO_B_T2+(te-VO_B0)
         txt="{\\fad(110,110)\\blur7}"+" ".join(w["word"] for w in ln)
         ev.append(f"Dialogue: 0,{at(s-0.05)},{at(e+0.12)},Cap,,0,0,0,,{txt}")
     header=("[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\n"
@@ -233,7 +238,7 @@ def write_captions():
 def final():
     write_captions()
     ass=(BUILD/"t2_caps.ass").as_posix()
-    silence=3.90     # TikTok (2.90) + ~1s extra beat
+    silence=round(TIKTOK_DUR+1.00, 2)     # TikTok + ~1s extra beat
     fc=(f"[0:v]ass={ass}:fontsdir={FONTS.as_posix()},"
         f"fade=t=in:d=0.4,fade=t=out:st={TOTAL-0.5}:d=0.5,format=yuv420p[v];"
         # VO part A, then silence during tiktok, then VO part B
@@ -243,11 +248,11 @@ def final():
         f"[voa][sil][vob]concat=n=3:v=0:a=1[vo];"
         # song 1: quieter overall, DROPS out just before "Aber jetzt mal
         # wirklich" (T2 27.68) and stays silent after
-        f"[3:a]atrim=0:{TOTAL},volume=2.0,afade=t=out:st=28.38:d=0.30[song];"
-        # Tagesschau clip audio, synced to its (slightly earlier) slot
-        f"[4:a]atrim=0:2.90,adelay=5100|5100,volume=1.15[tk];"
+        f"[3:a]atrim=0:{TOTAL},volume=2.0,afade=t=out:st=30.32:d=0.30[song];"
+        # Tagesschau clip audio, synced to its slot (T2 5.10 .. 5.10+dur)
+        f"[4:a]atrim=0:{TIKTOK_DUR},adelay=5100|5100,volume=1.15[tk];"
         # soundtrack 2 (sachlicher): begins at the drop and runs to the end
-        f"[5:a]atrim=0:4.6,afade=t=in:d=0.8,volume=1.5,adelay=28680|28680[st2];"
+        f"[5:a]atrim=0:4.6,afade=t=in:d=0.8,volume=1.5,adelay=30620|30620[st2];"
         f"[song][vo][tk][st2]amix=inputs=4:normalize=0:duration=first,alimiter=limit=0.95[a]")
     run([FF,"-y","-i",str(BUILD/"t2_full.mp4"),"-i",str(AUD/"voiceover.wav"),
          "-i",str(AUD/"voiceover.wav"),"-ss",str(SONG_OFFSET),"-i",str(AUD/"song.mp3"),
