@@ -1,0 +1,4 @@
+# regenerable raw footage (re-fetch via scripts/fetch_footage.py)
+assets/
+# render intermediates
+build/
