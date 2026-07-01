@@ -76,9 +76,15 @@ def build_clips():
 
 # ---------------------------------------------------------- 2. animated outro
 def write_outro_pun():
-    # Big BLACK pun, no rotation, EACH LETTER animated individually.
-    FS = 240
-    LINES = [("Seen oder", 385), ("geseen werden", 700)]   # (text, y-center)
+    # Plain BLACK pun (no glow/outline), words SCATTERED around the centred
+    # video at different heights, each letter animated individually.
+    FS = 168
+    # (word, center_x, center_y) -- placed in the white margins around the
+    # shrunk lake (centre ~x510-1410, y287-793) so pure black stays readable.
+    WORDS = [("geseen", 690, 155),    # top band
+             ("Seen",  1655, 415),    # right margin
+             ("oder",   285, 690),    # left margin
+             ("werden",1235, 935)]    # bottom band
     fontpath = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
     try:
         from PIL import ImageFont
@@ -86,17 +92,15 @@ def write_outro_pun():
         width = lambda s: font.getlength(s)
     except Exception:
         width = lambda s: 0.60*FS*len(s)   # fallback: average advance
-    style=(f"Style: Pun,Liberation Sans,{FS},&H00000000,&H00000000,&H00FFFFFF,&H00000000,"
-           "-1,0,0,0,100,100,0,0,1,3,0,5,0,0,0,1")
-    ev=[]; idx=0; base=260; step=62
-    for text,yc in LINES:
-        total=width(text); start_x=(1920-total)/2.0
-        for i,ch in enumerate(text):
-            if ch==" ": continue
-            xc = start_x + (width(text[:i]) + width(text[:i+1]))/2.0
+    style=(f"Style: Pun,Liberation Sans,{FS},&H00000000,&H00000000,&H00000000,&H00000000,"
+           "-1,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1")
+    ev=[]; idx=0; base=260; step=60
+    for word,cx,cy in WORDS:
+        total=width(word); left_x=cx-total/2.0
+        for i,ch in enumerate(word):
+            xc = left_x + (width(word[:i]) + width(word[:i+1]))/2.0
             d = base + idx*step
-            ov=(f"{{\\an5\\pos({xc:.0f},{yc})\\fs{FS}\\blur5\\bord3\\shad0"
-                f"\\3c&HFFFFFF&\\1c&H000000&"
+            ov=(f"{{\\an5\\pos({xc:.0f},{cy})\\fs{FS}\\bord0\\shad0\\1c&H000000&"
                 f"\\fscx0\\fscy0\\alpha&HFF&"
                 f"\\t({d},{d+150},\\alpha&H00&)"
                 f"\\t({d},{d+190},\\fscx118\\fscy118)"
