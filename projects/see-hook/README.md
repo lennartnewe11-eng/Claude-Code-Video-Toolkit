@@ -28,13 +28,18 @@ Aktueller Build: **`scripts/build_hook_v3.py`** (v1/v2 archiviert).
 
 **Output:** [`out/intro.mp4`](out/intro.mp4) — Build: `scripts/make_intro.py`
 
-- Hintergrund: das hochgeladene Feld-Video, weichgezeichnet + hell gewaschen
-  und leicht warm gegradet.
+- Hintergrund: das Zug-/Dämmerungs-Video (`intro_assets_v2/newbg.mp4`) mit
+  **leichtem Retro-Digital-Filter ohne Vignette** (warm, dezenter Chroma-Shift,
+  feine Scanlines, leichtes Rauschen, minimal geschärft).
 - Vordergrund: die Bleistift-Zeichnung wird **Strich für Strich** aufgebaut —
   Reveal entlang einer geodätischen „Zeichen-Reihenfolge" (der Stift läuft von
   der Vase an den Stängeln hoch zu den Blüten). Umgesetzt in Python
-  (numpy/Pillow BFS über die Alpha-Maske → PNG-Sequenz → Overlay).
-- Unten rechts in Helvetica: „eine Past.Present.Future. Produktion".
+  (numpy/Pillow BFS über die Alpha-Maske → PNG-Sequenz → Overlay). Die Striche
+  haben einen weichen hellen Glow, damit sie über dem dunklen Bild lesbar sind.
+- Unten rechts in Helvetica, **weiß mit Glow**, erscheint nach der Hälfte (6 s):
+  „eine Past.Present.Future. Produktion".
+- Ton: der **Song aus der Hook läuft nahtlos weiter** (ab Song-Zeit = Hook-Ende
+  30.25 s) mit kleinem Lautstärke-Fade-hoch.
 
 ## Look & Stil
 

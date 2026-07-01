@@ -9,10 +9,12 @@ so it looks like a pen tracing the lines. Bottom-right: Helvetica credit.
 import subprocess, pathlib, sys
 from collections import deque
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 IA, BUILD, OUT = ROOT/"intro_assets", ROOT/"build", ROOT/"out"
+BG = ROOT/"intro_assets_v2"/"newbg.mp4"      # new, higher-quality background
+AUD = ROOT/"audio"
 FRAMES = BUILD/"intro_frames"
 FRAMES.mkdir(parents=True, exist_ok=True)
 FF = "ffmpeg"
@@ -20,7 +22,9 @@ FF = "ffmpeg"
 FPS = 30
 TOTAL = 12.0
 DRAW_START, DRAW_DUR = 0.6, 8.6      # sketch drawn between 0.6s and 9.2s
-INK = (28, 26, 24)                    # charcoal
+INK = (26, 24, 22)                    # charcoal
+GLOW = (250, 250, 250)                # soft light halo so ink reads on the moody bg
+SONG_OFFSET = 30.25                   # continue the hook's song seamlessly (hook END)
 
 def run(cmd, label=""):
     p = subprocess.run(cmd, capture_output=True, text=True)
@@ -72,20 +76,30 @@ def gen_frames():
     alpha0 = a[:, :, 3].astype(np.float32)
     order, ink = draw_order(a[:, :, 3])
     H, W = order.shape
-    base = np.zeros((H, W, 4), np.uint8)
-    base[:, :, 0], base[:, :, 1], base[:, :, 2] = INK
+    ink_rgb = np.zeros((H, W, 4), np.uint8)
+    ink_rgb[:, :, 0], ink_rgb[:, :, 1], ink_rgb[:, :, 2] = INK
+    glow_rgb = np.zeros((H, W, 4), np.uint8)
+    glow_rgb[:, :, 0], glow_rgb[:, :, 1], glow_rgb[:, :, 2] = GLOW
     fw = 0.02
     n = int(TOTAL*FPS)
     for i in range(n):
         t = i/FPS
         p = smooth((t-DRAW_START)/DRAW_DUR)
         factor = np.clip((p-order)/fw, 0, 1)          # 1 behind frontier, soft edge
-        al = np.minimum(alpha0*1.5, 255)*factor
-        frame = base.copy(); frame[:, :, 3] = al.astype(np.uint8)
-        Image.fromarray(frame, "RGBA").save(FRAMES/f"f_{i:04d}.png")
+        al = (np.minimum(alpha0*1.5, 255)*factor).astype(np.uint8)
+        # soft light halo behind the dark ink -> readable over the moody bg
+        glow_a = Image.fromarray(al, "L").filter(ImageFilter.GaussianBlur(7))
+        glow_layer = glow_rgb.copy()
+        glow_layer[:, :, 3] = (np.array(glow_a).astype(np.float32)*0.65).astype(np.uint8)
+        ink_layer = ink_rgb.copy(); ink_layer[:, :, 3] = al
+        out = Image.alpha_composite(Image.fromarray(glow_layer, "RGBA"),
+                                    Image.fromarray(ink_layer, "RGBA"))
+        out.save(FRAMES/f"f_{i:04d}.png")
     print(f"  generated {n} frames (ink {int(ink.sum())}px)")
 
 def write_credit_ass():
+    # white text with a glow (blurred white halo + faint dark shadow), appears
+    # at the half-way point.
     ass = """[Script Info]
 ScriptType: v4.00+
 PlayResX: 1920
@@ -94,35 +108,43 @@ ScaledBorderAndShadow: yes
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Cr,Liberation Sans,42,&H00222222,&H00222222,&H00F0F0F0,&H30000000,0,0,0,0,100,100,0.4,0,1,1.2,1,3,70,80,66,1
+Style: Cr,Liberation Sans,44,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H64000000,0,0,0,0,100,100,0.4,0,1,2.4,1,3,70,80,70,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
-Dialogue: 0,0:00:01.20,0:00:12.00,Cr,,0,0,0,,{\\fad(700,300)}eine Past.Present.Future. Produktion
+Dialogue: 0,0:00:06.00,0:00:12.00,Cr,,0,0,0,,{\\fad(650,300)\\blur6}eine Past.Present.Future. Produktion
 """
     (BUILD/"credit.ass").write_text(ass)
 
 def compose():
     write_credit_ass()
-    bg = IA/"bg.mp4"
     vf = (
-        # washed, softly graded field background
+        # light RETRO DIGITAL filter (no vignette): warm, mild chroma shift,
+        # faint scanlines, light noise, a touch of sharpening for the upscale.
         "[0:v]scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,"
-        "fps=30,gblur=sigma=1.0,eq=brightness=0.10:saturation=0.78:contrast=0.90,"
-        "colortemperature=temperature=5200:mix=0.5,vignette=PI/5[bg];"
-        # drawing overlay (native size), centred slightly high
+        "fps=30,unsharp=5:5:0.5,eq=brightness=0.03:saturation=1.06:contrast=1.03,"
+        "colortemperature=temperature=5400:mix=0.4,rgbashift=rh=1:bh=-1[bgc];"
+        "[2:v]scale=1920:1080,setsar=1[scan];"
+        "[bgc][scan]blend=all_mode=multiply:all_opacity=0.18:shortest=1[bg];"
+        "[bg]noise=alls=4:allf=t[bgn];"
+        # drawing overlay (with its own glow baked in), centred slightly high
         "[1:v]scale=760:-1[draw];"
-        "[bg][draw]overlay=x=(W-w)/2:y=(H-h)/2-40:shortest=1[cmp];"
+        "[bgn][draw]overlay=x=(W-w)/2:y=(H-h)/2-40:shortest=1[cmp];"
         f"[cmp]ass={(BUILD/'credit.ass').as_posix()},"
-        f"fade=t=in:d=0.6,fade=t=out:st={TOTAL-0.6}:d=0.6,format=yuv420p[v]"
+        f"fade=t=in:d=0.6,fade=t=out:st={TOTAL-0.6}:d=0.6,format=yuv420p[v];"
+        # song: continue the hook's track from SONG_OFFSET, small fade-up
+        f"[3:a]atrim=0:{TOTAL},volume=4.2,afade=t=in:d=2.0,"
+        f"afade=t=out:st={TOTAL-0.6}:d=0.6,alimiter=limit=0.95[a]"
     )
     run([FF, "-y",
-         "-stream_loop", "-1", "-i", str(bg),
+         "-stream_loop", "-1", "-i", str(BG),
          "-framerate", str(FPS), "-i", str(FRAMES/"f_%04d.png"),
-         "-filter_complex", vf, "-map", "[v]", "-t", str(TOTAL),
+         "-loop", "1", "-i", str(BUILD/"scanlines.png"),
+         "-ss", str(SONG_OFFSET), "-i", str(AUD/"song.mp3"),
+         "-filter_complex", vf, "-map", "[v]", "-map", "[a]", "-t", str(TOTAL),
          "-r", str(FPS), "-c:v", "libx264", "-preset", "medium", "-crf", "19",
-         "-pix_fmt", "yuv420p", "-movflags", "+faststart",
-         str(OUT/"intro.mp4")], "compose")
+         "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "192k",
+         "-movflags", "+faststart", str(OUT/"intro.mp4")], "compose")
     print("  ->", OUT/"intro.mp4")
 
 if __name__ == "__main__":
