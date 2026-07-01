@@ -1,12 +1,18 @@
 # Footage Credits
 
-All clips sourced via the Pexels API (Pexels License — free to use, attribution appreciated).
+## Pexels (Pexels License — free to use, attribution appreciated)
 
-- **"Das ist ein See"** — AP Vibes (https://www.pexels.com/@apvibes) · https://www.pexels.com/video/aerial-view-of-a-lake-and-mountains-in-the-distance-27671894/
-- **"auch ein See"** — Everett Bumstead (https://www.pexels.com/@whateverett-takes) · https://www.pexels.com/video/reflection-in-the-water-5565751/
-- **"kein See" (Pfütze)** — Özgür Sürmeli (https://www.pexels.com/@ozgur-surmeli-124841273) · https://www.pexels.com/video/reflection-of-a-person-in-puddle-on-street-34576509/
-- **3 Orte / Landschaft** — Serg Alesenko (https://www.pexels.com/@sergk1) · https://www.pexels.com/video/village-near-forest-on-hills-12418239/
-- **Hochebene** — Serg Alesenko (https://www.pexels.com/@sergk1) · https://www.pexels.com/video/eroded-rocks-over-trees-13874209/
-- **Witterung / Wolken** — Yaroslav Shuraev (https://www.pexels.com/@yaroslav-shuraev) · https://www.pexels.com/video/video-of-a-sky-and-mountains-8025546/
-- **"Wie kann das sein?"** — Matthias Groeneveld (https://www.pexels.com/@matthiasgroeneveld) · https://www.pexels.com/video/misty-morning-lake-with-boats-in-fog-28829385/
-- **Tagline / Sonnenuntergang** — Tom Fisk (https://www.pexels.com/@tomfisk) · https://www.pexels.com/video/a-view-of-the-water-from-a-boat-28043352/
+- **"Das ist ein See" → "auch ein See" (Bergsee)** — AP Vibes · https://www.pexels.com/video/aerial-view-of-a-lake-and-mountains-in-the-distance-27671894/
+- **"kein See" (leerer Stausee / Vertiefung ohne Wasser)** — Philipp Kappler · https://www.pexels.com/video/drone-view-of-dry-cracked-earth-and-empty-reservoir-37533724/
+- **3 Orte / Landschaft** — Serg Alesenko · https://www.pexels.com/video/village-near-forest-on-hills-12418239/
+- **Witterung / Wolken** — Yaroslav Shuraev · https://www.pexels.com/video/video-of-a-sky-and-mountains-8025546/
+- **Outro-See (Schrumpf-Animation)** — Tom Fisk · https://www.pexels.com/video/a-view-of-the-water-from-a-boat-28043352/
+
+Nicht mehr verwendet (v1/v2): Pfütze (Özgür Sürmeli), Waldsee (Everett Bumstead),
+Hochebene (Serg Alesenko), Nebelsee (Matthias Groeneveld).
+
+## Nutzer-Footage (vom Auftraggeber bereitgestellt)
+
+- **Vögel-Intro** & **Schluss-See mit Fahrrädern** — `user_footage/birds.mp4`, `user_footage/lake_bikes.mp4`
+- **Mr. Bean** (2×) — `user_footage/mrbean.mp4` · © Tiger Aspect / Rowan Atkinson, nur nutzerseitige Verwendung
+- **Song** — `audio/song.mp3` · **Voiceover** — `audio/voiceover.wav`
