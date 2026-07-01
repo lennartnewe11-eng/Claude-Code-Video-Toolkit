@@ -76,20 +76,33 @@ def build_clips():
 
 # ---------------------------------------------------------- 2. animated outro
 def write_outro_pun():
-    style=("Style: Pun,Liberation Sans,150,&H00000000,&H00000000,&H00FFFFFF,&H00000000,"
-           "-1,0,0,0,100,100,0,0,1,2.4,0,5,0,0,0,1")
-    # word: (text, fs, rot, x1,y1, x2,y2, delay_ms)
-    W=[("Seen",158,3,   300,300,  600,300,   0),
-       ("oder",112,-5, 1330,250, 1330,470, 260),
-       ("geseen",172,2, 920,660,  620,660, 520),
-       ("werden",150,-3,1300,1060,1300,835,820)]
-    ev=[]
-    for t,fs,rot,x1,y1,x2,y2,d in W:
-        ov=(f"{{\\an5\\fs{fs}\\frz{rot}\\blur6\\bord2.4\\3c&HFFFFFF&\\1c&H000000&"
-            f"\\fscx60\\fscy60\\alpha&HFF&"
-            f"\\move({x1},{y1},{x2},{y2},{d},{d+460})"
-            f"\\t({d},{d+240},\\alpha&H00&)\\t({d},{d+440},\\fscx104\\fscy104)}}")
-        ev.append(f"Dialogue: 0,0:00:00.45,0:00:02.95,Pun,,0,0,0,,{ov}{t}")
+    # Big BLACK pun, no rotation, EACH LETTER animated individually.
+    FS = 240
+    LINES = [("Seen oder", 385), ("geseen werden", 700)]   # (text, y-center)
+    fontpath = "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+    try:
+        from PIL import ImageFont
+        font = ImageFont.truetype(fontpath, FS)
+        width = lambda s: font.getlength(s)
+    except Exception:
+        width = lambda s: 0.60*FS*len(s)   # fallback: average advance
+    style=(f"Style: Pun,Liberation Sans,{FS},&H00000000,&H00000000,&H00FFFFFF,&H00000000,"
+           "-1,0,0,0,100,100,0,0,1,3,0,5,0,0,0,1")
+    ev=[]; idx=0; base=260; step=62
+    for text,yc in LINES:
+        total=width(text); start_x=(1920-total)/2.0
+        for i,ch in enumerate(text):
+            if ch==" ": continue
+            xc = start_x + (width(text[:i]) + width(text[:i+1]))/2.0
+            d = base + idx*step
+            ov=(f"{{\\an5\\pos({xc:.0f},{yc})\\fs{FS}\\blur5\\bord3\\shad0"
+                f"\\3c&HFFFFFF&\\1c&H000000&"
+                f"\\fscx0\\fscy0\\alpha&HFF&"
+                f"\\t({d},{d+150},\\alpha&H00&)"
+                f"\\t({d},{d+190},\\fscx118\\fscy118)"
+                f"\\t({d+190},{d+320},\\fscx100\\fscy100)}}")
+            ev.append(f"Dialogue: 0,0:00:00.30,0:00:02.95,Pun,,0,0,0,,{ov}{ch}")
+            idx+=1
     ass=f"""[Script Info]
 ScriptType: v4.00+
 PlayResX: 1920
