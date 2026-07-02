@@ -39,8 +39,14 @@ def main():
     ap.add_argument("--model", default="medium", help="whisper model (medium, large-v3, ...)")
     ap.add_argument("--language", default=None, help="force language code, e.g. de (default: auto-detect)")
     ap.add_argument("--device", default="cpu", help="cpu or cuda")
-    ap.add_argument("--compute-type", default="int8", help="int8 (cpu) / float16 (gpu)")
+    ap.add_argument("--compute-type", default="int8", help="int8 (cpu) / float16 (gpu) / float32")
     ap.add_argument("--batch-size", type=int, default=8)
+    # VAD sensitivity: lower onset detects more speech (fills gaps in speech-over-music)
+    ap.add_argument("--vad-onset", type=float, default=0.5, help="lower = more sensitive (default 0.5)")
+    ap.add_argument("--vad-offset", type=float, default=0.363)
+    # Anti-hallucination: block repeated n-grams and penalize repetition (stops 'prop prop prop' loops)
+    ap.add_argument("--no-repeat-ngram-size", type=int, default=3)
+    ap.add_argument("--repetition-penalty", type=float, default=1.1)
     args = ap.parse_args()
 
     out = args.out or os.path.splitext(args.audio)[0]
@@ -48,9 +54,15 @@ def main():
     print("loading audio...", flush=True)
     audio = whisperx.load_audio(args.audio)
 
-    print(f"loading model {args.model}...", flush=True)
-    model = whisperx.load_model(args.model, args.device, compute_type=args.compute_type,
-                                language=args.language)
+    print(f"loading model {args.model} (compute={args.compute_type}, vad_onset={args.vad_onset})...", flush=True)
+    model = whisperx.load_model(
+        args.model, args.device, compute_type=args.compute_type, language=args.language,
+        vad_options={"vad_onset": args.vad_onset, "vad_offset": args.vad_offset, "chunk_size": 30},
+        asr_options={
+            "no_repeat_ngram_size": args.no_repeat_ngram_size,
+            "repetition_penalty": args.repetition_penalty,
+        },
+    )
 
     print("transcribing...", flush=True)
     result = model.transcribe(audio, batch_size=args.batch_size, language=args.language)

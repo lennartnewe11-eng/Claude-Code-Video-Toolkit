@@ -1,47 +1,98 @@
-[00:00:00.712 - 00:00:06.536] Die Antwort darauf ist überraschend simple, sie liegt nämlich nicht über derh, sondern unter ihr.
-[00:00:06.556 - 00:00:15.503] Denn eine Vertiefung ist erstmal nur das, ein Loch, ob daraus?raus ein See wird oder eine ganz normale Wiese, ist die Frage.
-[00:00:15.543 - 00:00:16.884] 1.
-[00:00:16.924 - 00:00:19.505] Kommt überhaupt genug Wasser zusammen?
-[00:00:19.666 - 00:00:20.226] 2.
-[00:00:20.266 - 00:00:23.929] Viel wichtiger, kann das Loch dieses Wasser auch halten?
-[00:00:23.949 - 00:00:25.650] Stell dir zwei Eimer vor.
-[00:00:25.670 - 00:00:29.013] Der eine ist dicht, der andere hat ein Loch im Boden.
-[00:00:29.753 - 00:00:35.336] Du kannst beide, so lange du willst, in den Regen stellen, voll wird.
-[00:00:35.356 - 00:00:38.257] Mit dem Boden unter unseren Füßen ist es genau dasselbe.
-[00:00:50.403 - 00:00:55.165] Liegt unter der Mulde aber eine wasserdurchlässigeh, also Ton, Lehm
-[00:01:12.791 - 00:01:15.675] eine durchlässige Sand oder Kies Schicht.
-[00:01:15.695 - 00:01:16.836] Damit kommen wir zumdf zum 2.
-[00:01:16.896 - 00:01:19.540] Faktor, dem Grundwasser.
-[00:01:19.600 - 00:01:21.402] Tief unter unser uns ist der Boden Boden mit
-[00:01:29.171 - 00:01:31.152] Es kommt also auf die Bodenbeschaffen-heit und den Grundwass-.
-[00:01:31.192 - 00:01:35.075] Aber woher kommen eigentlich die Löcher, die dann später voll laufen sollen.
-[00:01:58.051 - 00:02:01.193] Fast jeder See in Deutschland den du kennst, hat denselben
-[00:02:20.825 - 00:02:23.387] sondern Kilometerdicke Bulldozer.
-[00:02:23.407 - 00:02:27.610] Sie schürftenen, schoben und schmögelen in den Boden.
-[00:02:27.670 - 00:02:31.833] In genau diesem Becken liegen heute unsere größ größten sehen.
-[00:02:31.853 - 00:02:36.217] Der Bodense, der Chiemsee oder der Starnberger See.
-[00:02:36.237 - 00:02:41.040] Sie alle sind nichts anderes, als der Gletscher Zunge, die sich tief ins
-[00:02:42.881 - 00:02:44.742] Deshalb sind sie auch so tief.
-[00:02:44.762 - 00:02:49.703] Der Bodensee beispielsweise misst eine Tiefe bis über überüber.
-[00:02:49.723 - 00:02:53.184] Und der Gletscher hat den Abdichtungsservice gleich mitgelie liefert.
-[00:02:53.204 - 00:02:59.785] Beim Abschmel, ließ er tonnweise feinen tonigen Schutt zurück, den sogenannten Geschibemergel.
-[00:02:59.825 - 00:03:04.266] Der kleidet die Becken von unten wasserdicht aus, ziemlich praktisch.
-[00:03:04.306 - 00:03:08.847] Das Eis baggert das Loch und dichtet es im selben Arbeitsgang ab.
-[00:03:08.867 - 00:03:11.908] Aber die Eiszeit brachte uns sogar noch mehr als eine große Becken.
-[00:03:13.989 - 00:03:26.277] späte Schmelz darüber ein und hinter das Loch.
-[00:03:26.297 - 00:03:34.983] Diese Toteislöcher sind der Grund, warum gerade in Mecklenburg und Burg viele kleine Eislöcher finden.
-[00:03:35.043 - 00:03:38.905] Und dann sind da noch die langen, schmalen Seen wie man sie in Schleswig Hol
-[00:03:39.946 - 00:03:43.468] Die See in der Mecklenburgischen Seenplatte und im Süden im Alpenvorland.
-[00:03:43.528 - 00:03:44.869] Also genau dort, wo das Eis lag.
-[00:03:44.889 - 00:03:47.250] Die Mitte Deutschlands ging dabei fast leer aus.
-[00:04:03.839 - 00:04:05.740] Aber nur fast, denn natürlich war nicht.
-[00:04:05.760 - 00:04:07.482] nicht nur das Eis am Werk.
-[00:04:07.522 - 00:04:15.227] In der Eifel hat sich Magma seinen Weg nach oben gesprengt und Kreisrunde Krater entlassen, die heute als Mare voll Wasser stehen.
-[00:04:15.287 - 00:04:16.729] Flüsse schnüren bei jeder Sch
-[00:04:29.618 - 00:04:32.901] voll und werden zu riesigen, brandbrandneuen Seen.
-[00:04:32.941 - 00:04:36.244] Am Ende läuft trotzdem alles auf dieselbe Bedingung hinaus.
-[00:04:36.264 - 00:04:41.048] Ein Loch, das Wasser und das Wasser das hinein läuft.
-[00:04:41.088 - 00:04:44.871] Fehlt nur eines von beiden, bleibt es eine trockene Senke.
-[00:04:44.891 - 00:04:45.692] Eine Sache sollte sein.
-[00:04:49.035 - 00:04:49.895] Es ist also nichts Ewigeses.
-[00:04:49.935 - 00:04:56.778] Er ist nur ein kurzer, nasser Moment in der Geschichte einer Landschaft und wir haben das Glück ihn gerade erleben zu dürfen.
+[00:00:00.662 - 00:00:05.360] Die Antwort darauf ist überraschend simpel, sie liegt nämlich nicht über der Erde sondern
+[00:00:05.789 - 00:00:06.115] unter ihr.
+[00:00:06.561 - 00:00:11.640] Denn eine Vertiefung ist erstmal nur das, ein Loch, ob daraus ein See wird oder eine
+[00:00:12.163 - 00:00:14.579] ganz normale Wiese entscheiden zwei Fragen.
+[00:00:15.582 - 00:00:21.719] Erstens kommt überhaupt genug Wasser zusammen und zweitens viel wichtiger kann das Loch
+[00:00:22.424 - 00:00:23.294] dieses Wasser auch halten?
+[00:00:23.961 - 00:00:29.699] Stell dir zwei Eimer vor, der eine ist dicht, der andere hat ein Loch im Boden, du kannst
+[00:00:30.261 - 00:00:35.358] beide solange du willst in den Regen stellen, voll wird trotzdem nur einer.
+[00:00:35.378 - 00:00:36.100] Mit dem Boden unter
+[00:00:36.502 - 00:00:38.229] unseren Füßen ist es genau dasselbe.
+[00:00:38.430 - 00:00:40.560] Steht der Untergrund aus Sand oder Kies,
+[00:00:41.343 - 00:00:43.010] dann wirkt er wie ein Sieb.
+[00:00:43.050 - 00:00:45.339] Das Wasser sickert einfach durch und verschwindet
+[00:00:45.902 - 00:00:47.166] in der Tiefe.
+[00:00:47.207 - 00:00:49.596] Egal wie viel es regnet hier bleibt nichts stehen.
+[00:00:49.636 - 00:00:50.339] Liegt unter
+[00:00:51.122 - 00:00:55.840] der Mulde aber eine wasserdurchlässige Schicht, also Ton, Lehm oder massiver
+[00:00:56.422 - 00:00:59.171] fällt, dann hat das Wasser keine Chance zu entkommen.
+[00:00:59.894 - 00:01:01.379] Es staut sich und die Mulde läuft
+[00:01:02.041 - 00:01:03.065] voll.
+[00:01:03.105 - 00:01:07.580] Das ist schon der erste Grund warum dein See ein See ist und die Senke 500 Meter weiter
+[00:01:08.081 - 00:01:09.546] staubtrocken bleibt.
+[00:01:09.586 - 00:01:13.780] Unter dem einen liegt Ton und unter dem anderen eine durchlässige Sand-
+[00:01:14.121 - 00:01:15.666] oder Kiesschicht.
+[00:01:15.686 - 00:01:19.557] Damit kommen wir zum zweiten Faktor, dem Grundwasser.
+[00:01:19.597 - 00:01:20.580] Tief unter uns ist
+[00:01:20.881 - 00:01:23.974] der Boden mit Wasser vollgesogen, wie ein Schwamm.
+[00:01:23.994 - 00:01:25.420] Die Oberkante dieses Schwamms nennt
+[00:01:25.861 - 00:01:29.815] man Grundwasserspiegel und der ist nicht überall gleich hoch.
+[00:01:29.835 - 00:01:31.039] Schneidet eine Vertiefung tief
+[00:01:31.641 - 00:01:37.058] genug in den Boden das sie den Spiegel erreicht fühlt sie sich von unten, nicht durch Regen
+[00:01:37.880 - 00:01:41.555] sondern weil sie quasi ein Fenster zum Grundwasser geöffnet hat.
+[00:01:41.575 - 00:01:42.679] Liegt die Nachbarsenke nur
+[00:01:43.141 - 00:01:48.617] ein paar Meter höher über dem Grundspiegel bleibt dieses Fenster zu und sie bleibt trocken.
+[00:01:50.041 - 00:01:53.997] kommt also auf die Bodenbeschaffenheit und den Grundwasserspiegel an.
+[00:01:54.057 - 00:01:54.720] Aber woher kommen
+[00:01:55.123 - 00:01:57.200] eigentlich die Löcher, die dann später volllaufen sollen?
+[00:01:57.962 - 00:02:02.415] Fast jeder See in Deutschland, den du kennst hat denselben Erbauer.
+[00:02:02.435 - 00:02:03.117] Die Eiszeit.
+[00:02:03.137 - 00:02:04.039] Oder halt
+[00:02:04.661 - 00:02:07.791] die Kohleförderung, Sandförderung und Kiesförderung.
+[00:02:07.811 - 00:02:09.778] Aber das ist ein anderes Thema.
+[00:02:09.798 - 00:02:10.560] Damals in
+[00:02:10.741 - 00:02:14.875] der Eiszeit schoben sich gewaltige Gletscher über das Land.
+[00:02:14.915 - 00:02:16.219] Von Norden aus Skandinavien
+[00:02:16.781 - 00:02:21.940] von Süden aus den Alpen, und das waren keine zarten Eisflächen, sondern kilometerdicke
+[00:02:22.304 - 00:02:22.815] Bulldozer.
+[00:02:23.442 - 00:02:26.958] Sie schürften, schoben und schmögelten riesige Becken in den Boden.
+[00:02:27.781 - 00:02:33.698] In genau diesen Becken liegen heute unsere größten Seen – der Bodensee, der Chiemsee
+[00:02:34.420 - 00:02:35.515] oder der Starnberger See.
+[00:02:36.261 - 00:02:41.160] Sie alle sind nichts anderes als der Fußabdruck einer Gletscherzunge, die sich tief ins Land
+[00:02:41.649 - 00:02:42.037] gepresst hat.
+[00:02:42.842 - 00:02:44.748] Deshalb sind sie auch so tief.
+[00:02:44.768 - 00:02:47.998] Der Bodensee beispielsweise misst eine Tiefe bis über 250 Meter
+[00:02:49.801 - 00:02:53.191] und der Gletscher hat den Abdichtungs-Service gleich mitgeliefert.
+[00:02:53.211 - 00:02:56.660] Beim Abschmelzen ließ er tonnenweise feinen tonigen Schutz zurück,
+[00:02:57.325 - 00:02:58.800] den sogenannten Geschiebemergel.
+[00:02:59.320 - 00:03:04.296] Der kleidet die Becken von unten wasserdicht aus, ziemlich praktisch.
+[00:03:04.316 - 00:03:05.520] Das Eis baggert das Loch
+[00:03:06.283 - 00:03:11.000] und dichtete es im selben Arbeitsgang ab, aber die Eiszeit brachte uns sogar noch mehr als
+[00:03:11.361 - 00:03:12.827] eine große Becken.
+[00:03:12.847 - 00:03:16.500] Manchmal brachen riesige Eisblöcke vom Gletscher ab und wurden unter
+[00:03:16.941 - 00:03:18.366] Geröll begraben.
+[00:03:18.386 - 00:03:22.899] Als dieses sogenannte Toteis Jahrtausende später schmolz sagte der Boden
+[00:03:23.601 - 00:03:26.270] darüber ein und hinterließ ein rundes Loch.
+[00:03:26.310 - 00:03:28.919] Diese Toteislöcher sind der Grund warum gerade
+[00:03:29.340 - 00:03:34.200] in Mecklenburg und Brandenburg so unfassbar viele kleine fast kreisrunde Seen liegen.
+[00:03:35.083 - 00:03:39.540] Und dann sind da noch die langen, schmalen Seen wie man sie in Schleswig-Holstein findet.
+[00:03:40.324 - 00:03:42.900] Die hat das Schmelzwasser unter dem Gletscher gegraben,
+[00:03:43.542 - 00:03:48.120] dass unter enormem Druck wie ein Hochdruckreiniger große Rinnen in die Landschaft fräste.
+[00:03:49.266 - 00:03:51.720] Dies lässt sich auch auf der Deutschlandkarte klar kennen.
+[00:03:51.760 - 00:03:53.600] Die Seen ballen sich im Norden,
+[00:03:54.203 - 00:03:57.320] in der Mecklenburgischen Seenplatte und im Süden im Alpenvorland,
+[00:03:58.025 - 00:03:59.659] also genau dort wo das Eis lag.
+[00:04:00.344 - 00:04:02.580] Die Mitte Deutschlands ging dabei fast leer aus.
+[00:04:03.824 - 00:04:07.496] Aber nur fast, denn natürlich war nicht nur das Eis am Werk.
+[00:04:07.536 - 00:04:08.660] In der Eifel hat sich Magma
+[00:04:09.082 - 00:04:13.619] seinen Weg nach oben gesprengt und kreisrunde Krater hinterlassen, die heute als Mare voll
+[00:04:14.121 - 00:04:15.225] Wasser stehen.
+[00:04:15.285 - 00:04:19.400] Flüsse schnüren bei jeder Schlinge alte Bögen ab, die als Altarme liegen
+[00:04:19.822 - 00:04:20.545] bleiben.
+[00:04:20.565 - 00:04:24.300] Und der vielleicht fleißigste Seebauer der Gegenwart sind wir selbst.
+[00:04:24.842 - 00:04:29.319] In der Lausitz rund um Leipzig laufen gerade die alten Braunkohletagebaue voll
+[00:04:30.042 - 00:04:32.893] und werden zu riesigen brandneuen Seen.
+[00:04:32.933 - 00:04:34.680] Am Ende läuft trotzdem alles auf dieselbe
+[00:04:35.121 - 00:04:40.277] Bedingung hinaus, ein Loch das Wasser halten kann und genug Wasser das hineinläuft.
+[00:04:40.317 - 00:04:40.919] Fehlt
+[00:04:41.401 - 00:04:44.874] nur eines von beiden bleibt es eine trockene Senke.
+[00:04:44.914 - 00:04:46.380] Eine Sache solltest du aber wissen bevor
+[00:04:46.480 - 00:04:48.286] du dich das nächste mal entspannt ans Ufer legst.
+[00:04:48.306 - 00:04:48.928] Kein See bleibt für immer!
+[00:04:48.948 - 00:04:49.430] Von allen Seiten rieselt
+[00:04:52.721 - 00:04:57.817] Sand, Laub und Schlamm hinein, vom Ufer her wuchern Schilf und Pflanzen nach innen.
+[00:04:57.878 - 00:04:58.118] Ganz
+[00:04:58.781 - 00:05:03.119] Ganz langsam füllt sich das Becken wieder auf, aus dem See wird ein Sumpf und aus dem
+[00:05:03.400 - 00:05:04.532] Sumpf irgendwann eine Wiese.
+[00:05:05.501 - 00:05:10.120] Es ist also nichts Ewiges – er ist nur ein kurzer nasser Moment in der Geschichte einer
+[00:05:10.703 - 00:05:13.900] Landschaft und wir haben das Glück ihn gerade erleben zu dürfen.
