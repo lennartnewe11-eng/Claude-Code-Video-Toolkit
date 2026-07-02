@@ -16,8 +16,4 @@ Hochebene (Serg Alesenko), Nebelsee (Matthias Groeneveld).
 - **Vögel-Intro** & **Schluss-See mit Fahrrädern** — `user_footage/birds.mp4`, `user_footage/lake_bikes.mp4`
 - **Mr. Bean** (2×) — `user_footage/mrbean.mp4` · © Tiger Aspect / Rowan Atkinson, nur nutzerseitige Verwendung
 - **Song** — `audio/song.mp3` · **Voiceover** — `audio/voiceover.wav`
-
-## Musik Teil 2 (Schluss-Soundtrack)
-
-- **"Long Note One"** — Kevin MacLeod (incompetech.com), Lizenz: Creative Commons Attribution 4.0
-  (https://creativecommons.org/licenses/by/4.0/). Setzt beim Musik-Drop vor „Aber jetzt mal wirklich" ein.
+  (der Song läuft durchgängig; vor „Aber jetzt mal wirklich" nur sehr leise gemischt)

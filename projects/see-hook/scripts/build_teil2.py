@@ -246,17 +246,16 @@ def final():
         f"[2:a]atrim={VO_B0}:53.60,asetpts=PTS-STARTPTS,volume=1.0[vob];"
         f"anullsrc=r=44100:cl=stereo,atrim=0:{silence}[sil];"
         f"[voa][sil][vob]concat=n=3:v=0:a=1[vo];"
-        # song 1: quieter overall, DROPS out just before "Aber jetzt mal
-        # wirklich" (T2 27.68) and stays silent after
-        f"[3:a]atrim=0:{TOTAL},volume=2.0,afade=t=out:st=30.32:d=0.30[song];"
+        # same song throughout; ducks to VERY quiet just before "Aber jetzt
+        # mal wirklich" (T2 ~30.6) and stays quiet to the end
+        f"[3:a]atrim=0:{TOTAL},volume='if(lt(t,30.32),2.0,"
+        f"if(lt(t,30.62),2.0-1.65*(t-30.32)/0.30,0.35))':eval=frame[song];"
         # Tagesschau clip audio, synced to its slot (T2 5.10 .. 5.10+dur)
         f"[4:a]atrim=0:{TIKTOK_DUR},adelay=5100|5100,volume=1.15[tk];"
-        # soundtrack 2 (sachlicher): begins at the drop and runs to the end
-        f"[5:a]atrim=0:4.6,afade=t=in:d=0.8,volume=1.5,adelay=30620|30620[st2];"
-        f"[song][vo][tk][st2]amix=inputs=4:normalize=0:duration=first,alimiter=limit=0.95[a]")
+        f"[song][vo][tk]amix=inputs=3:normalize=0:duration=first,alimiter=limit=0.95[a]")
     run([FF,"-y","-i",str(BUILD/"t2_full.mp4"),"-i",str(AUD/"voiceover.wav"),
          "-i",str(AUD/"voiceover.wav"),"-ss",str(SONG_OFFSET),"-i",str(AUD/"song.mp3"),
-         "-i",TIKTOK,"-i",str(AUD/"soundtrack2.mp3"),
+         "-i",TIKTOK,
          "-filter_complex",fc,"-map","[v]","-map","[a]","-t",str(TOTAL),
          "-c:v","libx264","-preset","medium","-crf","19","-pix_fmt","yuv420p",
          "-c:a","aac","-b:a","192k","-movflags","+faststart",
