@@ -1,0 +1,5389 @@
+{
+  "language": "de",
+  "segments": [
+    {
+      "start": 0.662,
+      "end": 5.36,
+      "text": " Die Antwort darauf ist überraschend simpel, sie liegt nämlich nicht über der Erde sondern",
+      "words": [
+        {
+          "word": "Die",
+          "start": 0.662,
+          "end": 0.763,
+          "score": 0.919
+        },
+        {
+          "word": "Antwort",
+          "start": 0.803,
+          "end": 1.164,
+          "score": 0.974
+        },
+        {
+          "word": "darauf",
+          "start": 1.204,
+          "end": 1.606,
+          "score": 0.944
+        },
+        {
+          "word": "ist",
+          "start": 1.646,
+          "end": 1.927,
+          "score": 0.864
+        },
+        {
+          "word": "überraschend",
+          "start": 1.967,
+          "end": 2.449,
+          "score": 0.828
+        },
+        {
+          "word": "simpel,",
+          "start": 2.469,
+          "end": 3.433,
+          "score": 0.97
+        },
+        {
+          "word": "sie",
+          "start": 3.453,
+          "end": 3.573,
+          "score": 0.827
+        },
+        {
+          "word": "liegt",
+          "start": 3.613,
+          "end": 3.754,
+          "score": 0.889
+        },
+        {
+          "word": "nämlich",
+          "start": 3.874,
+          "end": 4.135,
+          "score": 0.345
+        },
+        {
+          "word": "nicht",
+          "start": 4.156,
+          "end": 4.416,
+          "score": 0.937
+        },
+        {
+          "word": "über",
+          "start": 4.457,
+          "end": 4.637,
+          "score": 0.931
+        },
+        {
+          "word": "der",
+          "start": 4.657,
+          "end": 4.778,
+          "score": 0.973
+        },
+        {
+          "word": "Erde",
+          "start": 4.838,
+          "end": 4.999,
+          "score": 0.847
+        },
+        {
+          "word": "sondern",
+          "start": 5.139,
+          "end": 5.36,
+          "score": 0.114
+        }
+      ]
+    },
+    {
+      "start": 5.789,
+      "end": 6.115,
+      "text": " unter ihr.",
+      "words": [
+        {
+          "word": "unter",
+          "start": 5.789,
+          "end": 5.993,
+          "score": 0.648
+        },
+        {
+          "word": "ihr.",
+          "start": 6.033,
+          "end": 6.115,
+          "score": 0.172
+        }
+      ]
+    },
+    {
+      "start": 6.561,
+      "end": 11.64,
+      "text": " Denn eine Vertiefung ist erstmal nur das, ein Loch, ob daraus ein See wird oder eine",
+      "words": [
+        {
+          "word": "Denn",
+          "start": 6.561,
+          "end": 6.681,
+          "score": 0.548
+        },
+        {
+          "word": "eine",
+          "start": 6.741,
+          "end": 6.942,
+          "score": 0.825
+        },
+        {
+          "word": "Vertiefung",
+          "start": 6.982,
+          "end": 7.605,
+          "score": 0.918
+        },
+        {
+          "word": "ist",
+          "start": 7.645,
+          "end": 7.805,
+          "score": 0.893
+        },
+        {
+          "word": "erstmal",
+          "start": 7.846,
+          "end": 8.147,
+          "score": 0.953
+        },
+        {
+          "word": "nur",
+          "start": 8.187,
+          "end": 8.327,
+          "score": 0.906
+        },
+        {
+          "word": "das,",
+          "start": 8.347,
+          "end": 9.19,
+          "score": 0.879
+        },
+        {
+          "word": "ein",
+          "start": 9.211,
+          "end": 9.371,
+          "score": 0.684
+        },
+        {
+          "word": "Loch,",
+          "start": 9.431,
+          "end": 10.234,
+          "score": 0.836
+        },
+        {
+          "word": "ob",
+          "start": 10.274,
+          "end": 10.415,
+          "score": 0.927
+        },
+        {
+          "word": "daraus",
+          "start": 10.435,
+          "end": 10.756,
+          "score": 0.928
+        },
+        {
+          "word": "ein",
+          "start": 10.796,
+          "end": 10.977,
+          "score": 0.612
+        },
+        {
+          "word": "See",
+          "start": 11.017,
+          "end": 11.218,
+          "score": 0.855
+        },
+        {
+          "word": "wird",
+          "start": 11.238,
+          "end": 11.338,
+          "score": 0.538
+        },
+        {
+          "word": "oder",
+          "start": 11.359,
+          "end": 11.439,
+          "score": 0.001
+        },
+        {
+          "word": "eine",
+          "start": 11.459,
+          "end": 11.64,
+          "score": 0.208
+        }
+      ]
+    },
+    {
+      "start": 12.163,
+      "end": 14.579,
+      "text": " ganz normale Wiese entscheiden zwei Fragen.",
+      "words": [
+        {
+          "word": "ganz",
+          "start": 12.163,
+          "end": 12.284,
+          "score": 0.792
+        },
+        {
+          "word": "normale",
+          "start": 12.304,
+          "end": 12.606,
+          "score": 0.728
+        },
+        {
+          "word": "Wiese",
+          "start": 12.646,
+          "end": 13.512,
+          "score": 0.833
+        },
+        {
+          "word": "entscheiden",
+          "start": 13.552,
+          "end": 14.015,
+          "score": 0.799
+        },
+        {
+          "word": "zwei",
+          "start": 14.056,
+          "end": 14.277,
+          "score": 0.961
+        },
+        {
+          "word": "Fragen.",
+          "start": 14.297,
+          "end": 14.579,
+          "score": 0.707
+        }
+      ]
+    },
+    {
+      "start": 15.582,
+      "end": 21.719,
+      "text": " Erstens kommt überhaupt genug Wasser zusammen und zweitens viel wichtiger kann das Loch",
+      "words": [
+        {
+          "word": "Erstens",
+          "start": 15.582,
+          "end": 16.886,
+          "score": 0.856
+        },
+        {
+          "word": "kommt",
+          "start": 16.926,
+          "end": 17.207,
+          "score": 0.671
+        },
+        {
+          "word": "überhaupt",
+          "start": 17.227,
+          "end": 17.588,
+          "score": 0.873
+        },
+        {
+          "word": "genug",
+          "start": 17.608,
+          "end": 17.909,
+          "score": 0.868
+        },
+        {
+          "word": "Wasser",
+          "start": 17.929,
+          "end": 18.23,
+          "score": 0.97
+        },
+        {
+          "word": "zusammen",
+          "start": 18.25,
+          "end": 19.272,
+          "score": 0.928
+        },
+        {
+          "word": "und",
+          "start": 19.293,
+          "end": 19.533,
+          "score": 0.753
+        },
+        {
+          "word": "zweitens",
+          "start": 19.573,
+          "end": 20.235,
+          "score": 0.802
+        },
+        {
+          "word": "viel",
+          "start": 20.275,
+          "end": 20.496,
+          "score": 0.872
+        },
+        {
+          "word": "wichtiger",
+          "start": 20.516,
+          "end": 20.917,
+          "score": 0.805
+        },
+        {
+          "word": "kann",
+          "start": 20.977,
+          "end": 21.398,
+          "score": 0.606
+        },
+        {
+          "word": "das",
+          "start": 21.438,
+          "end": 21.599,
+          "score": 0.358
+        },
+        {
+          "word": "Loch",
+          "start": 21.639,
+          "end": 21.719,
+          "score": 0.034
+        }
+      ]
+    },
+    {
+      "start": 22.424,
+      "end": 23.294,
+      "text": " dieses Wasser auch halten?",
+      "words": [
+        {
+          "word": "dieses",
+          "start": 22.424,
+          "end": 22.627,
+          "score": 0.658
+        },
+        {
+          "word": "Wasser",
+          "start": 22.667,
+          "end": 22.849,
+          "score": 0.918
+        },
+        {
+          "word": "auch",
+          "start": 22.89,
+          "end": 23.031,
+          "score": 0.633
+        },
+        {
+          "word": "halten?",
+          "start": 23.072,
+          "end": 23.294,
+          "score": 0.811
+        }
+      ]
+    },
+    {
+      "start": 23.961,
+      "end": 29.699,
+      "text": " Stell dir zwei Eimer vor, der eine ist dicht, der andere hat ein Loch im Boden, du kannst",
+      "words": [
+        {
+          "word": "Stell",
+          "start": 23.961,
+          "end": 24.121,
+          "score": 0.952
+        },
+        {
+          "word": "dir",
+          "start": 24.141,
+          "end": 24.261,
+          "score": 0.239
+        },
+        {
+          "word": "zwei",
+          "start": 24.302,
+          "end": 24.502,
+          "score": 0.977
+        },
+        {
+          "word": "Eimer",
+          "start": 24.542,
+          "end": 24.843,
+          "score": 0.86
+        },
+        {
+          "word": "vor,",
+          "start": 24.884,
+          "end": 25.626,
+          "score": 0.828
+        },
+        {
+          "word": "der",
+          "start": 25.666,
+          "end": 25.827,
+          "score": 0.915
+        },
+        {
+          "word": "eine",
+          "start": 25.867,
+          "end": 26.087,
+          "score": 0.671
+        },
+        {
+          "word": "ist",
+          "start": 26.128,
+          "end": 26.268,
+          "score": 0.729
+        },
+        {
+          "word": "dicht,",
+          "start": 26.308,
+          "end": 27.713,
+          "score": 0.899
+        },
+        {
+          "word": "der",
+          "start": 27.733,
+          "end": 27.853,
+          "score": 0.976
+        },
+        {
+          "word": "andere",
+          "start": 27.913,
+          "end": 28.134,
+          "score": 0.771
+        },
+        {
+          "word": "hat",
+          "start": 28.154,
+          "end": 28.315,
+          "score": 0.824
+        },
+        {
+          "word": "ein",
+          "start": 28.335,
+          "end": 28.455,
+          "score": 0.605
+        },
+        {
+          "word": "Loch",
+          "start": 28.495,
+          "end": 28.616,
+          "score": 0.967
+        },
+        {
+          "word": "im",
+          "start": 28.676,
+          "end": 28.736,
+          "score": 0.428
+        },
+        {
+          "word": "Boden,",
+          "start": 28.776,
+          "end": 28.997,
+          "score": 0.911
+        },
+        {
+          "word": "du",
+          "start": 29.037,
+          "end": 29.197,
+          "score": 0.609
+        },
+        {
+          "word": "kannst",
+          "start": 29.238,
+          "end": 29.699,
+          "score": 0.269
+        }
+      ]
+    },
+    {
+      "start": 30.261,
+      "end": 35.358,
+      "text": " beide solange du willst in den Regen stellen, voll wird trotzdem nur einer.",
+      "words": [
+        {
+          "word": "beide",
+          "start": 30.261,
+          "end": 30.722,
+          "score": 0.893
+        },
+        {
+          "word": "solange",
+          "start": 30.742,
+          "end": 31.104,
+          "score": 0.945
+        },
+        {
+          "word": "du",
+          "start": 31.124,
+          "end": 31.244,
+          "score": 0.893
+        },
+        {
+          "word": "willst",
+          "start": 31.284,
+          "end": 31.605,
+          "score": 0.85
+        },
+        {
+          "word": "in",
+          "start": 31.645,
+          "end": 31.686,
+          "score": 0.966
+        },
+        {
+          "word": "den",
+          "start": 31.726,
+          "end": 31.846,
+          "score": 0.859
+        },
+        {
+          "word": "Regen",
+          "start": 31.886,
+          "end": 32.147,
+          "score": 0.834
+        },
+        {
+          "word": "stellen,",
+          "start": 32.167,
+          "end": 33.19,
+          "score": 0.845
+        },
+        {
+          "word": "voll",
+          "start": 33.231,
+          "end": 33.612,
+          "score": 0.93
+        },
+        {
+          "word": "wird",
+          "start": 33.652,
+          "end": 33.772,
+          "score": 0.944
+        },
+        {
+          "word": "trotzdem",
+          "start": 33.813,
+          "end": 34.134,
+          "score": 0.819
+        },
+        {
+          "word": "nur",
+          "start": 34.154,
+          "end": 34.314,
+          "score": 0.874
+        },
+        {
+          "word": "einer.",
+          "start": 34.354,
+          "end": 35.358,
+          "score": 0.775
+        }
+      ]
+    },
+    {
+      "start": 35.378,
+      "end": 36.1,
+      "text": "Mit dem Boden unter",
+      "words": [
+        {
+          "word": "Mit",
+          "start": 35.378,
+          "end": 35.498,
+          "score": 0.802
+        },
+        {
+          "word": "dem",
+          "start": 35.538,
+          "end": 35.659,
+          "score": 0.912
+        },
+        {
+          "word": "Boden",
+          "start": 35.679,
+          "end": 35.919,
+          "score": 0.373
+        },
+        {
+          "word": "unter",
+          "start": 36.0,
+          "end": 36.1,
+          "score": 0.003
+        }
+      ]
+    },
+    {
+      "start": 36.502,
+      "end": 38.229,
+      "text": " unseren Füßen ist es genau dasselbe.",
+      "words": [
+        {
+          "word": "unseren",
+          "start": 36.502,
+          "end": 36.723,
+          "score": 0.709
+        },
+        {
+          "word": "Füßen",
+          "start": 36.743,
+          "end": 36.924,
+          "score": 0.803
+        },
+        {
+          "word": "ist",
+          "start": 36.964,
+          "end": 37.024,
+          "score": 0.926
+        },
+        {
+          "word": "es",
+          "start": 37.064,
+          "end": 37.165,
+          "score": 0.628
+        },
+        {
+          "word": "genau",
+          "start": 37.205,
+          "end": 37.406,
+          "score": 0.784
+        },
+        {
+          "word": "dasselbe.",
+          "start": 37.446,
+          "end": 38.229,
+          "score": 0.905
+        }
+      ]
+    },
+    {
+      "start": 38.43,
+      "end": 40.56,
+      "text": "Steht der Untergrund aus Sand oder Kies,",
+      "words": [
+        {
+          "word": "Steht",
+          "start": 38.43,
+          "end": 38.792,
+          "score": 0.967
+        },
+        {
+          "word": "der",
+          "start": 38.832,
+          "end": 38.933,
+          "score": 0.996
+        },
+        {
+          "word": "Untergrund",
+          "start": 38.973,
+          "end": 39.555,
+          "score": 0.966
+        },
+        {
+          "word": "aus",
+          "start": 39.595,
+          "end": 39.756,
+          "score": 0.96
+        },
+        {
+          "word": "Sand",
+          "start": 39.796,
+          "end": 40.058,
+          "score": 0.962
+        },
+        {
+          "word": "oder",
+          "start": 40.098,
+          "end": 40.198,
+          "score": 0.969
+        },
+        {
+          "word": "Kies,",
+          "start": 40.359,
+          "end": 40.56,
+          "score": 0.283
+        }
+      ]
+    },
+    {
+      "start": 41.343,
+      "end": 43.01,
+      "text": " dann wirkt er wie ein Sieb.",
+      "words": [
+        {
+          "word": "dann",
+          "start": 41.343,
+          "end": 41.544,
+          "score": 0.92
+        },
+        {
+          "word": "wirkt",
+          "start": 41.584,
+          "end": 41.725,
+          "score": 0.768
+        },
+        {
+          "word": "er",
+          "start": 41.785,
+          "end": 41.845,
+          "score": 0.71
+        },
+        {
+          "word": "wie",
+          "start": 41.885,
+          "end": 41.986,
+          "score": 0.492
+        },
+        {
+          "word": "ein",
+          "start": 42.006,
+          "end": 42.146,
+          "score": 0.521
+        },
+        {
+          "word": "Sieb.",
+          "start": 42.186,
+          "end": 43.01,
+          "score": 0.719
+        }
+      ]
+    },
+    {
+      "start": 43.05,
+      "end": 45.339,
+      "text": "Das Wasser sickert einfach durch und verschwindet",
+      "words": [
+        {
+          "word": "Das",
+          "start": 43.05,
+          "end": 43.251,
+          "score": 0.925
+        },
+        {
+          "word": "Wasser",
+          "start": 43.291,
+          "end": 43.592,
+          "score": 0.938
+        },
+        {
+          "word": "sickert",
+          "start": 43.612,
+          "end": 43.994,
+          "score": 0.606
+        },
+        {
+          "word": "einfach",
+          "start": 44.034,
+          "end": 44.355,
+          "score": 0.883
+        },
+        {
+          "word": "durch",
+          "start": 44.395,
+          "end": 44.978,
+          "score": 0.766
+        },
+        {
+          "word": "und",
+          "start": 45.018,
+          "end": 45.078,
+          "score": 0.163
+        },
+        {
+          "word": "verschwindet",
+          "start": 45.098,
+          "end": 45.339,
+          "score": 0.04
+        }
+      ]
+    },
+    {
+      "start": 45.902,
+      "end": 47.166,
+      "text": " in der Tiefe.",
+      "words": [
+        {
+          "word": "in",
+          "start": 45.902,
+          "end": 45.962,
+          "score": 0.861
+        },
+        {
+          "word": "der",
+          "start": 45.982,
+          "end": 46.062,
+          "score": 0.623
+        },
+        {
+          "word": "Tiefe.",
+          "start": 46.082,
+          "end": 47.166,
+          "score": 0.892
+        }
+      ]
+    },
+    {
+      "start": 47.207,
+      "end": 49.596,
+      "text": "Egal wie viel es regnet hier bleibt nichts stehen.",
+      "words": [
+        {
+          "word": "Egal",
+          "start": 47.207,
+          "end": 47.447,
+          "score": 0.97
+        },
+        {
+          "word": "wie",
+          "start": 47.488,
+          "end": 47.588,
+          "score": 0.967
+        },
+        {
+          "word": "viel",
+          "start": 47.628,
+          "end": 47.749,
+          "score": 0.882
+        },
+        {
+          "word": "es",
+          "start": 47.789,
+          "end": 47.889,
+          "score": 0.978
+        },
+        {
+          "word": "regnet",
+          "start": 47.929,
+          "end": 48.572,
+          "score": 0.933
+        },
+        {
+          "word": "hier",
+          "start": 48.592,
+          "end": 48.732,
+          "score": 0.897
+        },
+        {
+          "word": "bleibt",
+          "start": 48.753,
+          "end": 48.993,
+          "score": 0.858
+        },
+        {
+          "word": "nichts",
+          "start": 49.034,
+          "end": 49.234,
+          "score": 0.9
+        },
+        {
+          "word": "stehen.",
+          "start": 49.295,
+          "end": 49.596,
+          "score": 0.679
+        }
+      ]
+    },
+    {
+      "start": 49.636,
+      "end": 50.339,
+      "text": "Liegt unter",
+      "words": [
+        {
+          "word": "Liegt",
+          "start": 49.636,
+          "end": 50.017,
+          "score": 0.614
+        },
+        {
+          "word": "unter",
+          "start": 50.037,
+          "end": 50.339,
+          "score": 0.188
+        }
+      ]
+    },
+    {
+      "start": 51.122,
+      "end": 55.84,
+      "text": " der Mulde aber eine wasserdurchlässige Schicht, also Ton, Lehm oder massiver",
+      "words": [
+        {
+          "word": "der",
+          "start": 51.122,
+          "end": 51.222,
+          "score": 0.783
+        },
+        {
+          "word": "Mulde",
+          "start": 51.262,
+          "end": 51.563,
+          "score": 0.723
+        },
+        {
+          "word": "aber",
+          "start": 51.603,
+          "end": 51.764,
+          "score": 0.996
+        },
+        {
+          "word": "eine",
+          "start": 51.804,
+          "end": 51.985,
+          "score": 0.808
+        },
+        {
+          "word": "wasserdurchlässige",
+          "start": 52.025,
+          "end": 52.808,
+          "score": 0.931
+        },
+        {
+          "word": "Schicht,",
+          "start": 52.848,
+          "end": 53.912,
+          "score": 0.876
+        },
+        {
+          "word": "also",
+          "start": 53.953,
+          "end": 54.234,
+          "score": 0.954
+        },
+        {
+          "word": "Ton,",
+          "start": 54.274,
+          "end": 54.956,
+          "score": 0.828
+        },
+        {
+          "word": "Lehm",
+          "start": 55.017,
+          "end": 55.398,
+          "score": 0.828
+        },
+        {
+          "word": "oder",
+          "start": 55.438,
+          "end": 55.539,
+          "score": 0.782
+        },
+        {
+          "word": "massiver",
+          "start": 55.599,
+          "end": 55.84,
+          "score": 0.166
+        }
+      ]
+    },
+    {
+      "start": 56.422,
+      "end": 59.171,
+      "text": " fällt, dann hat das Wasser keine Chance zu entkommen.",
+      "words": [
+        {
+          "word": "fällt,",
+          "start": 56.422,
+          "end": 57.044,
+          "score": 0.681
+        },
+        {
+          "word": "dann",
+          "start": 57.064,
+          "end": 57.184,
+          "score": 0.63
+        },
+        {
+          "word": "hat",
+          "start": 57.205,
+          "end": 57.325,
+          "score": 0.656
+        },
+        {
+          "word": "das",
+          "start": 57.345,
+          "end": 57.526,
+          "score": 0.867
+        },
+        {
+          "word": "Wasser",
+          "start": 57.566,
+          "end": 57.987,
+          "score": 0.89
+        },
+        {
+          "word": "keine",
+          "start": 58.027,
+          "end": 58.248,
+          "score": 0.843
+        },
+        {
+          "word": "Chance",
+          "start": 58.288,
+          "end": 58.63,
+          "score": 0.81
+        },
+        {
+          "word": "zu",
+          "start": 58.67,
+          "end": 58.77,
+          "score": 0.842
+        },
+        {
+          "word": "entkommen.",
+          "start": 58.81,
+          "end": 59.171,
+          "score": 0.713
+        }
+      ]
+    },
+    {
+      "start": 59.894,
+      "end": 61.379,
+      "text": "Es staut sich und die Mulde läuft",
+      "words": [
+        {
+          "word": "Es",
+          "start": 59.894,
+          "end": 59.994,
+          "score": 0.538
+        },
+        {
+          "word": "staut",
+          "start": 60.055,
+          "end": 60.436,
+          "score": 0.613
+        },
+        {
+          "word": "sich",
+          "start": 60.476,
+          "end": 60.837,
+          "score": 0.661
+        },
+        {
+          "word": "und",
+          "start": 60.857,
+          "end": 60.998,
+          "score": 0.513
+        },
+        {
+          "word": "die",
+          "start": 61.018,
+          "end": 61.118,
+          "score": 0.526
+        },
+        {
+          "word": "Mulde",
+          "start": 61.158,
+          "end": 61.259,
+          "score": 0.166
+        },
+        {
+          "word": "läuft",
+          "start": 61.279,
+          "end": 61.379,
+          "score": 0.028
+        }
+      ]
+    },
+    {
+      "start": 62.041,
+      "end": 63.065,
+      "text": " voll.",
+      "words": [
+        {
+          "word": "voll.",
+          "start": 62.041,
+          "end": 63.065,
+          "score": 0.642
+        }
+      ]
+    },
+    {
+      "start": 63.105,
+      "end": 67.58,
+      "text": "Das ist schon der erste Grund warum dein See ein See ist und die Senke 500 Meter weiter",
+      "words": [
+        {
+          "word": "Das",
+          "start": 63.105,
+          "end": 63.225,
+          "score": 0.73
+        },
+        {
+          "word": "ist",
+          "start": 63.245,
+          "end": 63.346,
+          "score": 0.838
+        },
+        {
+          "word": "schon",
+          "start": 63.386,
+          "end": 63.546,
+          "score": 0.892
+        },
+        {
+          "word": "der",
+          "start": 63.566,
+          "end": 63.667,
+          "score": 0.898
+        },
+        {
+          "word": "erste",
+          "start": 63.687,
+          "end": 63.988,
+          "score": 0.839
+        },
+        {
+          "word": "Grund",
+          "start": 64.048,
+          "end": 64.269,
+          "score": 0.871
+        },
+        {
+          "word": "warum",
+          "start": 64.309,
+          "end": 64.59,
+          "score": 0.989
+        },
+        {
+          "word": "dein",
+          "start": 64.61,
+          "end": 64.871,
+          "score": 0.658
+        },
+        {
+          "word": "See",
+          "start": 64.911,
+          "end": 65.112,
+          "score": 0.816
+        },
+        {
+          "word": "ein",
+          "start": 65.132,
+          "end": 65.272,
+          "score": 0.61
+        },
+        {
+          "word": "See",
+          "start": 65.312,
+          "end": 65.513,
+          "score": 0.87
+        },
+        {
+          "word": "ist",
+          "start": 65.573,
+          "end": 66.155,
+          "score": 0.959
+        },
+        {
+          "word": "und",
+          "start": 66.175,
+          "end": 66.336,
+          "score": 0.87
+        },
+        {
+          "word": "die",
+          "start": 66.356,
+          "end": 66.456,
+          "score": 0.888
+        },
+        {
+          "word": "Senke",
+          "start": 66.476,
+          "end": 66.817,
+          "score": 0.932
+        },
+        {
+          "word": "500",
+          "start": 66.837,
+          "end": 66.918,
+          "score": 0.85
+        },
+        {
+          "word": "Meter",
+          "start": 66.998,
+          "end": 67.219,
+          "score": 0.382
+        },
+        {
+          "word": "weiter",
+          "start": 67.239,
+          "end": 67.58,
+          "score": 0.269
+        }
+      ]
+    },
+    {
+      "start": 68.081,
+      "end": 69.546,
+      "text": " staubtrocken bleibt.",
+      "words": [
+        {
+          "word": "staubtrocken",
+          "start": 68.081,
+          "end": 68.483,
+          "score": 0.53
+        },
+        {
+          "word": "bleibt.",
+          "start": 68.503,
+          "end": 69.546,
+          "score": 0.783
+        }
+      ]
+    },
+    {
+      "start": 69.586,
+      "end": 73.78,
+      "text": "Unter dem einen liegt Ton und unter dem anderen eine durchlässige Sand-",
+      "words": [
+        {
+          "word": "Unter",
+          "start": 69.586,
+          "end": 69.767,
+          "score": 0.929
+        },
+        {
+          "word": "dem",
+          "start": 69.807,
+          "end": 69.988,
+          "score": 0.866
+        },
+        {
+          "word": "einen",
+          "start": 70.028,
+          "end": 70.208,
+          "score": 0.773
+        },
+        {
+          "word": "liegt",
+          "start": 70.249,
+          "end": 70.449,
+          "score": 0.748
+        },
+        {
+          "word": "Ton",
+          "start": 70.509,
+          "end": 71.131,
+          "score": 0.861
+        },
+        {
+          "word": "und",
+          "start": 71.172,
+          "end": 71.232,
+          "score": 0.451
+        },
+        {
+          "word": "unter",
+          "start": 71.292,
+          "end": 71.573,
+          "score": 0.26
+        },
+        {
+          "word": "dem",
+          "start": 71.593,
+          "end": 71.733,
+          "score": 0.9
+        },
+        {
+          "word": "anderen",
+          "start": 71.753,
+          "end": 72.696,
+          "score": 0.844
+        },
+        {
+          "word": "eine",
+          "start": 72.717,
+          "end": 72.917,
+          "score": 0.768
+        },
+        {
+          "word": "durchlässige",
+          "start": 72.957,
+          "end": 73.539,
+          "score": 0.866
+        },
+        {
+          "word": "Sand-",
+          "start": 73.68,
+          "end": 73.78,
+          "score": 0.184
+        }
+      ]
+    },
+    {
+      "start": 74.121,
+      "end": 75.666,
+      "text": " oder Kiesschicht.",
+      "words": [
+        {
+          "word": "oder",
+          "start": 74.121,
+          "end": 74.281,
+          "score": 0.793
+        },
+        {
+          "word": "Kiesschicht.",
+          "start": 74.322,
+          "end": 75.666,
+          "score": 0.729
+        }
+      ]
+    },
+    {
+      "start": 75.686,
+      "end": 79.557,
+      "text": "Damit kommen wir zum zweiten Faktor, dem Grundwasser.",
+      "words": [
+        {
+          "word": "Damit",
+          "start": 75.686,
+          "end": 75.926,
+          "score": 0.984
+        },
+        {
+          "word": "kommen",
+          "start": 75.966,
+          "end": 76.127,
+          "score": 0.997
+        },
+        {
+          "word": "wir",
+          "start": 76.147,
+          "end": 76.267,
+          "score": 0.982
+        },
+        {
+          "word": "zum",
+          "start": 76.327,
+          "end": 76.488,
+          "score": 0.94
+        },
+        {
+          "word": "zweiten",
+          "start": 76.528,
+          "end": 76.849,
+          "score": 0.991
+        },
+        {
+          "word": "Faktor,",
+          "start": 76.889,
+          "end": 77.752,
+          "score": 0.982
+        },
+        {
+          "word": "dem",
+          "start": 77.792,
+          "end": 77.972,
+          "score": 0.938
+        },
+        {
+          "word": "Grundwasser.",
+          "start": 77.992,
+          "end": 79.557,
+          "score": 0.977
+        }
+      ]
+    },
+    {
+      "start": 79.597,
+      "end": 80.58,
+      "text": "Tief unter uns ist",
+      "words": [
+        {
+          "word": "Tief",
+          "start": 79.597,
+          "end": 79.878,
+          "score": 0.906
+        },
+        {
+          "word": "unter",
+          "start": 79.918,
+          "end": 80.199,
+          "score": 0.922
+        },
+        {
+          "word": "uns",
+          "start": 80.239,
+          "end": 80.359,
+          "score": 0.944
+        },
+        {
+          "word": "ist",
+          "start": 80.52,
+          "end": 80.58,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "start": 80.881,
+      "end": 83.974,
+      "text": " der Boden mit Wasser vollgesogen, wie ein Schwamm.",
+      "words": [
+        {
+          "word": "der",
+          "start": 80.881,
+          "end": 80.981,
+          "score": 0.733
+        },
+        {
+          "word": "Boden",
+          "start": 81.042,
+          "end": 81.323,
+          "score": 0.9
+        },
+        {
+          "word": "mit",
+          "start": 81.343,
+          "end": 81.504,
+          "score": 0.885
+        },
+        {
+          "word": "Wasser",
+          "start": 81.524,
+          "end": 81.765,
+          "score": 0.899
+        },
+        {
+          "word": "vollgesogen,",
+          "start": 81.805,
+          "end": 82.688,
+          "score": 0.67
+        },
+        {
+          "word": "wie",
+          "start": 82.709,
+          "end": 82.849,
+          "score": 0.77
+        },
+        {
+          "word": "ein",
+          "start": 82.869,
+          "end": 82.99,
+          "score": 0.697
+        },
+        {
+          "word": "Schwamm.",
+          "start": 83.01,
+          "end": 83.974,
+          "score": 0.73
+        }
+      ]
+    },
+    {
+      "start": 83.994,
+      "end": 85.42,
+      "text": "Die Oberkante dieses Schwamms nennt",
+      "words": [
+        {
+          "word": "Die",
+          "start": 83.994,
+          "end": 84.134,
+          "score": 0.966
+        },
+        {
+          "word": "Oberkante",
+          "start": 84.175,
+          "end": 84.777,
+          "score": 0.922
+        },
+        {
+          "word": "dieses",
+          "start": 84.797,
+          "end": 84.998,
+          "score": 0.854
+        },
+        {
+          "word": "Schwamms",
+          "start": 85.018,
+          "end": 85.299,
+          "score": 0.375
+        },
+        {
+          "word": "nennt",
+          "start": 85.319,
+          "end": 85.42,
+          "score": 0.002
+        }
+      ]
+    },
+    {
+      "start": 85.861,
+      "end": 89.815,
+      "text": " man Grundwasserspiegel und der ist nicht überall gleich hoch.",
+      "words": [
+        {
+          "word": "man",
+          "start": 85.861,
+          "end": 85.942,
+          "score": 0.348
+        },
+        {
+          "word": "Grundwasserspiegel",
+          "start": 85.962,
+          "end": 87.447,
+          "score": 0.884
+        },
+        {
+          "word": "und",
+          "start": 87.487,
+          "end": 87.647,
+          "score": 0.855
+        },
+        {
+          "word": "der",
+          "start": 87.667,
+          "end": 87.788,
+          "score": 0.623
+        },
+        {
+          "word": "ist",
+          "start": 87.828,
+          "end": 87.948,
+          "score": 0.824
+        },
+        {
+          "word": "nicht",
+          "start": 87.969,
+          "end": 88.169,
+          "score": 0.89
+        },
+        {
+          "word": "überall",
+          "start": 88.209,
+          "end": 88.49,
+          "score": 0.844
+        },
+        {
+          "word": "gleich",
+          "start": 88.53,
+          "end": 88.771,
+          "score": 0.83
+        },
+        {
+          "word": "hoch.",
+          "start": 88.811,
+          "end": 89.815,
+          "score": 0.907
+        }
+      ]
+    },
+    {
+      "start": 89.835,
+      "end": 91.039,
+      "text": "Schneidet eine Vertiefung tief",
+      "words": [
+        {
+          "word": "Schneidet",
+          "start": 89.835,
+          "end": 90.196,
+          "score": 0.704
+        },
+        {
+          "word": "eine",
+          "start": 90.216,
+          "end": 90.377,
+          "score": 0.734
+        },
+        {
+          "word": "Vertiefung",
+          "start": 90.417,
+          "end": 90.939,
+          "score": 0.927
+        },
+        {
+          "word": "tief",
+          "start": 90.959,
+          "end": 91.039,
+          "score": 0.07
+        }
+      ]
+    },
+    {
+      "start": 91.641,
+      "end": 97.058,
+      "text": " genug in den Boden das sie den Spiegel erreicht fühlt sie sich von unten, nicht durch Regen",
+      "words": [
+        {
+          "word": "genug",
+          "start": 91.641,
+          "end": 91.842,
+          "score": 0.915
+        },
+        {
+          "word": "in",
+          "start": 91.882,
+          "end": 91.942,
+          "score": 0.956
+        },
+        {
+          "word": "den",
+          "start": 91.982,
+          "end": 92.082,
+          "score": 0.957
+        },
+        {
+          "word": "Boden",
+          "start": 92.123,
+          "end": 92.885,
+          "score": 0.979
+        },
+        {
+          "word": "das",
+          "start": 92.925,
+          "end": 93.146,
+          "score": 0.826
+        },
+        {
+          "word": "sie",
+          "start": 93.166,
+          "end": 93.266,
+          "score": 0.784
+        },
+        {
+          "word": "den",
+          "start": 93.286,
+          "end": 93.427,
+          "score": 0.945
+        },
+        {
+          "word": "Spiegel",
+          "start": 93.467,
+          "end": 93.868,
+          "score": 0.966
+        },
+        {
+          "word": "erreicht",
+          "start": 93.908,
+          "end": 94.831,
+          "score": 0.894
+        },
+        {
+          "word": "fühlt",
+          "start": 94.871,
+          "end": 95.052,
+          "score": 0.743
+        },
+        {
+          "word": "sie",
+          "start": 95.092,
+          "end": 95.192,
+          "score": 0.826
+        },
+        {
+          "word": "sich",
+          "start": 95.212,
+          "end": 95.353,
+          "score": 0.932
+        },
+        {
+          "word": "von",
+          "start": 95.373,
+          "end": 95.493,
+          "score": 0.966
+        },
+        {
+          "word": "unten,",
+          "start": 95.553,
+          "end": 96.376,
+          "score": 0.698
+        },
+        {
+          "word": "nicht",
+          "start": 96.396,
+          "end": 96.556,
+          "score": 0.678
+        },
+        {
+          "word": "durch",
+          "start": 96.596,
+          "end": 96.777,
+          "score": 0.613
+        },
+        {
+          "word": "Regen",
+          "start": 96.837,
+          "end": 97.058,
+          "score": 0.853
+        }
+      ]
+    },
+    {
+      "start": 97.88,
+      "end": 101.555,
+      "text": " sondern weil sie quasi ein Fenster zum Grundwasser geöffnet hat.",
+      "words": [
+        {
+          "word": "sondern",
+          "start": 97.88,
+          "end": 98.141,
+          "score": 0.653
+        },
+        {
+          "word": "weil",
+          "start": 98.162,
+          "end": 98.282,
+          "score": 0.872
+        },
+        {
+          "word": "sie",
+          "start": 98.302,
+          "end": 98.443,
+          "score": 0.819
+        },
+        {
+          "word": "quasi",
+          "start": 98.463,
+          "end": 98.784,
+          "score": 0.853
+        },
+        {
+          "word": "ein",
+          "start": 98.804,
+          "end": 98.985,
+          "score": 0.463
+        },
+        {
+          "word": "Fenster",
+          "start": 99.005,
+          "end": 99.386,
+          "score": 0.922
+        },
+        {
+          "word": "zum",
+          "start": 99.427,
+          "end": 99.587,
+          "score": 0.776
+        },
+        {
+          "word": "Grundwasser",
+          "start": 99.607,
+          "end": 100.049,
+          "score": 0.848
+        },
+        {
+          "word": "geöffnet",
+          "start": 100.089,
+          "end": 100.491,
+          "score": 0.918
+        },
+        {
+          "word": "hat.",
+          "start": 100.511,
+          "end": 101.555,
+          "score": 0.961
+        }
+      ]
+    },
+    {
+      "start": 101.575,
+      "end": 102.679,
+      "text": "Liegt die Nachbarsenke nur",
+      "words": [
+        {
+          "word": "Liegt",
+          "start": 101.575,
+          "end": 101.776,
+          "score": 0.858
+        },
+        {
+          "word": "die",
+          "start": 101.796,
+          "end": 101.916,
+          "score": 0.774
+        },
+        {
+          "word": "Nachbarsenke",
+          "start": 101.936,
+          "end": 102.539,
+          "score": 0.919
+        },
+        {
+          "word": "nur",
+          "start": 102.559,
+          "end": 102.679,
+          "score": 0.389
+        }
+      ]
+    },
+    {
+      "start": 103.141,
+      "end": 108.617,
+      "text": " ein paar Meter höher über dem Grundspiegel bleibt dieses Fenster zu und sie bleibt trocken.",
+      "words": [
+        {
+          "word": "ein",
+          "start": 103.141,
+          "end": 103.241,
+          "score": 0.564
+        },
+        {
+          "word": "paar",
+          "start": 103.261,
+          "end": 103.362,
+          "score": 0.732
+        },
+        {
+          "word": "Meter",
+          "start": 103.382,
+          "end": 103.622,
+          "score": 0.614
+        },
+        {
+          "word": "höher",
+          "start": 103.642,
+          "end": 104.525,
+          "score": 0.798
+        },
+        {
+          "word": "über",
+          "start": 104.545,
+          "end": 104.705,
+          "score": 0.922
+        },
+        {
+          "word": "dem",
+          "start": 104.725,
+          "end": 104.866,
+          "score": 0.965
+        },
+        {
+          "word": "Grundspiegel",
+          "start": 104.906,
+          "end": 106.029,
+          "score": 0.896
+        },
+        {
+          "word": "bleibt",
+          "start": 106.049,
+          "end": 106.27,
+          "score": 0.932
+        },
+        {
+          "word": "dieses",
+          "start": 106.31,
+          "end": 106.491,
+          "score": 0.776
+        },
+        {
+          "word": "Fenster",
+          "start": 106.531,
+          "end": 106.912,
+          "score": 0.862
+        },
+        {
+          "word": "zu",
+          "start": 106.952,
+          "end": 107.774,
+          "score": 0.978
+        },
+        {
+          "word": "und",
+          "start": 107.814,
+          "end": 107.955,
+          "score": 0.867
+        },
+        {
+          "word": "sie",
+          "start": 107.975,
+          "end": 108.075,
+          "score": 0.848
+        },
+        {
+          "word": "bleibt",
+          "start": 108.095,
+          "end": 108.296,
+          "score": 0.872
+        },
+        {
+          "word": "trocken.",
+          "start": 108.316,
+          "end": 108.617,
+          "score": 0.75
+        }
+      ]
+    },
+    {
+      "start": 110.041,
+      "end": 113.997,
+      "text": " kommt also auf die Bodenbeschaffenheit und den Grundwasserspiegel an.",
+      "words": [
+        {
+          "word": "kommt",
+          "start": 110.041,
+          "end": 110.262,
+          "score": 0.916
+        },
+        {
+          "word": "also",
+          "start": 110.302,
+          "end": 110.503,
+          "score": 0.95
+        },
+        {
+          "word": "auf",
+          "start": 110.523,
+          "end": 110.684,
+          "score": 0.815
+        },
+        {
+          "word": "die",
+          "start": 110.724,
+          "end": 110.945,
+          "score": 0.797
+        },
+        {
+          "word": "Bodenbeschaffenheit",
+          "start": 110.965,
+          "end": 111.929,
+          "score": 0.897
+        },
+        {
+          "word": "und",
+          "start": 111.949,
+          "end": 112.069,
+          "score": 0.798
+        },
+        {
+          "word": "den",
+          "start": 112.089,
+          "end": 112.21,
+          "score": 0.95
+        },
+        {
+          "word": "Grundwasserspiegel",
+          "start": 112.25,
+          "end": 113.174,
+          "score": 0.908
+        },
+        {
+          "word": "an.",
+          "start": 113.214,
+          "end": 113.997,
+          "score": 0.667
+        }
+      ]
+    },
+    {
+      "start": 114.057,
+      "end": 114.72,
+      "text": "Aber woher kommen",
+      "words": [
+        {
+          "word": "Aber",
+          "start": 114.057,
+          "end": 114.238,
+          "score": 0.648
+        },
+        {
+          "word": "woher",
+          "start": 114.278,
+          "end": 114.379,
+          "score": 0.122
+        },
+        {
+          "word": "kommen",
+          "start": 114.399,
+          "end": 114.72,
+          "score": 0.152
+        }
+      ]
+    },
+    {
+      "start": 115.123,
+      "end": 117.2,
+      "text": " eigentlich die Löcher, die dann später volllaufen sollen?",
+      "words": [
+        {
+          "word": "eigentlich",
+          "start": 115.123,
+          "end": 115.406,
+          "score": 0.801
+        },
+        {
+          "word": "die",
+          "start": 115.426,
+          "end": 115.506,
+          "score": 0.793
+        },
+        {
+          "word": "Löcher,",
+          "start": 115.527,
+          "end": 115.748,
+          "score": 0.695
+        },
+        {
+          "word": "die",
+          "start": 115.768,
+          "end": 115.849,
+          "score": 0.873
+        },
+        {
+          "word": "dann",
+          "start": 115.889,
+          "end": 116.031,
+          "score": 0.83
+        },
+        {
+          "word": "später",
+          "start": 116.071,
+          "end": 116.393,
+          "score": 0.978
+        },
+        {
+          "word": "volllaufen",
+          "start": 116.434,
+          "end": 116.857,
+          "score": 0.776
+        },
+        {
+          "word": "sollen?",
+          "start": 116.877,
+          "end": 117.2,
+          "score": 0.337
+        }
+      ]
+    },
+    {
+      "start": 117.962,
+      "end": 122.415,
+      "text": " Fast jeder See in Deutschland, den du kennst hat denselben Erbauer.",
+      "words": [
+        {
+          "word": "Fast",
+          "start": 117.962,
+          "end": 118.183,
+          "score": 0.855
+        },
+        {
+          "word": "jeder",
+          "start": 118.203,
+          "end": 118.464,
+          "score": 0.943
+        },
+        {
+          "word": "See",
+          "start": 118.484,
+          "end": 118.624,
+          "score": 0.831
+        },
+        {
+          "word": "in",
+          "start": 118.644,
+          "end": 118.764,
+          "score": 0.634
+        },
+        {
+          "word": "Deutschland,",
+          "start": 118.805,
+          "end": 119.667,
+          "score": 0.875
+        },
+        {
+          "word": "den",
+          "start": 119.687,
+          "end": 119.827,
+          "score": 0.616
+        },
+        {
+          "word": "du",
+          "start": 119.847,
+          "end": 119.988,
+          "score": 0.664
+        },
+        {
+          "word": "kennst",
+          "start": 120.028,
+          "end": 120.61,
+          "score": 0.779
+        },
+        {
+          "word": "hat",
+          "start": 120.63,
+          "end": 120.75,
+          "score": 0.588
+        },
+        {
+          "word": "denselben",
+          "start": 120.79,
+          "end": 121.231,
+          "score": 0.847
+        },
+        {
+          "word": "Erbauer.",
+          "start": 121.292,
+          "end": 122.415,
+          "score": 0.843
+        }
+      ]
+    },
+    {
+      "start": 122.435,
+      "end": 123.117,
+      "text": "Die Eiszeit.",
+      "words": [
+        {
+          "word": "Die",
+          "start": 122.435,
+          "end": 122.555,
+          "score": 0.872
+        },
+        {
+          "word": "Eiszeit.",
+          "start": 122.615,
+          "end": 123.117,
+          "score": 0.79
+        }
+      ]
+    },
+    {
+      "start": 123.137,
+      "end": 124.039,
+      "text": "Oder halt",
+      "words": [
+        {
+          "word": "Oder",
+          "start": 123.137,
+          "end": 123.859,
+          "score": 0.383
+        },
+        {
+          "word": "halt",
+          "start": 123.899,
+          "end": 124.039,
+          "score": 0.26
+        }
+      ]
+    },
+    {
+      "start": 124.661,
+      "end": 127.791,
+      "text": " die Kohleförderung, Sandförderung und Kiesförderung.",
+      "words": [
+        {
+          "word": "die",
+          "start": 124.661,
+          "end": 124.721,
+          "score": 0.937
+        },
+        {
+          "word": "Kohleförderung,",
+          "start": 124.741,
+          "end": 125.604,
+          "score": 0.808
+        },
+        {
+          "word": "Sandförderung",
+          "start": 125.644,
+          "end": 126.367,
+          "score": 0.862
+        },
+        {
+          "word": "und",
+          "start": 126.407,
+          "end": 126.527,
+          "score": 0.904
+        },
+        {
+          "word": "Kiesförderung.",
+          "start": 126.567,
+          "end": 127.791,
+          "score": 0.85
+        }
+      ]
+    },
+    {
+      "start": 127.811,
+      "end": 129.778,
+      "text": "Aber das ist ein anderes Thema.",
+      "words": [
+        {
+          "word": "Aber",
+          "start": 127.811,
+          "end": 127.952,
+          "score": 0.882
+        },
+        {
+          "word": "das",
+          "start": 127.972,
+          "end": 128.092,
+          "score": 0.842
+        },
+        {
+          "word": "ist",
+          "start": 128.132,
+          "end": 128.233,
+          "score": 0.92
+        },
+        {
+          "word": "ein",
+          "start": 128.273,
+          "end": 128.373,
+          "score": 0.815
+        },
+        {
+          "word": "anderes",
+          "start": 128.413,
+          "end": 128.714,
+          "score": 0.894
+        },
+        {
+          "word": "Thema.",
+          "start": 128.754,
+          "end": 129.778,
+          "score": 0.814
+        }
+      ]
+    },
+    {
+      "start": 129.798,
+      "end": 130.56,
+      "text": "Damals in",
+      "words": [
+        {
+          "word": "Damals",
+          "start": 129.798,
+          "end": 130.239,
+          "score": 0.962
+        },
+        {
+          "word": "in",
+          "start": 130.52,
+          "end": 130.56,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "start": 130.741,
+      "end": 134.875,
+      "text": " der Eiszeit schoben sich gewaltige Gletscher über das Land.",
+      "words": [
+        {
+          "word": "der",
+          "start": 130.741,
+          "end": 130.841,
+          "score": 0.86
+        },
+        {
+          "word": "Eiszeit",
+          "start": 130.881,
+          "end": 131.483,
+          "score": 0.891
+        },
+        {
+          "word": "schoben",
+          "start": 131.523,
+          "end": 131.844,
+          "score": 0.898
+        },
+        {
+          "word": "sich",
+          "start": 131.864,
+          "end": 132.085,
+          "score": 0.909
+        },
+        {
+          "word": "gewaltige",
+          "start": 132.125,
+          "end": 132.587,
+          "score": 0.91
+        },
+        {
+          "word": "Gletscher",
+          "start": 132.607,
+          "end": 133.51,
+          "score": 0.775
+        },
+        {
+          "word": "über",
+          "start": 133.55,
+          "end": 133.711,
+          "score": 0.95
+        },
+        {
+          "word": "das",
+          "start": 133.751,
+          "end": 133.931,
+          "score": 0.903
+        },
+        {
+          "word": "Land.",
+          "start": 133.972,
+          "end": 134.875,
+          "score": 0.809
+        }
+      ]
+    },
+    {
+      "start": 134.915,
+      "end": 136.219,
+      "text": "Von Norden aus Skandinavien",
+      "words": [
+        {
+          "word": "Von",
+          "start": 134.915,
+          "end": 135.075,
+          "score": 0.987
+        },
+        {
+          "word": "Norden",
+          "start": 135.115,
+          "end": 135.376,
+          "score": 0.806
+        },
+        {
+          "word": "aus",
+          "start": 135.417,
+          "end": 135.537,
+          "score": 0.984
+        },
+        {
+          "word": "Skandinavien",
+          "start": 135.557,
+          "end": 136.219,
+          "score": 0.792
+        }
+      ]
+    },
+    {
+      "start": 136.781,
+      "end": 141.94,
+      "text": " von Süden aus den Alpen, und das waren keine zarten Eisflächen, sondern kilometerdicke",
+      "words": [
+        {
+          "word": "von",
+          "start": 136.781,
+          "end": 136.902,
+          "score": 0.669
+        },
+        {
+          "word": "Süden",
+          "start": 136.922,
+          "end": 137.102,
+          "score": 0.913
+        },
+        {
+          "word": "aus",
+          "start": 137.142,
+          "end": 137.263,
+          "score": 0.98
+        },
+        {
+          "word": "den",
+          "start": 137.303,
+          "end": 137.464,
+          "score": 0.867
+        },
+        {
+          "word": "Alpen,",
+          "start": 137.504,
+          "end": 138.347,
+          "score": 0.914
+        },
+        {
+          "word": "und",
+          "start": 138.367,
+          "end": 138.467,
+          "score": 0.736
+        },
+        {
+          "word": "das",
+          "start": 138.487,
+          "end": 138.628,
+          "score": 0.951
+        },
+        {
+          "word": "waren",
+          "start": 138.668,
+          "end": 138.949,
+          "score": 0.937
+        },
+        {
+          "word": "keine",
+          "start": 138.969,
+          "end": 139.21,
+          "score": 0.913
+        },
+        {
+          "word": "zarten",
+          "start": 139.25,
+          "end": 139.551,
+          "score": 0.73
+        },
+        {
+          "word": "Eisflächen,",
+          "start": 139.591,
+          "end": 140.775,
+          "score": 0.75
+        },
+        {
+          "word": "sondern",
+          "start": 140.795,
+          "end": 141.117,
+          "score": 0.683
+        },
+        {
+          "word": "kilometerdicke",
+          "start": 141.137,
+          "end": 141.94,
+          "score": 0.647
+        }
+      ]
+    },
+    {
+      "start": 142.304,
+      "end": 142.815,
+      "text": " Bulldozer.",
+      "words": [
+        {
+          "word": "Bulldozer.",
+          "start": 142.304,
+          "end": 142.815,
+          "score": 0.516
+        }
+      ]
+    },
+    {
+      "start": 143.442,
+      "end": 146.958,
+      "text": " Sie schürften, schoben und schmögelten riesige Becken in den Boden.",
+      "words": [
+        {
+          "word": "Sie",
+          "start": 143.442,
+          "end": 143.602,
+          "score": 0.607
+        },
+        {
+          "word": "schürften,",
+          "start": 143.623,
+          "end": 144.265,
+          "score": 0.795
+        },
+        {
+          "word": "schoben",
+          "start": 144.306,
+          "end": 144.788,
+          "score": 0.904
+        },
+        {
+          "word": "und",
+          "start": 144.808,
+          "end": 144.949,
+          "score": 0.942
+        },
+        {
+          "word": "schmögelten",
+          "start": 144.989,
+          "end": 145.632,
+          "score": 0.812
+        },
+        {
+          "word": "riesige",
+          "start": 145.692,
+          "end": 146.054,
+          "score": 0.885
+        },
+        {
+          "word": "Becken",
+          "start": 146.094,
+          "end": 146.355,
+          "score": 0.651
+        },
+        {
+          "word": "in",
+          "start": 146.395,
+          "end": 146.516,
+          "score": 0.65
+        },
+        {
+          "word": "den",
+          "start": 146.536,
+          "end": 146.677,
+          "score": 0.901
+        },
+        {
+          "word": "Boden.",
+          "start": 146.717,
+          "end": 146.958,
+          "score": 0.792
+        }
+      ]
+    },
+    {
+      "start": 147.781,
+      "end": 153.698,
+      "text": " In genau diesen Becken liegen heute unsere größten Seen – der Bodensee, der Chiemsee",
+      "words": [
+        {
+          "word": "In",
+          "start": 147.781,
+          "end": 147.921,
+          "score": 0.609
+        },
+        {
+          "word": "genau",
+          "start": 147.962,
+          "end": 148.343,
+          "score": 0.829
+        },
+        {
+          "word": "diesen",
+          "start": 148.383,
+          "end": 148.664,
+          "score": 0.854
+        },
+        {
+          "word": "Becken",
+          "start": 148.704,
+          "end": 149.125,
+          "score": 0.745
+        },
+        {
+          "word": "liegen",
+          "start": 149.165,
+          "end": 149.506,
+          "score": 0.949
+        },
+        {
+          "word": "heute",
+          "start": 149.546,
+          "end": 149.967,
+          "score": 0.843
+        },
+        {
+          "word": "unsere",
+          "start": 149.987,
+          "end": 150.348,
+          "score": 0.951
+        },
+        {
+          "word": "größten",
+          "start": 150.389,
+          "end": 150.89,
+          "score": 0.918
+        },
+        {
+          "word": "Seen",
+          "start": 150.93,
+          "end": 151.151,
+          "score": 0.786
+        },
+        {
+          "word": "–",
+          "start": 151.813,
+          "end": 151.833,
+          "score": 0.796
+        },
+        {
+          "word": "der",
+          "start": 151.853,
+          "end": 152.013,
+          "score": 0.903
+        },
+        {
+          "word": "Bodensee,",
+          "start": 152.053,
+          "end": 152.876,
+          "score": 0.859
+        },
+        {
+          "word": "der",
+          "start": 152.916,
+          "end": 153.076,
+          "score": 0.921
+        },
+        {
+          "word": "Chiemsee",
+          "start": 153.136,
+          "end": 153.698,
+          "score": 0.71
+        }
+      ]
+    },
+    {
+      "start": 154.42,
+      "end": 155.515,
+      "text": " oder der Starnberger See.",
+      "words": [
+        {
+          "word": "oder",
+          "start": 154.42,
+          "end": 154.765,
+          "score": 0.354
+        },
+        {
+          "word": "der",
+          "start": 154.785,
+          "end": 154.886,
+          "score": 0.663
+        },
+        {
+          "word": "Starnberger",
+          "start": 154.907,
+          "end": 155.353,
+          "score": 0.708
+        },
+        {
+          "word": "See.",
+          "start": 155.393,
+          "end": 155.515,
+          "score": 0.703
+        }
+      ]
+    },
+    {
+      "start": 156.261,
+      "end": 161.16,
+      "text": " Sie alle sind nichts anderes als der Fußabdruck einer Gletscherzunge, die sich tief ins Land",
+      "words": [
+        {
+          "word": "Sie",
+          "start": 156.261,
+          "end": 156.442,
+          "score": 0.82
+        },
+        {
+          "word": "alle",
+          "start": 156.462,
+          "end": 156.864,
+          "score": 0.983
+        },
+        {
+          "word": "sind",
+          "start": 156.904,
+          "end": 157.104,
+          "score": 0.959
+        },
+        {
+          "word": "nichts",
+          "start": 157.145,
+          "end": 157.406,
+          "score": 0.834
+        },
+        {
+          "word": "anderes",
+          "start": 157.446,
+          "end": 157.928,
+          "score": 0.891
+        },
+        {
+          "word": "als",
+          "start": 157.968,
+          "end": 158.148,
+          "score": 0.956
+        },
+        {
+          "word": "der",
+          "start": 158.169,
+          "end": 158.289,
+          "score": 0.957
+        },
+        {
+          "word": "Fußabdruck",
+          "start": 158.329,
+          "end": 158.871,
+          "score": 0.964
+        },
+        {
+          "word": "einer",
+          "start": 158.911,
+          "end": 159.052,
+          "score": 0.871
+        },
+        {
+          "word": "Gletscherzunge,",
+          "start": 159.072,
+          "end": 160.297,
+          "score": 0.811
+        },
+        {
+          "word": "die",
+          "start": 160.317,
+          "end": 160.437,
+          "score": 0.912
+        },
+        {
+          "word": "sich",
+          "start": 160.477,
+          "end": 160.618,
+          "score": 0.915
+        },
+        {
+          "word": "tief",
+          "start": 160.658,
+          "end": 160.819,
+          "score": 0.929
+        },
+        {
+          "word": "ins",
+          "start": 160.839,
+          "end": 160.899,
+          "score": 0.001
+        },
+        {
+          "word": "Land",
+          "start": 161.08,
+          "end": 161.16,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "start": 161.649,
+      "end": 162.037,
+      "text": " gepresst hat.",
+      "words": [
+        {
+          "word": "gepresst",
+          "start": 161.649,
+          "end": 161.914,
+          "score": 0.731
+        },
+        {
+          "word": "hat.",
+          "start": 161.955,
+          "end": 162.037,
+          "score": 0.738
+        }
+      ]
+    },
+    {
+      "start": 162.842,
+      "end": 164.748,
+      "text": " Deshalb sind sie auch so tief.",
+      "words": [
+        {
+          "word": "Deshalb",
+          "start": 162.842,
+          "end": 163.103,
+          "score": 0.713
+        },
+        {
+          "word": "sind",
+          "start": 163.123,
+          "end": 163.303,
+          "score": 0.74
+        },
+        {
+          "word": "sie",
+          "start": 163.323,
+          "end": 163.424,
+          "score": 0.407
+        },
+        {
+          "word": "auch",
+          "start": 163.464,
+          "end": 163.544,
+          "score": 0.049
+        },
+        {
+          "word": "so",
+          "start": 163.564,
+          "end": 163.725,
+          "score": 0.699
+        },
+        {
+          "word": "tief.",
+          "start": 163.765,
+          "end": 164.748,
+          "score": 0.782
+        }
+      ]
+    },
+    {
+      "start": 164.768,
+      "end": 167.998,
+      "text": "Der Bodensee beispielsweise misst eine Tiefe bis über 250 Meter",
+      "words": [
+        {
+          "word": "Der",
+          "start": 164.768,
+          "end": 164.928,
+          "score": 0.775
+        },
+        {
+          "word": "Bodensee",
+          "start": 164.969,
+          "end": 165.53,
+          "score": 0.84
+        },
+        {
+          "word": "beispielsweise",
+          "start": 165.57,
+          "end": 166.212,
+          "score": 0.871
+        },
+        {
+          "word": "misst",
+          "start": 166.233,
+          "end": 166.453,
+          "score": 0.701
+        },
+        {
+          "word": "eine",
+          "start": 166.493,
+          "end": 166.674,
+          "score": 0.782
+        },
+        {
+          "word": "Tiefe",
+          "start": 166.714,
+          "end": 166.995,
+          "score": 0.89
+        },
+        {
+          "word": "bis",
+          "start": 167.015,
+          "end": 167.216,
+          "score": 0.907
+        },
+        {
+          "word": "über",
+          "start": 167.256,
+          "end": 167.496,
+          "score": 0.921
+        },
+        {
+          "word": "250",
+          "start": 167.517,
+          "end": 167.577,
+          "score": 0.709
+        },
+        {
+          "word": "Meter",
+          "start": 167.597,
+          "end": 167.998,
+          "score": 0.654
+        }
+      ]
+    },
+    {
+      "start": 169.801,
+      "end": 173.191,
+      "text": " und der Gletscher hat den Abdichtungs-Service gleich mitgeliefert.",
+      "words": [
+        {
+          "word": "und",
+          "start": 169.801,
+          "end": 169.861,
+          "score": 0.507
+        },
+        {
+          "word": "der",
+          "start": 169.882,
+          "end": 169.982,
+          "score": 0.51
+        },
+        {
+          "word": "Gletscher",
+          "start": 170.002,
+          "end": 170.383,
+          "score": 0.644
+        },
+        {
+          "word": "hat",
+          "start": 170.423,
+          "end": 170.563,
+          "score": 0.828
+        },
+        {
+          "word": "den",
+          "start": 170.583,
+          "end": 170.724,
+          "score": 0.74
+        },
+        {
+          "word": "Abdichtungs-Service",
+          "start": 170.744,
+          "end": 171.686,
+          "score": 0.783
+        },
+        {
+          "word": "gleich",
+          "start": 171.727,
+          "end": 171.967,
+          "score": 0.895
+        },
+        {
+          "word": "mitgeliefert.",
+          "start": 172.007,
+          "end": 173.191,
+          "score": 0.916
+        }
+      ]
+    },
+    {
+      "start": 173.211,
+      "end": 176.66,
+      "text": "Beim Abschmelzen ließ er tonnenweise feinen tonigen Schutz zurück,",
+      "words": [
+        {
+          "word": "Beim",
+          "start": 173.211,
+          "end": 173.431,
+          "score": 0.827
+        },
+        {
+          "word": "Abschmelzen",
+          "start": 173.471,
+          "end": 174.133,
+          "score": 0.798
+        },
+        {
+          "word": "ließ",
+          "start": 174.153,
+          "end": 174.294,
+          "score": 0.614
+        },
+        {
+          "word": "er",
+          "start": 174.334,
+          "end": 174.474,
+          "score": 0.497
+        },
+        {
+          "word": "tonnenweise",
+          "start": 174.494,
+          "end": 175.216,
+          "score": 0.89
+        },
+        {
+          "word": "feinen",
+          "start": 175.276,
+          "end": 175.677,
+          "score": 0.92
+        },
+        {
+          "word": "tonigen",
+          "start": 175.717,
+          "end": 176.139,
+          "score": 0.962
+        },
+        {
+          "word": "Schutz",
+          "start": 176.179,
+          "end": 176.359,
+          "score": 0.853
+        },
+        {
+          "word": "zurück,",
+          "start": 176.52,
+          "end": 176.66,
+          "score": 0.001
+        }
+      ]
+    },
+    {
+      "start": 177.325,
+      "end": 178.8,
+      "text": " den sogenannten Geschiebemergel.",
+      "words": [
+        {
+          "word": "den",
+          "start": 177.325,
+          "end": 177.467,
+          "score": 0.734
+        },
+        {
+          "word": "sogenannten",
+          "start": 177.487,
+          "end": 178.194,
+          "score": 0.882
+        },
+        {
+          "word": "Geschiebemergel.",
+          "start": 178.234,
+          "end": 178.8,
+          "score": 0.43
+        }
+      ]
+    },
+    {
+      "start": 179.32,
+      "end": 184.296,
+      "text": " Der kleidet die Becken von unten wasserdicht aus, ziemlich praktisch.",
+      "words": [
+        {
+          "word": "Der",
+          "start": 179.32,
+          "end": 180.103,
+          "score": 0.451
+        },
+        {
+          "word": "kleidet",
+          "start": 180.163,
+          "end": 180.544,
+          "score": 0.91
+        },
+        {
+          "word": "die",
+          "start": 180.564,
+          "end": 180.664,
+          "score": 0.834
+        },
+        {
+          "word": "Becken",
+          "start": 180.704,
+          "end": 181.066,
+          "score": 0.906
+        },
+        {
+          "word": "von",
+          "start": 181.106,
+          "end": 181.246,
+          "score": 0.981
+        },
+        {
+          "word": "unten",
+          "start": 181.306,
+          "end": 181.587,
+          "score": 0.877
+        },
+        {
+          "word": "wasserdicht",
+          "start": 181.627,
+          "end": 182.129,
+          "score": 0.82
+        },
+        {
+          "word": "aus,",
+          "start": 182.189,
+          "end": 182.972,
+          "score": 0.813
+        },
+        {
+          "word": "ziemlich",
+          "start": 182.992,
+          "end": 183.353,
+          "score": 0.915
+        },
+        {
+          "word": "praktisch.",
+          "start": 183.393,
+          "end": 184.296,
+          "score": 0.893
+        }
+      ]
+    },
+    {
+      "start": 184.316,
+      "end": 185.52,
+      "text": "Das Eis baggert das Loch",
+      "words": [
+        {
+          "word": "Das",
+          "start": 184.316,
+          "end": 184.537,
+          "score": 0.972
+        },
+        {
+          "word": "Eis",
+          "start": 184.597,
+          "end": 184.798,
+          "score": 0.983
+        },
+        {
+          "word": "baggert",
+          "start": 184.838,
+          "end": 185.099,
+          "score": 0.917
+        },
+        {
+          "word": "das",
+          "start": 185.139,
+          "end": 185.239,
+          "score": 0.342
+        },
+        {
+          "word": "Loch",
+          "start": 185.38,
+          "end": 185.52,
+          "score": 0.187
+        }
+      ]
+    },
+    {
+      "start": 186.283,
+      "end": 191.0,
+      "text": " und dichtete es im selben Arbeitsgang ab, aber die Eiszeit brachte uns sogar noch mehr als",
+      "words": [
+        {
+          "word": "und",
+          "start": 186.283,
+          "end": 186.383,
+          "score": 0.798
+        },
+        {
+          "word": "dichtete",
+          "start": 186.423,
+          "end": 186.664,
+          "score": 0.704
+        },
+        {
+          "word": "es",
+          "start": 186.704,
+          "end": 186.805,
+          "score": 0.684
+        },
+        {
+          "word": "im",
+          "start": 186.865,
+          "end": 186.985,
+          "score": 0.93
+        },
+        {
+          "word": "selben",
+          "start": 187.025,
+          "end": 187.347,
+          "score": 0.869
+        },
+        {
+          "word": "Arbeitsgang",
+          "start": 187.387,
+          "end": 187.909,
+          "score": 0.967
+        },
+        {
+          "word": "ab,",
+          "start": 187.949,
+          "end": 188.852,
+          "score": 0.94
+        },
+        {
+          "word": "aber",
+          "start": 188.892,
+          "end": 189.073,
+          "score": 0.939
+        },
+        {
+          "word": "die",
+          "start": 189.113,
+          "end": 189.254,
+          "score": 0.764
+        },
+        {
+          "word": "Eiszeit",
+          "start": 189.294,
+          "end": 189.856,
+          "score": 0.951
+        },
+        {
+          "word": "brachte",
+          "start": 189.876,
+          "end": 190.197,
+          "score": 0.842
+        },
+        {
+          "word": "uns",
+          "start": 190.237,
+          "end": 190.378,
+          "score": 0.806
+        },
+        {
+          "word": "sogar",
+          "start": 190.398,
+          "end": 190.598,
+          "score": 0.738
+        },
+        {
+          "word": "noch",
+          "start": 190.618,
+          "end": 190.719,
+          "score": 0.881
+        },
+        {
+          "word": "mehr",
+          "start": 190.819,
+          "end": 190.92,
+          "score": 0.126
+        },
+        {
+          "word": "als",
+          "start": 190.94,
+          "end": 191.0,
+          "score": 0.001
+        }
+      ]
+    },
+    {
+      "start": 191.361,
+      "end": 192.827,
+      "text": " eine große Becken.",
+      "words": [
+        {
+          "word": "eine",
+          "start": 191.361,
+          "end": 191.542,
+          "score": 0.304
+        },
+        {
+          "word": "große",
+          "start": 191.562,
+          "end": 191.743,
+          "score": 0.849
+        },
+        {
+          "word": "Becken.",
+          "start": 191.783,
+          "end": 192.827,
+          "score": 0.746
+        }
+      ]
+    },
+    {
+      "start": 192.847,
+      "end": 196.5,
+      "text": "Manchmal brachen riesige Eisblöcke vom Gletscher ab und wurden unter",
+      "words": [
+        {
+          "word": "Manchmal",
+          "start": 192.847,
+          "end": 193.429,
+          "score": 0.819
+        },
+        {
+          "word": "brachen",
+          "start": 193.449,
+          "end": 193.83,
+          "score": 0.862
+        },
+        {
+          "word": "riesige",
+          "start": 193.87,
+          "end": 194.252,
+          "score": 0.897
+        },
+        {
+          "word": "Eisblöcke",
+          "start": 194.292,
+          "end": 194.834,
+          "score": 0.892
+        },
+        {
+          "word": "vom",
+          "start": 194.854,
+          "end": 194.974,
+          "score": 0.87
+        },
+        {
+          "word": "Gletscher",
+          "start": 195.015,
+          "end": 195.456,
+          "score": 0.599
+        },
+        {
+          "word": "ab",
+          "start": 195.496,
+          "end": 195.617,
+          "score": 0.748
+        },
+        {
+          "word": "und",
+          "start": 195.757,
+          "end": 195.998,
+          "score": 0.652
+        },
+        {
+          "word": "wurden",
+          "start": 196.038,
+          "end": 196.239,
+          "score": 0.317
+        },
+        {
+          "word": "unter",
+          "start": 196.259,
+          "end": 196.5,
+          "score": 0.175
+        }
+      ]
+    },
+    {
+      "start": 196.941,
+      "end": 198.366,
+      "text": " Geröll begraben.",
+      "words": [
+        {
+          "word": "Geröll",
+          "start": 196.941,
+          "end": 197.202,
+          "score": 0.553
+        },
+        {
+          "word": "begraben.",
+          "start": 197.222,
+          "end": 198.366,
+          "score": 0.909
+        }
+      ]
+    },
+    {
+      "start": 198.386,
+      "end": 202.899,
+      "text": "Als dieses sogenannte Toteis Jahrtausende später schmolz sagte der Boden",
+      "words": [
+        {
+          "word": "Als",
+          "start": 198.386,
+          "end": 198.626,
+          "score": 0.955
+        },
+        {
+          "word": "dieses",
+          "start": 198.666,
+          "end": 198.947,
+          "score": 0.929
+        },
+        {
+          "word": "sogenannte",
+          "start": 198.987,
+          "end": 199.529,
+          "score": 0.884
+        },
+        {
+          "word": "Toteis",
+          "start": 199.569,
+          "end": 200.251,
+          "score": 0.864
+        },
+        {
+          "word": "Jahrtausende",
+          "start": 200.291,
+          "end": 200.893,
+          "score": 0.866
+        },
+        {
+          "word": "später",
+          "start": 200.913,
+          "end": 201.254,
+          "score": 0.944
+        },
+        {
+          "word": "schmolz",
+          "start": 201.274,
+          "end": 202.438,
+          "score": 0.842
+        },
+        {
+          "word": "sagte",
+          "start": 202.498,
+          "end": 202.638,
+          "score": 0.543
+        },
+        {
+          "word": "der",
+          "start": 202.678,
+          "end": 202.739,
+          "score": 0.255
+        },
+        {
+          "word": "Boden",
+          "start": 202.759,
+          "end": 202.899,
+          "score": 0.208
+        }
+      ]
+    },
+    {
+      "start": 203.601,
+      "end": 206.27,
+      "text": " darüber ein und hinterließ ein rundes Loch.",
+      "words": [
+        {
+          "word": "darüber",
+          "start": 203.601,
+          "end": 203.882,
+          "score": 0.678
+        },
+        {
+          "word": "ein",
+          "start": 203.922,
+          "end": 204.083,
+          "score": 0.807
+        },
+        {
+          "word": "und",
+          "start": 204.123,
+          "end": 204.243,
+          "score": 0.869
+        },
+        {
+          "word": "hinterließ",
+          "start": 204.263,
+          "end": 204.705,
+          "score": 0.549
+        },
+        {
+          "word": "ein",
+          "start": 204.745,
+          "end": 204.845,
+          "score": 0.687
+        },
+        {
+          "word": "rundes",
+          "start": 204.886,
+          "end": 205.186,
+          "score": 0.95
+        },
+        {
+          "word": "Loch.",
+          "start": 205.247,
+          "end": 206.27,
+          "score": 0.78
+        }
+      ]
+    },
+    {
+      "start": 206.31,
+      "end": 208.919,
+      "text": "Diese Toteislöcher sind der Grund warum gerade",
+      "words": [
+        {
+          "word": "Diese",
+          "start": 206.31,
+          "end": 206.732,
+          "score": 0.93
+        },
+        {
+          "word": "Toteislöcher",
+          "start": 206.772,
+          "end": 207.795,
+          "score": 0.81
+        },
+        {
+          "word": "sind",
+          "start": 207.815,
+          "end": 207.976,
+          "score": 0.792
+        },
+        {
+          "word": "der",
+          "start": 207.996,
+          "end": 208.136,
+          "score": 0.824
+        },
+        {
+          "word": "Grund",
+          "start": 208.176,
+          "end": 208.397,
+          "score": 0.905
+        },
+        {
+          "word": "warum",
+          "start": 208.437,
+          "end": 208.678,
+          "score": 0.298
+        },
+        {
+          "word": "gerade",
+          "start": 208.698,
+          "end": 208.919,
+          "score": 0.35
+        }
+      ]
+    },
+    {
+      "start": 209.34,
+      "end": 214.2,
+      "text": " in Mecklenburg und Brandenburg so unfassbar viele kleine fast kreisrunde Seen liegen.",
+      "words": [
+        {
+          "word": "in",
+          "start": 209.34,
+          "end": 209.621,
+          "score": 0.544
+        },
+        {
+          "word": "Mecklenburg",
+          "start": 209.641,
+          "end": 210.083,
+          "score": 0.74
+        },
+        {
+          "word": "und",
+          "start": 210.123,
+          "end": 210.244,
+          "score": 0.926
+        },
+        {
+          "word": "Brandenburg",
+          "start": 210.284,
+          "end": 210.826,
+          "score": 0.897
+        },
+        {
+          "word": "so",
+          "start": 210.846,
+          "end": 210.947,
+          "score": 0.885
+        },
+        {
+          "word": "unfassbar",
+          "start": 210.987,
+          "end": 211.589,
+          "score": 0.839
+        },
+        {
+          "word": "viele",
+          "start": 211.629,
+          "end": 211.931,
+          "score": 0.886
+        },
+        {
+          "word": "kleine",
+          "start": 211.971,
+          "end": 212.854,
+          "score": 0.918
+        },
+        {
+          "word": "fast",
+          "start": 212.894,
+          "end": 213.115,
+          "score": 0.876
+        },
+        {
+          "word": "kreisrunde",
+          "start": 213.135,
+          "end": 213.657,
+          "score": 0.893
+        },
+        {
+          "word": "Seen",
+          "start": 213.698,
+          "end": 213.858,
+          "score": 0.788
+        },
+        {
+          "word": "liegen.",
+          "start": 213.979,
+          "end": 214.2,
+          "score": 0.116
+        }
+      ]
+    },
+    {
+      "start": 215.083,
+      "end": 219.54,
+      "text": " Und dann sind da noch die langen, schmalen Seen wie man sie in Schleswig-Holstein findet.",
+      "words": [
+        {
+          "word": "Und",
+          "start": 215.083,
+          "end": 215.244,
+          "score": 0.886
+        },
+        {
+          "word": "dann",
+          "start": 215.284,
+          "end": 215.685,
+          "score": 0.97
+        },
+        {
+          "word": "sind",
+          "start": 215.705,
+          "end": 215.846,
+          "score": 0.985
+        },
+        {
+          "word": "da",
+          "start": 215.886,
+          "end": 215.986,
+          "score": 0.366
+        },
+        {
+          "word": "noch",
+          "start": 216.027,
+          "end": 216.187,
+          "score": 0.851
+        },
+        {
+          "word": "die",
+          "start": 216.207,
+          "end": 216.328,
+          "score": 0.847
+        },
+        {
+          "word": "langen,",
+          "start": 216.368,
+          "end": 217.131,
+          "score": 0.976
+        },
+        {
+          "word": "schmalen",
+          "start": 217.151,
+          "end": 217.713,
+          "score": 0.827
+        },
+        {
+          "word": "Seen",
+          "start": 217.753,
+          "end": 217.974,
+          "score": 0.813
+        },
+        {
+          "word": "wie",
+          "start": 217.994,
+          "end": 218.114,
+          "score": 0.929
+        },
+        {
+          "word": "man",
+          "start": 218.134,
+          "end": 218.215,
+          "score": 0.841
+        },
+        {
+          "word": "sie",
+          "start": 218.255,
+          "end": 218.315,
+          "score": 0.941
+        },
+        {
+          "word": "in",
+          "start": 218.355,
+          "end": 218.415,
+          "score": 0.26
+        },
+        {
+          "word": "Schleswig-Holstein",
+          "start": 218.436,
+          "end": 219.239,
+          "score": 0.644
+        },
+        {
+          "word": "findet.",
+          "start": 219.279,
+          "end": 219.54,
+          "score": 0.371
+        }
+      ]
+    },
+    {
+      "start": 220.324,
+      "end": 222.9,
+      "text": " Die hat das Schmelzwasser unter dem Gletscher gegraben,",
+      "words": [
+        {
+          "word": "Die",
+          "start": 220.324,
+          "end": 220.546,
+          "score": 0.77
+        },
+        {
+          "word": "hat",
+          "start": 220.566,
+          "end": 220.686,
+          "score": 0.97
+        },
+        {
+          "word": "das",
+          "start": 220.727,
+          "end": 220.827,
+          "score": 0.883
+        },
+        {
+          "word": "Schmelzwasser",
+          "start": 220.867,
+          "end": 221.713,
+          "score": 0.842
+        },
+        {
+          "word": "unter",
+          "start": 221.753,
+          "end": 221.934,
+          "score": 0.993
+        },
+        {
+          "word": "dem",
+          "start": 221.974,
+          "end": 222.095,
+          "score": 0.942
+        },
+        {
+          "word": "Gletscher",
+          "start": 222.135,
+          "end": 222.477,
+          "score": 0.669
+        },
+        {
+          "word": "gegraben,",
+          "start": 222.518,
+          "end": 222.9,
+          "score": 0.41
+        }
+      ]
+    },
+    {
+      "start": 223.542,
+      "end": 228.12,
+      "text": " dass unter enormem Druck wie ein Hochdruckreiniger große Rinnen in die Landschaft fräste.",
+      "words": [
+        {
+          "word": "dass",
+          "start": 223.542,
+          "end": 223.703,
+          "score": 0.874
+        },
+        {
+          "word": "unter",
+          "start": 223.743,
+          "end": 223.944,
+          "score": 0.953
+        },
+        {
+          "word": "enormem",
+          "start": 223.984,
+          "end": 224.345,
+          "score": 0.837
+        },
+        {
+          "word": "Druck",
+          "start": 224.386,
+          "end": 224.707,
+          "score": 0.928
+        },
+        {
+          "word": "wie",
+          "start": 224.747,
+          "end": 224.888,
+          "score": 0.862
+        },
+        {
+          "word": "ein",
+          "start": 224.908,
+          "end": 225.068,
+          "score": 0.634
+        },
+        {
+          "word": "Hochdruckreiniger",
+          "start": 225.088,
+          "end": 226.474,
+          "score": 0.874
+        },
+        {
+          "word": "große",
+          "start": 226.494,
+          "end": 226.795,
+          "score": 0.946
+        },
+        {
+          "word": "Rinnen",
+          "start": 226.855,
+          "end": 227.136,
+          "score": 0.691
+        },
+        {
+          "word": "in",
+          "start": 227.176,
+          "end": 227.257,
+          "score": 0.924
+        },
+        {
+          "word": "die",
+          "start": 227.277,
+          "end": 227.377,
+          "score": 0.849
+        },
+        {
+          "word": "Landschaft",
+          "start": 227.417,
+          "end": 227.859,
+          "score": 0.878
+        },
+        {
+          "word": "fräste.",
+          "start": 227.899,
+          "end": 228.12,
+          "score": 0.192
+        }
+      ]
+    },
+    {
+      "start": 229.266,
+      "end": 231.72,
+      "text": " Dies lässt sich auch auf der Deutschlandkarte klar kennen.",
+      "words": [
+        {
+          "word": "Dies",
+          "start": 229.266,
+          "end": 229.528,
+          "score": 0.792
+        },
+        {
+          "word": "lässt",
+          "start": 229.568,
+          "end": 229.769,
+          "score": 0.941
+        },
+        {
+          "word": "sich",
+          "start": 229.809,
+          "end": 229.95,
+          "score": 0.884
+        },
+        {
+          "word": "auch",
+          "start": 229.97,
+          "end": 230.131,
+          "score": 0.786
+        },
+        {
+          "word": "auf",
+          "start": 230.171,
+          "end": 230.272,
+          "score": 0.969
+        },
+        {
+          "word": "der",
+          "start": 230.312,
+          "end": 230.413,
+          "score": 0.82
+        },
+        {
+          "word": "Deutschlandkarte",
+          "start": 230.433,
+          "end": 231.157,
+          "score": 0.808
+        },
+        {
+          "word": "klar",
+          "start": 231.197,
+          "end": 231.458,
+          "score": 0.946
+        },
+        {
+          "word": "kennen.",
+          "start": 231.478,
+          "end": 231.72,
+          "score": 0.261
+        }
+      ]
+    },
+    {
+      "start": 231.76,
+      "end": 233.6,
+      "text": " Die Seen ballen sich im Norden,",
+      "words": [
+        {
+          "word": "Die",
+          "start": 231.76,
+          "end": 232.488,
+          "score": 0.558
+        },
+        {
+          "word": "Seen",
+          "start": 232.508,
+          "end": 232.811,
+          "score": 0.825
+        },
+        {
+          "word": "ballen",
+          "start": 232.852,
+          "end": 233.095,
+          "score": 0.672
+        },
+        {
+          "word": "sich",
+          "start": 233.115,
+          "end": 233.236,
+          "score": 0.593
+        },
+        {
+          "word": "im",
+          "start": 233.276,
+          "end": 233.317,
+          "score": 0.01
+        },
+        {
+          "word": "Norden,",
+          "start": 233.337,
+          "end": 233.6,
+          "score": 0.129
+        }
+      ]
+    },
+    {
+      "start": 234.203,
+      "end": 237.32,
+      "text": " in der Mecklenburgischen Seenplatte und im Süden im Alpenvorland,",
+      "words": [
+        {
+          "word": "in",
+          "start": 234.203,
+          "end": 234.284,
+          "score": 0.842
+        },
+        {
+          "word": "der",
+          "start": 234.304,
+          "end": 234.384,
+          "score": 0.907
+        },
+        {
+          "word": "Mecklenburgischen",
+          "start": 234.424,
+          "end": 235.088,
+          "score": 0.796
+        },
+        {
+          "word": "Seenplatte",
+          "start": 235.128,
+          "end": 235.771,
+          "score": 0.873
+        },
+        {
+          "word": "und",
+          "start": 235.812,
+          "end": 235.932,
+          "score": 0.912
+        },
+        {
+          "word": "im",
+          "start": 235.972,
+          "end": 236.113,
+          "score": 0.905
+        },
+        {
+          "word": "Süden",
+          "start": 236.153,
+          "end": 236.475,
+          "score": 0.827
+        },
+        {
+          "word": "im",
+          "start": 236.515,
+          "end": 236.596,
+          "score": 0.968
+        },
+        {
+          "word": "Alpenvorland,",
+          "start": 236.636,
+          "end": 237.32,
+          "score": 0.716
+        }
+      ]
+    },
+    {
+      "start": 238.025,
+      "end": 239.659,
+      "text": " also genau dort wo das Eis lag.",
+      "words": [
+        {
+          "word": "also",
+          "start": 238.025,
+          "end": 238.227,
+          "score": 0.919
+        },
+        {
+          "word": "genau",
+          "start": 238.267,
+          "end": 238.59,
+          "score": 0.848
+        },
+        {
+          "word": "dort",
+          "start": 238.61,
+          "end": 238.792,
+          "score": 0.95
+        },
+        {
+          "word": "wo",
+          "start": 238.832,
+          "end": 238.974,
+          "score": 0.571
+        },
+        {
+          "word": "das",
+          "start": 238.994,
+          "end": 239.155,
+          "score": 0.796
+        },
+        {
+          "word": "Eis",
+          "start": 239.216,
+          "end": 239.438,
+          "score": 0.593
+        },
+        {
+          "word": "lag.",
+          "start": 239.458,
+          "end": 239.659,
+          "score": 0.398
+        }
+      ]
+    },
+    {
+      "start": 240.344,
+      "end": 242.58,
+      "text": " Die Mitte Deutschlands ging dabei fast leer aus.",
+      "words": [
+        {
+          "word": "Die",
+          "start": 240.344,
+          "end": 240.425,
+          "score": 0.903
+        },
+        {
+          "word": "Mitte",
+          "start": 240.465,
+          "end": 240.747,
+          "score": 0.93
+        },
+        {
+          "word": "Deutschlands",
+          "start": 240.767,
+          "end": 241.371,
+          "score": 0.818
+        },
+        {
+          "word": "ging",
+          "start": 241.392,
+          "end": 241.593,
+          "score": 0.45
+        },
+        {
+          "word": "dabei",
+          "start": 241.613,
+          "end": 241.875,
+          "score": 0.977
+        },
+        {
+          "word": "fast",
+          "start": 241.915,
+          "end": 242.117,
+          "score": 0.894
+        },
+        {
+          "word": "leer",
+          "start": 242.157,
+          "end": 242.298,
+          "score": 0.768
+        },
+        {
+          "word": "aus.",
+          "start": 242.419,
+          "end": 242.58,
+          "score": 0.414
+        }
+      ]
+    },
+    {
+      "start": 243.824,
+      "end": 247.496,
+      "text": " Aber nur fast, denn natürlich war nicht nur das Eis am Werk.",
+      "words": [
+        {
+          "word": "Aber",
+          "start": 243.824,
+          "end": 244.005,
+          "score": 0.982
+        },
+        {
+          "word": "nur",
+          "start": 244.045,
+          "end": 244.205,
+          "score": 0.854
+        },
+        {
+          "word": "fast,",
+          "start": 244.265,
+          "end": 244.888,
+          "score": 0.837
+        },
+        {
+          "word": "denn",
+          "start": 244.908,
+          "end": 245.088,
+          "score": 0.764
+        },
+        {
+          "word": "natürlich",
+          "start": 245.128,
+          "end": 245.57,
+          "score": 0.86
+        },
+        {
+          "word": "war",
+          "start": 245.61,
+          "end": 245.75,
+          "score": 0.89
+        },
+        {
+          "word": "nicht",
+          "start": 245.77,
+          "end": 245.891,
+          "score": 0.938
+        },
+        {
+          "word": "nur",
+          "start": 245.931,
+          "end": 246.051,
+          "score": 0.872
+        },
+        {
+          "word": "das",
+          "start": 246.091,
+          "end": 246.252,
+          "score": 0.89
+        },
+        {
+          "word": "Eis",
+          "start": 246.292,
+          "end": 246.433,
+          "score": 0.889
+        },
+        {
+          "word": "am",
+          "start": 246.453,
+          "end": 246.633,
+          "score": 0.78
+        },
+        {
+          "word": "Werk.",
+          "start": 246.693,
+          "end": 247.496,
+          "score": 0.902
+        }
+      ]
+    },
+    {
+      "start": 247.536,
+      "end": 248.66,
+      "text": "In der Eifel hat sich Magma",
+      "words": [
+        {
+          "word": "In",
+          "start": 247.536,
+          "end": 247.617,
+          "score": 0.774
+        },
+        {
+          "word": "der",
+          "start": 247.637,
+          "end": 247.777,
+          "score": 0.856
+        },
+        {
+          "word": "Eifel",
+          "start": 247.817,
+          "end": 248.098,
+          "score": 0.778
+        },
+        {
+          "word": "hat",
+          "start": 248.118,
+          "end": 248.259,
+          "score": 0.694
+        },
+        {
+          "word": "sich",
+          "start": 248.279,
+          "end": 248.459,
+          "score": 0.322
+        },
+        {
+          "word": "Magma",
+          "start": 248.479,
+          "end": 248.66,
+          "score": 0.158
+        }
+      ]
+    },
+    {
+      "start": 249.082,
+      "end": 253.619,
+      "text": " seinen Weg nach oben gesprengt und kreisrunde Krater hinterlassen, die heute als Mare voll",
+      "words": [
+        {
+          "word": "seinen",
+          "start": 249.082,
+          "end": 249.202,
+          "score": 0.748
+        },
+        {
+          "word": "Weg",
+          "start": 249.222,
+          "end": 249.363,
+          "score": 0.902
+        },
+        {
+          "word": "nach",
+          "start": 249.383,
+          "end": 249.503,
+          "score": 0.825
+        },
+        {
+          "word": "oben",
+          "start": 249.543,
+          "end": 249.744,
+          "score": 0.96
+        },
+        {
+          "word": "gesprengt",
+          "start": 249.784,
+          "end": 250.628,
+          "score": 0.875
+        },
+        {
+          "word": "und",
+          "start": 250.668,
+          "end": 250.869,
+          "score": 0.859
+        },
+        {
+          "word": "kreisrunde",
+          "start": 250.889,
+          "end": 251.391,
+          "score": 0.909
+        },
+        {
+          "word": "Krater",
+          "start": 251.431,
+          "end": 251.772,
+          "score": 0.652
+        },
+        {
+          "word": "hinterlassen,",
+          "start": 251.792,
+          "end": 252.736,
+          "score": 0.824
+        },
+        {
+          "word": "die",
+          "start": 252.756,
+          "end": 252.957,
+          "score": 0.843
+        },
+        {
+          "word": "heute",
+          "start": 252.977,
+          "end": 253.198,
+          "score": 0.843
+        },
+        {
+          "word": "als",
+          "start": 253.218,
+          "end": 253.338,
+          "score": 0.665
+        },
+        {
+          "word": "Mare",
+          "start": 253.439,
+          "end": 253.519,
+          "score": 0.085
+        },
+        {
+          "word": "voll",
+          "start": 253.539,
+          "end": 253.619,
+          "score": 0.007
+        }
+      ]
+    },
+    {
+      "start": 254.121,
+      "end": 255.225,
+      "text": " Wasser stehen.",
+      "words": [
+        {
+          "word": "Wasser",
+          "start": 254.121,
+          "end": 254.302,
+          "score": 0.9
+        },
+        {
+          "word": "stehen.",
+          "start": 254.342,
+          "end": 255.225,
+          "score": 0.889
+        }
+      ]
+    },
+    {
+      "start": 255.285,
+      "end": 259.4,
+      "text": "Flüsse schnüren bei jeder Schlinge alte Bögen ab, die als Altarme liegen",
+      "words": [
+        {
+          "word": "Flüsse",
+          "start": 255.285,
+          "end": 255.787,
+          "score": 0.841
+        },
+        {
+          "word": "schnüren",
+          "start": 255.807,
+          "end": 256.209,
+          "score": 0.788
+        },
+        {
+          "word": "bei",
+          "start": 256.249,
+          "end": 256.369,
+          "score": 0.955
+        },
+        {
+          "word": "jeder",
+          "start": 256.389,
+          "end": 256.61,
+          "score": 0.94
+        },
+        {
+          "word": "Schlinge",
+          "start": 256.65,
+          "end": 256.971,
+          "score": 0.892
+        },
+        {
+          "word": "alte",
+          "start": 257.011,
+          "end": 257.252,
+          "score": 0.928
+        },
+        {
+          "word": "Bögen",
+          "start": 257.292,
+          "end": 257.674,
+          "score": 0.968
+        },
+        {
+          "word": "ab,",
+          "start": 257.714,
+          "end": 258.276,
+          "score": 0.985
+        },
+        {
+          "word": "die",
+          "start": 258.296,
+          "end": 258.416,
+          "score": 0.779
+        },
+        {
+          "word": "als",
+          "start": 258.477,
+          "end": 258.677,
+          "score": 0.805
+        },
+        {
+          "word": "Altarme",
+          "start": 258.717,
+          "end": 259.159,
+          "score": 0.889
+        },
+        {
+          "word": "liegen",
+          "start": 259.279,
+          "end": 259.4,
+          "score": 0.005
+        }
+      ]
+    },
+    {
+      "start": 259.822,
+      "end": 260.545,
+      "text": " bleiben.",
+      "words": [
+        {
+          "word": "bleiben.",
+          "start": 259.822,
+          "end": 260.545,
+          "score": 0.901
+        }
+      ]
+    },
+    {
+      "start": 260.565,
+      "end": 264.3,
+      "text": "Und der vielleicht fleißigste Seebauer der Gegenwart sind wir selbst.",
+      "words": [
+        {
+          "word": "Und",
+          "start": 260.565,
+          "end": 260.665,
+          "score": 0.798
+        },
+        {
+          "word": "der",
+          "start": 260.685,
+          "end": 260.806,
+          "score": 0.915
+        },
+        {
+          "word": "vielleicht",
+          "start": 260.846,
+          "end": 261.187,
+          "score": 0.92
+        },
+        {
+          "word": "fleißigste",
+          "start": 261.247,
+          "end": 261.81,
+          "score": 0.894
+        },
+        {
+          "word": "Seebauer",
+          "start": 261.85,
+          "end": 262.452,
+          "score": 0.755
+        },
+        {
+          "word": "der",
+          "start": 262.493,
+          "end": 262.593,
+          "score": 0.574
+        },
+        {
+          "word": "Gegenwart",
+          "start": 262.613,
+          "end": 263.657,
+          "score": 0.945
+        },
+        {
+          "word": "sind",
+          "start": 263.697,
+          "end": 263.858,
+          "score": 0.818
+        },
+        {
+          "word": "wir",
+          "start": 263.878,
+          "end": 264.019,
+          "score": 0.72
+        },
+        {
+          "word": "selbst.",
+          "start": 264.079,
+          "end": 264.3,
+          "score": 0.347
+        }
+      ]
+    },
+    {
+      "start": 264.842,
+      "end": 269.319,
+      "text": " In der Lausitz rund um Leipzig laufen gerade die alten Braunkohletagebaue voll",
+      "words": [
+        {
+          "word": "In",
+          "start": 264.842,
+          "end": 264.922,
+          "score": 0.893
+        },
+        {
+          "word": "der",
+          "start": 264.942,
+          "end": 265.063,
+          "score": 0.901
+        },
+        {
+          "word": "Lausitz",
+          "start": 265.103,
+          "end": 265.705,
+          "score": 0.84
+        },
+        {
+          "word": "rund",
+          "start": 265.765,
+          "end": 265.966,
+          "score": 0.829
+        },
+        {
+          "word": "um",
+          "start": 266.006,
+          "end": 266.107,
+          "score": 0.902
+        },
+        {
+          "word": "Leipzig",
+          "start": 266.167,
+          "end": 266.729,
+          "score": 0.755
+        },
+        {
+          "word": "laufen",
+          "start": 266.769,
+          "end": 267.01,
+          "score": 0.943
+        },
+        {
+          "word": "gerade",
+          "start": 267.05,
+          "end": 267.311,
+          "score": 0.955
+        },
+        {
+          "word": "die",
+          "start": 267.351,
+          "end": 267.452,
+          "score": 0.792
+        },
+        {
+          "word": "alten",
+          "start": 267.472,
+          "end": 267.733,
+          "score": 0.981
+        },
+        {
+          "word": "Braunkohletagebaue",
+          "start": 267.773,
+          "end": 269.018,
+          "score": 0.902
+        },
+        {
+          "word": "voll",
+          "start": 269.058,
+          "end": 269.319,
+          "score": 0.346
+        }
+      ]
+    },
+    {
+      "start": 270.042,
+      "end": 272.893,
+      "text": " und werden zu riesigen brandneuen Seen.",
+      "words": [
+        {
+          "word": "und",
+          "start": 270.042,
+          "end": 270.122,
+          "score": 0.875
+        },
+        {
+          "word": "werden",
+          "start": 270.142,
+          "end": 270.363,
+          "score": 0.712
+        },
+        {
+          "word": "zu",
+          "start": 270.403,
+          "end": 270.504,
+          "score": 0.879
+        },
+        {
+          "word": "riesigen",
+          "start": 270.544,
+          "end": 270.925,
+          "score": 0.782
+        },
+        {
+          "word": "brandneuen",
+          "start": 270.965,
+          "end": 271.608,
+          "score": 0.785
+        },
+        {
+          "word": "Seen.",
+          "start": 271.648,
+          "end": 272.893,
+          "score": 0.904
+        }
+      ]
+    },
+    {
+      "start": 272.933,
+      "end": 274.68,
+      "text": "Am Ende läuft trotzdem alles auf dieselbe",
+      "words": [
+        {
+          "word": "Am",
+          "start": 272.933,
+          "end": 273.033,
+          "score": 0.962
+        },
+        {
+          "word": "Ende",
+          "start": 273.073,
+          "end": 273.274,
+          "score": 0.722
+        },
+        {
+          "word": "läuft",
+          "start": 273.314,
+          "end": 273.515,
+          "score": 0.451
+        },
+        {
+          "word": "trotzdem",
+          "start": 273.535,
+          "end": 273.977,
+          "score": 0.829
+        },
+        {
+          "word": "alles",
+          "start": 274.017,
+          "end": 274.278,
+          "score": 0.932
+        },
+        {
+          "word": "auf",
+          "start": 274.318,
+          "end": 274.379,
+          "score": 0.914
+        },
+        {
+          "word": "dieselbe",
+          "start": 274.399,
+          "end": 274.68,
+          "score": 0.239
+        }
+      ]
+    },
+    {
+      "start": 275.121,
+      "end": 280.277,
+      "text": " Bedingung hinaus, ein Loch das Wasser halten kann und genug Wasser das hineinläuft.",
+      "words": [
+        {
+          "word": "Bedingung",
+          "start": 275.121,
+          "end": 275.442,
+          "score": 0.757
+        },
+        {
+          "word": "hinaus,",
+          "start": 275.502,
+          "end": 276.225,
+          "score": 0.778
+        },
+        {
+          "word": "ein",
+          "start": 276.265,
+          "end": 276.405,
+          "score": 0.733
+        },
+        {
+          "word": "Loch",
+          "start": 276.445,
+          "end": 276.947,
+          "score": 0.691
+        },
+        {
+          "word": "das",
+          "start": 276.967,
+          "end": 277.147,
+          "score": 0.89
+        },
+        {
+          "word": "Wasser",
+          "start": 277.188,
+          "end": 277.368,
+          "score": 0.776
+        },
+        {
+          "word": "halten",
+          "start": 277.408,
+          "end": 277.649,
+          "score": 0.95
+        },
+        {
+          "word": "kann",
+          "start": 277.689,
+          "end": 278.532,
+          "score": 0.813
+        },
+        {
+          "word": "und",
+          "start": 278.572,
+          "end": 278.752,
+          "score": 0.854
+        },
+        {
+          "word": "genug",
+          "start": 278.773,
+          "end": 279.013,
+          "score": 0.957
+        },
+        {
+          "word": "Wasser",
+          "start": 279.053,
+          "end": 279.455,
+          "score": 0.687
+        },
+        {
+          "word": "das",
+          "start": 279.475,
+          "end": 279.615,
+          "score": 0.655
+        },
+        {
+          "word": "hineinläuft.",
+          "start": 279.655,
+          "end": 280.277,
+          "score": 0.761
+        }
+      ]
+    },
+    {
+      "start": 280.317,
+      "end": 280.919,
+      "text": "Fehlt",
+      "words": [
+        {
+          "word": "Fehlt",
+          "start": 280.317,
+          "end": 280.919,
+          "score": 0.549
+        }
+      ]
+    },
+    {
+      "start": 281.401,
+      "end": 284.874,
+      "text": " nur eines von beiden bleibt es eine trockene Senke.",
+      "words": [
+        {
+          "word": "nur",
+          "start": 281.401,
+          "end": 281.521,
+          "score": 0.866
+        },
+        {
+          "word": "eines",
+          "start": 281.562,
+          "end": 281.802,
+          "score": 0.937
+        },
+        {
+          "word": "von",
+          "start": 281.843,
+          "end": 282.003,
+          "score": 0.852
+        },
+        {
+          "word": "beiden",
+          "start": 282.043,
+          "end": 282.846,
+          "score": 0.873
+        },
+        {
+          "word": "bleibt",
+          "start": 282.886,
+          "end": 283.087,
+          "score": 0.908
+        },
+        {
+          "word": "es",
+          "start": 283.127,
+          "end": 283.248,
+          "score": 0.603
+        },
+        {
+          "word": "eine",
+          "start": 283.268,
+          "end": 283.388,
+          "score": 0.758
+        },
+        {
+          "word": "trockene",
+          "start": 283.429,
+          "end": 283.81,
+          "score": 0.925
+        },
+        {
+          "word": "Senke.",
+          "start": 283.85,
+          "end": 284.874,
+          "score": 0.966
+        }
+      ]
+    },
+    {
+      "start": 284.914,
+      "end": 286.38,
+      "text": "Eine Sache solltest du aber wissen bevor",
+      "words": [
+        {
+          "word": "Eine",
+          "start": 284.914,
+          "end": 285.135,
+          "score": 0.928
+        },
+        {
+          "word": "Sache",
+          "start": 285.175,
+          "end": 285.396,
+          "score": 0.854
+        },
+        {
+          "word": "solltest",
+          "start": 285.416,
+          "end": 285.677,
+          "score": 0.593
+        },
+        {
+          "word": "du",
+          "start": 285.717,
+          "end": 285.797,
+          "score": 0.506
+        },
+        {
+          "word": "aber",
+          "start": 285.838,
+          "end": 286.018,
+          "score": 0.968
+        },
+        {
+          "word": "wissen",
+          "start": 286.038,
+          "end": 286.259,
+          "score": 0.891
+        },
+        {
+          "word": "bevor",
+          "start": 286.279,
+          "end": 286.38,
+          "score": 0.0
+        }
+      ]
+    },
+    {
+      "start": 286.48,
+      "end": 288.286,
+      "text": " du dich das nächste mal entspannt ans Ufer legst.",
+      "words": [
+        {
+          "word": "du",
+          "start": 286.48,
+          "end": 286.54,
+          "score": 0.145
+        },
+        {
+          "word": "dich",
+          "start": 286.881,
+          "end": 287.102,
+          "score": 0.416
+        },
+        {
+          "word": "das",
+          "start": 287.122,
+          "end": 287.223,
+          "score": 0.514
+        },
+        {
+          "word": "nächste",
+          "start": 287.243,
+          "end": 287.463,
+          "score": 0.506
+        },
+        {
+          "word": "mal",
+          "start": 287.483,
+          "end": 287.544,
+          "score": 0.493
+        },
+        {
+          "word": "entspannt",
+          "start": 287.604,
+          "end": 287.945,
+          "score": 0.279
+        },
+        {
+          "word": "ans",
+          "start": 287.985,
+          "end": 288.045,
+          "score": 0.242
+        },
+        {
+          "word": "Ufer",
+          "start": 288.065,
+          "end": 288.146,
+          "score": 0.039
+        },
+        {
+          "word": "legst.",
+          "start": 288.166,
+          "end": 288.286,
+          "score": 0.056
+        }
+      ]
+    },
+    {
+      "start": 288.306,
+      "end": 288.928,
+      "text": "Kein See bleibt für immer!",
+      "words": [
+        {
+          "word": "Kein",
+          "start": 288.306,
+          "end": 288.447,
+          "score": 0.235
+        },
+        {
+          "word": "See",
+          "start": 288.467,
+          "end": 288.567,
+          "score": 0.173
+        },
+        {
+          "word": "bleibt",
+          "start": 288.587,
+          "end": 288.708,
+          "score": 0.056
+        },
+        {
+          "word": "für",
+          "start": 288.728,
+          "end": 288.788,
+          "score": 0.02
+        },
+        {
+          "word": "immer!",
+          "start": 288.808,
+          "end": 288.928,
+          "score": 0.065
+        }
+      ]
+    },
+    {
+      "start": 288.948,
+      "end": 289.43,
+      "text": "Von allen Seiten rieselt",
+      "words": [
+        {
+          "word": "Von",
+          "start": 288.948,
+          "end": 289.009,
+          "score": 0.028
+        },
+        {
+          "word": "allen",
+          "start": 289.029,
+          "end": 289.129,
+          "score": 0.05
+        },
+        {
+          "word": "Seiten",
+          "start": 289.149,
+          "end": 289.269,
+          "score": 0.07
+        },
+        {
+          "word": "rieselt",
+          "start": 289.29,
+          "end": 289.43,
+          "score": 0.066
+        }
+      ]
+    },
+    {
+      "start": 292.721,
+      "end": 297.817,
+      "text": " Sand, Laub und Schlamm hinein, vom Ufer her wuchern Schilf und Pflanzen nach innen.",
+      "words": [
+        {
+          "word": "Sand,",
+          "start": 292.721,
+          "end": 293.464,
+          "score": 0.917
+        },
+        {
+          "word": "Laub",
+          "start": 293.504,
+          "end": 293.785,
+          "score": 0.994
+        },
+        {
+          "word": "und",
+          "start": 293.825,
+          "end": 293.965,
+          "score": 0.878
+        },
+        {
+          "word": "Schlamm",
+          "start": 294.005,
+          "end": 294.346,
+          "score": 0.924
+        },
+        {
+          "word": "hinein,",
+          "start": 294.386,
+          "end": 295.229,
+          "score": 0.908
+        },
+        {
+          "word": "vom",
+          "start": 295.249,
+          "end": 295.45,
+          "score": 0.942
+        },
+        {
+          "word": "Ufer",
+          "start": 295.49,
+          "end": 295.791,
+          "score": 0.881
+        },
+        {
+          "word": "her",
+          "start": 295.811,
+          "end": 296.012,
+          "score": 0.857
+        },
+        {
+          "word": "wuchern",
+          "start": 296.052,
+          "end": 296.413,
+          "score": 0.853
+        },
+        {
+          "word": "Schilf",
+          "start": 296.433,
+          "end": 296.774,
+          "score": 0.81
+        },
+        {
+          "word": "und",
+          "start": 296.794,
+          "end": 296.935,
+          "score": 0.782
+        },
+        {
+          "word": "Pflanzen",
+          "start": 296.975,
+          "end": 297.336,
+          "score": 0.883
+        },
+        {
+          "word": "nach",
+          "start": 297.376,
+          "end": 297.537,
+          "score": 0.824
+        },
+        {
+          "word": "innen.",
+          "start": 297.577,
+          "end": 297.817,
+          "score": 0.77
+        }
+      ]
+    },
+    {
+      "start": 297.878,
+      "end": 298.118,
+      "text": "Ganz",
+      "words": [
+        {
+          "word": "Ganz",
+          "start": 297.878,
+          "end": 298.118,
+          "score": 0.478
+        }
+      ]
+    },
+    {
+      "start": 298.781,
+      "end": 303.119,
+      "text": " Ganz langsam füllt sich das Becken wieder auf, aus dem See wird ein Sumpf und aus dem",
+      "words": [
+        {
+          "word": "Ganz",
+          "start": 298.781,
+          "end": 298.941,
+          "score": 0.469
+        },
+        {
+          "word": "langsam",
+          "start": 298.982,
+          "end": 299.303,
+          "score": 0.904
+        },
+        {
+          "word": "füllt",
+          "start": 299.343,
+          "end": 299.484,
+          "score": 0.741
+        },
+        {
+          "word": "sich",
+          "start": 299.504,
+          "end": 299.624,
+          "score": 0.721
+        },
+        {
+          "word": "das",
+          "start": 299.644,
+          "end": 299.785,
+          "score": 0.949
+        },
+        {
+          "word": "Becken",
+          "start": 299.825,
+          "end": 300.066,
+          "score": 0.832
+        },
+        {
+          "word": "wieder",
+          "start": 300.106,
+          "end": 300.347,
+          "score": 0.95
+        },
+        {
+          "word": "auf,",
+          "start": 300.388,
+          "end": 301.211,
+          "score": 0.943
+        },
+        {
+          "word": "aus",
+          "start": 301.231,
+          "end": 301.392,
+          "score": 0.938
+        },
+        {
+          "word": "dem",
+          "start": 301.412,
+          "end": 301.593,
+          "score": 0.915
+        },
+        {
+          "word": "See",
+          "start": 301.633,
+          "end": 301.814,
+          "score": 0.908
+        },
+        {
+          "word": "wird",
+          "start": 301.834,
+          "end": 301.994,
+          "score": 0.563
+        },
+        {
+          "word": "ein",
+          "start": 302.034,
+          "end": 302.155,
+          "score": 0.575
+        },
+        {
+          "word": "Sumpf",
+          "start": 302.195,
+          "end": 302.496,
+          "score": 0.531
+        },
+        {
+          "word": "und",
+          "start": 302.577,
+          "end": 302.918,
+          "score": 0.706
+        },
+        {
+          "word": "aus",
+          "start": 302.958,
+          "end": 303.019,
+          "score": 0.054
+        },
+        {
+          "word": "dem",
+          "start": 303.039,
+          "end": 303.119,
+          "score": 0.184
+        }
+      ]
+    },
+    {
+      "start": 303.4,
+      "end": 304.532,
+      "text": " Sumpf irgendwann eine Wiese.",
+      "words": [
+        {
+          "word": "Sumpf",
+          "start": 303.4,
+          "end": 303.804,
+          "score": 0.179
+        },
+        {
+          "word": "irgendwann",
+          "start": 303.825,
+          "end": 304.148,
+          "score": 0.382
+        },
+        {
+          "word": "eine",
+          "start": 304.188,
+          "end": 304.309,
+          "score": 0.752
+        },
+        {
+          "word": "Wiese.",
+          "start": 304.37,
+          "end": 304.532,
+          "score": 0.415
+        }
+      ]
+    },
+    {
+      "start": 305.501,
+      "end": 310.12,
+      "text": " Es ist also nichts Ewiges – er ist nur ein kurzer nasser Moment in der Geschichte einer",
+      "words": [
+        {
+          "word": "Es",
+          "start": 305.501,
+          "end": 305.561,
+          "score": 0.734
+        },
+        {
+          "word": "ist",
+          "start": 305.581,
+          "end": 305.701,
+          "score": 0.923
+        },
+        {
+          "word": "also",
+          "start": 305.742,
+          "end": 305.922,
+          "score": 0.994
+        },
+        {
+          "word": "nichts",
+          "start": 305.962,
+          "end": 306.183,
+          "score": 0.896
+        },
+        {
+          "word": "Ewiges",
+          "start": 306.224,
+          "end": 306.685,
+          "score": 0.974
+        },
+        {
+          "word": "–",
+          "start": 307.429,
+          "end": 307.449,
+          "score": 0.779
+        },
+        {
+          "word": "er",
+          "start": 307.509,
+          "end": 307.609,
+          "score": 0.864
+        },
+        {
+          "word": "ist",
+          "start": 307.649,
+          "end": 307.79,
+          "score": 0.774
+        },
+        {
+          "word": "nur",
+          "start": 307.83,
+          "end": 307.951,
+          "score": 0.987
+        },
+        {
+          "word": "ein",
+          "start": 307.991,
+          "end": 308.152,
+          "score": 0.606
+        },
+        {
+          "word": "kurzer",
+          "start": 308.192,
+          "end": 308.654,
+          "score": 0.935
+        },
+        {
+          "word": "nasser",
+          "start": 308.674,
+          "end": 309.015,
+          "score": 0.743
+        },
+        {
+          "word": "Moment",
+          "start": 309.035,
+          "end": 309.437,
+          "score": 0.989
+        },
+        {
+          "word": "in",
+          "start": 309.477,
+          "end": 309.557,
+          "score": 0.722
+        },
+        {
+          "word": "der",
+          "start": 309.577,
+          "end": 309.678,
+          "score": 0.702
+        },
+        {
+          "word": "Geschichte",
+          "start": 309.698,
+          "end": 309.999,
+          "score": 0.408
+        },
+        {
+          "word": "einer",
+          "start": 310.019,
+          "end": 310.12,
+          "score": 0.015
+        }
+      ]
+    },
+    {
+      "start": 310.703,
+      "end": 313.9,
+      "text": " Landschaft und wir haben das Glück ihn gerade erleben zu dürfen.",
+      "words": [
+        {
+          "word": "Landschaft",
+          "start": 310.703,
+          "end": 311.386,
+          "score": 0.715
+        },
+        {
+          "word": "und",
+          "start": 311.427,
+          "end": 311.648,
+          "score": 0.92
+        },
+        {
+          "word": "wir",
+          "start": 311.668,
+          "end": 312.01,
+          "score": 0.982
+        },
+        {
+          "word": "haben",
+          "start": 312.03,
+          "end": 312.271,
+          "score": 0.825
+        },
+        {
+          "word": "das",
+          "start": 312.291,
+          "end": 312.452,
+          "score": 0.948
+        },
+        {
+          "word": "Glück",
+          "start": 312.472,
+          "end": 312.774,
+          "score": 0.885
+        },
+        {
+          "word": "ihn",
+          "start": 312.794,
+          "end": 312.935,
+          "score": 0.644
+        },
+        {
+          "word": "gerade",
+          "start": 312.955,
+          "end": 313.216,
+          "score": 0.54
+        },
+        {
+          "word": "erleben",
+          "start": 313.256,
+          "end": 313.478,
+          "score": 0.869
+        },
+        {
+          "word": "zu",
+          "start": 313.578,
+          "end": 313.659,
+          "score": 0.446
+        },
+        {
+          "word": "dürfen.",
+          "start": 313.679,
+          "end": 313.9,
+          "score": 0.189
+        }
+      ]
+    }
+  ]
+}
