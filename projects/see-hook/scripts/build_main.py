@@ -43,36 +43,46 @@ def beat1(dur=3.5):
 
 # ---- beat 2: water (fg) screen-blended over the cave (underground) ----------
 def beat2(dur=3.1):
-    # cave (underground) with the water flow kept visible via a LIGHTEN blend
-    # (max of the two -> bright water glitter shows, no blow-out); soft grade
-    fc=(f"[0:v]{NORM},eq=brightness=-0.02:saturation=0.95[cave];"
-        f"[1:v]{NORM}[wat];"
-        "[cave][wat]blend=all_mode=lighten:all_opacity=0.7:shortest=1[mix];"
-        "[mix]colortemperature=temperature=5300:mix=0.45:pl=1,"
-        "eq=contrast=1.03:saturation=1.02,rgbashift=rh=1:bh=-1[gc];"+GRADE_TAIL)
-    enc(["-loop","1","-t",str(dur),"-i",str(MA/"cave.jpg"),
-         "-i",str(MA/"water.mp4")], fc, dur, "m_b2.mp4")
-
-# ---- beat 3: man stencil in the foreground of an aesthetic lake -------------
-def beat3(dur=5.0):
-    lake=str(A/"H_tagline_28043352.mp4")
-    fc=(f"[0:v]{NORM},{GRADE}[gc];"
+    # water stream in the BACKGROUND, enhanced cave cutout in the FOREGROUND
+    fc=(f"[0:v]{NORM}[watbg];"
+        "[1:v]scale=-1:1080,setsar=1[cave];"
+        "[watbg][cave]overlay=x=(W-w)/2:y=(H-h)/2:shortest=1[comp];"
+        f"[comp]{GRADE}[gc];"
         "[2:v]scale=1920:1080,setsar=1[sc];"
         "[gc][sc]blend=all_mode=multiply:all_opacity=0.38:shortest=1[m];"
-        "[m]vignette=PI/5.5,noise=alls=5:allf=t[bg];"
-        "[1:v]scale=-1:1080[man];"
-        "[bg][man]overlay=x=(W-w)/2:y=(H-h)/2:shortest=1,format=yuv420p[v]")
-    run([FF,"-y","-ss","4","-i",lake,"-loop","1","-i",str(MA/"man_stencil.png"),
+        "[m]vignette=PI/5.5,noise=alls=5:allf=t,format=yuv420p[v]")
+    run([FF,"-y","-i",str(MA/"water.mp4"),"-loop","1","-i",str(MA/"cave_hi.png"),
          "-loop","1","-i",SCAN,"-filter_complex",fc,"-map","[v]","-t",str(dur),
          "-r","30","-c:v","libx264","-preset","veryfast","-crf","18",
+         str(BUILD/"m_b2.mp4")],"beat2")
+
+# ---- beat 3: backlit lake zooms out to aquamarine, "See" words circle it ----
+def beat3(dur=5.0):
+    lake=str(MA/"lake_backlight.mp4")
+    E="clip((t-0.4)/1.3,0,1)"
+    w=f"floor((1920-1280*({E}))/2)*2"    # 1920 -> 640
+    h=f"floor((1080-720*({E}))/2)*2"     # 1080 -> 360
+    fc=(f"[0:v]{NORM},{GRADE}[lgc];"
+        "[2:v]scale=1920:1080,setsar=1[sc];"
+        "[lgc][sc]blend=all_mode=multiply:all_opacity=0.38:shortest=1[lm];"
+        "[lm]vignette=PI/6,noise=alls=4:allf=t[lake];"
+        "color=c=0x45CFC8:s=1920x1080:r=30[aqua];"
+        f"[lake]scale=w='{w}':h='{h}':eval=frame,setsar=1[lk];"
+        "[aqua][lk]overlay=x='(W-w)/2':y='(H-h)/2':eval=frame:shortest=1,format=gbrp[comp];"
+        # spinning white "See" words, faded in after the zoom-out, screen-keyed.
+        # NOTE: screen-blend MUST run in RGB (gbrp) -- on yuv420p it mangles the
+        # chroma planes and floods the frame magenta.
+        "[1:v]scale=1920:1080,setsar=1,fade=t=in:st=1.3:d=0.6,format=gbrp[spin];"
+        "[comp][spin]blend=all_mode=screen:shortest=1,format=yuv420p[v]")
+    run([FF,"-y","-ss","2","-i",lake,"-stream_loop","-1","-i",str(MA/"spin_see.mp4"),
+         "-loop","1","-i",SCAN,"-filter_complex",fc,"-map","[v]","-t",str(dur),
+         "-r","30","-c:v","libx264","-preset","medium","-crf","18",
          str(BUILD/"m_b3.mp4")],"beat3")
 
-# ---- beat 4: calm meadow / field -------------------------------------------
+# ---- beat 4: meadow video ---------------------------------------------------
 def beat4(dur=3.0):
-    field=str(ROOT/"teil2_assets"/"4f1d1b7c9b2f87ad25dbac53530e7be6.jpg")
-    fc=(f"[0:v]scale=2400:-1,crop=1920:1080,zoompan=z='min(zoom+0.0006,1.12)':"
-        f"d={int(dur*30)}:s=1920x1080:fps=30,{GRADE}[gc];"+GRADE_TAIL)
-    enc(["-loop","1","-t",str(dur),"-i",field], fc, dur, "m_b4.mp4")
+    fc=(f"[0:v]{NORM},{GRADE}[gc];"+GRADE_TAIL)
+    enc(["-ss","3","-i",str(MA/"meadow.mp4")], fc, dur, "m_b4.mp4")
 
 # ---- captions ---------------------------------------------------------------
 def at(t):
