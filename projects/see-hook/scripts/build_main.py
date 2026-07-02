@@ -43,10 +43,13 @@ def beat1(dur=3.5):
 
 # ---- beat 2: water (fg) screen-blended over the cave (underground) ----------
 def beat2(dur=3.1):
-    # water stream in the BACKGROUND, enhanced cave cutout in the FOREGROUND
+    # water stream in the BACKGROUND, enhanced cave cutout scaled to COVER the
+    # whole frame so its rock hugs the edges and frames the water flowing through
+    # the transparent opening (like looking out of a cave).
     fc=(f"[0:v]{NORM}[watbg];"
-        "[1:v]scale=-1:1080,setsar=1[cave];"
-        "[watbg][cave]overlay=x=(W-w)/2:y=(H-h)/2:shortest=1[comp];"
+        "[1:v]scale=1920:1080:force_original_aspect_ratio=increase,"
+        "crop=1920:1080,setsar=1[cave];"
+        "[watbg][cave]overlay=0:0:shortest=1[comp];"
         f"[comp]{GRADE}[gc];"
         "[2:v]scale=1920:1080,setsar=1[sc];"
         "[gc][sc]blend=all_mode=multiply:all_opacity=0.38:shortest=1[m];"
@@ -56,7 +59,7 @@ def beat2(dur=3.1):
          "-r","30","-c:v","libx264","-preset","veryfast","-crf","18",
          str(BUILD/"m_b2.mp4")],"beat2")
 
-# ---- beat 3: backlit lake zooms out to aquamarine, "See" words circle it ----
+# ---- beat 3: backlit lake zooms out to cobalt blue, "See" words circle it ----
 def beat3(dur=5.0):
     lake=str(MA/"lake_backlight.mp4")
     E="clip((t-0.4)/1.3,0,1)"
@@ -66,7 +69,7 @@ def beat3(dur=5.0):
         "[2:v]scale=1920:1080,setsar=1[sc];"
         "[lgc][sc]blend=all_mode=multiply:all_opacity=0.38:shortest=1[lm];"
         "[lm]vignette=PI/6,noise=alls=4:allf=t[lake];"
-        "color=c=0x45CFC8:s=1920x1080:r=30[aqua];"
+        "color=c=0x0001BE:s=1920x1080:r=30[aqua];"
         f"[lake]scale=w='{w}':h='{h}':eval=frame,setsar=1[lk];"
         "[aqua][lk]overlay=x='(W-w)/2':y='(H-h)/2':eval=frame:shortest=1,format=gbrp[comp];"
         # spinning white "See" words, faded in after the zoom-out, screen-keyed.
