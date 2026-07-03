@@ -141,12 +141,12 @@ def beat_split():
     # near full width, with the editorial typography laid OVER them.
     write_b4_ass()
     a=(BUILD/"m4_b4.ass").as_posix()
-    CROP="crop=1920:600:0:230,scale=1800:500,setsar=1"
+    CROP="crop=1920:840:0:150,scale=1180:516,setsar=1"     # same as the frame before
     fc=(f"color=c=white:s=1920x1080:r=30[bg];"
-        f"[0:v]{CROP},drawbox=w=iw:h=ih:color=black:t=4[clay];"
-        f"[1:v]{CROP},drawbox=w=iw:h=ih:color=black:t=4[sieve];"
-        "[bg][clay]overlay=x=60:y=25:shortest=1[a];"
-        "[a][sieve]overlay=x=60:y=545:shortest=1[b];"
+        f"[0:v]{CROP},drawbox=w=iw:h=ih:color=black:t=5[clay];"
+        f"[1:v]{CROP},drawbox=w=iw:h=ih:color=black:t=5[sieve];"
+        "[bg][clay]overlay=x=55:y=30:shortest=1[a];"
+        "[a][sieve]overlay=x=55:y=560:shortest=1[b];"
         f"[b]ass={a}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
     run([FF,"-y","-framerate","30","-i",str(CLAYSEQ/"c_%04d.png"),
          "-framerate","30","-i",str(SIEVESEQ/"s_%04d.png"),
