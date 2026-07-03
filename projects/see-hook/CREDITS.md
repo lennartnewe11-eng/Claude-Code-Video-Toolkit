@@ -30,7 +30,8 @@ Cartoon-Eimer (Chunk 2) selbst generiert: `scripts/gen_buckets.py`.
 ## Nutzer-Footage (vom Auftraggeber bereitgestellt)
 
 - **Regen-Video** (Hauptteil Chunk 2, „in den Regen stellen") — `main_assets/c2/rain.mp4`
-- **Baum-/Wolken-Video** (Hauptteil Chunk 3, Hockney-Joiner, Lückenfüller) — `main_assets/c3/tree.mp4`
+- **Baum-/Wolken-Video** (Hauptteil Chunk 3, Lückenfüller) — `main_assets/c3/tree.mp4`
+- **Töpfer-/Ton-Video** (Hauptteil Chunk 4, Aufsicht auf drehenden Ton) — `main_assets/c4_clay.mp4`
 - **Cartoon-Park, Höhle, Wasserstrom, Gegenlicht-See, Wiese, „See"-Wort-Animation**
   (Hauptteil Chunk 1) — `main_assets/*`
 
@@ -42,6 +43,11 @@ zurückgestellt), `scripts/gen_sieve.py` (Sand/Kies-Querschnitt, 2 Schichten),
 rote Typo in `scripts/build_c3.py`.
 S/W-Foto im roten Frame — *Waves sand shadows* (Wikimedia Commons) →
 `main_assets/c3/bw.jpg`.
+
+Chunk-4-Vergleichsfotos (Wikimedia Commons): *Nilnag Lake* (See) und
+*Cracked dry mud* (staubtrockene Senke) → `main_assets/c4/see.jpg`, `dry.jpg`.
+Ton-Querschnitt selbst generiert: `scripts/gen_clay.py`.
+Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läuft.
 
 - **Vögel-Intro** & **Schluss-See mit Fahrrädern** — `user_footage/birds.mp4`, `user_footage/lake_bikes.mp4`
 - **Mr. Bean** (2×) — `user_footage/mrbean.mp4` · © Tiger Aspect / Rowan Atkinson, nur nutzerseitige Verwendung
