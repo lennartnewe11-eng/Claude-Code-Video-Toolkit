@@ -42,7 +42,14 @@ def enc_seq(seqdir, pat, dur, dst):
          "-filter_complex",fc,"-map","[v]","-t",str(dur),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/dst)],dst)
 
-def beat_hockney(): enc_seq(HOCK,"h_%04d.png",D_HOCK,"m3_b1.mp4")
+# beat 1: just show the tree filler clip plainly (the Hockney joiner effect is
+# kept in gen_hockney.py for a later video, not used here).
+def beat_tree():
+    fc=(f"[0:v]{NORM},{GRADE}[pre];[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL)
+    run([FF,"-y","-i",str(MA/'c3'/'tree.mp4'),"-loop","1","-i",SCAN,
+         "-filter_complex",fc,"-map","[v]","-t",str(D_HOCK),"-r","30",
+         "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"m3_b1.mp4")],"tree")
+
 def beat_sieve():   enc_seq(SIEVE,"s_%04d.png",D_SIEVE,"m3_b2.mp4")
 
 # ---- beat 3: red poster typography ------------------------------------------
@@ -59,10 +66,11 @@ def write_red_ass():
     ]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     END=at(D_RED)
-    # scattered thin words (\an7 = top-left anchor at pos)
-    scattered=[("Egal",260,170,0.10,"Word"),("wie viel",720,150,0.30,"Word"),
-               ("es",1180,150,0.50,"Word"),("hier bleibt",1120,470,0.70,"Word"),
-               ("nichts",1240,650,0.95,"WordU"),("stehen",1470,830,1.15,"Word")]
+    # scattered thin words (\an7 = top-left anchor at pos); bottom-right kept
+    # clear for the black & white photo.
+    scattered=[("Egal",240,170,0.10,"Word"),("wie viel",770,150,0.30,"Word"),
+               ("es",1300,160,0.50,"Word"),("hier bleibt",720,430,0.70,"Word"),
+               ("nichts",1060,470,0.95,"WordU"),("stehen",760,720,1.15,"Word")]
     for txt,x,y,st,sty in scattered:
         ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,"
                   f"{{\\pos({x},{y})\\fad(220,180)}}{txt}")
@@ -83,14 +91,18 @@ def write_red_ass():
 def beat_red():
     write_red_ass()
     red=(BUILD/"m3_red.ass").as_posix()
+    # red poster bg + scattered/cascading type, with an aesthetic B&W photo set
+    # hard-edged into the bottom-right (like the portrait in the reference).
     fc=(f"color=c={REDHEX}:s=1920x1080:r=30[bg];"
-        f"[bg]ass={red}:fontsdir={FONTS.as_posix()}[pre];"
+        f"[bg]ass={red}:fontsdir={FONTS.as_posix()}[txt];"
+        "[0:v]scale=640:-1,setsar=1,fade=t=in:st=1.05:d=0.4[bw];"
+        "[txt][bw]overlay=x=1170:y=560:shortest=1[pre];"
         "[1:v]scale=1920:1080,setsar=1[sc];"
         "[pre][sc]blend=all_mode=multiply:all_opacity=0.12:shortest=1[m];"
         "[m]noise=alls=3:allf=t,format=yuv420p[v]")
-    run([FF,"-y","-loop","1","-i",SCAN,"-loop","1","-i",SCAN,"-filter_complex",fc,
-         "-map","[v]","-t",str(D_RED),"-r","30","-c:v","libx264","-preset","medium",
-         "-crf","18",str(BUILD/"m3_b3.mp4")],"red")
+    run([FF,"-y","-loop","1","-i",str(MA/'c3'/'bw.jpg'),"-loop","1","-i",SCAN,
+         "-filter_complex",fc,"-map","[v]","-t",str(D_RED),"-r","30","-c:v","libx264",
+         "-preset","medium","-crf","18",str(BUILD/"m3_b3.mp4")],"red")
 
 # ---- captions (skip the red-typography range; that beat carries its own text)-
 def write_captions():
@@ -141,7 +153,7 @@ def final():
     print("  ->", OUT/"main_chunk3.mp4")
 
 if __name__=="__main__":
-    print("[1/4] hockney joiner"); beat_hockney()
+    print("[1/4] tree (plain)"); beat_tree()
     print("[2/4] sieve");          beat_sieve()
     print("[3/4] red typography"); beat_red()
     (BUILD/"m3_concat.txt").write_text(

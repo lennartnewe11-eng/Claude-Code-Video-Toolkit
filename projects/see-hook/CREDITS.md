@@ -37,8 +37,11 @@ Cartoon-Eimer (Chunk 2) selbst generiert: `scripts/gen_buckets.py`.
 Referenzbilder vom Nutzer (nur als Stil-Vorlage, nicht im Video):
 `main_assets/c3/ref_hockney.jpg` (David Hockney „joiner"-Collage),
 `main_assets/c3/ref_red_type.jpg` (rotes Plakat-Typo-Design).
-Chunk-3-Grafiken selbst generiert: `scripts/gen_hockney.py` (Joiner),
-`scripts/gen_sieve.py` (Sand/Kies-Querschnitt), rote Typo in `scripts/build_c3.py`.
+Chunk-3-Grafiken selbst generiert: `scripts/gen_hockney.py` (Joiner, aktuell
+zurückgestellt), `scripts/gen_sieve.py` (Sand/Kies-Querschnitt, 2 Schichten),
+rote Typo in `scripts/build_c3.py`.
+S/W-Foto im roten Frame — *Waves sand shadows* (Wikimedia Commons) →
+`main_assets/c3/bw.jpg`.
 
 - **Vögel-Intro** & **Schluss-See mit Fahrrädern** — `user_footage/birds.mp4`, `user_footage/lake_bikes.mp4`
 - **Mr. Bean** (2×) — `user_footage/mrbean.mp4` · © Tiger Aspect / Rowan Atkinson, nur nutzerseitige Verwendung

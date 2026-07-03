@@ -12,24 +12,32 @@ DUR = 8.75
 N = int(DUR*FPS)
 
 SKY   = (216, 228, 234)
-SAND  = (214, 190, 132)
-SAND2 = (198, 172, 112)
-PEB   = (150, 132, 96)
-PEB2  = (120, 104, 74)
+SAND  = (216, 192, 134)          # top layer: fine sand
+SANDG = (196, 170, 110)          # fine sand grains
+KIES  = (176, 168, 156)          # lower layer: gravel bed (cooler/greyer)
+PEB   = (138, 128, 112)
+PEB2  = (104, 96, 84)
+PEB3  = (150, 140, 120)
 WATER = (60, 150, 200)
 RAIN  = (120, 140, 158)
 INK   = (44, 50, 58)
 
 random.seed(5)
 SURF = 430
+SPLIT = 730                       # boundary between the sand layer and the gravel layer
 def surf_y(x):
     # shallow bowl centered at 960, half-width 360, depth 95
     dx=(x-960)/360.0
     return SURF + (95*(1-dx*dx) if abs(dx)<1 else 0)
 
-PEBBLES=[(random.randint(0,W), random.randint(SURF+10,H),
-          random.randint(6,16), random.choice([PEB,PEB2,SAND2]))
-         for _ in range(520)]
+# fine sand grains (top layer only)
+SANDGRAINS=[(random.randint(0,W), random.randint(SURF,SPLIT),
+             random.randint(3,7), random.choice([SANDG,SAND]))
+            for _ in range(600)]
+# gravel stones (lower layer only) -- bigger
+PEBBLES=[(random.randint(0,W), random.randint(SPLIT,H),
+          random.randint(12,26), random.choice([PEB,PEB2,PEB3]))
+         for _ in range(300)]
 RAINDROPS=[(random.randint(0,W), random.randint(-H,0),
             random.randint(24,42), random.uniform(15,24)) for _ in range(130)]
 # seeping water columns: x near the bowl, each a falling particle cycling down
@@ -40,14 +48,19 @@ def draw(i):
     t=i/FPS
     im=Image.new("RGB",(W,H),SKY)
     d=ImageDraw.Draw(im,"RGBA")
-    # underground sand fill
-    pts=[(0,H),(0,surf_y(0))]+[ (x,surf_y(x)) for x in range(0,W+1,20) ]+[(W,surf_y(W)),(W,H)]
-    d.polygon(pts, fill=SAND)
-    # pebbles / gravel
+    # lower layer: gravel bed (Kies)
+    d.rectangle([0,SPLIT,W,H], fill=KIES)
     for (px,py,pr,col) in PEBBLES:
+        d.ellipse([px-pr,py-pr,px+pr,py+pr], fill=col+(230,))
+    # top layer: fine sand, from the (bowl) surface down to SPLIT
+    pts=[(0,SPLIT),(0,surf_y(0))]+[ (x,surf_y(x)) for x in range(0,W+1,20) ]+[(W,surf_y(W)),(W,SPLIT)]
+    d.polygon(pts, fill=SAND)
+    for (px,py,pr,col) in SANDGRAINS:
         if py>surf_y(px):
-            d.ellipse([px-pr,py-pr,px+pr,py+pr], fill=col+(210,))
-    # surface line
+            d.ellipse([px-pr,py-pr,px+pr,py+pr], fill=col+(190,))
+    # layer boundary (dashed) + surface line
+    for x in range(0,W,46):
+        d.line([(x,SPLIT),(x+26,SPLIT)], fill=INK+(150,), width=4)
     d.line([(x,surf_y(x)) for x in range(0,W+1,8)], fill=INK, width=5)
     # rain
     for (x,y0,ln,sp) in RAINDROPS:
