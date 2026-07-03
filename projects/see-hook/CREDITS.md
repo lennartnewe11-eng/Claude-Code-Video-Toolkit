@@ -30,8 +30,15 @@ Cartoon-Eimer (Chunk 2) selbst generiert: `scripts/gen_buckets.py`.
 ## Nutzer-Footage (vom Auftraggeber bereitgestellt)
 
 - **Regen-Video** (Hauptteil Chunk 2, „in den Regen stellen") — `main_assets/c2/rain.mp4`
+- **Baum-/Wolken-Video** (Hauptteil Chunk 3, Hockney-Joiner, Lückenfüller) — `main_assets/c3/tree.mp4`
 - **Cartoon-Park, Höhle, Wasserstrom, Gegenlicht-See, Wiese, „See"-Wort-Animation**
   (Hauptteil Chunk 1) — `main_assets/*`
+
+Referenzbilder vom Nutzer (nur als Stil-Vorlage, nicht im Video):
+`main_assets/c3/ref_hockney.jpg` (David Hockney „joiner"-Collage),
+`main_assets/c3/ref_red_type.jpg` (rotes Plakat-Typo-Design).
+Chunk-3-Grafiken selbst generiert: `scripts/gen_hockney.py` (Joiner),
+`scripts/gen_sieve.py` (Sand/Kies-Querschnitt), rote Typo in `scripts/build_c3.py`.
 
 - **Vögel-Intro** & **Schluss-See mit Fahrrädern** — `user_footage/birds.mp4`, `user_footage/lake_bikes.mp4`
 - **Mr. Bean** (2×) — `user_footage/mrbean.mp4` · © Tiger Aspect / Rowan Atkinson, nur nutzerseitige Verwendung
