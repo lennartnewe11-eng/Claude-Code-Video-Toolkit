@@ -72,15 +72,15 @@ def beat_buckets(dur=D_BKT):
 
 # ---- beat 3: rain clip on white (no frame) + creative "REGEN" word ----------
 def write_regen_ass():
-    # kinetic word: two "REGEN" lines stacked -- letters drop in from above like
-    # rain. BLACK fill with a soft white glow so it reads both on the white
-    # background (top line) and over the dark video (bottom line). The two lines
-    # straddle the top edge of the framed clip (y=146).
-    style=("Style: Big,Liberation Sans,100,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,"
-           "-1,0,0,0,100,100,5,0,1,3,0,5,0,0,0,1")
+    # kinetic word: two "REGEN" lines stacked at the RIGHT edge of the framed
+    # clip (edge x=1660) so each word straddles it -- its left letters fall over
+    # the dark video, its right letters over the white margin. Letters drop in
+    # from above like rain. BLACK fill + soft white glow so it reads on both.
+    style=("Style: Big,Liberation Sans,82,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,"
+           "-1,0,0,0,100,100,1,0,1,3,0,5,0,0,0,1")
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
-    letters="REGEN"; cx=960; sp=122
-    for li,ytar in enumerate((92, 225)):        # line 0 on white, line 1 on video
+    letters="REGEN"; cx=1660; sp=64           # tighter; straddles the clip's right edge (1660)
+    for li,ytar in enumerate((385, 530)):     # two lines under each other
         for k,ch in enumerate(letters):
             x=cx+(k-2)*sp
             st=1.20+li*0.30+k*0.10; en=4.70
