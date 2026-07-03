@@ -114,39 +114,39 @@ def beat_compare():
 
 # ---- beat 4: editorial typography (last animated beat) ----------------------
 def write_b4_ass():
-    # editorial black-on-white type in the RIGHT column (ref bruh.jpg): the
-    # "durchlässig" cascade the user liked, plus the spoken sentence, stacked
-    # left-aligned. The two animation videos sit stacked on the LEFT.
+    # editorial black-on-white (ref 510.jpg), exactly like the previous version:
+    # "durchlässig" cascaded left-aligned; the spoken sentence on the right.
+    # This types goes OVER the two stacked animation videos.
     styles=[
-        "Style: Casc,Liberation Sans,66,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1",
-        "Style: RB,Liberation Sans,74,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,2,0,1,0,0,7,0,0,0,1",
-        "Style: RM,Liberation Sans,54,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,2,0,1,0,0,7,0,0,0,1",
+        "Style: Casc,Liberation Sans,80,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1",
+        "Style: RB,Liberation Sans,104,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,3,0,1,0,0,5,0,0,0,1",
+        "Style: RM,Liberation Sans,72,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,3,0,1,0,0,5,0,0,0,1",
     ]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
-    END=at(D_B4); X=1300
-    # spoken sentence, stacked left-aligned, appearing as spoken (local=abs-69.59)
-    right=[("Unter dem einen",120,0.10,"RM"),("liegt Ton",205,0.92,"RB"),
-           ("unter dem anderen",330,1.70,"RM"),("eine",455,3.20,"RM"),
-           ("Sand- oder Kies",535,4.09,"RB")]
-    for txt,y,st,sty in right:
-        ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,{{\\an7\\pos({X},{y})\\fad(200,120)}}{txt}")
-    # "durchlässig" cascade, stacked, one after another (lower right)
-    for k in range(6):
-        y=690+k*58; st=3.0+k*0.12
-        ev.append(f"Dialogue: 0,{at(st)},{END},Casc,,0,0,0,,{{\\an7\\pos({X},{y})\\fad(140,0)}}durchlässig")
+    END=at(D_B4)
+    for k in range(9):
+        y=250+k*76; st=2.9+k*0.11
+        ev.append(f"Dialogue: 0,{at(st)},{END},Casc,,0,0,0,,"
+                  f"{{\\an7\\pos(70,{y})\\fad(150,0)}}durchlässig")
+    right=[("Unter dem einen",1330,180,0.10,"RM"),("liegt Ton",1520,320,0.92,"RB"),
+           ("unter dem anderen",1280,500,1.70,"RM"),
+           ("eine durchlässige",1330,650,3.37,"RM"),
+           ("Sand-",1300,800,4.09,"RB"),("oder Kies",1560,800,4.55,"RB")]
+    for txt,x,y,st,sty in right:
+        ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,{{\\an5\\pos({x},{y})\\fad(220,120)}}{txt}")
     (BUILD/"m4_b4.ass").write_text(ass_header(styles)+"\n".join(ev)+"\n")
 
 def beat_split():
-    # reference bruh.jpg: two animation videos (clay + sieve cross-sections)
-    # stacked vertically, left-aligned; editorial type in the right column.
+    # two animation videos (clay + sieve cross-sections) stacked vertically,
+    # near full width, with the editorial typography laid OVER them.
     write_b4_ass()
     a=(BUILD/"m4_b4.ass").as_posix()
-    CROP="crop=1920:840:0:150,scale=1180:516,setsar=1"     # trim to the informative band
+    CROP="crop=1920:600:0:230,scale=1800:500,setsar=1"
     fc=(f"color=c=white:s=1920x1080:r=30[bg];"
-        f"[0:v]{CROP},drawbox=w=iw:h=ih:color=black:t=5[clay];"
-        f"[1:v]{CROP},drawbox=w=iw:h=ih:color=black:t=5[sieve];"
-        "[bg][clay]overlay=x=55:y=30:shortest=1[a];"
-        "[a][sieve]overlay=x=55:y=560:shortest=1[b];"
+        f"[0:v]{CROP},drawbox=w=iw:h=ih:color=black:t=4[clay];"
+        f"[1:v]{CROP},drawbox=w=iw:h=ih:color=black:t=4[sieve];"
+        "[bg][clay]overlay=x=60:y=25:shortest=1[a];"
+        "[a][sieve]overlay=x=60:y=545:shortest=1[b];"
         f"[b]ass={a}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
     run([FF,"-y","-framerate","30","-i",str(CLAYSEQ/"c_%04d.png"),
          "-framerate","30","-i",str(SIEVESEQ/"s_%04d.png"),
