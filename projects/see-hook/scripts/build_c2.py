@@ -37,9 +37,10 @@ def run(cmd, label=""):
     return p
 
 # ---- beat 1: scattered-polaroid collage -------------------------------------
+# small, upright photos scattered at varied heights (reference-style)
 # (top-left x, y, pop-in time)  paired with pol_00..06
-LAYOUT = [(100, 80, 0.3), (720, 40, 1.0), (1285, 105, 1.7),
-          (330, 470, 2.5), (1180, 500, 3.3), (150, 545, 4.1), (760, 530, 4.9)]
+LAYOUT = [(150, 150, 0.3), (560, 95, 1.0), (1055, 120, 1.7),
+          (1500, 285, 2.5), (320, 520, 3.3), (835, 560, 4.1), (1255, 655, 4.9)]
 
 def beat_collage(dur=D_COL):
     ins = ["-loop","1","-i",str(IMG/"bg.jpg")]
@@ -69,20 +70,39 @@ def beat_buckets(dur=D_BKT):
          "-r","30","-c:v","libx264","-preset","medium","-crf","18",
          str(BUILD/"m2_b2.mp4")],"buckets")
 
-# ---- beat 3: rain clip, slightly zoomed out, framed on white ----------------
+# ---- beat 3: rain clip on white (no frame) + creative "REGEN" word ----------
+def write_regen_ass():
+    # kinetic word: the letters of REGEN drop in from above like rain, hold,
+    # then fade -- yellow glow brand style, upper third so it clears the caption.
+    style=("Style: Big,Liberation Sans,120,&H0000E9F4,&H0000E9F4,&H0000E9F4,&H50101010,"
+           "-1,0,0,0,100,100,6,0,1,0,4,5,0,0,0,1")
+    ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
+    letters="REGEN"; cx=960; sp=138; ytar=225
+    for k,ch in enumerate(letters):
+        x=cx+(k-2)*sp
+        st=1.30+k*0.11; en=4.70
+        mv=f"\\move({x},-80,{x},{ytar},0,{int(360)})"
+        ev.append(f"Dialogue: 1,{at(st)},{at(en)},Big,,0,0,0,,"
+                  f"{{{mv}\\fad(160,360)\\blur6}}{ch}")
+    header=("[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\n"
+            "ScaledBorderAndShadow: yes\n\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, "
+            "PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, "
+            "StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, "
+            "MarginL, MarginR, MarginV, Encoding\n"+style+"\n\n")
+    (BUILD/"m2_regen.ass").write_text(header+"\n".join(ev)+"\n")
+
 def beat_rain(dur=D_RAIN):
-    # keep the background genuinely WHITE: grade + CRT only touch the rain clip,
-    # the white plate and its shadow stay clean.
+    # rain clip presented slightly zoomed-out on a genuinely WHITE background,
+    # NO polaroid frame/shadow (size kept), plus the kinetic "REGEN" word.
+    write_regen_ass()
+    regen=(BUILD/"m2_regen.ass").as_posix()
     fc = ("color=c=white:s=1920x1080:r=30[white];"
           f"[1:v]scale=1920:1080,setsar=1[sc];"
           f"[0:v]{NORM},{GRADE}[gc];"
           "[gc][sc]blend=all_mode=multiply:all_opacity=0.30:shortest=1[cm];"
           "[cm]vignette=PI/7,noise=alls=4:allf=t,scale=1400:788,setsar=1[clip];"
-          # soft drop shadow: a blurred dark plate behind the clip
-          "color=c=black:s=1440x828:r=30,format=yuva420p,"
-          "colorchannelmixer=aa=0.26,boxblur=20[shadow];"
-          "[white][shadow]overlay=x=(W-w)/2+10:y=(H-h)/2+16:shortest=1[ws];"
-          "[ws][clip]overlay=x=(W-w)/2:y=(H-h)/2:shortest=1,format=yuv420p[v]")
+          "[white][clip]overlay=x=(W-w)/2:y=(H-h)/2:shortest=1[base];"
+          f"[base]ass={regen}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
     run([FF,"-y","-ss","1","-i",str(C2/"rain.mp4"),"-loop","1","-i",SCAN,
          "-filter_complex",fc,"-map","[v]","-t",str(dur),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",
