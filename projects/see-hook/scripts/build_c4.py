@@ -23,6 +23,7 @@ SONG_OFFSET = 76.90 + VO_START
 D_B1, D_B2, D_B3, D_B4 = 7.42, 6.05, 6.49, 4.96
 TOTAL = D_B1 + D_B2 + D_B3 + D_B4
 B1_A, B1_B = 49.64, 57.06            # captions suppressed here (typographic beat)
+B4_A, B4_B = 69.59, 74.55            # editorial beat carries its own text
 
 NORM = ("scale=1920:1080:force_original_aspect_ratio=increase,"
         "crop=1920:1080,fps=30,setsar=1,format=yuv420p")
@@ -111,20 +112,38 @@ def beat_compare():
          "-filter_complex",fc,"-map","[v]","-t",str(D_B3),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"m4_b3.mp4")],"compare")
 
-# ---- beat 4: split cross-section Ton | Sand/Kies ----------------------------
+# ---- beat 4: editorial typography (last animated beat) ----------------------
+def write_b4_ass():
+    # editorial black-on-white (ref 510.jpg): "durchlässig" cascaded, left-
+    # aligned and stacked down the LEFT; the spoken sentence filling the RIGHT.
+    styles=[
+        "Style: Casc,Liberation Sans,80,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1",
+        "Style: RB,Liberation Sans,104,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,3,0,1,0,0,5,0,0,0,1",
+        "Style: RM,Liberation Sans,72,&H00181818,&H00181818,&H00FFFFFF,&H00000000,0,0,0,0,100,100,3,0,1,0,0,5,0,0,0,1",
+    ]
+    ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
+    END=at(D_B4)
+    for k in range(9):                       # cascade, one after another
+        y=250+k*76; st=2.9+k*0.11
+        ev.append(f"Dialogue: 0,{at(st)},{END},Casc,,0,0,0,,"
+                  f"{{\\an7\\pos(70,{y})\\fad(150,0)}}durchlässig")
+    # right: the spoken sentence, black, appearing as spoken (local = abs-69.59)
+    right=[("Unter dem einen",1330,180,0.10,"RM"),("liegt Ton",1520,320,0.92,"RB"),
+           ("unter dem anderen",1280,500,1.70,"RM"),
+           ("eine durchlässige",1330,650,3.37,"RM"),
+           ("Sand-",1300,800,4.09,"RB"),("oder Kies",1560,800,4.55,"RB")]
+    for txt,x,y,st,sty in right:
+        ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,{{\\an5\\pos({x},{y})\\fad(220,120)}}{txt}")
+    (BUILD/"m4_b4.ass").write_text(ass_header(styles)+"\n".join(ev)+"\n")
+
 def beat_split():
-    write_label_ass("m4_b4.ass","Ton","Sand · Kies")
+    write_b4_ass()
     a=(BUILD/"m4_b4.ass").as_posix()
-    fc=("[0:v]crop=960:1080:480:0,setsar=1[l];"
-        "[1:v]crop=960:1080:480:0,setsar=1[r];"
-        "[l][r]hstack=inputs=2,drawbox=x=956:y=0:w=8:h=1080:color=black@0.85:t=fill,"
-        f"{GRADE}[pre];[2:v]scale=1920:1080,setsar=1[sc];"
-        "[pre][sc]blend=all_mode=multiply:all_opacity=0.34:shortest=1[m];"
-        f"[m]vignette=PI/6,noise=alls=4:allf=t[g];[g]ass={a}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
-    run([FF,"-y","-framerate","30","-i",str(CLAYSEQ/"c_%04d.png"),
-         "-framerate","30","-i",str(SIEVESEQ/"s_%04d.png"),"-loop","1","-i",SCAN,
-         "-filter_complex",fc,"-map","[v]","-t",str(D_B4),"-r","30","-c:v","libx264",
-         "-preset","medium","-crf","18",str(BUILD/"m4_b4.mp4")],"split")
+    fc=(f"color=c=white:s=1920x1080:r=30[bg];"
+        f"[bg]ass={a}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
+    run([FF,"-y","-loop","1","-i",SCAN,"-filter_complex",fc,"-map","[v]","-t",str(D_B4),
+         "-r","30","-c:v","libx264","-preset","medium","-crf","18",
+         str(BUILD/"m4_b4.mp4")],"editorial")
 
 # ---- captions (suppress the typographic beat 1) -----------------------------
 def write_captions():
@@ -133,7 +152,8 @@ def write_captions():
         for w in seg["words"]:
             st=w.get("start")
             if st is None: continue
-            if VO_START-0.2<=st<VO_START+TOTAL and not (B1_A-0.15<=st<B1_B):
+            if VO_START-0.2<=st<VO_START+TOTAL and not (B1_A-0.15<=st<B1_B) \
+                    and not (B4_A-0.15<=st<B4_B):
                 words.append(w)
     lines,cur=[],[]
     for w in words:
