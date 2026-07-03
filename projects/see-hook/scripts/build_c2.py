@@ -37,10 +37,10 @@ def run(cmd, label=""):
     return p
 
 # ---- beat 1: scattered-polaroid collage -------------------------------------
-# small, upright photos scattered at varied heights (reference-style)
+# small, upright photos scattered RANDOMLY (irregular heights, no ring/oval)
 # (top-left x, y, pop-in time)  paired with pol_00..06
-LAYOUT = [(150, 150, 0.3), (560, 95, 1.0), (1055, 120, 1.7),
-          (1500, 285, 2.5), (320, 520, 3.3), (835, 560, 4.1), (1255, 655, 4.9)]
+LAYOUT = [(110, 105, 0.3), (470, 250, 2.4), (880, 95, 1.0),
+          (1270, 180, 3.1), (1560, 470, 1.7), (250, 585, 3.7), (860, 600, 4.5)]
 
 def beat_collage(dur=D_COL):
     ins = ["-loop","1","-i",str(IMG/"bg.jpg")]
@@ -72,18 +72,21 @@ def beat_buckets(dur=D_BKT):
 
 # ---- beat 3: rain clip on white (no frame) + creative "REGEN" word ----------
 def write_regen_ass():
-    # kinetic word: the letters of REGEN drop in from above like rain, hold,
-    # then fade -- yellow glow brand style, upper third so it clears the caption.
-    style=("Style: Big,Liberation Sans,120,&H0000E9F4,&H0000E9F4,&H0000E9F4,&H50101010,"
-           "-1,0,0,0,100,100,6,0,1,0,4,5,0,0,0,1")
+    # kinetic word: two "REGEN" lines stacked -- letters drop in from above like
+    # rain. BLACK fill with a soft white glow so it reads both on the white
+    # background (top line) and over the dark video (bottom line). The two lines
+    # straddle the top edge of the framed clip (y=146).
+    style=("Style: Big,Liberation Sans,100,&H00000000,&H00000000,&H00FFFFFF,&H00FFFFFF,"
+           "-1,0,0,0,100,100,5,0,1,3,0,5,0,0,0,1")
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
-    letters="REGEN"; cx=960; sp=138; ytar=225
-    for k,ch in enumerate(letters):
-        x=cx+(k-2)*sp
-        st=1.30+k*0.11; en=4.70
-        mv=f"\\move({x},-80,{x},{ytar},0,{int(360)})"
-        ev.append(f"Dialogue: 1,{at(st)},{at(en)},Big,,0,0,0,,"
-                  f"{{{mv}\\fad(160,360)\\blur6}}{ch}")
+    letters="REGEN"; cx=960; sp=122
+    for li,ytar in enumerate((92, 225)):        # line 0 on white, line 1 on video
+        for k,ch in enumerate(letters):
+            x=cx+(k-2)*sp
+            st=1.20+li*0.30+k*0.10; en=4.70
+            mv=f"\\move({x},-80,{x},{ytar},0,360)"
+            ev.append(f"Dialogue: 1,{at(st)},{at(en)},Big,,0,0,0,,"
+                      f"{{{mv}\\fad(160,360)\\blur5}}{ch}")
     header=("[Script Info]\nScriptType: v4.00+\nPlayResX: 1920\nPlayResY: 1080\n"
             "ScaledBorderAndShadow: yes\n\n[V4+ Styles]\nFormat: Name, Fontname, Fontsize, "
             "PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, "
