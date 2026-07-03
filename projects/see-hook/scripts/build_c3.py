@@ -94,9 +94,11 @@ def beat_red():
     # red poster bg + scattered/cascading type, with an aesthetic B&W photo set
     # hard-edged into the bottom-right (like the portrait in the reference).
     fc=(f"color=c={REDHEX}:s=1920x1080:r=30[bg];"
-        f"[bg]ass={red}:fontsdir={FONTS.as_posix()}[txt];"
-        "[0:v]scale=640:-1,setsar=1,fade=t=in:st=1.05:d=0.4[bw];"
-        "[txt][bw]overlay=x=1170:y=560:shortest=1[pre];"
+        # B&W photo is present from the start (with the red bg); only the type
+        # animates in on top of it.
+        "[0:v]scale=640:-1,setsar=1[bw];"
+        f"[bg][bw]overlay=x=1170:y=560:shortest=1[base];"
+        f"[base]ass={red}:fontsdir={FONTS.as_posix()}[pre];"
         "[1:v]scale=1920:1080,setsar=1[sc];"
         "[pre][sc]blend=all_mode=multiply:all_opacity=0.12:shortest=1[m];"
         "[m]noise=alls=3:allf=t,format=yuv420p[v]")
