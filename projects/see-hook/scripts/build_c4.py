@@ -15,8 +15,8 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 BUILD, OUT, MA, AUD, FONTS = (ROOT/"build", ROOT/"out", ROOT/"main_assets",
                               ROOT/"audio", ROOT/"fonts")
 FF = "ffmpeg"; SCAN = str(BUILD/"scanlines.png")
-CLAYSEQ = BUILD/"c4_clay"; SIEVESEQ = BUILD/"c3_sieve"
-FEATHER = str(BUILD/"c4_feather.png")
+CLAYSEQ = BUILD/"c4_clay"; SIEVESEQ = BUILD/"c3_sieve"; CARDSEQ = BUILD/"c4_cards"
+FEATHER = str(BUILD/"c4_feather2.png")
 
 VO_START = 49.64
 SONG_OFFSET = 76.90 + VO_START
@@ -52,37 +52,39 @@ def ass_header(styles):
 
 # ---- beat 1: clay clip feathered into white + yellow typography --------------
 def write_b1_ass():
-    # yellow fill + dark outline (readable on white and on the dark clay)
+    # clean, thin, well-spaced yellow poster type (ref 510.jpg) -- NO shadow,
+    # NO glow. A thin dark outline only, so it stays legible over white/clay.
     styles=[
-        "Style: YB,Liberation Sans,132,&H0000E9F4,&H0000E9F4,&H00202024,&H00202024,-1,0,0,0,100,100,2,0,1,4,0,5,0,0,0,1",
-        "Style: YM,Liberation Sans,84,&H0000E9F4,&H0000E9F4,&H00202024,&H00202024,-1,0,0,0,100,100,2,0,1,4,0,5,0,0,0,1",
-        "Style: YS,Liberation Sans,56,&H0000E9F4,&H0000E9F4,&H00202024,&H00202024,0,0,0,0,100,100,3,0,1,3,0,5,0,0,0,1",
+        "Style: YB,Liberation Sans,124,&H0000E9F4,&H0000E9F4,&H002A2A2E,&H00000000,0,0,0,0,100,100,4,0,1,2,0,5,0,0,0,1",
+        "Style: YM,Liberation Sans,80,&H0000E9F4,&H0000E9F4,&H002A2A2E,&H00000000,0,0,0,0,100,100,4,0,1,2,0,5,0,0,0,1",
+        "Style: YS,Liberation Sans,52,&H0000E9F4,&H0000E9F4,&H002A2A2E,&H00000000,0,0,1,0,100,100,5,0,1,2,0,5,0,0,0,1",
     ]
     END=at(D_B1)
-    words=[("undurchlässige Schicht",680,150,2.35,"YS"),
-           ("Ton",720,300,4.55,"YB"),
-           ("Lehm",1210,470,5.30,"YM"),
-           ("oder massiver",690,690,5.85,"YS"),
-           ("Fels",1180,760,6.30,"YM")]
+    words=[("undurchlässige Schicht",560,160,2.35,"YS"),
+           ("Ton",560,330,4.55,"YB"),
+           ("Lehm",1330,470,5.30,"YM"),
+           ("oder massiver",600,720,5.85,"YS"),
+           ("Fels",1300,760,6.30,"YM")]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     for txt,x,y,st,sty in words:
-        ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,{{\\pos({x},{y})\\fad(240,160)\\blur3}}{txt}")
+        ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,{{\\an5\\pos({x},{y})\\fad(240,160)}}{txt}")
     (BUILD/"m4_b1.ass").write_text(ass_header(styles)+"\n".join(ev)+"\n")
 
 def beat_clay_title():
     write_b1_ass()
     a=(BUILD/"m4_b1.ass").as_posix()
+    # natural clay clip dissolved into white with a big soft feather (like the
+    # Teil-2 flower clip): the dark background lifts to white and the edges melt
+    # away, so there is no visible frame/transition.
     fc=("color=c=white:s=1920x1080:r=30[white];"
-        f"[0:v]setpts=1.35*PTS,scale=495:880,setsar=1,{GRADE},format=gbrp[clip];"
-        "[1:v]format=gray,scale=495:880[mask];"
+        "[0:v]setpts=1.35*PTS,eq=brightness=0.07:contrast=1.06,"
+        "scale=760:1160,setsar=1,format=gbrp[clip];"
+        "[1:v]format=gray,scale=760:1160[mask];"
         "[clip][mask]alphamerge[clipa];"
         "[white][clipa]overlay=x=(W-w)/2:y=(H-h)/2:shortest=1[base];"
-        f"[base]ass={a}:fontsdir={FONTS.as_posix()}[txt];"
-        "[2:v]scale=1920:1080,setsar=1[sc];"
-        "[txt][sc]blend=all_mode=multiply:all_opacity=0.10:shortest=1[m];"
-        "[m]noise=alls=3:allf=t,format=yuv420p[v]")
+        f"[base]ass={a}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
     run([FF,"-y","-ss","4.0","-i",str(MA/"c4_clay.mp4"),"-loop","1","-i",FEATHER,
-         "-loop","1","-i",SCAN,"-filter_complex",fc,"-map","[v]","-t",str(D_B1),
+         "-filter_complex",fc,"-map","[v]","-t",str(D_B1),
          "-r","30","-c:v","libx264","-preset","medium","-crf","18",
          str(BUILD/"m4_b1.mp4")],"clay_title")
 
@@ -102,16 +104,11 @@ def write_label_ass(fname, left, right):
     (BUILD/fname).write_text(ass_header(styles)+"\n".join(ev)+"\n")
 
 def beat_compare():
-    write_label_ass("m4_b3.ass","dein See","500 m weiter")
-    a=(BUILD/"m4_b3.ass").as_posix()
-    fc=("[0:v]scale=960:1080:force_original_aspect_ratio=increase,crop=960:1080,setsar=1[l];"
-        "[1:v]scale=960:1080:force_original_aspect_ratio=increase,crop=960:1080,setsar=1[r];"
-        "[l][r]hstack=inputs=2,drawbox=x=956:y=0:w=8:h=1080:color=black@0.85:t=fill,"
-        f"{GRADE}[pre];[2:v]scale=1920:1080,setsar=1[sc];"
-        "[pre][sc]blend=all_mode=multiply:all_opacity=0.34:shortest=1[m];"
-        f"[m]vignette=PI/6,noise=alls=4:allf=t[g];[g]ass={a}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
-    run([FF,"-y","-loop","1","-i",str(MA/"c4"/"see.jpg"),"-loop","1","-i",str(MA/"c4"/"dry.jpg"),
-         "-loop","1","-i",SCAN,"-filter_complex",fc,"-map","[v]","-t",str(D_B3),"-r","30",
+    # two photo cards stacked on white, each pulled to the front when spoken;
+    # the narration captions carry the words, so no extra labels here.
+    fc=("[0:v]setsar=1,noise=alls=2:allf=t,format=yuv420p[v]")
+    run([FF,"-y","-framerate","30","-i",str(CARDSEQ/"k_%04d.png"),
+         "-filter_complex",fc,"-map","[v]","-t",str(D_B3),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"m4_b3.mp4")],"compare")
 
 # ---- beat 4: split cross-section Ton | Sand/Kies ----------------------------
@@ -161,11 +158,14 @@ def final():
          "-af",f"atrim={SONG_OFFSET}:{SONG_OFFSET+TOTAL},asetpts=PTS-STARTPTS",
          "-t",str(TOTAL),str(BUILD/"m4_song.wav")],"songbed")
     ass=(BUILD/"m4_caps.ass").as_posix()
+    # duck the music under the voice so every line (incl. "Das ist schon der
+    # erste Grund") stays clearly audible over the looped song.
     fc=(f"[0:v]ass={ass}:fontsdir={FONTS.as_posix()},"
         f"fade=t=in:d=0.4,fade=t=out:st={TOTAL-0.5}:d=0.5,format=yuv420p[v];"
-        f"[1:a]atrim={VO_START}:{VO_START+TOTAL},asetpts=PTS-STARTPTS,volume=1.0[vo];"
-        f"[2:a]volume=1.1[song];"
-        f"[song][vo]amix=inputs=2:normalize=0:duration=longest,alimiter=limit=0.95[a]")
+        f"[1:a]atrim={VO_START}:{VO_START+TOTAL},asetpts=PTS-STARTPTS,volume=1.15,asplit=2[vo1][vo2];"
+        f"[2:a]volume=0.85[song];"
+        f"[song][vo2]sidechaincompress=threshold=0.04:ratio=7:attack=12:release=320:makeup=1[songd];"
+        f"[songd][vo1]amix=inputs=2:normalize=0:duration=longest,alimiter=limit=0.95[a]")
     run([FF,"-y","-i",str(BUILD/"m4_full.mp4"),"-i",str(AUD/"main_vo.wav"),
          "-i",str(BUILD/"m4_song.wav"),
          "-filter_complex",fc,"-map","[v]","-map","[a]","-t",str(TOTAL),
