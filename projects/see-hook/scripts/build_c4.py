@@ -55,10 +55,12 @@ def ass_header(styles):
 def write_b1_ass():
     # clean, thin, well-spaced yellow poster type (ref 510.jpg) -- NO shadow,
     # NO glow. A thin dark outline only, so it stays legible over white/clay.
+    # same look as the subtitles: yellow fill, NO dark rim (yellow outline),
+    # soft glow via \blur -- arrangement unchanged.
     styles=[
-        "Style: YB,Liberation Sans,124,&H0000E9F4,&H0000E9F4,&H002A2A2E,&H00000000,0,0,0,0,100,100,4,0,1,2,0,5,0,0,0,1",
-        "Style: YM,Liberation Sans,80,&H0000E9F4,&H0000E9F4,&H002A2A2E,&H00000000,0,0,0,0,100,100,4,0,1,2,0,5,0,0,0,1",
-        "Style: YS,Liberation Sans,52,&H0000E9F4,&H0000E9F4,&H002A2A2E,&H00000000,0,0,1,0,100,100,5,0,1,2,0,5,0,0,0,1",
+        "Style: YB,Liberation Sans,124,&H0000E9F4,&H0000E9F4,&H0000E9F4,&H78101010,-1,0,0,0,100,100,2,0,1,2,2,5,0,0,0,1",
+        "Style: YM,Liberation Sans,80,&H0000E9F4,&H0000E9F4,&H0000E9F4,&H78101010,-1,0,0,0,100,100,2,0,1,2,2,5,0,0,0,1",
+        "Style: YS,Liberation Sans,52,&H0000E9F4,&H0000E9F4,&H0000E9F4,&H78101010,-1,0,0,0,100,100,3,0,1,2,2,5,0,0,0,1",
     ]
     END=at(D_B1)
     words=[("undurchlässige Schicht",560,160,2.35,"YS"),
@@ -68,7 +70,7 @@ def write_b1_ass():
            ("Fels",1300,760,6.30,"YM")]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     for txt,x,y,st,sty in words:
-        ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,{{\\an5\\pos({x},{y})\\fad(240,160)}}{txt}")
+        ev.append(f"Dialogue: 0,{at(st)},{END},{sty},,0,0,0,,{{\\an5\\pos({x},{y})\\fad(240,160)\\blur6}}{txt}")
     (BUILD/"m4_b1.ass").write_text(ass_header(styles)+"\n".join(ev)+"\n")
 
 def beat_clay_title():
