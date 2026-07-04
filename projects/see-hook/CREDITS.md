@@ -53,3 +53,9 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Mr. Bean** (2×) — `user_footage/mrbean.mp4` · © Tiger Aspect / Rowan Atkinson, nur nutzerseitige Verwendung
 - **Song** — `audio/song.mp3` · **Voiceover** — `audio/voiceover.wav`
   (der Song läuft durchgängig; vor „Aber jetzt mal wirklich" nur sehr leise gemischt)
+
+## Hauptteil Chunk 5 (Grundwasser)
+
+- **Mine-Shaft-Descent-Footage** — Archive.org `p-5100006-3` (Public Domain) → `main_assets/c5/mine.mp4` (nicht eingecheckt, re-fetchbar)
+- **Wasser-GIF, Spiegel-PNG, Referenzen (blue.jpg, Hand)** — vom Nutzer → `main_assets/c5/`
+- **Wikimedia Commons** (Collage/Spiegel-Fill): *Flowing artesian well*, *Suwannee soil water table*, *Ripple and reflections*, *Dramatic clouds Xiyuping* → `main_assets/c5/img/`
