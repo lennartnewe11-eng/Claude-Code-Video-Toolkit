@@ -24,27 +24,26 @@ def bw_photo(path, w, h):
     card.paste(im, (b, b))
     return card
 
-def b1_bg():
-    bg = Image.new("RGB", (W, H), BLUE)
-    d = ImageDraw.Draw(bg)
-    # scattered circles (behind photos)
-    for (x,y,r,c) in [(300,150,70,RED),(360,470,44,BLUED),(150,760,52,BLUED),
-                      (1520,300,120,RED),(1150,560,60,BLUED),(1640,720,40,RED)]:
-        d.ellipse([x-r,y-r,x+r,y+r], fill=c)
-    # left vertical filmstrip of 3 B&W photos, flush-stacked
+YEL  = (240, 210, 0)
+
+def b1_fg():
+    # transparent FOREGROUND layer: circles (yellow + blue) + B&W photo strip.
+    # Composited on top of white + the water gif, so all objects sit in front.
+    fg = Image.new("RGBA", (W, H), (0,0,0,0))
+    d = ImageDraw.Draw(fg)
+    for (x,y,r,c) in [(300,150,70,YEL),(360,470,44,BLUED),(150,760,52,YEL),
+                      (1520,300,120,YEL),(1150,560,60,BLUED),(1640,760,40,YEL)]:
+        d.ellipse([x-r,y-r,x+r,y+r], fill=c+(255,))
     photos=["p1.jpg","p2.jpg","p3.jpg"]
-    pw,ph = 340,236; x=120; y=110
+    pw,ph = 340,236; x=120; y=150
     for p in photos:
-        card=bw_photo(IMG/p, pw, ph)
-        # soft shadow
+        card=bw_photo(IMG/p, pw, ph).convert("RGBA")
         sh=Image.new("RGBA",(card.width+40,card.height+40),(0,0,0,0))
-        s=Image.new("RGBA",card.size,(0,0,0,90)); sh.paste(s,(24,28))
+        s=Image.new("RGBA",card.size,(0,0,0,80)); sh.paste(s,(24,28))
         sh=sh.filter(ImageFilter.GaussianBlur(10))
-        bg.paste(Image.alpha_composite(Image.new("RGBA",sh.size,(0,0,0,0)),sh).convert("RGB"),
-                 (x-8,y-8), sh)
-        bg.paste(card,(x,y))
+        fg.alpha_composite(sh,(x-16,y-16)); fg.alpha_composite(card,(x,y))
         y += ph+2*10 - 4
-    bg.save(BUILD/"c5_b1_bg.png"); print("b1 bg ok")
+    fg.save(BUILD/"c5_b1_fg.png"); print("b1 fg ok")
 
 def mirror_mask():
     # mirror.png is 426x640; glass oval ~ fractional box below
@@ -55,4 +54,4 @@ def mirror_mask():
     m.save(BUILD/"c5_mirror_mask.png"); print("mirror mask ok", (mw,mh))
 
 if __name__=="__main__":
-    b1_bg(); mirror_mask()
+    b1_fg(); mirror_mask()

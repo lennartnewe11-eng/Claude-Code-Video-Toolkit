@@ -50,10 +50,11 @@ def ass_header(styles):
 
 # ---- beat 1: editorial water frame ------------------------------------------
 def write_b1_ass():
+    # black editorial type (white background now)
     styles=[
-        "Style: T1,Liberation Sans,54,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,3,0,1,0,0,7,0,0,0,1",
-        "Style: T2,Liberation Sans,118,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,2,0,1,0,0,7,0,0,0,1",
-        "Style: T0,Liberation Sans,40,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H00000000,0,0,0,0,100,100,6,0,1,0,0,7,0,0,0,1",
+        "Style: T1,Liberation Sans,54,&H00181818,&H00181818,&H00181818,&H00000000,0,0,0,0,100,100,3,0,1,0,0,7,0,0,0,1",
+        "Style: T2,Liberation Sans,118,&H00181818,&H00181818,&H00181818,&H00000000,0,0,0,0,100,100,2,0,1,0,0,7,0,0,0,1",
+        "Style: T0,Liberation Sans,40,&H00181818,&H00181818,&H00181818,&H00000000,0,0,0,0,100,100,6,0,1,0,0,7,0,0,0,1",
     ]
     END=at(D_B1)
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
@@ -65,19 +66,27 @@ def write_b1_ass():
 def beat_water():
     write_b1_ass()
     a=(BUILD/"c5_b1.ass").as_posix()
-    fc=("[0:v]setsar=1[bg];"
+    # WHITE bg, water gif in the lower third, then ALL objects (photos, circles)
+    # + type in the foreground on top.
+    fc=("color=c=white:s=1920x1080:r=30[bg];"
         "[1:v]scale=1920:400,setsar=1[wat];"
         "[bg][wat]overlay=x=0:y=690:shortest=1[base];"
-        f"[base]ass={a}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
-    run([FF,"-y","-loop","1","-i",str(BUILD/"c5_b1_bg.png"),
+        "[2:v]setsar=1[fg];[base][fg]overlay=x=0:y=0:shortest=1[comp];"
+        f"[comp]ass={a}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
+    run([FF,"-y","-f","lavfi","-i","color=c=white:s=1920x1080:r=30",
          "-stream_loop","-1","-i",str(C5/"water.gif"),
+         "-loop","1","-i",str(BUILD/"c5_b1_fg.png"),
          "-filter_complex",fc,"-map","[v]","-t",str(D_B1),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c5_b1.mp4")],"water")
 
 # ---- beat 2: mine-shaft descent ---------------------------------------------
 def beat_mine():
-    fc=(f"[0:v]{NORM},{GRADE}[pre];[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL)
-    run([FF,"-y","-ss","63","-i",str(C5/"mine.mp4"),"-loop","1","-i",SCAN,
+    # old B&W pit-head winding tower -> cage (archive.org 1950s coal film);
+    # warm CRT grade gives it an archival sepia tone. Slight push-in.
+    fc=(f"[0:v]crop=iw:ih-54:0:6,{NORM},scale=2112:1188,"
+        f"crop=1920:1080:x='(iw-1920)/2':y='(ih-1080)*t/{D_B2}',"
+        f"{GRADE}[pre];[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL)
+    run([FF,"-y","-ss","0.3","-i",str(C5/"mine_bw.mp4"),"-loop","1","-i",SCAN,
          "-filter_complex",fc,"-map","[v]","-t",str(D_B2),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c5_b2.mp4")],"mine")
 
