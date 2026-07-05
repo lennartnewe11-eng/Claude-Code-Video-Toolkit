@@ -54,15 +54,17 @@ def kb(img, dur, dst, z="min(zoom+0.0006,1.18)", extra=""):
 # ---- beat 1: recap (two factors) --------------------------------------------
 def beat_recap():
     a=(BUILD/"c7_b1.ass")
-    styles=[f"Style: S,Liberation Sans,44,{BLK},{BLK},{BLK},&H00000000,0,0,0,0,100,100,5,0,1,0,0,7,0,0,0,1",
-            f"Style: B,Liberation Sans,96,{BLK},{BLK},{BLK},&H00000000,0,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1",
-            f"Style: N,Liberation Sans,110,{BLK},{BLK},{BLK},&H00000000,-1,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1"]
+    # prominent Helvetica (Liberation Sans, metric-identical), VERY tight letter
+    # spacing (negative Spacing + \fsp so glyphs almost touch)
+    styles=[f"Style: S,Liberation Sans,46,{BLK},{BLK},{BLK},&H00000000,-1,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1",
+            f"Style: B,Liberation Sans,132,{BLK},{BLK},{BLK},&H00000000,-1,0,0,0,100,100,-5,0,1,0,0,7,0,0,0,1",
+            f"Style: N,Liberation Sans,56,{BLK},{BLK},{BLK},&H00000000,-1,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1"]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(0.2)},{at(D_B1)},S,,0,0,0,,{{\\an7\\pos(120,120)\\fad(200,0)}}es kommt auf zwei Dinge an",
-        f"Dialogue: 0,{at(1.2)},{at(D_B1)},N,,0,0,0,,{{\\an7\\pos(220,320)\\fad(220,0)}}01",
-        f"Dialogue: 0,{at(1.4)},{at(D_B1)},B,,0,0,0,,{{\\an7\\pos(360,345)\\fad(220,0)}}Bodenbeschaffenheit",
-        f"Dialogue: 0,{at(2.8)},{at(D_B1)},N,,0,0,0,,{{\\an7\\pos(220,560)\\fad(220,0)}}02",
-        f"Dialogue: 0,{at(3.0)},{at(D_B1)},B,,0,0,0,,{{\\an7\\pos(360,585)\\fad(220,0)}}Grundwasserspiegel"]
+        f"Dialogue: 0,{at(0.2)},{at(D_B1)},S,,0,0,0,,{{\\an7\\pos(130,120)\\fad(200,0)}}es kommt auf zwei Dinge an",
+        f"Dialogue: 0,{at(1.1)},{at(D_B1)},N,,0,0,0,,{{\\an7\\pos(130,330)\\fad(220,0)}}01",
+        f"Dialogue: 0,{at(1.3)},{at(D_B1)},B,,0,0,0,,{{\\an7\\pos(130,400)\\fad(220,0)\\fsp-7}}Bodenbeschaffenheit",
+        f"Dialogue: 0,{at(2.9)},{at(D_B1)},N,,0,0,0,,{{\\an7\\pos(130,640)\\fad(220,0)}}02",
+        f"Dialogue: 0,{at(3.1)},{at(D_B1)},B,,0,0,0,,{{\\an7\\pos(130,710)\\fad(220,0)\\fsp-7}}Grundwasserspiegel"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
     fc=(f"color=c=white:s=1920x1080:r=30[bg];[bg]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},"
         "noise=alls=3:allf=t,format=yuv420p[v]")
@@ -84,18 +86,25 @@ def beat_question():
          "-t",str(D_B2),"-r","30","-c:v","libx264","-preset","medium","-crf","18",
          str(BUILD/"c7_b2.mp4")],"question")
 
-# ---- beat 3: the Ice Age reveal ---------------------------------------------
+# ---- beat 3: the Ice Age reveal (glacier calving, bleach-to-white effect) ---
 def beat_iceage():
     a=(BUILD/"c7_b3.ass")
-    styles=[f"Style: R,Liberation Sans,190,&H00FFFFFF,&H00FFFFFF,&H00202024,&H90000000,-1,0,0,0,100,100,6,0,1,3,3,5,0,0,0,1"]
-    # 'DIE EISZEIT' slams in at local 122.44-117.96 = 4.48s
+    # 'Die Eiszeit' -- Helvetica, big, centred, an interesting warm colour,
+    # very tight spacing; slams in when spoken (122.44 -> local 4.48).
+    styles=[f"Style: R,Liberation Sans,224,&H002A45E5,&H002A45E5,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,-12,0,1,0,0,5,0,0,0,1"]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(4.30)},{at(D_B3)},R,,0,0,0,,{{\\an5\\pos(960,540)\\fad(120,0)"
-        f"\\t(0,220,\\fscx100\\fscy100)\\fscx160\\fscy160\\blur4}}DIE EISZEIT"]
+        f"Dialogue: 0,{at(4.30)},{at(D_B3)},R,,0,0,0,,{{\\an5\\pos(960,540)\\fad(110,0)"
+        f"\\t(0,200,\\fscx100\\fscy100)\\fscx150\\fscy150\\blur3}}Die Eiszeit"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
-    kb(IMG/"glacier.jpg", D_B3, "c7_b3_v.mp4", z="min(1.0+0.00075*on,1.16)")
-    fc=(f"[0:v]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
-    run([FF,"-y","-i",str(BUILD/"c7_b3_v.mp4"),"-filter_complex",fc,"-map","[v]",
+    # bleach/dissolve-into-white effect (ref -2.jpg): bright ice burns to white
+    # in blotchy eroded patches; darker rock/water stays.
+    fc=(f"[0:v]{NORM},{GRADE},split[g1][g2];"
+        "[g1]format=gray,eq=contrast=2.4:brightness=0.02,noise=alls=34:allf=t,"
+        "boxblur=2,curves=all='0/0 0.55/0.1 0.7/0.95 1/1',format=gray[mask];"
+        "color=c=white:s=1920x1080[w];"
+        "[g2][w][mask]maskedmerge[pre];"
+        f"[pre]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
+    run([FF,"-y","-ss","3","-i",str(C7/"icevid.mp4"),"-filter_complex",fc,"-map","[v]",
          "-t",str(D_B3),"-r","30","-c:v","libx264","-preset","medium","-crf","18",
          str(BUILD/"c7_b3.mp4")],"iceage")
 
@@ -106,7 +115,8 @@ def write_captions():
         for w in seg["words"]:
             st=w.get("start")
             if st is None: continue
-            if VO_START-0.2<=st<VO_START+TOTAL and not (B1_A-0.15<=st<B1_B):
+            if VO_START-0.2<=st<VO_START+TOTAL and not (B1_A-0.15<=st<B1_B) \
+                    and not (122.40<=st<123.14):        # 'Die Eiszeit' = big title
                 words.append(w)
     lines,cur=[],[]
     for w in words:
