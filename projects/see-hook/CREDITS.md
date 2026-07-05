@@ -88,8 +88,8 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 
 ## Hauptteil Chunk 10 (Toteis / runde Loecher / Seenplatte-Karte)
 
-- **Eisblock-Foto + Photoroom-Cutout** (Nutzer-Referenz) -> main_assets/c10/img/iceblock_orig.jpg, iceblock.png (Hero + in die Formations-Animation gesampelt)
-- **Karte Mecklenburg/Brandenburg** (Nutzer) -> main_assets/c10/img/map_mv_bb.jpg; in scripts/gen_c10.py stilistisch aufbereitet: Graustufen, ganze Beschriftung/Grenzen entfernt (Wasser = helle entsaettigte Pixel; See = randumschlossenes Wasser via Flood-Fill), Seen weich gehighlightet
+- **Eisblock-Foto** (Nutzer-Referenz) -> main_assets/c10/img/iceblock_orig.jpg; Hero = echtes Foto full-frame (Photoroom-Cutout iceblock.png nur noch in die Formations-Animation gesampelt)
+- **Formations-Animation**: Toteis-Querschnitt (Eisblock -> Geroell -> Schmelze -> Einsturz -> rundes Wasserloch) mit editorialer Typografie (Kicker "TOTEIS · DEAD ICE", Anton-Phasentitel 01-04, "SCHRITT"-Ghostzahl, Fortschritts-Punkte) -> scripts/gen_c10.py
+- **Relief-Karte** (Nutzer, schattiertes 3D-Rendering MV) -> main_assets/c10/img/relief_mv.jpg; in scripts/gen_c10.py::map_prep aufbereitet: schwarz-weisser Hillshade auf dunklem Grund, Alamy-Wasserzeichen entfernt (halbtransparent-weisse, entsaettigte Pixel erkannt + per Diffusion mit Relieftextur aufgefuellt, fetter Mittel-Schriftzug flachgelegt), Fussleiste weggeschnitten. Seen = nur echte cyanfarbene Blobs (B-R>18) -> pulsierendes gelbes Glow, Kamerafahrt ueber die Seenplatte. (Frueherer Karten-Entwurf map_mv_bb.jpg zurueckgestellt.)
 - **Animations-Referenz** (Nutzer, GIF) -> main_assets/c10/ref/anim_ref.gif (nur Stil-Vorlage)
-- Toteis-Formations-Querschnitt (Eisblock -> Geroell -> Schmelze -> Einsturz -> rundes Wasserloch) und Karten-Kamerafahrt mit See-Highlights selbst generiert: scripts/gen_c10.py
 - Caption-Korrektur: ASR-Verhoerer "sagte" -> "sank" ("sank der Boden ... ein")
