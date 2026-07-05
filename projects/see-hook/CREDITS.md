@@ -65,3 +65,7 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Sediment-/Unterwasser-Video, Landschafts-GIF, Grain-Figur-GIF** — vom Nutzer → `main_assets/c6/`
 - **Inspo-Referenzen** (Editorial-Layouts) → `main_assets/c6/ref_insp1..4.jpg`
 - **Wikimedia Commons** (Kaskade): *Carrière Princeville Nord*, *Drina canyon*, *Great Blue Hole Belize* → `main_assets/c6/img/`
+
+## Hauptteil Chunk 7 (Übergang Eiszeit)
+
+- **Wikimedia Commons**: *Bylot Island Glacier* (Eiszeit-Reveal), *Crevasses glacier blue ice* (Eis), *Abandoned slate workings Prince of Wales* (die Löcher) → main_assets/c7/img/
