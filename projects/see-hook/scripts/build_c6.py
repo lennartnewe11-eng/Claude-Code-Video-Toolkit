@@ -45,53 +45,51 @@ def styles_blk():
             f"Style: E2,Liberation Sans,96,{BLK},{BLK},{BLK},&H00000000,0,0,0,0,100,100,2,0,1,0,0,7,0,0,0,1",
             f"Style: E0,Liberation Sans,38,{BLK},{BLK},{BLK},&H00000000,0,0,0,0,100,100,6,0,1,0,0,7,0,0,0,1"]
 
+YEL = "&H0000E9F4"
+def styles_yel():   # subtitle look: yellow, no dark rim, soft glow
+    return [f"Style: Y1,Liberation Sans,54,{YEL},{YEL},{YEL},&H78101010,-1,0,0,0,100,100,3,0,1,2,2,7,0,0,0,1",
+            f"Style: Y2,Liberation Sans,104,{YEL},{YEL},{YEL},&H78101010,-1,0,0,0,100,100,2,0,1,2,2,7,0,0,0,1",
+            f"Style: Y0,Liberation Sans,40,{YEL},{YEL},{YEL},&H78101010,-1,0,0,0,100,100,6,0,1,2,2,7,0,0,0,1"]
+
+BLUE = "0x0C5AE0"
+
 # ---- beat 1: editorial diagonal cascade (reaches the water table) ------------
 def beat_reach():
     a=(BUILD/"c6_b1.ass")
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(0.1)},{at(D_B1)},E0,,0,0,0,,{{\\an7\\pos(1300,140)\\fad(200,0)}}tief genug",
-        f"Dialogue: 0,{at(1.3)},{at(D_B1)},E1,,0,0,0,,{{\\an7\\pos(1250,300)\\fad(220,0)}}Schneidet sie tief genug",
-        f"Dialogue: 0,{at(3.6)},{at(D_B1)},E2,,0,0,0,,{{\\an7\\pos(1150,430)\\fad(240,0)}}bis zum Spiegel"]
-    a.write_text(ass_header(styles_blk())+"\n".join(ev)+"\n")
-    fc=("color=c=white:s=1920x1080:r=30[bg];"
+        f"Dialogue: 0,{at(0.1)},{at(D_B1)},Y0,,0,0,0,,{{\\an7\\pos(1300,140)\\fad(200,0)\\blur6}}tief genug",
+        f"Dialogue: 0,{at(1.3)},{at(D_B1)},Y1,,0,0,0,,{{\\an7\\pos(1250,300)\\fad(220,0)\\blur6}}Schneidet sie tief genug",
+        f"Dialogue: 0,{at(3.6)},{at(D_B1)},Y2,,0,0,0,,{{\\an7\\pos(1150,430)\\fad(240,0)\\blur6}}bis zum Spiegel"]
+    a.write_text(ass_header(styles_yel())+"\n".join(ev)+"\n")
+    fc=(f"color=c={BLUE}:s=1920x1080:r=30[bg];"
         "[1:v]setsar=1,fade=t=in:st=0.2:d=0.4[p1];[bg][p1]overlay=x=60:y=40:shortest=1[a1];"
         "[2:v]setsar=1,fade=t=in:st=0.9:d=0.4[p2];[a1][p2]overlay=x=470:y=360:shortest=1[a2];"
         "[3:v]setsar=1,fade=t=in:st=1.6:d=0.4[p3];[a2][p3]overlay=x=250:y=640:shortest=1[base];"
         f"[base]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
-    run([FF,"-y","-f","lavfi","-i","color=c=white:s=1920x1080:r=30",
+    run([FF,"-y","-f","lavfi","-i",f"color=c={BLUE}:s=1920x1080:r=30",
          "-loop","1","-i",str(BUILD/"c6_p1.png"),"-loop","1","-i",str(BUILD/"c6_p2.png"),
          "-loop","1","-i",str(BUILD/"c6_p3.png"),
          "-filter_complex",fc,"-map","[v]","-t",str(D_B1),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c6_b1.mp4")],"reach")
 
-# ---- beat 2: a window to the groundwater ------------------------------------
+# ---- beat 2: the sediment/groundwater video, full frame ---------------------
 def beat_window():
-    a=(BUILD/"c6_b2.ass")
-    ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(0.1)},{at(D_B2)},E0,,0,0,0,,{{\\an7\\pos(120,150)\\fad(200,0)}}nicht durch Regen",
-        f"Dialogue: 0,{at(1.4)},{at(D_B2)},E1,,0,0,0,,{{\\an7\\pos(120,240)\\fad(220,0)}}sie fühlt sich von unten",
-        f"Dialogue: 0,{at(3.6)},{at(D_B2)},E2,,0,0,0,,{{\\an7\\pos(120,860)\\fad(240,0)}}ein Fenster",
-        f"Dialogue: 0,{at(4.4)},{at(D_B2)},E1,,0,0,0,,{{\\an7\\pos(140,970)\\fad(240,0)}}zum Grundwasser"]
-    a.write_text(ass_header(styles_blk())+"\n".join(ev)+"\n")
-    # sediment video behind a centred window (940x640 glass at x=970,y=210)
-    fc=("color=c=white:s=1920x1080:r=30[bg];"
-        f"[0:v]{NORM},{GRADE},scale=980:680,setsar=1[sed];"
-        "[bg][sed]overlay=x=850:y=200:shortest=1[b1];"
-        "[1:v]setsar=1[win];[b1][win]overlay=x=850:y=200:shortest=1[base];"
-        f"[base]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
-    run([FF,"-y","-stream_loop","-1","-i",str(C6/"sediment.mp4"),
-         "-loop","1","-i",str(BUILD/"c6_window.png"),
+    CRT_TAIL=("[pre][sc]blend=all_mode=multiply:all_opacity=0.34:shortest=1[m];"
+              "[m]vignette=PI/6,noise=alls=4:allf=t,format=yuv420p[v]")
+    fc=(f"[0:v]{NORM},{GRADE}[pre];[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL)
+    run([FF,"-y","-stream_loop","-1","-i",str(C6/"sediment.mp4"),"-loop","1","-i",SCAN,
          "-filter_complex",fc,"-map","[v]","-t",str(D_B2),"-r","30",
-         "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c6_b2.mp4")],"window")
+         "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c6_b2.mp4")],"sediment")
 
 # ---- beat 3: the neighbour hollow stays dry ---------------------------------
 def beat_dry():
     a=(BUILD/"c6_b3.ass")
+    # text now OVERLAPS the image (over the bright sky area) to make it livelier
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(0.1)},{at(D_B3)},E0,,0,0,0,,{{\\an7\\pos(1180,150)\\fad(200,0)}}die Nachbarsenke",
-        f"Dialogue: 0,{at(1.8)},{at(D_B3)},E1,,0,0,0,,{{\\an7\\pos(1180,250)\\fad(220,0)}}ein paar Meter höher",
-        f"Dialogue: 0,{at(4.2)},{at(D_B3)},E0,,0,0,0,,{{\\an7\\pos(1180,430)\\fad(220,0)}}das Fenster bleibt zu",
-        f"Dialogue: 0,{at(5.4)},{at(D_B3)},E2,,0,0,0,,{{\\an7\\pos(1180,520)\\fad(240,0)}}staubtrocken"]
+        f"Dialogue: 0,{at(0.1)},{at(D_B3)},E0,,0,0,0,,{{\\an7\\pos(700,235)\\fad(200,0)}}die Nachbarsenke",
+        f"Dialogue: 0,{at(1.8)},{at(D_B3)},E1,,0,0,0,,{{\\an7\\pos(560,330)\\fad(220,0)}}ein paar Meter höher",
+        f"Dialogue: 0,{at(4.2)},{at(D_B3)},E0,,0,0,0,,{{\\an7\\pos(600,470)\\fad(220,0)}}das Fenster bleibt zu",
+        f"Dialogue: 0,{at(5.4)},{at(D_B3)},E2,,0,0,0,,{{\\an7\\pos(560,560)\\fad(240,0)}}staubtrocken"]
     a.write_text(ass_header(styles_blk())+"\n".join(ev)+"\n")
     # countryside gif as a framed cinematic photo, left; editorial type right
     fc=("color=c=white:s=1920x1080:r=30[bg];"
@@ -102,11 +100,30 @@ def beat_dry():
          "-filter_complex",fc,"-map","[v]","-t",str(D_B3),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c6_b3.mp4")],"dry")
 
-# ---- captions suppressed (editorial type carries the words) -----------------
+# ---- captions: only over the full-frame sediment beat (B2); the editorial
+#      frames (B1, B3) carry their own text -------------------------------------
+B2_A, B2_B = 94.87, 101.58
 def write_captions():
-    (BUILD/"c6_caps.ass").write_text(ass_header(
-        ["Style: Cap,Liberation Sans,52,&H0000E9F4,&H0000E9F4,&H0000E9F4,&H78101010,-1,0,0,0,100,100,0.2,0,1,2,2,2,160,160,150,1"])
-        +"[Events]\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text\n")
+    words=[]
+    for seg in json.loads((AUD/"main_transcript.json").read_text())["segments"]:
+        for w in seg["words"]:
+            st=w.get("start")
+            if st is not None and B2_A-0.15<=st<B2_B: words.append(w)
+    lines,cur=[],[]
+    for w in words:
+        cur.append(w)
+        if len(cur)>=6 or w["word"].endswith((".","?","!",",",";",":")):
+            lines.append(cur); cur=[]
+    if cur: lines.append(cur)
+    style=("Style: Cap,Liberation Sans,52,&H0000E9F4,&H0000E9F4,&H0000E9F4,&H78101010,"
+           "-1,0,0,0,100,100,0.2,0,1,2,2,2,160,160,150,1")
+    ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
+    for i,ln in enumerate(lines):
+        s=max(0.0,ln[0]["start"]-VO_START-0.05); e=ln[-1]["end"]-VO_START+0.12
+        if i+1<len(lines): e=min(e, lines[i+1][0]["start"]-VO_START-0.03)
+        txt="{\\fad(90,90)\\blur7}"+" ".join(w["word"] for w in ln)
+        ev.append(f"Dialogue: 0,{at(s)},{at(e)},Cap,,0,0,0,,{txt}")
+    (BUILD/"c6_caps.ass").write_text(ass_header([style])+"\n".join(ev)+"\n")
 
 def final():
     write_captions()
