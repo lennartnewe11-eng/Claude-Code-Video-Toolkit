@@ -85,3 +85,11 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Riss-Ton-Foto** fuer den Geschiebemergel-Liner: wiederverwendet main_assets/c4/dry.jpg (Cracked dry mud, Wikimedia Commons)
 - Editorial-Canvas (graue VO-Tonspur + Playhead, Tiefen-Skala mit Koelner-Dom-Vergleich, Geschiebemergel-Mulde + Wasser, 2-in-1-Badge) selbst generiert: scripts/gen_c9.py
 - Hinweis: In diesem Part bewusst KEINE gelben Glow-Captions (unlesbar auf Gelb/Weiss; Referenz traegt keine Caption-Leiste) -- die Tonspur repraesentiert die Sprache.
+
+## Hauptteil Chunk 10 (Toteis / runde Loecher / Seenplatte-Karte)
+
+- **Eisblock-Foto + Photoroom-Cutout** (Nutzer-Referenz) -> main_assets/c10/img/iceblock_orig.jpg, iceblock.png (Hero + in die Formations-Animation gesampelt)
+- **Karte Mecklenburg/Brandenburg** (Nutzer) -> main_assets/c10/img/map_mv_bb.jpg; in scripts/gen_c10.py stilistisch aufbereitet: Graustufen, ganze Beschriftung/Grenzen entfernt (Wasser = helle entsaettigte Pixel; See = randumschlossenes Wasser via Flood-Fill), Seen weich gehighlightet
+- **Animations-Referenz** (Nutzer, GIF) -> main_assets/c10/ref/anim_ref.gif (nur Stil-Vorlage)
+- Toteis-Formations-Querschnitt (Eisblock -> Geroell -> Schmelze -> Einsturz -> rundes Wasserloch) und Karten-Kamerafahrt mit See-Highlights selbst generiert: scripts/gen_c10.py
+- Caption-Korrektur: ASR-Verhoerer "sagte" -> "sank" ("sank der Boden ... ein")
