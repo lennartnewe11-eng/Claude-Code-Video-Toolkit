@@ -77,3 +77,11 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Echte Gletscher-Textur** fuer den Becken-Querschnitt: *Argentina - Mt Tronador Ascent - 49 - walls of ice* (Wikimedia Commons, CC BY-SA) -> main_assets/c8/img/glaciertex.jpg (greyscale, kontrastverstaerkt in die Animation gesampelt)
 - Karten-Eis-Animation und Gletscher-Becken-Querschnitt selbst generiert: scripts/gen_c8.py
 - Stil-Referenzen (Nutzer): warme Collage (ref_lakes.jpg), Gelaende-Block (ref_block.jpg). Becken-Querschnitt jetzt grainy S/W; Seen-Grid warm gegradet (Anton-Font).
+
+## Hauptteil Chunk 9 (Fussabdruck / Tiefe / Geschiebemergel)
+
+- **Nutzer-Referenzen** (Zip): Zungen-Foto (Wortwitz Gletscher-ZUNGE) auf Gelb, Editorial-Waveform-Layout, Collage-Stil -> main_assets/c9/ref/ (ref_a/b/c.jpg)
+- **Gletscher-Front-Video** (echtes Kalben) aus derselben Referenz -> main_assets/c9/ref/ref_vid.mp4
+- **Riss-Ton-Foto** fuer den Geschiebemergel-Liner: wiederverwendet main_assets/c4/dry.jpg (Cracked dry mud, Wikimedia Commons)
+- Editorial-Canvas (graue VO-Tonspur + Playhead, Tiefen-Skala mit Koelner-Dom-Vergleich, Geschiebemergel-Mulde + Wasser, 2-in-1-Badge) selbst generiert: scripts/gen_c9.py
+- Hinweis: In diesem Part bewusst KEINE gelben Glow-Captions (unlesbar auf Gelb/Weiss; Referenz traegt keine Caption-Leiste) -- die Tonspur repraesentiert die Sprache.
