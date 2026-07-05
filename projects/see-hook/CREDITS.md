@@ -59,3 +59,9 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Mine-Shaft-Descent-Footage** — Archive.org `p-5100006-3` (Public Domain) → `main_assets/c5/mine.mp4` (nicht eingecheckt, re-fetchbar)
 - **Wasser-GIF, Spiegel-PNG, Referenzen (blue.jpg, Hand)** — vom Nutzer → `main_assets/c5/`
 - **Wikimedia Commons** (Collage/Spiegel-Fill): *Flowing artesian well*, *Suwannee soil water table*, *Ripple and reflections*, *Dramatic clouds Xiyuping* → `main_assets/c5/img/`
+
+## Hauptteil Chunk 6 (Grundwasser II)
+
+- **Sediment-/Unterwasser-Video, Landschafts-GIF, Grain-Figur-GIF** — vom Nutzer → `main_assets/c6/`
+- **Inspo-Referenzen** (Editorial-Layouts) → `main_assets/c6/ref_insp1..4.jpg`
+- **Wikimedia Commons** (Kaskade): *Carrière Princeville Nord*, *Drina canyon*, *Great Blue Hole Belize* → `main_assets/c6/img/`
