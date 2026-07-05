@@ -58,49 +58,41 @@ def _grain(shape, seed):
     rng=np.random.default_rng(seed)
     return rng.normal(0,1,shape)
 def basin_frames():
-    import random as _r
     n=int(BAS_DUR*FPS)
     Y,Xc=np.mgrid[0:H,0:W].astype(np.float32)
     rng=np.random.default_rng(9)
     tex=rng.normal(0,1,(H,W))                        # static terrain grain
     tex=np.array(Image.fromarray(((tex-tex.min())/(np.ptp(tex))*255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.6)),np.float32)/255.0
-    ice_tex=rng.normal(0,1,(H,W))
-    ice_tex=np.array(Image.fromarray(((ice_tex-ice_tex.min())/(np.ptp(ice_tex))*255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(1.1)),np.float32)/255.0
+    # REAL glacier ice texture (greyscale, contrast-boosted) -> the glacier body
+    g=Image.open(IMG/"glaciertex.jpg").convert("L")
+    from PIL import ImageOps as _IO
+    g=_IO.autocontrast(g,1); gtex=np.array(g,np.float32); GH,GW=gtex.shape
+    # jagged seracs at the advancing snout (per screen-row displacement)
+    jr=np.convolve(rng.uniform(-60,60,H),np.ones(19)/19,mode="same")
     def surf_of(x, depth, cx=960.0, halfw=560.0):
         dx=(x-cx)/halfw
         return 540 + (depth*(1-dx*dx) if abs(dx)<1 else 0)
-    # fixed crevasse seeds (relative to the ice front) + furrow phases
-    crev=[( _r.Random(k).uniform(-600,120), _r.Random(k+99).uniform(-0.5,0.5),
-            _r.Random(k+7).uniform(0.55,1.0)) for k in range(22)]
+    GY0=90.0   # sample from clean-ice region of the photo (skip the very top)
     for i in range(n):
         p=ease(i/n); depth=360*p
         dx=(Xc-960.0)/560.0
         surf=540 + np.where(np.abs(dx)<1, depth*(1-dx*dx), 0.0)
         ground=(Y>surf).astype(np.float32)
         val=np.where(ground>0, 150+80*(tex-0.5)*2, 255).astype(np.float32)
-        gx=-500+(W+700)*p; gy_top=170.0
-        inice=(Xc>gx-620)&(Xc<gx+120)&(Y>gy_top)&(Y<surf-6)
-        # ice with stronger, banded texture
-        val=np.where(inice, 232+46*(ice_tex-0.5)*2 - 26*np.sin((Y-gy_top)*0.03), val)
+        # ice sheet: crest runs off the top of frame (no photo-top line); the
+        # leading edge is a sloped, jagged snout that rides down onto the ground.
+        gx=-560+(W+760)*p
+        snout=gx+70+0.42*Y+jr[:,None]            # bottom reaches further right
+        inice=(Xc<snout)&(Y<surf-4)
+        # sample the real glacier texture, scrolling with the ice mass
+        tx=np.clip((Xc-gx+560).astype(np.int32),0,GW-1)
+        ty=np.clip((Y+GY0).astype(np.int32),0,GH-1)
+        icev=gtex[ty,tx]
+        val=np.where(inice, icev, val)
         line=np.abs(Y-surf)<3
-        val=np.where(line & (Xc<gx+130), 30, val)
+        val=np.where(line & (Xc<snout+40), 30, val)
         img=Image.fromarray(np.clip(np.repeat(val[:,:,None],3,2),0,255).astype(np.uint8),"RGB")
         d=ImageDraw.Draw(img,"RGBA")
-        # crevasses / Gletscherspalten (dark cracks inside the ice)
-        for (off,ang,dep) in crev:
-            bx=gx+off
-            if bx< -50 or bx>W+50: continue
-            topy=gy_top+_r.Random(int(off)).uniform(10,120)
-            boty=topy+dep*(surf_of(bx,depth)-topy)
-            d.line([(bx,topy),(bx+ang*90,boty)],fill=(60,72,88,180),width=_r.Random(int(off)+3).randint(3,7))
-            d.line([(bx+6,topy),(bx+6+ang*90,boty)],fill=(255,255,255,120),width=2)
-        # transverse crevasse ticks near the top of the ice
-        for tx in range(int(gx-600),int(gx+100),46):
-            if 0<tx<W: d.line([(tx,gy_top+8),(tx+22,gy_top+2)],fill=(90,104,120,150),width=3)
-        # notches (Kerben) on the leading edge
-        le=gx+120
-        for ky in range(int(gy_top+40),int(surf_of(le,depth)-10),60):
-            d.polygon([(le,ky),(le-34,ky+16),(le,ky+32)],fill=(150,168,190,200))
         # furrows / striations scraped into the carved basin (behind the ice)
         for k in range(1,7):
             xs=range(0,int(gx-120),12)
