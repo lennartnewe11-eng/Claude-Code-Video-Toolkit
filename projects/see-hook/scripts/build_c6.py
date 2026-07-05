@@ -61,14 +61,13 @@ def beat_reach():
         f"Dialogue: 0,{at(1.3)},{at(D_B1)},Y1,,0,0,0,,{{\\an7\\pos(1250,300)\\fad(220,0)\\blur6}}Schneidet sie tief genug",
         f"Dialogue: 0,{at(3.6)},{at(D_B1)},Y2,,0,0,0,,{{\\an7\\pos(1150,430)\\fad(240,0)\\blur6}}bis zum Spiegel"]
     a.write_text(ass_header(styles_yel())+"\n".join(ev)+"\n")
+    # dense diagonal cascade of many photos, wiped in diagonally
     fc=(f"color=c={BLUE}:s=1920x1080:r=30[bg];"
-        "[1:v]setsar=1,fade=t=in:st=0.2:d=0.4[p1];[bg][p1]overlay=x=60:y=40:shortest=1[a1];"
-        "[2:v]setsar=1,fade=t=in:st=0.9:d=0.4[p2];[a1][p2]overlay=x=470:y=360:shortest=1[a2];"
-        "[3:v]setsar=1,fade=t=in:st=1.6:d=0.4[p3];[a2][p3]overlay=x=250:y=640:shortest=1[base];"
+        "[1:v]setsar=1,fade=t=in:st=0.2:d=0.6[casc];"
+        "[bg][casc]overlay=x=0:y=0:shortest=1[base];"
         f"[base]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
     run([FF,"-y","-f","lavfi","-i",f"color=c={BLUE}:s=1920x1080:r=30",
-         "-loop","1","-i",str(BUILD/"c6_p1.png"),"-loop","1","-i",str(BUILD/"c6_p2.png"),
-         "-loop","1","-i",str(BUILD/"c6_p3.png"),
+         "-loop","1","-i",str(BUILD/"c6_cascade.png"),
          "-filter_complex",fc,"-map","[v]","-t",str(D_B1),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c6_b1.mp4")],"reach")
 
@@ -84,13 +83,20 @@ def beat_window():
 # ---- beat 3: the neighbour hollow stays dry ---------------------------------
 def beat_dry():
     a=(BUILD/"c6_b3.ass")
-    # text now OVERLAPS the image (over the bright sky area) to make it livelier
-    ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(0.1)},{at(D_B3)},E0,,0,0,0,,{{\\an7\\pos(700,235)\\fad(200,0)}}die Nachbarsenke",
-        f"Dialogue: 0,{at(1.8)},{at(D_B3)},E1,,0,0,0,,{{\\an7\\pos(560,330)\\fad(220,0)}}ein paar Meter höher",
-        f"Dialogue: 0,{at(4.2)},{at(D_B3)},E0,,0,0,0,,{{\\an7\\pos(600,470)\\fad(220,0)}}das Fenster bleibt zu",
-        f"Dialogue: 0,{at(5.4)},{at(D_B3)},E2,,0,0,0,,{{\\an7\\pos(560,560)\\fad(240,0)}}staubtrocken"]
-    a.write_text(ass_header(styles_blk())+"\n".join(ev)+"\n")
+    # big text, randomly arranged with large size differences, over the image
+    # AND the white background.
+    E="&H00181818"
+    style=[f"Style: E,Liberation Sans,80,{E},{E},{E},&H00000000,-1,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1"]
+    words=[("die Nachbarsenke",120,110,64,3,0.1),
+           ("ein paar",720,150,205,-2,1.6),
+           ("Meter höher",1230,470,104,5,2.6),
+           ("das Fenster bleibt zu",170,930,58,0,4.0),
+           ("staubtrocken",90,690,240,-2,5.2)]
+    ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
+    for txt,x,y,fs,rot,st in words:
+        ev.append(f"Dialogue: 0,{at(st)},{at(D_B3)},E,,0,0,0,,"
+                  f"{{\\an7\\pos({x},{y})\\fs{fs}\\frz{rot}\\fad(220,0)}}{txt}")
+    a.write_text(ass_header(style)+"\n".join(ev)+"\n")
     # countryside gif as a framed cinematic photo, left; editorial type right
     fc=("color=c=white:s=1920x1080:r=30[bg];"
         f"[0:v]scale=1000:667,setsar=1,{GRADE},pad=1040:707:20:20:white[ph];"

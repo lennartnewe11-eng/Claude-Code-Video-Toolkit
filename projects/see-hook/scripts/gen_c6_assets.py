@@ -41,8 +41,30 @@ def window(out, w=980, h=680, frame=30, muntin=16):
         d.rectangle([x0,y0,x1,y1], fill=(150,146,134,180))
     im.save(out); return (w,h)
 
+import random
+def cascade(out):
+    # dense diagonal staircase of many overlapping photos (ref insp1)
+    W,H=1920,1080
+    canvas=Image.new("RGBA",(W,H),(0,0,0,0))
+    ids=["q1","q2","q3","q4","q5","q6","q7","q8","q9","q10","q11"]
+    random.seed(3)
+    x,y=40,-10
+    for i,q in enumerate(ids):
+        p=IMG/f"{q}.jpg"
+        if not p.exists(): continue
+        w=random.randint(420,520); h=int(w*random.uniform(0.62,0.72))
+        b=10
+        im=ImageOps.fit(Image.open(p).convert("RGB"),(w,h),Image.LANCZOS)
+        card=Image.new("RGB",(w+2*b,h+2*b),(250,248,244)).convert("RGBA")
+        card.paste(im,(b,b))
+        sh=Image.new("RGBA",(card.width+30,card.height+30),(0,0,0,0))
+        blk=Image.new("RGBA",card.size,(0,0,0,70)); sh.paste(blk,(18,22))
+        sh=sh.filter(ImageFilter.GaussianBlur(9))
+        px=x+random.randint(-20,20); py=y+random.randint(-16,16)
+        canvas.alpha_composite(sh,(px-6,py-6)); canvas.alpha_composite(card,(px,py))
+        x+=random.randint(105,135); y+=random.randint(58,78)
+    canvas.save(out); print("cascade ok")
+
 if __name__=="__main__":
-    print(bordered(IMG/"q1.jpg", 560, 380, BUILD/"c6_p1.png"))
-    print(bordered(IMG/"q2.jpg", 520, 620, BUILD/"c6_p2.png"))
-    print(bordered(IMG/"q3.jpg", 600, 400, BUILD/"c6_p3.png"))
+    cascade(BUILD/"c6_cascade.png")
     print(window(BUILD/"c6_window.png"))
