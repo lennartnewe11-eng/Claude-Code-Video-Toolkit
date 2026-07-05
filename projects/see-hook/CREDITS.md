@@ -72,5 +72,7 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 
 ## Hauptteil Chunk 8 (Eiszeit / Becken)
 
-- **Wikimedia Commons**: *Germany location map* (Karten-Animation), Bergbau/Sand/Kies (Aside), *Lake Constance/Chiemsee/Kloster Bernried* (Seen-Grid) -> main_assets/c8/img/
+- **Europa-Reliefkarte (Nutzer, Photoroom-Cutout)** fuer die Gletscher-Karten-Animation -> main_assets/c8/img/europe.png
+- **Wikimedia Commons**: Bergbau/Sand/Kies (Aside), *Lake Constance/Chiemsee/Kloster Bernried* (Seen-Grid) -> main_assets/c8/img/
 - Karten-Eis-Animation und Gletscher-Becken-Querschnitt selbst generiert: scripts/gen_c8.py
+- Stil-Referenzen (Nutzer): warme Collage (ref_lakes.jpg), Gelaende-Block (ref_block.jpg). Becken-Querschnitt jetzt grainy S/W; Seen-Grid warm gegradet (Anton-Font).

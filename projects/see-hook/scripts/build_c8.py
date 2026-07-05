@@ -45,11 +45,32 @@ def bordered(src,w,h,out,bw=False):
     sh.paste(blk,(pad+8,pad+14)); sh=sh.filter(ImageFilter.GaussianBlur(13))
     c=Image.alpha_composite(c,sh); c.paste(im,(pad,pad),im); c.save(out); return c.size
 
+def lakes_bg():
+    import numpy as np
+    from PIL import ImageDraw
+    W2,H2=1920,1080; rng=np.random.default_rng(3)
+    base=np.zeros((H2,W2,3),np.float32); base[:]=(232,206,120)
+    base+=rng.normal(0,10,(H2,W2,3))
+    img=Image.fromarray(np.clip(base,0,255).astype('uint8'),'RGB'); d=ImageDraw.Draw(img,'RGBA')
+    for x in range(0,W2,60): d.line([(x,0),(x,H2)],fill=(150,120,50,26),width=1)
+    for y in range(0,H2,60): d.line([(0,y),(W2,y)],fill=(150,120,50,26),width=1)
+    for (x,y,w,h,c) in [(90,120,780,540,(214,96,40,60)),(980,80,780,380,(70,120,110,72)),
+                        (680,560,940,440,(210,120,50,58)),(1320,600,520,420,(60,110,110,64)),
+                        (160,720,560,320,(214,96,40,48)),(430,60,520,320,(70,120,110,50))]:
+        d.rectangle([x,y,x+w,y+h],fill=c)
+    for _ in range(60):
+        yy=rng.integers(0,H2); d.line([(0,yy),(W2,yy)],fill=(255,240,200,16),width=int(rng.integers(1,4)))
+    for _ in range(24):                      # little tick/grid marks
+        x0,y0=rng.integers(0,W2),rng.integers(0,H2)
+        d.line([(x0,y0),(x0+rng.integers(20,120),y0)],fill=(120,90,40,60),width=2)
+    img.filter(ImageFilter.GaussianBlur(0.4)).save(BUILD/"c8_lakes_bg.png")
+
 def prep():
     for n in ["coal","sand","gravel"]:
         bordered(IMG/f"{n}.jpg",440,300,BUILD/f"c8_{n}.png",bw=True)
     for n in ["bodensee","chiemsee","starnberg"]:
         bordered(IMG/f"{n}.jpg",600,410,BUILD/f"c8_{n}.png")
+    lakes_bg()
 
 # ---- beat 1: aside ----------------------------------------------------------
 def beat_aside():
@@ -85,7 +106,7 @@ def beat_map():
         # 'von Norden aus Skandinavien' ~134.91 -> local 5.11
         f"Dialogue: 0,{at(5.0)},{E},N,,0,0,0,,{{\\an8\\pos(960,40)\\fad(220,0)}}Skandinavien  ↓",
         # 'von Sueden aus den Alpen' ~136.78 -> local 6.98
-        f"Dialogue: 0,{at(6.9)},{E},S,,0,0,0,,{{\\an2\\pos(960,1040)\\fad(220,0)}}↑  die Alpen",
+        f"Dialogue: 0,{at(6.9)},{E},S,,0,0,0,,{{\\an5\\pos(690,860)\\fad(220,0)}}die Alpen  ↑",
         # 'kilometerdicke Bulldozer' ~141.94 -> local 12.8
         f"Dialogue: 0,{at(11.6)},{E},BD,,0,0,0,,{{\\an5\\pos(960,540)\\fad(140,0)\\t(0,200,\\fscx100\\fscy100)\\fscx160\\fscy160}}BULLDOZER"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
@@ -98,9 +119,9 @@ def beat_map():
 # ---- beat 3: basin cross-section --------------------------------------------
 def beat_basin():
     a=BUILD/"c8_b3.ass"
-    styles=[f"Style: T,Liberation Sans,72,&H00181818,&H00181818,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,0,0,1,2,0,8,0,0,0,1"]
+    styles=[f"Style: T,Liberation Sans,72,&H00181818,&H00181818,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,0,0,1,3,0,8,0,0,0,1"]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(0.4)},{at(D_B3)},T,,0,0,0,,{{\\an8\\pos(960,40)\\fad(200,0)}}riesige Becken"]
+        f"Dialogue: 0,{at(0.4)},{at(D_B3)},T,,0,0,0,,{{\\an8\\pos(960,50)\\fad(200,0)}}riesige Becken"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
     fc=(f"[0:v]setsar=1[bg];[bg]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},"
         "noise=alls=3:allf=t,format=yuv420p[v]")
@@ -110,20 +131,29 @@ def beat_basin():
 
 # ---- beat 4: editorial lakes grid -------------------------------------------
 def beat_lakes():
+    # warm-graded, textured editorial collage (ref -2.jpg): big number, grungy
+    # background detail, overlapping photos, split-tone grade.
     a=BUILD/"c8_b4.ass"
-    styles=[f"Style: Nm,Liberation Sans,72,&H00181818,&H00181818,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,-2,0,1,0,0,8,0,0,0,1"]
+    styles=[f"Style: Big,Anton,540,&H002438C4,&H002438C4,&H00FFFFFF,&H00000000,0,0,0,0,100,100,0,0,1,0,0,5,0,0,0,1",
+            f"Style: Nm,Anton,86,&H00203038,&H00203038,&H00FFFFFF,&H00000000,0,0,0,0,100,100,1,0,1,0,0,8,0,0,0,1",
+            f"Style: Sm,Liberation Sans,38,&H00203038,&H00203038,&H00FFFFFF,&H00000000,0,0,0,0,100,100,4,0,1,0,0,7,0,0,0,1"]
     E=at(D_B4)
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(4.6)},{E},Nm,,0,0,0,,{{\\an8\\pos(410,560)\\fad(160,0)}}Bodensee",
-        f"Dialogue: 0,{at(5.5)},{E},Nm,,0,0,0,,{{\\an8\\pos(970,760)\\fad(160,0)}}Chiemsee",
-        f"Dialogue: 0,{at(6.4)},{E},Nm,,0,0,0,,{{\\an8\\pos(1520,560)\\fad(160,0)}}Starnberger See"]
+        f"Dialogue: 0,{at(0.2)},{E},Sm,,0,0,0,,{{\\an7\\pos(120,60)\\fad(200,0)}}die groessten Seen",
+        f"Dialogue: 0,{at(0.2)},{E},Big,,0,0,0,,{{\\an5\\pos(1560,780)\\alpha&H40&}}3",
+        f"Dialogue: 0,{at(4.6)},{E},Nm,,0,0,0,,{{\\an8\\pos(430,590)\\fad(160,0)}}Bodensee",
+        f"Dialogue: 0,{at(5.5)},{E},Nm,,0,0,0,,{{\\an8\\pos(1010,830)\\fad(160,0)}}Chiemsee",
+        f"Dialogue: 0,{at(6.4)},{E},Nm,,0,0,0,,{{\\an8\\pos(1470,470)\\fad(160,0)}}Starnberger See"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
-    fc=("color=c=white:s=1920x1080:r=30[bg];"
-        "[1:v]setsar=1,fade=t=in:st=0.3:d=0.4[l1];[bg][l1]overlay=x=90:y=120:shortest=1[a1];"
-        "[2:v]setsar=1,fade=t=in:st=1.2:d=0.4[l2];[a1][l2]overlay=x=650:y=320:shortest=1[a2];"
-        "[3:v]setsar=1,fade=t=in:st=2.1:d=0.4[l3];[a2][l3]overlay=x=1200:y=120:shortest=1[base];"
-        f"[base]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
-    run([FF,"-y","-f","lavfi","-i","color=c=white:s=1920x1080:r=30",
+    GW=("curves=r='0/0.06 0.5/0.62 1/1':g='0/0.04 0.5/0.5 1/0.92':b='0/0.20 0.5/0.30 1/0.48',"
+        "eq=saturation=0.78:contrast=1.06")
+    fc=("[0:v]setsar=1[bg];"
+        "[1:v]setsar=1,fade=t=in:st=0.3:d=0.4[l1];[bg][l1]overlay=x=90:y=130:shortest=1[a1];"
+        "[2:v]setsar=1,fade=t=in:st=1.2:d=0.4[l2];[a1][l2]overlay=x=690:y=380:shortest=1[a2];"
+        "[3:v]setsar=1,fade=t=in:st=2.1:d=0.4[l3];[a2][l3]overlay=x=1160:y=40:shortest=1[cmp];"
+        f"[cmp]{GW},noise=alls=4:allf=t[base];"
+        f"[base]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},format=yuv420p[v]")
+    run([FF,"-y","-loop","1","-i",str(BUILD/"c8_lakes_bg.png"),
          "-loop","1","-i",str(BUILD/"c8_bodensee.png"),"-loop","1","-i",str(BUILD/"c8_chiemsee.png"),
          "-loop","1","-i",str(BUILD/"c8_starnberg.png"),"-filter_complex",fc,"-map","[v]",
          "-t",str(D_B4),"-r","30","-c:v","libx264","-preset","medium","-crf","18",
