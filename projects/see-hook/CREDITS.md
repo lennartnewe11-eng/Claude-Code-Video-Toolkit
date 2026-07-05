@@ -69,3 +69,8 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 ## Hauptteil Chunk 7 (Übergang Eiszeit)
 
 - **Wikimedia Commons**: *Bylot Island Glacier* (Eiszeit-Reveal), *Crevasses glacier blue ice* (Eis), *Abandoned slate workings Prince of Wales* (die Löcher) → main_assets/c7/img/
+
+## Hauptteil Chunk 8 (Eiszeit / Becken)
+
+- **Wikimedia Commons**: *Germany location map* (Karten-Animation), Bergbau/Sand/Kies (Aside), *Lake Constance/Chiemsee/Kloster Bernried* (Seen-Grid) -> main_assets/c8/img/
+- Karten-Eis-Animation und Gletscher-Becken-Querschnitt selbst generiert: scripts/gen_c8.py
