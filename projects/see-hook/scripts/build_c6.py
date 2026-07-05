@@ -61,14 +61,25 @@ def beat_reach():
         f"Dialogue: 0,{at(1.3)},{at(D_B1)},Y1,,0,0,0,,{{\\an7\\pos(1250,300)\\fad(220,0)\\blur6}}Schneidet sie tief genug",
         f"Dialogue: 0,{at(3.6)},{at(D_B1)},Y2,,0,0,0,,{{\\an7\\pos(1150,430)\\fad(240,0)\\blur6}}bis zum Spiegel"]
     a.write_text(ass_header(styles_yel())+"\n".join(ev)+"\n")
-    # dense diagonal cascade of many photos, wiped in diagonally
-    fc=(f"color=c={BLUE}:s=1920x1080:r=30[bg];"
-        "[1:v]setsar=1,fade=t=in:st=0.2:d=0.6[casc];"
-        "[bg][casc]overlay=x=0:y=0:shortest=1[base];"
-        f"[base]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
-    run([FF,"-y","-f","lavfi","-i",f"color=c={BLUE}:s=1920x1080:r=30",
-         "-loop","1","-i",str(BUILD/"c6_cascade.png"),
-         "-filter_complex",fc,"-map","[v]","-t",str(D_B1),"-r","30",
+    # photos fly in one by one from the right, back (first) to front (last);
+    # when all are in, the Blue Hole card pops extra into the foreground.
+    lay=json.loads((BUILD/"c6_layout.json").read_text())
+    photos=lay["photos"]; bh=lay["bh"]
+    inputs=["-f","lavfi","-i",f"color=c={BLUE}:s=1920x1080:r=30"]
+    for p in photos: inputs+=["-loop","1","-i",str(BUILD/p["file"])]
+    inputs+=["-loop","1","-i",str(BUILD/bh["file"])]
+    steps=[]; prev="bg"
+    for i,p in enumerate(photos):
+        ts=0.10+i*0.24; tx=p["x"]; idx=i+1
+        xexpr=f"{tx}+(1980-{tx})*(1-clip((t-{ts:.2f})/0.42\\,0\\,1))"
+        steps.append(f"[{prev}][{idx}:v]overlay=x='{xexpr}':y={p['y']}:shortest=1[s{i}]")
+        prev=f"s{i}"
+    bhi=len(photos)+1; ts_bh=0.10+len(photos)*0.24+0.15
+    steps.append(f"[{bhi}:v]fade=t=in:st={ts_bh:.2f}:d=0.30:alpha=1[bhf]")
+    steps.append(f"[{prev}][bhf]overlay=x={bh['x']}:y='{bh['y']}+30*(1-clip((t-{ts_bh:.2f})/0.30\\,0\\,1))':shortest=1[base]")
+    fc=(f"color=c={BLUE}:s=1920x1080:r=30[bg];"+";".join(steps)+
+        f";[base]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
+    run([FF,"-y",*inputs,"-filter_complex",fc,"-map","[v]","-t",str(D_B1),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","18",str(BUILD/"c6_b1.mp4")],"reach")
 
 # ---- beat 2: the sediment/groundwater video, full frame ---------------------
@@ -93,9 +104,9 @@ def beat_dry():
            ("das Fenster bleibt zu",170,930,58,0,4.0),
            ("staubtrocken",90,690,240,-2,5.2)]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
-    for txt,x,y,fs,rot,st in words:
+    for txt,x,y,fs,rot,st in words:                     # rot ignored -> horizontal
         ev.append(f"Dialogue: 0,{at(st)},{at(D_B3)},E,,0,0,0,,"
-                  f"{{\\an7\\pos({x},{y})\\fs{fs}\\frz{rot}\\fad(220,0)}}{txt}")
+                  f"{{\\an7\\pos({x},{y})\\fs{fs}\\fad(220,0)}}{txt}")
     a.write_text(ass_header(style)+"\n".join(ev)+"\n")
     # countryside gif as a framed cinematic photo, left; editorial type right
     fc=("color=c=white:s=1920x1080:r=30[bg];"
