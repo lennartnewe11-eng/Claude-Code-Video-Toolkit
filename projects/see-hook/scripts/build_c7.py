@@ -75,9 +75,9 @@ def beat_recap():
 # ---- beat 2: the question ---------------------------------------------------
 def beat_question():
     a=(BUILD/"c7_b2.ass")
-    styles=[f"Style: Q,Liberation Sans,300,{YEL},{YEL},{YEL},&H78101010,-1,0,0,0,100,100,0,0,1,3,3,7,0,0,0,1"]
+    styles=[f"Style: Q,Liberation Sans,300,&H00000000,&H00000000,&H00000000,&H00000000,-1,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1"]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
-        f"Dialogue: 0,{at(0.3)},{at(D_B2)},Q,,0,0,0,,{{\\an7\\pos(1300,60)\\fad(220,0)\\blur8}}?"]
+        f"Dialogue: 0,{at(0.3)},{at(D_B2)},Q,,0,0,0,,{{\\an7\\pos(1300,60)\\fad(220,0)}}?"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
     kb(IMG/"hole.jpg", D_B2, "c7_b2_v.mp4", z="max(1.16-0.0006*on,1.02)")  # slow pull-out
     # overlay the big '?'
@@ -91,16 +91,17 @@ def beat_iceage():
     a=(BUILD/"c7_b3.ass")
     # 'Die Eiszeit' -- Helvetica, big, centred, an interesting warm colour,
     # very tight spacing; slams in when spoken (122.44 -> local 4.48).
-    styles=[f"Style: R,Liberation Sans,224,&H002A45E5,&H002A45E5,&H00FFFFFF,&H00000000,-1,0,0,0,100,100,-12,0,1,0,0,5,0,0,0,1"]
+    # ice-blue title, tight spacing, thin darker-blue keyline for legibility
+    styles=[f"Style: R,Liberation Sans,224,&H00E0A63C,&H00E0A63C,&H00703C10,&H00000000,-1,0,0,0,100,100,-12,0,1,2,0,5,0,0,0,1"]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
         f"Dialogue: 0,{at(4.30)},{at(D_B3)},R,,0,0,0,,{{\\an5\\pos(960,540)\\fad(110,0)"
         f"\\t(0,200,\\fscx100\\fscy100)\\fscx150\\fscy150\\blur3}}Die Eiszeit"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
-    # bleach/dissolve-into-white effect (ref -2.jpg): bright ice burns to white
-    # in blotchy eroded patches; darker rock/water stays.
+    # STRONGER bleach/dissolve-into-white effect (ref -2.jpg): more of the frame
+    # burns to white in blotchy eroded patches; only the darkest stays.
     fc=(f"[0:v]{NORM},{GRADE},split[g1][g2];"
-        "[g1]format=gray,eq=contrast=2.4:brightness=0.02,noise=alls=34:allf=t,"
-        "boxblur=2,curves=all='0/0 0.55/0.1 0.7/0.95 1/1',format=gray[mask];"
+        "[g1]format=gray,eq=contrast=3.0:brightness=0.16,noise=alls=40:allf=t,"
+        "boxblur=2,curves=all='0/0 0.40/0.12 0.56/0.98 1/1',format=gray[mask];"
         "color=c=white:s=1920x1080[w];"
         "[g2][w][mask]maskedmerge[pre];"
         f"[pre]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},noise=alls=3:allf=t,format=yuv420p[v]")
