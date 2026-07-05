@@ -52,8 +52,8 @@ def tongue_frame():
 
 # ---------------------------------------------------------------- editorial ---
 ED_DUR = 30.01           # 162.84 .. 192.85
-WAVE_L, WAVE_R = 100, 1820
-WAVE_Y0, WAVE_Y1 = 60, 250
+WAVE_L, WAVE_R = 90, 1830
+WAVE_Y0, WAVE_Y1 = 46, 300      # bigger Tonspur
 BG = (248,247,243)
 INK= (38,36,34)
 ORG= (226,88,36)
@@ -79,7 +79,7 @@ def _layer(): return Image.new("RGBA",(W,H),(0,0,0,0))
 def depth_layer():
     """left region: vertical 0->250 m depth scale, Koelner Dom submerged."""
     L=_layer(); d=ImageDraw.Draw(L)
-    xc0=150; wcol=230; ysurf=300; yfloor=980; scale=(yfloor-ysurf)/250.0  # px/m
+    xc0=150; wcol=230; ysurf=375; yfloor=995; scale=(yfloor-ysurf)/250.0  # px/m
     cx=xc0+wcol//2
     # water column tint
     d.rectangle([xc0,ysurf,xc0+wcol,yfloor],fill=(150,186,206,95))
@@ -106,18 +106,18 @@ def depth_layer():
     d.polygon([(ax-13,yfloor-32),(ax+13,yfloor-32),(ax,yfloor-6)],fill=ORG)
     # big number, upper-right of the region (clear of the Dom)
     nx=490
-    d.text((nx,430),"250",font=anton(120),fill=(20,20,20),anchor="mm")
-    d.text((nx,520),"METER TIEF",font=libb(30),fill=ORG,anchor="mm")
-    d.text((nx,352),"deshalb so tief:",font=lib(24),fill=INK,anchor="mm")
+    d.text((nx,430),"deshalb so tief:",font=lib(24),fill=INK,anchor="mm")
+    d.text((nx,510),"250",font=anton(120),fill=(20,20,20),anchor="mm")
+    d.text((nx,600),"METER TIEF",font=libb(30),fill=ORG,anchor="mm")
     return L
 
 def mergel_layer():
     """centre region: basin bowl lined with Geschiebemergel (no water yet)."""
     L=_layer(); d=ImageDraw.Draw(L)
-    bx0,bx1=670,1230; by0,by1=360,940
+    bx0,bx1=670,1230; by0,by1=405,978
     Y,X=np.mgrid[by0:by1,bx0:bx1]
     cx=(bx0+bx1)/2; hw=(bx1-bx0)/2*0.94
-    rim=by0+120; bowl_d=380
+    rim=by0+118; bowl_d=376
     surf=rim + bowl_d*np.clip(1-((X-cx)/hw)**2,0,1)   # concave bowl (deep centre)
     rock=(Y>surf)
     rgb=np.zeros((by1-by0,bx1-bx0,3),np.uint8); alpha=np.zeros((by1-by0,bx1-bx0),np.uint8)
@@ -160,7 +160,7 @@ def water_layer(geom):
 def seal_layer():
     """right region: 2-in-1 stamp badge."""
     L=_layer(); d=ImageDraw.Draw(L)
-    cx,cy=1560,560; r=190
+    cx,cy=1560,590; r=185
     d.ellipse([cx-r,cy-r,cx+r,cy+r],outline=ORG,width=8)
     d.ellipse([cx-r+16,cy-r+16,cx+r-16,cy+r-16],outline=ORG,width=3)
     d.text((cx,cy-118),"2-in-1",font=anton(118),fill=(20,20,20),anchor="mm")

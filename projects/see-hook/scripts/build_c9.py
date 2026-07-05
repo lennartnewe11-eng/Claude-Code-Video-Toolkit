@@ -20,9 +20,11 @@ EDD=BUILD/"c9_ed"
 
 VO_START=155.71
 SONG_OFFSET=232.61                     # continues the looped song from chunk 8
-D_T, D_G = 3.40, 3.73                  # tongue, glacier video
+# glacier first, then a short tongue insert on the word "Gletscherzunge"
+# (159.05..160.45), then glacier again for "...tief ins Land gepresst"
+D_GA, D_T, D_GB = 3.34, 1.40, 2.39
 D_ED = 30.01                           # editorial (162.84 .. 192.85)
-TOTAL = D_T + D_G + D_ED               # 37.14
+TOTAL = D_GA + D_T + D_GB + D_ED       # 37.14
 
 NORM = ("scale=1920:1080:force_original_aspect_ratio=increase,"
         "crop=1920:1080,fps=30,setsar=1,format=yuv420p")
@@ -38,21 +40,21 @@ def run(cmd,label=""):
         sys.stderr.write(f"\n### FAIL {label}\n"+p.stderr[-3500:]); raise SystemExit(1)
     return p
 
-# ---- beat 1a: tongue on yellow ----------------------------------------------
+# ---- tongue on yellow (short pun insert) ------------------------------------
 def beat_tongue():
     fc=("[0:v]scale=1920:1080,setsar=1,noise=alls=5:allf=t,vignette=PI/8,"
         "format=yuv420p[v]")
     run([FF,"-y","-loop","1","-i",str(BUILD/"c9_tongue.png"),"-filter_complex",fc,
          "-map","[v]","-t",str(D_T),"-r","30","-c:v","libx264","-preset","medium",
-         "-crf","19",str(BUILD/"c9_b1a.mp4")],"tongue")
+         "-crf","19",str(BUILD/"c9_tongue.mp4")],"tongue")
 
-# ---- beat 1b: real glacier front --------------------------------------------
-def beat_glacier():
+# ---- real glacier front (graded) --------------------------------------------
+def beat_glacier(dst, ss, dur):
     fc=(f"[0:v]{NORM},{GRADE}[pre];[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL
         +";[cg]copy[v]")
-    run([FF,"-y","-ss","2.0","-i",str(C9/"ref"/"ref_vid.mp4"),"-loop","1","-i",SCAN,
-         "-filter_complex",fc,"-map","[v]","-t",str(D_G),"-r","30","-c:v","libx264",
-         "-preset","medium","-crf","19",str(BUILD/"c9_b1b.mp4")],"glacier")
+    run([FF,"-y","-ss",str(ss),"-i",str(C9/"ref"/"ref_vid.mp4"),"-loop","1","-i",SCAN,
+         "-filter_complex",fc,"-map","[v]","-t",str(dur),"-r","30","-c:v","libx264",
+         "-preset","medium","-crf","19",str(BUILD/dst)],"glacier")
 
 # ---- beat 2: editorial waveform + collages ----------------------------------
 def beat_editorial():
@@ -78,13 +80,14 @@ def final():
     print("  ->", OUT/"main_chunk9.mp4")
 
 if __name__=="__main__":
-    print("[1/4] tongue");    beat_tongue()
-    print("[2/4] glacier");   beat_glacier()
-    print("[3/4] editorial"); beat_editorial()
+    print("[1/5] glacier A"); beat_glacier("c9_gA.mp4", 2.0, D_GA)
+    print("[2/5] tongue");    beat_tongue()
+    print("[3/5] glacier B"); beat_glacier("c9_gB.mp4", 6.0, D_GB)
+    print("[4/5] editorial"); beat_editorial()
     (BUILD/"c9_concat.txt").write_text(
         "\n".join(f"file '{(BUILD/f'{o}.mp4').as_posix()}'"
-                  for o in ["c9_b1a","c9_b1b","c9_b2"])+"\n")
+                  for o in ["c9_gA","c9_tongue","c9_gB","c9_b2"])+"\n")
     run([FF,"-y","-f","concat","-safe","0","-i",str(BUILD/"c9_concat.txt"),
          "-c","copy",str(BUILD/"c9_full.mp4")],"concat")
-    print("[4/4] final"); final()
+    print("[5/5] final"); final()
     print("DONE", round(TOTAL,2),"s")
