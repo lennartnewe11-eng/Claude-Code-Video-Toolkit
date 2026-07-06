@@ -103,3 +103,11 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Hochdruckreiniger** (Nutzer-Cutout, Kaercher HD 7/16-4 MXA Produktbild) -> main_assets/c11/img/washer.png; bei "Hochdruckreiniger" auf weissem Grund mit grosser blauer Editorial-Typo HINTER und VOR dem Bild ("HOCHDRUCK" / "REINIGER") -> scripts/gen_c11.py::washer_hero
 - **"Rinnen in die Landschaft" = glaziofluviale Schmelzwasser-Rinnen (Luftbild)** -> main_assets/c11/img/rinnen.jpg · *Glaciofluvial* von Mike Beauregard (Nunavut, Kanada), **CC BY 2.0**, Wikimedia Commons; warm gegradet mit Push-in
 - Captions (gelber Glow) laufen nur ueber die dunkleren Footage-Beats (GIF-Film + Rinnen); Poster + weisse Hochdruckreiniger-Editorial tragen eigene Typo. Fix: blauer Glow (versehentliche BGR-Outline-Farbe) an der Poster-Schrift entfernt. -> scripts/build_c11.py
+
+## Hauptteil Chunk 12 (Deutschlandkarte - Payoff: Seen folgen dem Eis)
+
+- **Deutschland-Reliefkarte** (Nutzer, RGBA-Schummerung) -> main_assets/c12/img/de_relief.png; in scripts/gen_c12.py zum Swiss-Poster aufbereitet (gelber Grund, graues B/W-Hillshade, weisses Gradnetz).
+- Die Karte hat KEINE eingezeichneten Seen -> die beiden See-Ballungen werden als rot-orange Punkt-Cluster gezeigt: NORDEN (Schleswig-Holstein + Mecklenburgische Seenplatte + Havelland) und SUEDEN (Alpenvorland inkl. Bodensee); die Mitte bleibt leer. Cluster enthuellen synchron zum VO (Norden@233.3, Sueden@236.2, Mitte@240.5).
+- Kleine Kamerafahrten (sanfter Push-in + leichte N->S->weit-Drift) in scripts/gen_c12.py::_cam.
+- Grosse prominente Editorial-Typo (Anton-Masthead "DEUTSCHLAND", rot-orange "IM NORDEN"/"IM SUEDEN"/"DIE MITTE: FAST LEER", Meta "SEENVERTEILUNG folgt dem Eis", getaktete Tags). ASS-Farben in korrektem BGR. -> scripts/build_c12.py
+- Keine Laufschrift; die Typo traegt die Erzaehlung.
