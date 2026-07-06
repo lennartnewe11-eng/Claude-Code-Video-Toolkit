@@ -43,21 +43,21 @@ def _ass(a):
       f"Style: Sub,Liberation Sans,33,{GY},{GY},&H00FFFFFF,&H90101010,0,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1",
       f"Style: Meta,Liberation Sans,26,{BK},{BK},&H00FFFFFF,&H90101010,-1,0,0,0,100,100,3,0,1,0,0,9,0,0,0,1",
       f"Style: MetaS,Liberation Sans,26,{GY},{GY},&H00FFFFFF,&H90101010,0,0,0,0,100,100,1,0,1,0,0,9,0,0,0,1",
-      f"Style: Big,Anton,104,{ORGA},{ORGA},&H00FFFFFF,&H90101010,0,0,0,0,100,100,0,0,1,0,0,1,0,0,0,1",
+      f"Style: Big,Anton,150,{BK},{BK},&H00FFFFFF,&H90101010,0,0,0,0,100,100,0,0,1,0,0,4,0,0,0,1",
       f"Style: Tag,Liberation Sans,28,{BK},{BK},&H00FFFFFF,&H90101010,-1,0,0,0,100,100,1,0,1,0,0,9,0,0,0,1",
       f"Style: TagS,Liberation Sans,24,{GY},{GY},&H00FFFFFF,&H90101010,0,0,0,0,100,100,1,0,1,0,0,9,0,0,0,1"]
     E=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     def d(st,en,style,txt): E.append(f"Dialogue: 0,{at(st)},{at(en)},{style},,0,0,0,,{txt}")
     D=TOTAL
     # masthead + meta (persistent)
-    d(0.4,D,"Mast","{\\pos(70,34)\\fad(300,0)}DEUTSCHLAND")
-    d(0.4,D,"Sub", "{\\pos(78,196)\\fad(340,0)}Wo die Seen liegen \\N– und wo nicht")
+    d(0.4,D,"Mast","{\\pos(118,50)\\fad(300,0)}DEUTSCHLAND")
+    d(0.4,D,"Sub", "{\\pos(124,210)\\fad(340,0)}Wo die Seen liegen \\N– und wo nicht")
     d(0.4,D,"Meta","{\\pos(1848,50)\\fad(300,0)}SEENVERTEILUNG")
     d(0.4,D,"MetaS","{\\pos(1848,88)\\fad(340,0)}folgt dem Eis")
-    # big region labels (lower-left), swapping with the narration
-    d(4.3,7.05,"Big","{\\an1\\pos(70,1016)\\fad(220,150)}IM NORDEN")
-    d(7.1,11.45,"Big","{\\an1\\pos(70,1016)\\fad(180,150)}IM SÜDEN")
-    d(11.5,D,  "Big","{\\an1\\pos(70,1016)\\fad(180,220)}DIE MITTE: FAST LEER")
+    # big black region labels, centred-left OVER the map's empty middle
+    d(4.3,7.05,"Big","{\\an4\\pos(120,548)\\fad(220,150)}IM NORDEN")
+    d(7.1,11.45,"Big","{\\an4\\pos(120,548)\\fad(180,150)}IM SÜDEN")
+    d(11.5,D,  "Big","{\\an4\\pos(120,506)\\fad(180,220)}DIE MITTE:\\N{\\fs168}FAST LEER")
     # right-side tags, timed
     d(4.7,7.05,"Tag", "{\\pos(1848,150)\\fad(200,120)}Mecklenburgische Seenplatte")
     d(4.7,7.05,"TagS","{\\pos(1848,186)\\fad(220,120)}Norden · Eiszeit-Tiefland")
