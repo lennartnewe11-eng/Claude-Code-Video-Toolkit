@@ -111,3 +111,9 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - Kleine Kamerafahrten (sanfter Push-in + leichte N->S->weit-Drift) in scripts/gen_c12.py::_cam.
 - Grosse prominente Editorial-Typo (Anton-Masthead "DEUTSCHLAND", rot-orange "IM NORDEN"/"IM SUEDEN"/"DIE MITTE: FAST LEER", Meta "SEENVERTEILUNG folgt dem Eis", getaktete Tags). ASS-Farben in korrektem BGR. -> scripts/build_c12.py
 - Keine Laufschrift; die Typo traegt die Erzaehlung.
+
+## Hauptteil Chunk 13 (Eifel-Vulkanismus / Maare - "nicht nur das Eis")
+
+- **Vulkanvideo** (Nutzer) -> main_assets/c13/img/volcano.mp4; Himmel per Helligkeit/Blau-Key ausgeschnitten und auf Weiss gelegt, VOLLE BREITE am unteren Bildrand; darum herum gelayerte gelbe Editorial-Typo (MAGMA hinter dem Kegel, EIFEL als Outline davor, Kicker "NICHT NUR DAS EIS"). Sky-Key + Komposition in scripts/gen_c13.py::volcano_frames.
+- **Dauner-Maare-Luftbild** (Nutzer) -> main_assets/c13/img/maar.jpg; die drei kreisrunden Maar-Seen mit rot-orangen Ringen hervorgehoben, warm gegradet, sanfter Push-in, Typo "MAARE / kreisrunde Krater · voll Wasser / Vulkaneifel". -> scripts/build_c13.py::beat_maar
+- Editorial-Typo traegt den Part; keine Laufschrift.
