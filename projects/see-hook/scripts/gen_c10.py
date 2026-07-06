@@ -21,6 +21,9 @@ MAPF = BUILD/"c10_map_f"; MAPF.mkdir(parents=True, exist_ok=True)
 FORMF= BUILD/"c10_form"; FORMF.mkdir(parents=True, exist_ok=True)
 W, H, FPS = 1920, 1080, 30
 YEL=(255,205,0)
+YMAP=np.array([247,233,25],np.float32)      # Swiss-poster yellow ground (map)
+ORG=np.array([232,58,26],np.float32)        # red-orange lake accent
+ORGG=np.array([242,120,40],np.float32)      # lake glow
 def ease(x): x=max(0.0,min(1.0,x)); return x*x*(3-2*x)
 def _f(path,size): return ImageFont.truetype(path,size)
 def _tsp(d,xy,txt,font,fill,sp=0):        # letter-spaced text
@@ -100,18 +103,29 @@ def map_prep():
            .filter(ImageFilter.MaxFilter(11)).filter(ImageFilter.GaussianBlur(9)))
     dm=np.asarray(dense,np.float32)/255.0
     grf=grf*(1-dm)+lowbg*dm
-    # ---- render dark B&W hillshade (lakes rendered dark; yellow added later) --
+    # ---- render B&W hillshade on a Swiss-poster YELLOW ground (ref: Spitzer
+    # "Far South").  Grey relief on yellow, white lat/long graticule; the lakes
+    # get a pulsing red-orange accent per frame (added in map_frames).
     gl=grf[land]; lo,hi=np.percentile(gl,3),np.percentile(gl,99)
     shade=np.clip((grf-lo)/(hi-lo),0,1)
-    out=np.full((mh,mw),19.0,np.float32)                    # near-black backdrop
-    out[land]=48+shade[land]*168                            # shaded grey relief
-    lmask_soft=np.asarray(Image.fromarray((is_lake*255).astype(np.uint8),"L")
-                          .filter(ImageFilter.GaussianBlur(1.1)),np.float32)/255.0
-    out=out*(1-lmask_soft)+34.0*lmask_soft                  # lake bed a touch dark
-    rng=np.random.default_rng(2); out=np.clip(out+rng.normal(0,2.5,out.shape),0,255)
-    Image.fromarray(out.astype(np.uint8),"L").convert("RGB").save(BUILD/"c10_map.png")
+    grey=46+shade*172                                       # relief grey 46..218
+    rgb=np.empty((mh,mw,3),np.float32); rgb[:]=YMAP[None,None,:]  # yellow ground
+    for c in range(3): rgb[land,c]=grey[land]
+    # ---- white lat/long graticule baked in (moves with the map) ----
+    gl_img=Image.new("L",(mw,mh),0); gdr=ImageDraw.Draw(gl_img)
+    step=118; ox,oy=34,26
+    majx=set(range(ox,mw,step*3)); majy=set(range(oy,mh,step*3))
+    for xx in range(ox,mw,step):
+        gdr.line([(xx,0),(xx,mh)],fill=255,width=2 if xx in majx else 1)
+    for yy in range(oy,mh,step):
+        gdr.line([(0,yy),(mw,yy)],fill=255,width=2 if yy in majy else 1)
+    ga=np.asarray(gl_img.filter(ImageFilter.GaussianBlur(0.4)),np.float32)/255.0
+    galpha=(ga*np.where(land,0.16,0.5))[...,None]           # subtle on land, clear on yellow
+    rgb=rgb*(1-galpha)+np.array([255,255,255],np.float32)[None,None,:]*galpha
+    rng=np.random.default_rng(2); rgb=np.clip(rgb+rng.normal(0,2.2,rgb.shape),0,255)
+    Image.fromarray(rgb.astype(np.uint8),"RGB").save(BUILD/"c10_map.png")
     Image.fromarray((is_lake*255).astype(np.uint8),"L").save(BUILD/"c10_lakes.png")
-    print("map_prep -> c10_map.png  lake%%", round(is_lake.mean()*100,3))
+    print("map_prep -> c10_map.png (yellow poster)  lake%%", round(is_lake.mean()*100,3))
 
 # ------------------------------------------------- ice block full-screen hero -
 def ice_hero_img():
@@ -283,7 +297,6 @@ def map_frames():
                 return (x0+(x1-x0)*p, y0+(y1-y0)*p, w0+(w1-w0)*p)
         return kf[-1][1:]
     n=int(MAP_DUR*FPS)
-    yc=np.array(YEL,np.float32); yg=np.array([255,178,60],np.float32)
     for i in range(n):
         t=i/FPS; cx,cy,w=cam(t); h=w*9/16
         left=min(max(cx-w/2,0),MW-w); top=min(max(cy-h/2,0),MH-h)
@@ -292,10 +305,10 @@ def map_frames():
         core=np.asarray(lk_core.crop(box).resize((W,H),Image.LANCZOS),np.float32)/255.0
         glow=np.asarray(lk_glow.crop(box).resize((W,H),Image.BILINEAR),np.float32)/255.0
         pulse=0.5+0.5*math.sin(t*3.6)                      # gentle heartbeat
-        ga=(0.30+0.45*pulse)*glow[...,None]                # halo bloom
-        ca=(0.72+0.28*pulse)*core[...,None]                # bright water fill
-        out=base*(1-ga)+yg[None,None,:]*ga
-        out=out*(1-ca)+yc[None,None,:]*ca
+        ga=(0.28+0.42*pulse)*glow[...,None]                # halo bloom
+        ca=(0.78+0.22*pulse)*core[...,None]                # solid water fill
+        out=base*(1-ga)+ORGG[None,None,:]*ga               # red-orange accent on yellow
+        out=out*(1-ca)+ORG[None,None,:]*ca
         crop=Image.fromarray(np.clip(out,0,255).astype(np.uint8),"RGB")
         # thin pulsing ring on the lake nearest the camera centre (close-ups)
         if w<720:
@@ -303,9 +316,10 @@ def map_frames():
             for a,bx,by,dia in big:
                 if (bx-cx)**2+(by-cy)**2<70**2:
                     sx=(bx-left)*sc; sy=(by-top)*sc; r=max(30,dia*sc*0.72)
-                    for k,al in ((16,55),(8,110)):
+                    for k,al in ((16,60),(8,120)):
                         al=int(al*(0.6+0.4*pulse))
-                        d.ellipse([sx-r-k,sy-r-k,sx+r+k,sy+r+k],outline=YEL+(al,),width=3)
+                        d.ellipse([sx-r-k,sy-r-k,sx+r+k,sy+r+k],
+                                  outline=(30,20,10,al),width=3)
                     break
         crop.save(MAPF/f"m_{i:04d}.png")                   # grain added in ffmpeg
     print("map frames",n,"blobs",len(blobs),"focal",len(big))
