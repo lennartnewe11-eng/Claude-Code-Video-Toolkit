@@ -94,3 +94,10 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Karten-Look = Swiss/Editorial-Poster** (Nutzer-Referenz: Spitzer "Far South", CCNY): gelber Grund (247,233,25), graues Relief, weisses Breiten-/Laengengrad-Gitter (baked, faehrt mit), Seen als pulsierender rot-oranger Akzent. Editorial-Typo (Liberation Sans/Helvetica-Grotesk) statt Laufschrift: Masthead "Toteisloecher / Mecklenburgische Seenplatte", Meta "EISZEIT-ERBE · vor ~15.000 Jahren", aufbauende Statements + See-Daten-Raster (Mueritz 117/Plauer 38/Koelpin 20/Fleesen 11 km²). Captions laufen nur noch ueber Hero+Formation. -> scripts/build_c10.py::_map_ass, scripts/gen_c10.py::map_frames
 - **Animations-Referenz** (Nutzer, GIF) -> main_assets/c10/ref/anim_ref.gif (nur Stil-Vorlage)
 - Caption-Korrektur: ASR-Verhoerer "sagte" -> "sank" ("sank der Boden ... ein")
+
+## Hauptteil Chunk 11 (Rinnenseen / Schleswig-Holstein)
+
+- **SH-Reliefkarte** (Nutzer) -> main_assets/c11/img/sh_relief.png; in scripts/gen_c11.py::sh_poster_prep zum STATISCHEN Swiss-Poster aufbereitet: gelber Grund, graues B/W-Hillshade, weisses Gradnetz; Strassen/Fluesse/Beschriftung per Klassifikation + Diffusion entfernt. Original-Ausrichtung (Ostsee = Osten/rechts; Nutzer: Beschriftung egal, nicht spiegeln). Rinnenseen = sizable inland-Blaublobs -> pulsierender rot-oranger Akzent. Grosse Helvetica-Typo (Masthead "Rinnenseen", Meta "TUNNELTAELER", Statements + See-Daten Gr. Ploener 30/Selenter 22/Kellersee 5 km²). KEINE Kamerafahrt.
+- **Aesthetischer Filler = GIF** (Nutzer) -> main_assets/c11/img/filler.gif, gezeigt im 35mm-Film-Kamera-Look: prozeduraler Filmstreifen (Perforation, Bildnummern 14/14A, Tick-Lineal, Light-Leaks) in scripts/gen_c11.py::film_frame, GIF spielt im Fenster, warm gegradet.
+- **Film-Look-Referenz** (Nutzer) -> main_assets/c11/img/glencoe_film.jpg (35mm-Negativ eines Gletschertals; nur Stil-Vorlage fuer den Filmrahmen, nicht als Inhalt gezeigt)
+- Captions (gelber Glow) laufen nur ueber den Film-Filler; das Poster traegt Editorial-Typo. -> scripts/build_c11.py
