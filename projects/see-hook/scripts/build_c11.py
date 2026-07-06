@@ -16,8 +16,10 @@ MAPF=BUILD/"c11_map_f"
 
 VO_START=214.24
 SONG_OFFSET=291.14                      # continues the looped song from chunk 10
-D_MAP, D_FILM = 5.5, 8.5
-TOTAL=D_MAP+D_FILM                       # 14.0
+D_MAP, D_FILM, D_WASH, D_RINNEN = 5.5, 3.5, 3.3, 2.3
+TOTAL=D_MAP+D_FILM+D_WASH+D_RINNEN      # 14.6
+T_FILM0=D_MAP;              T_FILM1=D_MAP+D_FILM
+T_RIN0 =D_MAP+D_FILM+D_WASH; T_RIN1 =TOTAL
 
 GRADE = ("colortemperature=temperature=5200:mix=0.6:pl=1,"
          "eq=contrast=1.04:saturation=1.08:gamma=0.99,"
@@ -52,7 +54,7 @@ def _poster_ass(a):
       f"Style: Sub,Liberation Sans,30,{GY},{GY},&H00FFFFFF,&H90101010,0,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1",
       f"Style: Meta,Liberation Sans,25,{BK},{BK},&H00FFFFFF,&H90101010,-1,0,0,0,100,100,3,0,1,0,0,9,0,0,0,1",
       f"Style: MetaS,Liberation Sans,25,{GY},{GY},&H00FFFFFF,&H90101010,0,0,0,0,100,100,1,0,1,0,0,9,0,0,0,1",
-      f"Style: State,Liberation Sans,56,{BK},{BK},&H00F7E919,&H90101010,-1,0,0,0,100,100,0,0,1,1.2,0,1,0,0,0,1",
+      f"Style: State,Liberation Sans,56,{BK},{BK},&H00FFFFFF,&H90101010,-1,0,0,0,100,100,0,0,1,0,0,1,0,0,0,1",
       f"Style: Fact,Liberation Sans,26,{BK},{BK},&H00FFFFFF,&H90101010,-1,0,0,0,100,100,1,0,1,0,0,9,0,0,0,1",
       f"Style: FactS,Liberation Sans,22,{GY},{GY},&H00FFFFFF,&H90101010,0,0,0,0,100,100,1,0,1,0,0,9,0,0,0,1"]
     E=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
@@ -95,6 +97,25 @@ def beat_film():
          "-filter_complex",fc,"-map","[v]","-t",str(D_FILM),"-r","30",
          "-c:v","libx264","-preset","medium","-crf","20",str(BUILD/"c11_b.mp4")],"film")
 
+# ---- beat C: Hochdruckreiniger cut-out on white + blue editorial type ---------
+def beat_wash():
+    nf=int(D_WASH*30)+2; z="min(zoom+0.0005,1.05)"
+    fc=(f"[0:v]scale=2304:-1,zoompan=z='{z}':d={nf}:s=1920x1080:fps=30,setsar=1,"
+        f"{MAP_GRADE}[v]")
+    run([FF,"-y","-loop","1","-i",str(BUILD/"c11_wash.png"),"-filter_complex",fc,
+         "-map","[v]","-t",str(D_WASH),"-r","30","-c:v","libx264","-preset","medium",
+         "-crf","20",str(BUILD/"c11_c.mp4")],"wash")
+
+# ---- beat D: real glacial meltwater channels ("Rinnen in die Landschaft") -----
+def beat_rinnen():
+    nf=int(D_RINNEN*30)+2; z="min(zoom+0.0009,1.10)"
+    fc=(f"[0:v]scale=2304:1296:force_original_aspect_ratio=increase,crop=2304:1296,"
+        f"zoompan=z='{z}':d={nf}:s=1920x1080:fps=30,setsar=1,{GRADE}[pre];"
+        f"[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL+";[cg]copy[v]")
+    run([FF,"-y","-loop","1","-i",str(C11/"img"/"rinnen.jpg"),"-loop","1","-i",SCAN,
+         "-filter_complex",fc,"-map","[v]","-t",str(D_RINNEN),"-r","30","-c:v","libx264",
+         "-preset","medium","-crf","20",str(BUILD/"c11_d.mp4")],"rinnen")
+
 # ---- captions (film beat only) ----------------------------------------------
 def write_captions():
     words=[]
@@ -102,8 +123,10 @@ def write_captions():
         for w in seg["words"]:
             st=w.get("start")
             if st is None: continue
-            # captions run only under the film filler (the poster carries typo)
-            if VO_START+D_MAP<=st<VO_START+TOTAL:
+            rel=st-VO_START
+            # captions only over the darker footage beats (GIF film + Rinnen);
+            # the poster + the white washer editorial carry their own typography
+            if (T_FILM0<=rel<T_FILM1) or (T_RIN0<=rel<T_RIN1):
                 words.append(w)
     lines,cur=[],[]
     for w in words:
@@ -140,10 +163,13 @@ def final():
     print("  ->", OUT/"main_chunk11.mp4")
 
 if __name__=="__main__":
-    print("[1/4] poster"); beat_map()
-    print("[2/4] film");   beat_film()
+    print("[1/6] poster"); beat_map()
+    print("[2/6] film");   beat_film()
+    print("[3/6] wash");   beat_wash()
+    print("[4/6] rinnen"); beat_rinnen()
     (BUILD/"c11_concat.txt").write_text(
-        "\n".join(f"file '{(BUILD/f'{o}.mp4').as_posix()}'" for o in ["c11_a","c11_b"])+"\n")
+        "\n".join(f"file '{(BUILD/f'{o}.mp4').as_posix()}'"
+                  for o in ["c11_a","c11_b","c11_c","c11_d"])+"\n")
     run([FF,"-y","-f","concat","-safe","0","-i",str(BUILD/"c11_concat.txt"),
          "-c","copy",str(BUILD/"c11_full.mp4")],"concat")
     print("[4/4] final"); final()

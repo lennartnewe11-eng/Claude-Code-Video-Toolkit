@@ -22,6 +22,10 @@ YMAP=np.array([247,233,25],np.float32)      # Swiss-poster yellow ground
 ORG =np.array([232,58,26],np.float32)       # red-orange lake accent
 ORGG=np.array([242,120,40],np.float32)      # lake glow
 def ease(x): x=max(0.0,min(1.0,x)); return x*x*(3-2*x)
+def _tsp(d,xy,txt,font,fill,sp=0):
+    x,y=xy
+    for ch in txt:
+        d.text((x,y),ch,font=font,fill=fill); x+=d.textlength(ch,font=font)+sp
 
 def _blurf(x,r):
     return np.asarray(Image.fromarray(np.clip(x,0,255).astype(np.uint8))
@@ -175,8 +179,40 @@ def film_frame():
     Image.alpha_composite(leak,ov).save(BUILD/"c11_film.png")   # leak under frame base
     print("film_frame -> c11_film.png  window",WIN)
 
+# ---------- Hochdruckreiniger: cut-out on white, blue editorial type layered ---
+BLUE=(18,58,208)
+def washer_hero():
+    w=Image.open(IMG/"washer.png").convert("RGBA")
+    ys,xs=np.where(np.asarray(w)[...,3]>10)
+    w=w.crop((int(xs.min()),int(ys.min()),int(xs.max())+1,int(ys.max())+1))
+    th=930; tw=int(w.width*th/w.height); w=w.resize((tw,th),Image.LANCZOS)
+    cvs=Image.new("RGB",(W,H),(247,246,243))           # near-white paper
+    d=ImageDraw.Draw(cvs)
+    fb=ImageFont.truetype(str(FONTS/"Anton-Regular.ttf") if False else
+        "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",232)
+    def ctext(txt,y,fill):
+        twid=d.textlength(txt,font=fb); d.text(((W-twid)/2,y),txt,font=fb,fill=fill)
+    # BEHIND: big blue word, then the machine occludes its lower half
+    ctext("HOCHDRUCK",150,BLUE)
+    wx=(W-tw)//2; wy=(H-th)//2+16
+    # soft contact shadow under the machine
+    sh=Image.new("RGBA",(W,H),(0,0,0,0))
+    ImageDraw.Draw(sh).ellipse([wx+40,wy+th-60,wx+tw-40,wy+th+70],fill=(0,0,0,60))
+    cvs=Image.alpha_composite(cvs.convert("RGBA"),sh.filter(ImageFilter.GaussianBlur(22))).convert("RGB")
+    cvs.paste(w,(wx,wy),w)
+    d=ImageDraw.Draw(cvs)
+    # IN FRONT: big blue word over the machine's lower body
+    ctext("REINIGER",690,BLUE)
+    # small editorial tag
+    ft=ImageFont.truetype("/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",30)
+    _tsp(d,(96,96),"UNTER ENORMEM DRUCK",ft,BLUE,4)
+    ft2=ImageFont.truetype("/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",30)
+    d.text((96,H-70),"Schmelzwasser · wie ein Hochdruckreiniger",font=ft2,fill=BLUE)
+    cvs.save(BUILD/"c11_wash.png"); print("washer_hero -> c11_wash.png")
+
 if __name__=="__main__":
     import sys
-    steps=sys.argv[1:] or ["map","film"]
+    steps=sys.argv[1:] or ["map","film","wash"]
     if "map"  in steps: sh_poster_prep(); sh_poster_frames()
     if "film" in steps: film_frame()
+    if "wash" in steps: washer_hero()
