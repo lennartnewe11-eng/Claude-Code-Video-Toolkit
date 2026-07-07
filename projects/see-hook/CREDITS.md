@@ -131,3 +131,10 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Break open (~12s):** der Frame bricht auf - das WASSER-VIDEO (Nutzer, water.mp4) schiebt sich per xfade=smoothup hoch; darueber die FRAU (Nutzer, woman.mp4), heller Hintergrund per lumakey entfernt, mit geringer Sichtbarkeit (aa=0.30) eingeblendet, so dass nur ihre Silhouette geistert.
 - **Teil 2 (12-16.5s):** Wasser + Frau, jetzt mit den GELBEN Glow-Untertiteln zurueck (Cap-Style &H0000E9F4, blur7) fuer 'Eine Sache solltest du wissen ... Kein See bleibt fuer immer!' -> scripts/build_c15.py
 - VO 272.94->289.44, Song-Offset 349.84. Ersetzt den frueheren rein-generierten c15-Entwurf.
+
+## Hauptteil Chunk 16 - DAS FINALE (VO 289.44 -> 313.90, Videoende)
+
+- **Beat A - Verlandung:** nebliger Daemmerungssee (Nutzer, lake.mp4) mit gelben Glow-Untertiteln - "Von allen Seiten rieselt Sand, Laub und Schlamm hinein, vom Ufer her wuchern Schilf und Pflanzen nach innen."
+- **Beat B - See -> Sumpf -> Wiese:** grosse Editorial-Progression SEE -> SUMPF -> WIESE (Anton, weiss mit Glow), baut sich zur VO auf ("aus dem See wird ein Sumpf ... eine Wiese").
+- **Beat C - der Schluss:** die PUSTEBLUME (Nutzer, pusteblume.mp4) als Symbol der Vergaenglichkeit, dann Voegel im Sonnenaufgang (Nutzer, birds.mp4). Die poetischen Schlusszeilen ("nichts Ewiges - nur ein kurzer nasser Moment ... wir haben das Glueck, ihn erleben zu duerfen") als VERSTREUTE, leuchtende Titel-Woerter durcheinander ueber dem Bild - nach Nutzer-Referenz (ref_title.jpg, Titel-Sequenz-Look) in Wellen (NICHTS/EWIGES -> NUR EIN KURZER NASSER MOMENT -> GESCHICHTE EINER LANDSCHAFT -> WIR HABEN DAS GLUECK ERLEBEN ZU DUERFEN).
+- Footage per xfade verbunden, einheitlicher Film-Grade + Vignette + Korn; Schlussblende auf Schwarz. Song-Offset 366.34. -> scripts/build_c16.py
