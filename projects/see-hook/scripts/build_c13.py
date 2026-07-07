@@ -10,7 +10,7 @@ import subprocess, pathlib, sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 BUILD, OUT, MA, AUD, FONTS = (ROOT/"build", ROOT/"out", ROOT/"main_assets",
                               ROOT/"audio", ROOT/"fonts")
-FF="ffmpeg"; SCAN=str(BUILD/"scanlines.png"); VF=BUILD/"c13_volc"
+FF="ffmpeg"; SCAN=str(BUILD/"scanlines.png"); VF=BUILD/"c13_volc"; MAARF=BUILD/"c13_maar_f"
 
 VO_START=242.84
 SONG_OFFSET=319.74                      # continues the looped song from chunk 12
@@ -64,11 +64,10 @@ def beat_maar():
         f"Dialogue: 0,{at(0.3)},{at(D_MAAR)},Sub,,0,0,0,,{{\\pos(86,196)\\fad(280,0)}}kreisrunde Krater · voll Wasser",
         f"Dialogue: 0,{at(0.5)},{at(D_MAAR)},Tag,,0,0,0,,{{\\pos(1840,1012)\\fad(280,0)}}Vulkaneifel · vom Magma gesprengt"]
     a.write_text(ass_header(styles)+"\n".join(ev)+"\n")
-    nf=int(D_MAAR*30)+2; z="min(zoom+0.0007,1.08)"
-    fc=(f"[0:v]scale=2304:-1,zoompan=z='{z}':d={nf}:s=1920x1080:fps=30,setsar=1,{GRADE}[pre];"
-        f"[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL
+    # hand-drawn circles are animated in the frames; camera stays put
+    fc=(f"[0:v]setsar=1,{GRADE}[pre];[1:v]scale=1920:1080,setsar=1[sc];"+CRT_TAIL
         +f";[cg]ass={a.as_posix()}:fontsdir={FONTS.as_posix()}[v]")
-    run([FF,"-y","-loop","1","-i",str(BUILD/"c13_maar.png"),"-loop","1","-i",SCAN,
+    run([FF,"-y","-framerate","30","-i",str(MAARF/"m_%04d.png"),"-loop","1","-i",SCAN,
          "-filter_complex",fc,"-map","[v]","-t",str(D_MAAR),"-r","30","-c:v","libx264",
          "-preset","medium","-crf","20",str(BUILD/"c13_b.mp4")],"maar")
 

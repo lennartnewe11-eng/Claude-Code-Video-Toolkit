@@ -16,6 +16,7 @@ BUILD= ROOT/"build"
 FONTS= ROOT/"fonts"
 RAW  = BUILD/"c13_volc_raw"
 VF   = BUILD/"c13_volc"; VF.mkdir(parents=True, exist_ok=True)
+MAARF= BUILD/"c13_maar_f"; MAARF.mkdir(parents=True, exist_ok=True)
 W, H, FPS = 1920, 1080, 30
 BG=(248,247,244); YEL=(252,190,0)
 ANTON=str(FONTS/"Anton-Regular.ttf")
@@ -75,21 +76,45 @@ def volcano_frames():
     print("volcano_frames",n)
 
 # ---- Dauner Maare: round crater lakes ----------------------------------------
-def maar_hero():
-    im=Image.open(IMG/"maar.jpg").convert("RGB")
-    im=ImageOps.fit(im,(W,H),Image.LANCZOS).convert("RGBA")
-    # thin red-orange rings emphasising the near-circular crater lakes
-    ring=Image.new("RGBA",(W,H),(0,0,0,0)); d=ImageDraw.Draw(ring)
-    ORG=(232,58,26)
-    for cx,cy,rx,ry in [(322,352,168,120),(520,612,215,175),(1628,712,168,150)]:
-        for k,al in ((10,70),(0,210)):
-            d.ellipse([cx-rx-k,cy-ry-k,cx+rx+k,cy+ry+k],outline=ORG+(al,),width=5)
-    im=Image.alpha_composite(im,ring)
-    im.convert("RGB").save(BUILD/"c13_maar.png")
-    print("maar_hero -> c13_maar.png", im.size)
+D_MAAR=3.6
+ORG=(232,58,26)
+# the three round Maare (cx,cy,rx,ry) and when each hand-drawn circle starts/ends
+MAARE=[(322,352,176,128, 0.30,0.98),      # top-left
+       (520,612,224,182, 1.05,1.78),      # centre (big)
+       (1628,712,176,158, 1.85,2.55)]     # right
+
+def _hand_circle(cx,cy,rx,ry,seed,npts=240,gap=0.55):
+    rng=np.random.default_rng(seed)
+    a0=-math.pi/2+gap/2                       # leave an open gap (near the top)
+    th=np.linspace(a0, a0+2*math.pi-gap, npts)
+    frq=np.array([1,2,3,5]); amp=rng.uniform(0.02,0.055,4); ph=rng.uniform(0,2*math.pi,4)
+    rad=1+sum(amp[k]*np.sin(th*frq[k]+ph[k]) for k in range(4))
+    jx=cx+rng.normal(0,rx*0.02); jy=cy+rng.normal(0,ry*0.02)
+    xs=jx+np.cos(th)*rx*rad; ys=jy+np.sin(th)*ry*rad
+    return list(zip(xs.tolist(),ys.tolist()))
+
+def _draw_hand(d, pts, frac, col):
+    k=int(len(pts)*max(0.0,min(1.0,frac)))
+    if k<2: return
+    seg=pts[:k]
+    d.line(seg, fill=col+(235,), width=8, joint="curve")          # main marker stroke
+    d.line([(x+2.0,y+1.4) for x,y in seg], fill=col+(110,), width=4, joint="curve")
+    d.ellipse([seg[-1][0]-4,seg[-1][1]-4,seg[-1][0]+4,seg[-1][1]+4],fill=col+(235,))  # wet tip
+
+def maar_frames():
+    base=ImageOps.fit(Image.open(IMG/"maar.jpg").convert("RGB"),(W,H),Image.LANCZOS)
+    paths=[_hand_circle(cx,cy,rx,ry,seed=7+i) for i,(cx,cy,rx,ry,_,_) in enumerate(MAARE)]
+    n=int(D_MAAR*FPS)
+    for i in range(n):
+        t=i/FPS; im=base.copy(); d=ImageDraw.Draw(im,"RGBA")
+        for j,(cx,cy,rx,ry,t0,t1) in enumerate(MAARE):
+            frac=(t-t0)/(t1-t0)
+            if frac>0: _draw_hand(d, paths[j], frac, ORG)
+        im.save(MAARF/f"m_{i:04d}.png")
+    print("maar_frames",n)
 
 if __name__=="__main__":
     import sys
     steps=sys.argv[1:] or ["volc","maar"]
     if "volc" in steps: volcano_frames()
-    if "maar" in steps: maar_hero()
+    if "maar" in steps: maar_frames()
