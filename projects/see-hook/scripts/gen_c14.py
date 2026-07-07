@@ -24,7 +24,8 @@ RF   = BUILD/"c14_river"; RF.mkdir(parents=True, exist_ok=True)
 TF   = BUILD/"c14_tag";   TF.mkdir(parents=True, exist_ok=True)
 W, H, FPS = 1920, 1080, 30
 
-GROUND=(171,181,182)          # cool editorial paper (from the reference)
+GROUND=(255,255,255)          # plain white editorial ground
+GHOST=(216,219,220)           # soft grey watermark word (layered behind)
 INK =(26,28,28); INK2=(78,82,82)
 YEL =(252,190,0); ORG=(232,58,26)
 ANTON=str(FONTS/"Anton-Regular.ttf")
@@ -50,12 +51,7 @@ def _body(im,xy,lines,f,fill,lh,sp=0,alpha=255):
 def _paper(seed=7):
     rng=np.random.default_rng(seed)
     a=np.empty((H,W,3),np.float32); a[:]=np.array(GROUND,np.float32)
-    a=a+rng.normal(0,2.2,(H,W,1))                    # neutral luminance grain
-    # faint cool blotching for a printed feel
-    blob=rng.normal(0,1.0,(H//8,W//8,3)).astype(np.float32)
-    blob=np.asarray(Image.fromarray(np.clip(128+blob*18,0,255).astype("uint8")
-          ).resize((W,H),Image.BILINEAR),np.float32)-128
-    a=np.clip(a+blob*0.5,0,255)
+    a=np.clip(a+rng.normal(0,1.4,(H,W,1)),0,255)     # whisper of neutral grain
     return Image.fromarray(a.astype("uint8"),"RGB").convert("RGBA")
 
 def _shadow(alpha_img, off=(8,12), blur=9, dark=95):
@@ -70,7 +66,9 @@ def _shadow(alpha_img, off=(8,12), blur=9, dark=95):
 # ---------- BEAT A : Altarme river -------------------------------------------
 D_RIVER=10.0
 RH=1180; RW=int(1200*RH/1800); RX=1300-RW//2; RY=(H-RH)//2      # torn river, right
-OX=(1196,516); LAB=(1470,300)                                   # ox-bow + label anchor
+# the two genuine cut-off lakes sit upper-right of the main channel; ring both,
+# label anchored out in the white right margin.
+OXC=(1452,302); OXR=(116,52); LAB=(1600,236)
 
 def _hand_path(p0,p1,seed,npts=90,wob=6.0):
     rng=np.random.default_rng(seed)
@@ -102,15 +100,14 @@ def _draw_progress(d,pts,frac,col,w1,w2,a1=235,a2=120):
 def river_frames():
     base=_paper(7); dbg=ImageDraw.Draw(base)
     # GHOST word behind the river
-    _tsp(dbg,(140,606),"SCHLINGEN",_anton(300),(157,166,167),4)
+    _tsp(dbg,(140,606),"SCHLINGEN",_anton(300),GHOST,4)
     # torn river cut-out + its drop shadow
     riv=Image.open(IMG/"river.png").convert("RGBA").resize((RW,RH),Image.LANCZOS)
-    base.alpha_composite(_shadow(riv,off=(10,14),blur=11,dark=90),(RX,RY))
+    base.alpha_composite(_shadow(riv,off=(10,14),blur=11,dark=85),(RX,RY))
     base.alpha_composite(riv,(RX,RY))
-    # gentle vignette-ish darken at the far edges baked lightly (rest in ffmpeg)
     base_rgb=base.convert("RGB")
-    lead=_hand_path((LAB[0]-18,LAB[1]+150),OX,seed=3)
-    ring=_ring(OX[0],OX[1],92,74,seed=9)
+    ring=_ring(OXC[0],OXC[1],OXR[0],OXR[1],seed=9)             # rings the two lakes
+    lead=_hand_path((1596,300),(1552,308),seed=3,npts=50,wob=4)  # short connector
     n=int(D_RIVER*FPS)
     for i in range(n):
         t=i/FPS; im=base_rgb.copy().convert("RGBA")
@@ -129,16 +126,16 @@ def river_frames():
                   "Was bleibt, ist ein stiller, halbmond-",
                   "förmiger See:  der Altarm."]
             _body(im,(100,336),body,_libr(31),INK2,44,0,int(255*aB))
-        # --- red-orange ox-bow annotation IN FRONT ---
+        # --- red-orange annotation IN FRONT: ring the two cut-off lakes ---
         d=ImageDraw.Draw(im,"RGBA")
         fr=ease((t-1.6)/1.4)
         if fr>0:
-            _draw_progress(d,lead,min(1.0,fr*1.6),ORG,4,3)
-            if fr>0.5: _draw_progress(d,ring,ease((fr-0.5)/0.5),ORG,7,4)
+            _draw_progress(d,ring,fr,ORG,7,4)                  # circle drawn first
+            if fr>0.5: _draw_progress(d,lead,ease((fr-0.5)/0.5),ORG,4,3)
         aL=ease((t-2.6)/0.5)
         if aL>0.01:
-            _tsp_a(im,(LAB[0]-6,LAB[1]+52),"hier schnürt sich",_libb(26),ORG,2,int(255*aL))
-            _tsp_a(im,(LAB[0]-6,LAB[1]+86),"der Bogen ab",_libb(26),ORG,2,int(255*aL))
+            _tsp_a(im,(LAB[0],LAB[1]),"abgeschnürte Bögen:",_libb(26),ORG,2,int(255*aL))
+            _tsp_a(im,(LAB[0],LAB[1]+34),"zwei Altarme",_libb(26),ORG,2,int(255*aL))
         # --- pivot statement (replaces the body) ---
         aP=ease((t-6.3)/0.6)
         if aP>0.01:
@@ -177,7 +174,7 @@ def _torn_mask(w,h,seed=5,bite=10):
 
 def tagebau_frames():
     base=_paper(11); dbg=ImageDraw.Draw(base)
-    _tsp(dbg,(120,470),"LAUSITZ",_anton(300),(158,167,168),8)      # ghost behind window
+    _tsp(dbg,(120,470),"LAUSITZ",_anton(300),GHOST,8)             # ghost behind window
     mask=_torn_mask(TWW,TWH,seed=5,bite=12)
     # a shadow for the window frame (static)
     winshadow=Image.new("RGBA",(W,H),(0,0,0,0))

@@ -20,10 +20,9 @@ SONG_OFFSET=331.34                     # continues the looped song from chunk 13
 D_RIVER, D_TAG = 10.0, 8.5
 TOTAL=D_RIVER+D_TAG                     # 18.5  -> ends 272.94, sentence boundary
 
-# cool editorial paper grade + light CRT scanline tail (series signature).
-# NB: the scanline multiply MUST run in RGB (gbrp) - multiplying two yuv420p
-# streams mangles the chroma planes and skews the neutral paper green.
-GRADE=("eq=contrast=1.05:saturation=1.02,vignette=PI/16,noise=alls=3:allf=t")
+# plain white editorial ground: keep the paper clean - light contrast + a
+# whisper of grain only, no vignette / no scanline tint (they'd grey the white).
+GRADE=("eq=contrast=1.02:saturation=1.02,noise=alls=2:allf=t")
 
 def run(cmd,label=""):
     p=subprocess.run(cmd,capture_output=True,text=True)
@@ -32,11 +31,9 @@ def run(cmd,label=""):
     return p
 
 def beat(frames,dur,out,label):
-    fc=(f"[0:v]setsar=1,{GRADE},format=gbrp[pre];"
-        f"[1:v]scale=1920:1080,setsar=1,format=gbrp[sc];"
-        f"[pre][sc]blend=all_mode=multiply:all_opacity=0.22:shortest=1,format=yuv420p[v]")
+    fc=f"[0:v]setsar=1,{GRADE},format=yuv420p[v]"
     run([FF,"-y","-framerate","30","-i",str(frames/("r_%04d.png" if label=="river"
-         else "t_%04d.png")),"-loop","1","-i",SCAN,"-filter_complex",fc,"-map","[v]",
+         else "t_%04d.png")),"-filter_complex",fc,"-map","[v]",
          "-t",str(dur),"-r","30","-c:v","libx264","-preset","medium","-crf","20",
          str(out)],label)
 
