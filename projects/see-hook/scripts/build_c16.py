@@ -15,10 +15,11 @@ FF="ffmpeg"; IMG=MA/"c16"/"img"; SCAN=str(BUILD/"scanlines.png")
 
 VO_START=289.44
 SONG_OFFSET=366.34
-TOTAL=24.46                              # -> ends 313.90 (VO end)
+VO_END=314.6                             # trim VO to capture the full last word ("duerfen.")
+TOTAL=27.5                               # image holds ~3 s past the VO end, then fades
 
 # segment durations / xfade offsets (see comments)
-LAKE_D=15.8; PB_D=6.2; BIRD_D=3.46
+LAKE_D=15.8; PB_D=6.2; BIRD_D=6.5        # birds hold through the extra tail
 XF=0.5; OFF1=15.3; OFF2=21.0             # OFF1: lake->pb ; OFF2: (x1)->birds
 
 GRADE=("eq=contrast=1.05:saturation=1.05:gamma=0.98,"
@@ -80,7 +81,6 @@ def build_ass():
     YEL="&H0000E9F4"
     styles=[
       f"Style: Cap,Liberation Sans,52,{YEL},{YEL},{YEL},&H78101010,-1,0,0,0,100,100,0.2,0,1,2,2,2,160,160,150,1",
-      f"Style: Prog,Anton,116,&H00FFFFFF,&H00FFFFFF,&H00201810,&H64000000,0,0,0,0,100,100,2,0,1,2,3,5,0,0,0,1",
       f"Style: Scat,Liberation Sans,56,&H00FFFFFF,&H00FFFFFF,&H00FFFFFF,&H50000000,-1,0,0,0,100,100,1.5,0,1,2,3,5,0,0,0,1"]
     E=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text"]
     def dlg(st,en,style,txt,layer=0):
@@ -98,19 +98,17 @@ def build_ass():
         if i+1<len(lines): e=min(e, rel(lines[i+1][0]['start'])-0.03)
         dlg(s,e,"Cap","{\\fad(90,90)\\blur7}"+" ".join(w['word'] for w in ln))
 
-    # -- SEE -> SUMPF -> WIESE (the transformation) ----------------------------
-    pe=rel(301.4)  # progression window until the lake segment ends (~15.3)
-    pend=OFF1+XF
-    prog=[("SEE",480,548,12.19),("\\h→\\h",706,548,12.55),
-          ("SUMPF",900,548,12.75),("\\h→\\h",1210,548,14.35),("WIESE",1408,548,14.93)]
+    # -- SEE  SUMPF  WIESE (the transformation) - same glowing font, no arrows -
+    pend=15.4                                   # gone as the pusteblume takes over
+    prog=[("SEE",512,452,12.19),("SUMPF",946,566,12.75),("WIESE",1392,452,14.93)]
     for txt,x,y,st in prog:
-        dlg(st,pend,"Prog",f"{{\\an5\\pos({x},{y})\\fad(300,350)\\blur3}}{txt}")
+        dlg(st,pend,"Scat",f"{{\\an5\\pos({x},{y})\\fs64\\fad(360,420)\\blur7}}{txt}")
 
     # -- scattered glowing title words for the close ---------------------------
     waves=[("W1",16.4,18.9,["NICHTS","EWIGES"]),
            ("W2",18.6,21.15,["NUR","EIN","KURZER","NASSER","MOMENT"]),
            ("W3",20.9,22.5,["GESCHICHTE","EINER","LANDSCHAFT"]),
-           ("W4",22.2,TOTAL,["WIR","HABEN","DAS","GLÜCK","ERLEBEN","ZU","DÜRFEN"])]
+           ("W4",22.2,26.9,["WIR","HABEN","DAS","GLÜCK","ERLEBEN","ZU","DÜRFEN"])]
     # map VO word starts for staggered appearance
     def vstart(word, after):
         for w in words:
@@ -135,11 +133,12 @@ def final():
          "-af",f"atrim={SONG_OFFSET}:{SONG_OFFSET+TOTAL},asetpts=PTS-STARTPTS",
          "-t",str(TOTAL),str(BUILD/"c16_song.wav")],"songbed")
     fc=(f"[0:v]ass={a.as_posix()}:fontsdir={FONTS.as_posix()},"
-        f"fade=t=in:d=0.5,fade=t=out:st={TOTAL-1.0}:d=1.0,format=yuv420p[v];"
-        f"[1:a]atrim={VO_START}:{VO_START+TOTAL},asetpts=PTS-STARTPTS,volume=1.15,asplit=2[vo1][vo2];"
+        f"fade=t=in:d=0.5,fade=t=out:st={TOTAL-1.5}:d=1.5,format=yuv420p[v];"
+        f"[1:a]atrim={VO_START}:{VO_END},asetpts=PTS-STARTPTS,volume=1.15,asplit=2[vo1][vo2];"
         f"[2:a]volume=0.85[song];"
         f"[song][vo2]sidechaincompress=threshold=0.04:ratio=7:attack=12:release=320:makeup=1[sd];"
-        f"[sd][vo1]amix=inputs=2:normalize=0:duration=longest,alimiter=limit=0.95[a]")
+        f"[sd][vo1]amix=inputs=2:normalize=0:duration=longest,alimiter=limit=0.95,"
+        f"afade=t=out:st={TOTAL-1.5}:d=1.5[a]")
     run([FF,"-y","-i",str(BUILD/"c16_v.mp4"),"-i",str(AUD/"main_vo.wav"),
          "-i",str(BUILD/"c16_song.wav"),"-filter_complex",fc,"-map","[v]","-map","[a]",
          "-t",str(TOTAL),"-c:v","libx264","-preset","medium","-crf","20","-pix_fmt","yuv420p",
