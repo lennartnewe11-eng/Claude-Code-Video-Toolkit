@@ -138,3 +138,9 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - **Beat B - See -> Sumpf -> Wiese:** grosse Editorial-Progression SEE -> SUMPF -> WIESE (Anton, weiss mit Glow), baut sich zur VO auf ("aus dem See wird ein Sumpf ... eine Wiese").
 - **Beat C - der Schluss:** die PUSTEBLUME (Nutzer, pusteblume.mp4) als Symbol der Vergaenglichkeit, dann Voegel im Sonnenaufgang (Nutzer, birds.mp4). Die poetischen Schlusszeilen ("nichts Ewiges - nur ein kurzer nasser Moment ... wir haben das Glueck, ihn erleben zu duerfen") als VERSTREUTE, leuchtende Titel-Woerter durcheinander ueber dem Bild - nach Nutzer-Referenz (ref_title.jpg, Titel-Sequenz-Look) in Wellen (NICHTS/EWIGES -> NUR EIN KURZER NASSER MOMENT -> GESCHICHTE EINER LANDSCHAFT -> WIR HABEN DAS GLUECK ERLEBEN ZU DUERFEN).
 - Footage per xfade verbunden, einheitlicher Film-Grade + Vignette + Korn; Schlussblende auf Schwarz. Song-Offset 366.34. -> scripts/build_c16.py
+
+## Gesamtschnitt (main_full) - das ganze Video am Stueck
+
+- Alle 16 Chunks (main_chunk1..16) per concat-Demuxer BILD-only aneinandergeschnitten (Stream-Copy, kein Requalitaetsverlust an den Schnitten) -> build/master/master_v.mp4 (~317 s).
+- Tonspur KOMPLETT NEU durchgehend unterlegt statt der Clip-Audios: eine einzige VO-Spur (main_vo.wav, ab 0 - Chunk 1 startet bei VO 0, die Chunks sind lueckenlos aneinandergereiht) + EIN durchgehend geloopter Musik-Bett (song.mp3), unter die Stimme geduckt (sidechaincompress). Dadurch keine Audio-Spruenge und keine mitten im Satz beginnenden/endenden Uebergaenge. VO per apad bis Videoende verlaengert (Musik traegt den ~3 s Finale-Tail), sanfte Ein-/Ausblende. -> scripts/build_master.py
+- Ausgaben: out/main_full.mp4 (Bild-Copy, volle Qualitaet ~201 MB), out/main_full_1080p.mp4 (crf23 ~118 MB), out/main_full_720p.mp4 (~24 MB Vorschau).
