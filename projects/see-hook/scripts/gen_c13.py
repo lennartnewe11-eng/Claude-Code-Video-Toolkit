@@ -33,9 +33,12 @@ def _key(im):
     a=np.asarray(im.convert("RGB")).astype(np.float32)
     R,G,B=a[...,0],a[...,1],a[...,2]; br=(R+G+B)/3
     sky=((B-R)>10)|(br>152)                     # blue sky + blue haze (keep the cone)
+    # close small holes (bright speckles inside the cone) so they don't flicker,
+    # then a light open to drop floating specks -> a temporally stabler matte
     m=Image.fromarray(((~sky)*255).astype("uint8"),"L").filter(
-        ImageFilter.MaxFilter(5)).filter(ImageFilter.MinFilter(3))
-    m=m.filter(ImageFilter.GaussianBlur(2.4))
+        ImageFilter.MaxFilter(7)).filter(ImageFilter.MinFilter(7)).filter(
+        ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))
+    m=m.filter(ImageFilter.GaussianBlur(2.8))
     rgba=im.convert("RGBA"); rgba.putalpha(m); return rgba
 
 def volcano_frames():
@@ -48,7 +51,7 @@ def volcano_frames():
         else: d.text(pos,txt,font=font,fill=fill)
         return L
     magma=make_word("MAGMA",big,(150,150),YEL)                 # behind
-    eifel=make_word("EIFEL",front,(780,470),YEL,hollow=True)   # front (outline)
+    eifel=make_word("EIFEL",front,(780,470),YEL)               # front (solid, one colour)
     for i in range(n):
         t=i/FPS
         src=raws[min(i,len(raws)-1)]

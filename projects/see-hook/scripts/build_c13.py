@@ -22,9 +22,10 @@ GRADE = ("colortemperature=temperature=5200:mix=0.6:pl=1,"
          "curves=r='0/0 0.5/0.53 1/1':b='0/0 0.5/0.47 1/0.98',rgbashift=rh=2:bh=-2")
 CRT_TAIL = ("[pre][sc]blend=all_mode=multiply:all_opacity=0.34:shortest=1[m];"
             "[m]vignette=PI/6,noise=alls=4:allf=t,format=yuv420p[cg]")
-# editorial white beat: keep the paper clean, only a whisper of vignette + grain
-WHITE_GRADE=("eq=contrast=1.03:saturation=1.04,vignette=PI/18,"
-             "noise=alls=3:allf=t,format=yuv420p")
+# editorial white beat: keep the paper clean, only a whisper of vignette + grain.
+# deflicker smooths the volcano cam's exposure/key flicker; grain kept low.
+WHITE_GRADE=("deflicker=size=5,eq=contrast=1.03:saturation=1.04,vignette=PI/18,"
+             "noise=alls=2:allf=t,format=yuv420p")
 
 def run(cmd,label=""):
     p=subprocess.run(cmd,capture_output=True,text=True)
@@ -55,9 +56,9 @@ def beat_maar():
     YEL="&H0000BEFC"    # brand yellow in ASS BGR (R252 G190 B0)
     BK="&H00181410"
     styles=[
-      f"Style: Big,Anton,120,&H00FFFFFF,&H00FFFFFF,&H00181410,&H90101010,0,0,0,0,100,100,0,0,1,3,0,7,0,0,0,1",
-      f"Style: Sub,Liberation Sans,34,&H00FFFFFF,&H00FFFFFF,&H00181410,&H90101010,-1,0,0,0,100,100,1,0,1,2,0,7,0,0,0,1",
-      f"Style: Tag,Liberation Sans,28,&H00FFFFFF,&H00FFFFFF,&H00181410,&H90101010,-1,0,0,0,100,100,2,0,1,2,0,3,0,0,0,1"]
+      f"Style: Big,Anton,120,&H00FFFFFF,&H00FFFFFF,&H00181410,&H90101010,0,0,0,0,100,100,0,0,1,0,0,7,0,0,0,1",
+      f"Style: Sub,Liberation Sans,34,&H00FFFFFF,&H00FFFFFF,&H00181410,&H90101010,-1,0,0,0,100,100,1,0,1,0,0,7,0,0,0,1",
+      f"Style: Tag,Liberation Sans,28,&H00FFFFFF,&H00FFFFFF,&H00181410,&H90101010,-1,0,0,0,100,100,2,0,1,0,0,3,0,0,0,1"]
     ev=["[Events]","Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
         f"Dialogue: 0,{at(0.3)},{at(D_MAAR)},Big,,0,0,0,,{{\\pos(80,60)\\fad(240,0)}}MAARE",
         f"Dialogue: 0,{at(0.3)},{at(D_MAAR)},Sub,,0,0,0,,{{\\pos(86,196)\\fad(280,0)}}kreisrunde Krater · voll Wasser",
