@@ -1,81 +1,54 @@
 #!/usr/bin/env python3
-"""Video thumbnail: white ground, the lake cut-out (silhouette swimmers) covering
-the lower part, big centred 'See' in a Helvetica-clone above it, and a small
-pastel-orange handwritten scrawl in the bottom-right corner (cursive, not meant
-to be legible)."""
+"""Video thumbnail: white ground; the lake cut-out fills the FULL WIDTH at the
+bottom, vertically squashed a bit so it doesn't reach too high; big 'See' in a
+Helvetica-clone on the LEFT with a black arrow pointing down at the lake; and a
+real handwritten line (Kalam) in pastel orange in the bottom-right corner."""
 import pathlib, math
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-IMG  = ROOT/"main_assets"/"thumb"
-OUT  = ROOT/"out"
+IMG  = ROOT/"main_assets"/"thumb"; OUT=ROOT/"out"; FONTS=ROOT/"fonts"
 W, H = 1920, 1080
-INK=(22,22,22)
-PASTEL=(243,166,112)                      # pastel orange
+INK=(18,18,18)
+PASTEL=(242,158,96)                       # pastel orange (legible on the dark water)
 LIBB="/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf"
+HAND=str(FONTS/"Hand.ttf")                # Kalam handwriting
 
-def _letter(x, base, w, s, typ, rng):
-    """one cursive stroke primitive; returns points (pen goes up = -y)."""
-    if typ in ("hump","hump2"):
-        p=[(x,base),(x+0.15*w,base-0.85*s),(x+0.35*w,base-0.95*s),
-           (x+0.5*w,base-0.35*s),(x+0.55*w,base-0.05*s)]
-        if typ=="hump2":
-            p+=[(x+0.7*w,base-0.85*s),(x+0.9*w,base-0.95*s),(x+w,base-0.2*s)]
-        else: p+=[(x+w,base)]
-        return p
-    if typ=="round":                                   # o / a
-        return [(x,base),(x+0.1*w,base-0.55*s),(x+0.3*w,base-0.95*s),(x+0.6*w,base-0.9*s),
-                (x+0.72*w,base-0.4*s),(x+0.5*w,base-0.08*s),(x+0.78*w,base-0.25*s),(x+w,base)]
-    if typ=="asc":                                     # l / h / b loop
-        a=rng.uniform(1.9,2.5)*s
-        return [(x,base),(x+0.18*w,base-a*0.55),(x+0.05*w,base-a),(x+0.32*w,base-a*0.9),
-                (x+0.34*w,base-a*0.35),(x+0.28*w,base-0.1*s),(x+0.6*w,base-0.85*s),
-                (x+0.85*w,base-0.55*s),(x+w,base)]
-    if typ=="desc":                                    # g / y / p tail
-        dd=rng.uniform(0.9,1.4)*s
-        return [(x,base),(x+0.2*w,base-0.8*s),(x+0.42*w,base-0.9*s),(x+0.52*w,base+dd*0.9),
-                (x+0.34*w,base+dd),(x+0.58*w,base+dd*0.4),(x+w,base)]
-    return [(x,base),(x+0.5*w,base-0.7*s),(x+w,base)]   # fallback
+HIMG=838                                   # squashed height of the full-width lake
 
-def _cursive(d, x0, y0, width, seed, col, s=13, slant=-0.05):
-    """a line of cursive-looking words along a baseline (illegible)."""
-    rng=np.random.default_rng(seed)
-    x=x0; end=x0+width
-    while x < end-18:
-        letters=int(rng.integers(3,7)); pts=[]
-        for i in range(letters):
-            w=s*rng.uniform(0.85,1.25)
-            typ=rng.choice(["hump","hump2","round","asc","desc","hump"])
-            seg=_letter(x,y0,w,s,typ,rng)
-            pts+=seg if not pts else seg[1:]
-            x+=w
-        pts=[(px, py+slant*(px-x0)) for px,py in pts]
-        d.line(pts, fill=col, width=3, joint="curve")
-        # dot / accent above some words
-        if rng.random()<0.6:
-            cx=pts[len(pts)//2][0]; cy=y0+slant*(cx-x0)-2.1*s
-            d.ellipse([cx-2,cy-2,cx+2,cy+2],fill=col)
-        x+=s*rng.uniform(1.1,2.0)                        # word gap
+def _arrow(d, p0, p1, p2, col=INK, wdt=13):
+    t=np.linspace(0,1,60)
+    xs=(1-t)**2*p0[0]+2*(1-t)*t*p1[0]+t**2*p2[0]
+    ys=(1-t)**2*p0[1]+2*(1-t)*t*p1[1]+t**2*p2[1]
+    d.line(list(zip(xs,ys)), fill=col, width=wdt, joint="curve")
+    dx,dy=p2[0]-xs[-6],p2[1]-ys[-6]; L=math.hypot(dx,dy); dx,dy=dx/L,dy/L
+    hl,hw=46,30; bx,by=p2[0]-dx*hl,p2[1]-dy*hl; px,py=-dy,dx
+    d.polygon([(p2[0],p2[1]),(bx+px*hw,by+py*hw),(bx-px*hw,by-py*hw)],fill=col)
 
 def make():
     im=Image.new("RGB",(W,H),(255,255,255)).convert("RGBA")
-    # lake cut-out (transparent sky -> white shows through), lower part
-    lake=Image.open(IMG/"lake.png").convert("RGBA")
-    LW=1720; lh=int(lake.height*LW/lake.width); lake=lake.resize((LW,lh),Image.LANCZOS)
-    LX=(W-LW)//2; LY=-6
-    im.alpha_composite(lake,(LX,LY))
+    # lake cut-out: drop the transparent bottom strip, then full width + squashed
+    lake=Image.open(IMG/"lake.png").convert("RGBA").crop((0,0,1200,782))
+    lake=lake.resize((W,HIMG),Image.LANCZOS)
+    im.alpha_composite(lake,(0,H-HIMG))            # bottom-aligned, fills full width
     d=ImageDraw.Draw(im,"RGBA")
-    # big centred 'See' in Helvetica-clone, over the white above the treeline
-    f=ImageFont.truetype(LIBB,214)
-    tw=d.textlength("See",font=f)
-    d.text(((W-tw)/2, 46), "See", font=f, fill=INK)
-    # pastel-orange cursive scrawl, bottom-right corner (not legible)
-    _cursive(d, 1452, 940, 404, 11, PASTEL, s=14)
-    _cursive(d, 1500, 990, 356, 23, PASTEL, s=13)
-    _cursive(d, 1556, 1038, 300, 31, PASTEL, s=13)
+    # 'See' on the left, Helvetica-clone
+    f=ImageFont.truetype(LIBB,208)
+    d.text((118,78),"See",font=f,fill=INK)
+    # black arrow from the word pointing down at the lake
+    _arrow(d,(470,300),(560,300),(628,452))
+    # real handwritten note, pastel orange, bottom-right
+    hf=ImageFont.truetype(HAND,66)
+    lines=["Wie entsteht","ein See?"]
+    lay=Image.new("RGBA",(760,240),(0,0,0,0)); ld=ImageDraw.Draw(lay)
+    y=0
+    for ln in lines:
+        w=ld.textlength(ln,font=hf); ld.text((740-w,y),ln,font=hf,fill=PASTEL); y+=98
+    lay=lay.rotate(3.5,expand=True,resample=Image.BICUBIC)
+    im.alpha_composite(lay,(W-lay.width-40,H-lay.height-24))
     im.convert("RGB").save(OUT/"thumbnail.png")
-    print("->", OUT/"thumbnail.png")
+    print("->",OUT/"thumbnail.png")
 
 if __name__=="__main__":
     make()
