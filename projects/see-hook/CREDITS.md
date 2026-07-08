@@ -153,3 +153,7 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - Ausgaben: out/see_full.mp4 (~242 MB, crf20), out/see_full_720p.mp4 (~27 MB Vorschau).
 
 - OUTRO ans Ende angehaengt: Bild-Collage (Nutzer, main_assets/outro/outro.mov, ~4K) auf 1920x1080 skaliert, EIGENE Tonspur unveraendert uebernommen (-c:a copy); der Film blendet auf Schwarz+Stille aus, das Outro startet auf Schwarz -> nahtlos per concat. Ausgabe: out/see_full.mp4 (jetzt inkl. Outro, ~6:48).
+
+## Thumbnail (out/thumbnail.png)
+
+- 1920x1080: weisser Grund; das freigestellte Seebild (Nutzer, main_assets/thumb/lake.png - Silhouette mit 2 Schwimmern, Himmel transparent) bedeckt den unteren Teil (Silhouette kommt auf Weiss heraus); darueber gross + zentriert "See" in Helvetica-Klon (Liberation Sans Bold). Unten rechts eine prozedural erzeugte, pastell-orange KURSIV-Kritzelei (Boegen/Schlaufen/Ober-/Unterlaengen, Wortluecken) im Stil einer handschriftlichen Notiz - bewusst NICHT direkt lesbar. -> scripts/make_thumb.py
