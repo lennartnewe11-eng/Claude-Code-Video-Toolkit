@@ -151,3 +151,5 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - Die drei Vorspann-Teile sind intern nahtlos designt (eine gechainte Musikspur ueber alle drei, Tagesschau-Einschub in Teil 2) und werden unveraendert per concat uebernommen (Baked-Audio erhalten).
 - Uebergang TEIL 2 -> HAUPTTEIL: kurze Kreuzblende (xfade 0.6 s, Bild dort ohnehin schwarz/weich) + acrossfade der Tonspur; der Hauptteil setzt die Musik an exakt derselben Song-Stelle fort (SONG_MAIN=76.90) und der Pegel wird ueber die Blende angeglichen -> keine Tonspur-Naht. -> scripts/build_full.py
 - Ausgaben: out/see_full.mp4 (~242 MB, crf20), out/see_full_720p.mp4 (~27 MB Vorschau).
+
+- OUTRO ans Ende angehaengt: Bild-Collage (Nutzer, main_assets/outro/outro.mov, ~4K) auf 1920x1080 skaliert, EIGENE Tonspur unveraendert uebernommen (-c:a copy); der Film blendet auf Schwarz+Stille aus, das Outro startet auf Schwarz -> nahtlos per concat. Ausgabe: out/see_full.mp4 (jetzt inkl. Outro, ~6:48).

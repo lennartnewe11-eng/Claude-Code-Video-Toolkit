@@ -9,8 +9,9 @@ is a short cross-dissolve (video is black->black there) so the audio has no seam
 import subprocess, pathlib, sys, re
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-BUILD, OUT, AUD = ROOT/"build", ROOT/"out", ROOT/"audio"
+BUILD, OUT, AUD, MA = ROOT/"build", ROOT/"out", ROOT/"audio", ROOT/"main_assets"
 FF="ffmpeg"; M=BUILD/"master"; M.mkdir(parents=True, exist_ok=True)
+OUTRO = MA/"outro"/"outro.mov"          # credits-collage outro (own audio, kept as-is)
 SONG_MAIN=76.90                 # song time where Teil 2 ends -> Hauptteil continues it
 XF=0.6
 
@@ -57,12 +58,24 @@ def join():
          "-filter_complex",fc,"-map","[v]","-map","[a]",
          "-c:v","libx264","-preset","faster","-crf","20","-pix_fmt","yuv420p",
          "-c:a","aac","-b:a","192k","-movflags","+faststart",
-         str(OUT/"see_full.mp4")],"join")
-    print(f"  -> {OUT/'see_full.mp4'}  (front {FD:.2f}s + main -> {dur(OUT/'see_full.mp4'):.2f}s)")
+         str(M/"see_film.mp4")],"join")
+
+def append_outro():
+    # scale the outro to match the film; keep its own audio track unchanged
+    run([FF,"-y","-i",str(OUTRO),"-vf",
+         "scale=1920:1080:force_original_aspect_ratio=increase,crop=1920:1080,"
+         "fps=30,setsar=1,format=yuv420p","-c:v","libx264","-preset","medium",
+         "-crf","20","-c:a","copy",str(M/"outro_norm.mp4")],"outro norm")
+    lst=M/"full_outro.txt"
+    lst.write_text(f"file '{(M/'see_film.mp4').as_posix()}'\nfile '{(M/'outro_norm.mp4').as_posix()}'\n")
+    run([FF,"-y","-f","concat","-safe","0","-i",str(lst),"-c","copy",
+         str(OUT/"see_full.mp4")],"append outro")
+    print(f"  -> {OUT/'see_full.mp4'}  ({dur(OUT/'see_full.mp4'):.2f}s incl. outro)")
 
 if __name__=="__main__":
-    print("[1/4] concat front"); concat_front()
-    print("[2/4] concat main video"); concat_main_video()
-    print("[3/4] main audio bed"); main_av()
-    print("[4/4] join (cross-dissolve)"); join()
+    print("[1/5] concat front"); concat_front()
+    print("[2/5] concat main video"); concat_main_video()
+    print("[3/5] main audio bed"); main_av()
+    print("[4/5] join (cross-dissolve)"); join()
+    print("[5/5] append outro"); append_outro()
     print("DONE")
