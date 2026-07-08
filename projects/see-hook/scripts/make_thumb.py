@@ -36,7 +36,7 @@ def make():
     # pastel-orange filled circles as a style element in the top area,
     # plus a bigger one under the 'S' of the 'See' wordmark
     for cx,cy,r in [(1636,150,54),(1180,92,34),(1806,360,30),(772,142,46),
-                    (1420,250,25),(150,326,70)]:
+                    (1420,250,25),(150,292,70)]:
         d.ellipse([cx-r,cy-r,cx+r,cy+r],fill=PASTEL)
     # 'See' left + black arrow to the lake
     d.text((118,78),"See",font=ImageFont.truetype(LIBB,208),fill=INK)
