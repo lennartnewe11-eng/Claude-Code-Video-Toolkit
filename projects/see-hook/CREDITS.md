@@ -144,3 +144,10 @@ Hinweis: der Song (~2:12) wird ab Chunk 4 geloopt, da der Hauptteil länger läu
 - Alle 16 Chunks (main_chunk1..16) per concat-Demuxer BILD-only aneinandergeschnitten (Stream-Copy, kein Requalitaetsverlust an den Schnitten) -> build/master/master_v.mp4 (~317 s).
 - Tonspur KOMPLETT NEU durchgehend unterlegt statt der Clip-Audios: eine einzige VO-Spur (main_vo.wav, ab 0 - Chunk 1 startet bei VO 0, die Chunks sind lueckenlos aneinandergereiht) + EIN durchgehend geloopter Musik-Bett (song.mp3), unter die Stimme geduckt (sidechaincompress). Dadurch keine Audio-Spruenge und keine mitten im Satz beginnenden/endenden Uebergaenge. VO per apad bis Videoende verlaengert (Musik traegt den ~3 s Finale-Tail), sanfte Ein-/Ausblende. -> scripts/build_master.py
 - Ausgaben: out/main_full.mp4 (Bild-Copy, volle Qualitaet ~201 MB), out/main_full_1080p.mp4 (crf23 ~118 MB), out/main_full_720p.mp4 (~24 MB Vorschau).
+
+## Gesamtvideo mit Vorspann (see_full) - Hook + Intro + Teil 2 + Hauptteil
+
+- Reihenfolge (durch die durchgehende Musik vorgegeben): HOOK (see_hook_16x9.mp4, 30 s) -> INTRO (intro.mp4, Past/Present/Future, 12 s) -> TEIL 2 (teil2.mp4, 35 s) -> HAUPTTEIL (Gesamtschnitt der Chunks 1-16). Front-Ende bei Song 76.90 s.
+- Die drei Vorspann-Teile sind intern nahtlos designt (eine gechainte Musikspur ueber alle drei, Tagesschau-Einschub in Teil 2) und werden unveraendert per concat uebernommen (Baked-Audio erhalten).
+- Uebergang TEIL 2 -> HAUPTTEIL: kurze Kreuzblende (xfade 0.6 s, Bild dort ohnehin schwarz/weich) + acrossfade der Tonspur; der Hauptteil setzt die Musik an exakt derselben Song-Stelle fort (SONG_MAIN=76.90) und der Pegel wird ueber die Blende angeglichen -> keine Tonspur-Naht. -> scripts/build_full.py
+- Ausgaben: out/see_full.mp4 (~242 MB, crf20), out/see_full_720p.mp4 (~27 MB Vorschau).
