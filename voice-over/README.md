@@ -37,6 +37,25 @@ cp .env.example .env
 
 Alternativ per Umgebungsvariable: `export ELEVENLABS_API_KEY=sk_...`
 
+## Skript-PDF → nur Erzähler-Text
+
+Wenn das Skript ein PDF mit Regie-Anweisungen ist (Abschnitte, `GRAFIK:`,
+Timings, mehrere Sprecher), zieht `extract_narration.py` nur die zu sprechenden
+Passagen heraus:
+
+```bash
+# Standard: alle "ERZÄHLER:"-Passagen (inkl. "ERZÄHLER (Schluss):")
+python extract_narration.py skript.pdf --out narration.txt
+
+# Anderer Sprecher-Marker
+python extract_narration.py skript.pdf --speaker SPRECHER --out narration.txt
+```
+
+Übersprungen werden Abschnittsüberschriften, `GRAFIK:`-Hinweise,
+`WAHRSCHEINLICHKEIT`/Timing-Zeilen und die Quellen-Fußzeile. Typische
+PDF-Artefakte (zerrissene Zeilen, `V or` → `Vor`) werden bereinigt. Danach
+`narration.txt` an `voiceover.py --script` übergeben.
+
 ## Nutzung
 
 ```bash
