@@ -40,12 +40,15 @@ def is_structural(s: str) -> bool:
 
 
 def clean(text: str) -> str:
+    # Mehrfach-Whitespace zuerst vereinheitlichen
+    text = re.sub(r"\s+", " ", text).strip()
     # "V or..." -> "Vor...", "V olks" -> "Volks", "V ier" -> "Vier"
     text = re.sub(r"\bV ([a-zäöü])", r"V\1", text)
+    # zerrissenes Kompositum: "US- Beschäftigten" -> "US-Beschäftigten"
+    # (Suspensiv-Bindestrich "Arbeitsmarkt- und" bleibt: dort folgt Kleinbuchstabe)
+    text = re.sub(r"(\w)- ([A-ZÄÖÜ])", r"\1-\2", text)
     # fehlendes Leerzeichen nach Doppelpunkt: "Berufen:verhält" -> "Berufen: verhält"
     text = re.sub(r"([a-zäöüß]):([A-Za-zÄÖÜ])", r"\1: \2", text)
-    # Mehrfach-Whitespace
-    text = re.sub(r"\s+", " ", text).strip()
     return text
 
 
