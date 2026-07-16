@@ -1,0 +1,4 @@
+requests>=2.31
+# Optional: liefert ein ffmpeg-Binary fuer sauberes Zusammenfuegen der Chunks
+# (ohne System-Installation). Wird automatisch genutzt, wenn vorhanden.
+imageio-ffmpeg>=0.4.9

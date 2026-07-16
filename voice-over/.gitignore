@@ -1,0 +1,21 @@
+# Secrets — never commit
+.env
+
+# Voice samples & generated audio (private, can be large)
+samples/*
+output/*
+*.mp3
+*.wav
+*.m4a
+*.flac
+*.ogg
+
+# Keep the folders in git, ignore their contents
+!samples/.gitkeep
+!output/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
