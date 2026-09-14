@@ -1,6 +1,6 @@
 {
  "name": "act1_aufbruch",
- "note": "Akt 1 - 23 Takte / 92 Beats / 34.178s. Raketenstart -> Innovation 60er -> Telefon/Rechner -> erste Mobiltelefone 80er -> Mauerfall -> Nokia -> War on Terror -> iPhone-Keynote -> Groessenvergleich vor Weiss (echte Geraete, freigestellt).",
+ "note": "Akt 1 - 29 Takte / 116 Beats / 43.094s. Raketenstart -> Innovation -> Telefon/Rechner -> Mobiltelefone -> Mauerfall -> Nokia -> War on Terror -> iPhone-Keynote -> Groessenvergleich -> Scrolling -> Isolation.",
  "beat": 0.3715,
  "shots": [
   {
@@ -635,13 +635,225 @@
   {
    "beat_in": 88,
    "beats": 4,
-   "src": "real_all",
+   "src": "phone_all_anim",
    "band": "portrait",
    "grade": "neutral",
    "fx": [
     "punch"
    ],
-   "note": "2024 mit Umriss von 2007 - Halteeinstellung"
+   "note": "2024 mit Umriss 2007 - Display scrollt auf dem Beat",
+   "src_in": 0.0
+  },
+  {
+   "beat_in": 92,
+   "beats": 2,
+   "src": "scroll_mx00",
+   "band": "full",
+   "grade": "cold",
+   "fx": [
+    "punch",
+    "rgbhit",
+    "grain"
+   ],
+   "note": "Hand scrollt Feed im Dunkeln",
+   "src_in": 1.5
+  },
+  {
+   "beat_in": 94,
+   "beats": 1,
+   "src": "ia_logicmachine",
+   "band": "square",
+   "grade": "bw",
+   "fx": [
+    "thump"
+   ],
+   "note": "Lochkarten-Raster",
+   "src_in": 95.6,
+   "mask": "bars"
+  },
+  {
+   "beat_in": 95,
+   "beats": 1,
+   "src": "scroll_mx01",
+   "band": "cinema",
+   "grade": "cold",
+   "fx": [
+    "punch"
+   ],
+   "note": "Brille spiegelt den Bildschirm",
+   "src_in": 1.0
+  },
+  {
+   "beat_in": 96,
+   "beats": 2,
+   "src": "scroll_mx02",
+   "band": "portrait",
+   "grade": "cold",
+   "fx": [
+    "drift",
+    "grain"
+   ],
+   "note": "Im Bett am Handy",
+   "src_in": 4.0
+  },
+  {
+   "beat_in": 98,
+   "beats": 1,
+   "src": "ia_telephone65",
+   "band": "tv",
+   "grade": "bw",
+   "fx": [
+    "thump",
+    "grain_heavy"
+   ],
+   "note": "Telefongesellschaft, Draehte",
+   "src_in": 483.0,
+   "boost": 1.15
+  },
+  {
+   "beat_in": 99,
+   "beats": 1,
+   "src": "scroll_mx03",
+   "band": "wide",
+   "grade": "cold",
+   "fx": [
+    "punch",
+    "rgbhit"
+   ],
+   "note": "Augen hinter der Brille",
+   "src_in": 2.0
+  },
+  {
+   "beat_in": 100,
+   "beats": 2,
+   "src": "ia_telephone65",
+   "band": "classic",
+   "grade": "bw",
+   "fx": [
+    "thump",
+    "grain_heavy"
+   ],
+   "note": "Ohr und Hoerer, stilisiert",
+   "src_in": 527.0,
+   "boost": 1.2
+  },
+  {
+   "beat_in": 102,
+   "beats": 1,
+   "src": "hand_mx08",
+   "band": "square",
+   "grade": "bleak",
+   "fx": [
+    "punch"
+   ],
+   "note": "Mann am Handy, dunkel",
+   "src_in": 2.0
+  },
+  {
+   "beat_in": 103,
+   "beats": 1,
+   "src": "night_cv07",
+   "band": "slab",
+   "grade": "cold",
+   "fx": [
+    "rgbhit"
+   ],
+   "note": "Auge, extrem nah",
+   "src_in": 1.5
+  },
+  {
+   "beat_in": 104,
+   "beats": 2,
+   "src": "hand_mx09",
+   "band": "cinema",
+   "grade": "cold",
+   "fx": [
+    "push",
+    "grain"
+   ],
+   "note": "Frau am Handy, Unterfuehrung",
+   "src_in": 3.0
+  },
+  {
+   "beat_in": 106,
+   "beats": 1,
+   "src": "ia_telephone65",
+   "band": "square",
+   "grade": "bw",
+   "fx": [
+    "thump"
+   ],
+   "note": "Abstrakte Form",
+   "src_in": 439.0,
+   "boost": 1.15
+  },
+  {
+   "beat_in": 107,
+   "beats": 1,
+   "src": "scroll_cv07",
+   "band": "wide",
+   "grade": "cold",
+   "fx": [
+    "punch"
+   ],
+   "note": "Haende, Handy vor Laptop",
+   "src_in": 2.0
+  },
+  {
+   "beat_in": 108,
+   "beats": 2,
+   "src": "ia_telephone65",
+   "band": "strip",
+   "grade": "bleak",
+   "fx": [
+    "drift",
+    "grain"
+   ],
+   "note": "Vermittlungsfeld, Reihen von Buchsen",
+   "src_in": 1179.0,
+   "boost": 1.25
+  },
+  {
+   "beat_in": 110,
+   "beats": 2,
+   "src": "ia_telephone65",
+   "band": "classic",
+   "grade": "bleak",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Vermittlungsdame mit Headset",
+   "src_in": 1239.0,
+   "boost": 1.2,
+   "mask": "circle_in"
+  },
+  {
+   "beat_in": 112,
+   "beats": 2,
+   "src": "alone_mx03",
+   "band": "wide",
+   "grade": "bleak",
+   "fx": [
+    "push",
+    "grain"
+   ],
+   "note": "Allein auf der Bank",
+   "src_in": 3.0
+  },
+  {
+   "beat_in": 114,
+   "beats": 2,
+   "src": "night_mx08",
+   "band": "mini",
+   "grade": "bleak",
+   "fx": [
+    "close",
+    "grain"
+   ],
+   "note": "Kerze im Dunkeln",
+   "src_in": 2.0,
+   "boost": 1.55
   }
  ]
 }

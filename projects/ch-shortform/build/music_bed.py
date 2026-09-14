@@ -22,13 +22,13 @@ def bt(n):        # Zeit des Beats n im Originaltrack
 
 # --- Splice-Punkte (Beat-Indizes im Original) --------------------------------
 N_START   = 3      # 1.1619s  erster hoerbarer Downbeat
-N_CUT     = 95     # Ende Akt 1 (23 Takte)
+N_CUT     = 119    # Ende Akt 1 (29 Takte)
 N_BREAK   = 295    # 109.6455s Breakdown beginnt (Bass faellt weg)
 N_END     = 395    # 146.7899s Ende
 
 ACTS = [
     # name,            beat_from, beat_to
-    ("act1_aufbruch",  N_START,  N_CUT),    # 23 Takte
+    ("act1_aufbruch",  N_START,  N_CUT),    # 29 Takte
     ("act2_3_shift",   N_BREAK,  N_END),    # 25 Takte (8 Breakdown + 17 Drop)
 ]
 

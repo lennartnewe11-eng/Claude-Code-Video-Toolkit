@@ -17,17 +17,29 @@ sys.path.insert(0, HERE)
 from looks import W, H, FPS, SUPER, BANDS, GRADES, band_rect, zoom_expr, pan_expr
 
 BEAT = 0.3715
+
+# Feines Korn und Vignette ueber jeden Shot -- bindet die unterschiedlichen
+# Quellen zusammen. Bewusst hier und nicht global am Ende: als globaler Pass
+# verdoppelt noise die Encodezeit (gemessen 3.1x -> 6.1x Echtzeit) und treibt
+# den Master auf 35 Mbit/s. Pro Shot faellt es einmal an, und der Zusammenbau
+# wird ein reiner Kopiervorgang.
+FINISH = "vignette=angle=PI/6:mode=backward,noise=alls=4:allf=t"
+
 SRC_DIR = os.path.join(PROJ, "assets", "source")
 OUT_DIR = os.path.join(PROJ, "build", "shots")
 
-GEN_DIR = os.path.join(PROJ, "assets", "generated")
+GEN_DIR   = os.path.join(PROJ, "assets", "generated")
+STOCK_DIR = os.path.join(PROJ, "assets", "stock")
 
 def src_path(key):
-    """Bewegtbild aus assets/source, generierte Standbilder aus assets/generated."""
-    for p in (os.path.join(SRC_DIR, key + ".mp4"),
-              os.path.join(GEN_DIR, key + ".png")):
-        if os.path.exists(p):
-            return p
+    """Quellen liegen in drei Ordnern: Archivmaterial in assets/source,
+    Stockclips in assets/stock, Erzeugtes in assets/generated (Standbild
+    als .png, Animation als .mp4)."""
+    for d in (SRC_DIR, STOCK_DIR, GEN_DIR):
+        for ext in (".mp4", ".png"):
+            p = os.path.join(d, key + ext)
+            if os.path.exists(p):
+                return p
     raise FileNotFoundError(f"Quelle fehlt: {key}")
 
 def probe_dur(p):
@@ -183,10 +195,10 @@ def render_shot(shot, idx, nframes, dst):
             graph += f"[{cur}][bt{j}]overlay=x=0:y='{ytop}':shortest=1[o{j}a];"
             graph += f"[o{j}a][bb{j}]overlay=x=0:y='{ybot}':shortest=1[o{j}b];"
             cur = f"o{j}b"
-        graph += f"[{cur}]pad={W}:{H}:{bx}:{by}:black,setsar=1,format=yuv420p[out]"
+        graph += f"[{cur}]pad={W}:{H}:{bx}:{by}:black,{FINISH},setsar=1,format=yuv420p[out]"
     else:
         graph = ("[0:v]" + ",".join(chain) +
-                 f",pad={W}:{H}:{bx}:{by}:black,setsar=1,format=yuv420p[out]")
+                 f",pad={W}:{H}:{bx}:{by}:black,{FINISH},setsar=1,format=yuv420p[out]")
 
     src_in = (["-loop","1","-framerate",str(FPS),"-t",f"{dur+0.2:.4f}","-i",src]
               if still else ["-ss",f"{ss:.4f}","-i",src])
@@ -214,14 +226,22 @@ def main(edl_path, out_name, audio=None, audio_offset=0.0):
     bounds.append(round(end_beat * BEAT * FPS))
 
     print(f"{len(shots)} Shots, {bounds[-1]} Frames = {bounds[-1]/FPS:.3f}s @ {FPS}fps")
-    files = []
-    for i, s in enumerate(shots):
-        n = bounds[i+1] - bounds[i]
-        dst = os.path.join(OUT_DIR, f"{out_name}_{i:03d}.mp4")
-        print(f"  [{i:02d}] b{s['beat_in']:>5.1f}+{s['beats']:<4.1f} {n:>4}f "
-              f"{s.get('band','wide'):9s} {str(s.get('src'))[:16]:16s} {s.get('note','')[:40]}")
+    files = [os.path.join(OUT_DIR, f"{out_name}_{i:03d}.mp4") for i in range(len(shots))]
+
+    # Der Engpass ist die einzelthreadige Filterkette (noise, geq, zoompan),
+    # nicht x264. Mehrere Shots nebeneinander lasten die Kerne deutlich besser
+    # aus als ein Shot nach dem anderen.
+    from concurrent.futures import ThreadPoolExecutor
+    jobs = [(s, i, bounds[i+1] - bounds[i], files[i]) for i, s in enumerate(shots)]
+    done = [0]
+    def one(j):
+        s, i, n, dst = j
         render_shot(s, i, n, dst)
-        files.append(dst)
+        done[0] += 1
+        print(f"  [{done[0]:2d}/{len(jobs)}] Shot {i:02d} b{s['beat_in']:>4} {n:>4}f "
+              f"{s.get('band','wide'):9s} {str(s.get('src'))[:16]:16s} {s.get('note','')[:34]}")
+    with ThreadPoolExecutor(max_workers=3) as ex:
+        list(ex.map(one, jobs))
 
     lst = os.path.join(OUT_DIR, f"{out_name}_concat.txt")
     with open(lst,"w") as f:

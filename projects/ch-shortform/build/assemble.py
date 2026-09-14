@@ -15,18 +15,23 @@ def assemble(name, ass=None, audio_len=None, out=None):
         "-of","csv=p=0",silent],capture_output=True,text=True).stdout.strip())
     out = out or os.path.join(P,"out",f"{name}.mp4")
     os.makedirs(os.path.dirname(out),exist_ok=True)
-    vf = []
-    if ass: vf.append(f"ass={ass}")
-    # feines Korn + leichte Vignette ueber alles -> bindet die Quellen zusammen
-    vf.append("noise=alls=4:allf=t,vignette=angle=PI/6:mode=backward")
     music = os.path.join(P,"assets","audio","music_bed.wav")
-    fc = (f"[0:v]{','.join(vf)}[v];"
-          f"[1:a]atrim=0:{dur:.4f},asetpts=PTS-STARTPTS,"
+    fa = (f"[1:a]atrim=0:{dur:.4f},asetpts=PTS-STARTPTS,"
           f"afade=t=out:st={max(0,dur-0.25):.4f}:d=0.25[a]")
-    subprocess.run(["ffmpeg","-hide_banner","-loglevel","error","-y",
-        "-i",silent,"-i",music,"-filter_complex",fc,"-map","[v]","-map","[a]",
-        "-c:v","libx264","-crf","18","-preset","slow","-pix_fmt","yuv420p",
-        "-c:a","aac","-b:a","192k","-movflags","+faststart",out],check=True)
+    # Kein erneutes Kodieren: Korn und Vignette sitzen schon im Einzelshot,
+    # hier wird das Bild nur durchgereicht und die Musik angelegt.
+    cmd = ["ffmpeg","-hide_banner","-loglevel","error","-y",
+           "-i",silent,"-i",music,"-filter_complex",fa,
+           "-map","0:v","-map","[a]","-c:v","copy",
+           "-c:a","aac","-b:a","192k","-movflags","+faststart",out]
+    if ass:                      # Typo muss eingebrannt werden -> dann doch kodieren
+        cmd = ["ffmpeg","-hide_banner","-loglevel","error","-y",
+               "-i",silent,"-i",music,
+               "-filter_complex",f"[0:v]ass={ass}[v];"+fa,
+               "-map","[v]","-map","[a]",
+               "-c:v","libx264","-crf","17","-preset","medium","-pix_fmt","yuv420p",
+               "-c:a","aac","-b:a","192k","-movflags","+faststart",out]
+    subprocess.run(cmd,check=True)
     print(f"-> {out}  ({dur:.3f}s)")
     return out
 

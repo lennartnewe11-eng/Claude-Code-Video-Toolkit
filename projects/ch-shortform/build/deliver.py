@@ -46,7 +46,7 @@ def main(src=None):
     run("-i", src, "-vf", "fps=30",
         "-c:v", "libx264", "-crf", "24", "-preset", "slower",
         "-profile:v", "high", "-level", "4.1",
-        "-maxrate", "2800k", "-bufsize", "5600k",
+        "-maxrate", "2300k", "-bufsize", "4600k",
         "-g", "60", "-keyint_min", "30", "-pix_fmt", "yuv420p",
         "-c:a", "aac", "-b:a", "128k",
         "-movflags", "+faststart", hi)

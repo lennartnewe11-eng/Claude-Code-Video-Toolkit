@@ -1,0 +1,282 @@
+[
+ {
+  "key": "scroll_mx00",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_mx00.mp4",
+  "query": "scrolling",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/14395/14395-720.mp4"
+ },
+ {
+  "key": "scroll_mx01",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_mx01.mp4",
+  "query": "scrolling",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/14771/14771-720.mp4"
+ },
+ {
+  "key": "scroll_mx02",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_mx02.mp4",
+  "query": "scrolling",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/13168/13168-720.mp4"
+ },
+ {
+  "key": "scroll_mx03",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_mx03.mp4",
+  "query": "scrolling",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/14710/14710-720.mp4"
+ },
+ {
+  "key": "scroll_cv04",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_cv04.mp4",
+  "query": "scrolling",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-social-media-on-a-smartphone-9524/1080p.mp4"
+ },
+ {
+  "key": "scroll_cv05",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_cv05.mp4",
+  "query": "scrolling",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-cryptocurrency-trade-platform-5007/1080p.mp4"
+ },
+ {
+  "key": "scroll_cv06",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_cv06.mp4",
+  "query": "scrolling",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-images-of-a-subscribe-logo-on-a-laptop-screen-7349/1080p.mp4"
+ },
+ {
+  "key": "scroll_cv07",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_cv07.mp4",
+  "query": "scrolling",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-scrolling-a-website-on-a-smartphone-8745/1080p.mp4"
+ },
+ {
+  "key": "scroll_cv08",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_cv08.mp4",
+  "query": "scrolling",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-a-graphic-designer-scrolls-his-website-9604/1080p.mp4"
+ },
+ {
+  "key": "scroll_cv09",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/scroll_cv09.mp4",
+  "query": "scrolling",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-a-man-scrolls-a-website-on-a-smartphone-1908/1080p.mp4"
+ },
+ {
+  "key": "alone_mx00",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_mx00.mp4",
+  "query": "lonely",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/35426/35426-720.mp4"
+ },
+ {
+  "key": "alone_mx01",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_mx01.mp4",
+  "query": "lonely",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/35889/35889-720.mp4"
+ },
+ {
+  "key": "alone_mx02",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_mx02.mp4",
+  "query": "lonely",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/17536/17536-720.mp4"
+ },
+ {
+  "key": "alone_mx03",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_mx03.mp4",
+  "query": "lonely",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/25896/25896-720.mp4"
+ },
+ {
+  "key": "alone_mx04",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_mx04.mp4",
+  "query": "lonely",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/46708/46708-720.mp4"
+ },
+ {
+  "key": "alone_cv05",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_cv05.mp4",
+  "query": "lonely",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-man-sitting-on-a-bench-8558/1080p.mp4"
+ },
+ {
+  "key": "alone_cv06",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_cv06.mp4",
+  "query": "lonely",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-a-chair-outside-9670/1080p.mp4"
+ },
+ {
+  "key": "alone_cv07",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_cv07.mp4",
+  "query": "lonely",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-boat-in-the-port-9330/1080p.mp4"
+ },
+ {
+  "key": "alone_cv08",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_cv08.mp4",
+  "query": "lonely",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-fisherman-in-a-small-boat-6916/1080p.mp4"
+ },
+ {
+  "key": "alone_cv09",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/alone_cv09.mp4",
+  "query": "lonely",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-lonely-boat-at-sea-8271/1080p.mp4"
+ },
+ {
+  "key": "hand_cv00",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv00.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-a-topless-man-eats-a-snack-and-checks-the-phone-7542/1080p.mp4"
+ },
+ {
+  "key": "hand_cv01",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv01.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-a-man-talks-on-the-phone-during-his-lunch-break-3442/1080p.mp4"
+ },
+ {
+  "key": "hand_cv02",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv02.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-a-man-checks-a-phone-and-holds-a-cup-of-coffee-4932/1080p.mp4"
+ },
+ {
+  "key": "hand_cv03",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv03.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-premium-a-topless-man-walks-and-checks-the-phone-2721/1080p.mp4"
+ },
+ {
+  "key": "hand_cv04",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv04.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-premium-close-up-of-a-man-using-the-phone-7047/1080p.mp4"
+ },
+ {
+  "key": "hand_cv05",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv05.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-premium-close-up-of-a-man-talking-on-the-phone-5403/1080p.mp4"
+ },
+ {
+  "key": "hand_cv06",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv06.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-premium-top-view-of-a-man-drinking-coffee-and-watching-insta-stories-9068/1080p.mp4"
+ },
+ {
+  "key": "hand_cv07",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_cv07.mp4",
+  "query": "phone",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-premium-top-view-of-a-man-using-instagram-1726/1080p.mp4"
+ },
+ {
+  "key": "hand_mx08",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_mx08.mp4",
+  "query": "mobile-phone",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/8766/8766-720.mp4"
+ },
+ {
+  "key": "hand_mx09",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/hand_mx09.mp4",
+  "query": "mobile-phone",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/13264/13264-720.mp4"
+ },
+ {
+  "key": "night_cv00",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv00.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-night-city-from-a-moving-car-6550/1080p.mp4"
+ },
+ {
+  "key": "night_cv01",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv01.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-temp-coverr-paywall-subscription-modal-video-mp4-9473/1080p.mp4"
+ },
+ {
+  "key": "night_cv02",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv02.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-walking-to-the-mountain-top-8360/1080p.mp4"
+ },
+ {
+  "key": "night_cv03",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv03.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-temp-lv020260723145154-mp4-5405/1080p.mp4"
+ },
+ {
+  "key": "night_cv04",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv04.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-temp-lv020260723155426-mp4-6488/1080p.mp4"
+ },
+ {
+  "key": "night_cv05",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv05.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-temp-lv020260723151034-mp4-6563/1080p.mp4"
+ },
+ {
+  "key": "night_cv06",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv06.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-temp-r6fbualnssmg3ckepdqr6output-mp4-7424/1080p.mp4"
+ },
+ {
+  "key": "night_cv07",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv07.mp4",
+  "query": "night-city",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-temp-lv020260723160118-mp4-6563/1080p.mp4"
+ },
+ {
+  "key": "night_mx08",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_mx08.mp4",
+  "query": "dark-room",
+  "source": "mx",
+  "url": "https://assets.mixkit.co/videos/17776/17776-720.mp4"
+ },
+ {
+  "key": "night_cv09",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/stock/night_cv09.mp4",
+  "query": "dark-room",
+  "source": "cv",
+  "url": "https://cdn.coverr.co/videos/coverr-temp-coverr-paywall-subscription-modal-video-mp4-9473/1080p.mp4"
+ }
+]
