@@ -136,11 +136,11 @@
   "attribution": "White House Television"
  },
  {
-  "key": "phone_00 … phone_06, phone_all",
-  "file": "assets/generated/*.png",
-  "source": "selbst generiert (build/phones.py)",
-  "id": "Groessenvergleich iPhone 2007-2024",
-  "license": "eigene Grafik - frei verwendbar",
-  "attribution": "Masse nach Herstellerangaben (Hoehe x Breite in mm)"
+  "key": "real_00 … real_06, real_all",
+  "file": "assets/generated/real_*.png",
+  "source": "Apple Support, „iPhone-Modell identifizieren“ (cdsassets.apple.com)",
+  "id": "offizielle Produktbilder, freigestellt (build/phones_real.py)",
+  "license": "Rechte bei Apple – nur fuer diesen nicht-kommerziellen Test",
+  "attribution": "Apple Inc. · Skalierung nach Herstellermassen (Hoehe in mm)"
  }
 ]

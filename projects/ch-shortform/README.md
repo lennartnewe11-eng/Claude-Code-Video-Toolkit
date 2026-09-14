@@ -39,7 +39,8 @@ während Akt 1 weiter wächst.
 ```bash
 python3 build/fetch_sources.py          # NASA + Prelinger
 python3 build/fetch_extra.py            # Wikimedia Commons, Werbespots, Nutzerclip
-python3 build/phones.py                 # Größenvergleich-Grafiken erzeugen
+python3 build/phones.py                 # Größenvergleich, gezeichnet (Fallback)
+python3 build/phones_real.py            # Größenvergleich, echte Geräte freigestellt
 python3 build/music_bed.py              # Musikbett mit Splice und Aussetzer
 python3 build/render.py edl/act1.json act1   # Shots einzeln rendern
 python3 build/qc.py     edl/act1.json act1   # Helligkeit je Shot prüfen
@@ -52,7 +53,8 @@ python3 build/assemble.py act1 build/act1_slots.ass   # concat + Korn + Musik
 | `build/render.py` | EDL → einzelne Shots (ein ffmpeg-Aufruf pro Shot) |
 | `build/captions.py` | ASS-Typo (libass; `drawtext` fehlt in diesem ffmpeg-Build) |
 | `build/qc.py` | misst Helligkeit **innerhalb des Bands**, nicht über den ganzen Rahmen |
-| `build/phones.py` | erzeugt den Größenvergleich (alle Geräte auf demselben Mittelpunkt) |
+| `build/phones.py` | Maße, Maßstab und gezeichnete Variante des Größenvergleichs |
+| `build/phones_real.py` | stellt echte Geräte aus Produktfotos frei, gleicher Mittelpunkt |
 | `edl/act1.json` | die eigentliche Schnittliste |
 | `docs/akt1_shotliste.md` | Shotliste, offene Slots, Quellennachweis |
 

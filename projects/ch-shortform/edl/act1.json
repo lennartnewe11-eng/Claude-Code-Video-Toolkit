@@ -1,6 +1,6 @@
 {
  "name": "act1_aufbruch",
- "note": "Akt 1 - 23 Takte / 92 Beats / 34.178s. Raketenstart -> Innovation 60er -> Telefon/Rechner -> erste Mobiltelefone 80er -> Mauerfall -> Nokia -> War on Terror -> iPhone-Keynote -> Groessenvergleich vor Weiss.",
+ "note": "Akt 1 - 23 Takte / 92 Beats / 34.178s. Raketenstart -> Innovation 60er -> Telefon/Rechner -> erste Mobiltelefone 80er -> Mauerfall -> Nokia -> War on Terror -> iPhone-Keynote -> Groessenvergleich vor Weiss (echte Geraete, freigestellt).",
  "beat": 0.3715,
  "shots": [
   {
@@ -570,7 +570,7 @@
   {
    "beat_in": 80,
    "beats": 2,
-   "src": "phone_00",
+   "src": "real_00",
    "band": "portrait",
    "grade": "neutral",
    "fx": [
@@ -581,7 +581,7 @@
   {
    "beat_in": 82,
    "beats": 1,
-   "src": "phone_01",
+   "src": "real_01",
    "band": "portrait",
    "grade": "neutral",
    "fx": [],
@@ -590,7 +590,7 @@
   {
    "beat_in": 83,
    "beats": 1,
-   "src": "phone_02",
+   "src": "real_02",
    "band": "portrait",
    "grade": "neutral",
    "fx": [],
@@ -599,7 +599,7 @@
   {
    "beat_in": 84,
    "beats": 1,
-   "src": "phone_03",
+   "src": "real_03",
    "band": "portrait",
    "grade": "neutral",
    "fx": [],
@@ -608,7 +608,7 @@
   {
    "beat_in": 85,
    "beats": 1,
-   "src": "phone_04",
+   "src": "real_04",
    "band": "portrait",
    "grade": "neutral",
    "fx": [],
@@ -617,7 +617,7 @@
   {
    "beat_in": 86,
    "beats": 1,
-   "src": "phone_05",
+   "src": "real_05",
    "band": "portrait",
    "grade": "neutral",
    "fx": [],
@@ -626,7 +626,7 @@
   {
    "beat_in": 87,
    "beats": 1,
-   "src": "phone_06",
+   "src": "real_06",
    "band": "portrait",
    "grade": "neutral",
    "fx": [],
@@ -635,7 +635,7 @@
   {
    "beat_in": 88,
    "beats": 4,
-   "src": "phone_all",
+   "src": "real_all",
    "band": "portrait",
    "grade": "neutral",
    "fx": [
