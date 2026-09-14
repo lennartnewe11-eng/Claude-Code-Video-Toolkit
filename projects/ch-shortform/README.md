@@ -45,7 +45,27 @@ python3 build/music_bed.py              # Musikbett mit Splice und Aussetzer
 python3 build/render.py edl/act1.json act1   # Shots einzeln rendern
 python3 build/qc.py     edl/act1.json act1   # Helligkeit je Shot prüfen
 python3 build/assemble.py act1 build/act1_slots.ass   # concat + Korn + Musik
+python3 build/deliver.py                # Ansichtsfassungen (720p H.264 + VP9, 1080p, Poster)
 ```
+
+## Ansichtsfassungen
+
+Zum Anschauen im Browser werden zwei Codecs ausgeliefert. Grund: nicht jeder
+Browser kann H.264 — Chromium-Builds ohne proprietäre Codecs (unter Linux
+verbreitet) spielen eine H.264-Datei gar nicht ab, unabhängig von Bitrate und
+Level. Über zwei `<source>`-Elemente nimmt der Browser automatisch, was er
+dekodieren kann.
+
+| Datei | Auflösung | Codec | Bitrate | Größe |
+|-------|-----------|-------|---------|-------|
+| `act1_720.mp4` | 720 × 1280 @ 30 | H.264 Main 4.0 | 1,0 Mbit/s | 4,1 MB |
+| `act1_720.webm` | 720 × 1280 @ 30 | VP9 / Opus | 1,1 Mbit/s | 4,3 MB |
+| `act1_web.mp4` | 1080 × 1920 @ 30 | H.264 High 4.1 | 2,6 Mbit/s | 11,5 MB |
+
+Die Ansichtsseite lädt das Video **vollständig als Blob** statt es zu streamen.
+Liefert ein Host keine Range-Anfragen (HTTP 206), meldet das `video`-Element
+`seekable = 0–0` und klemmt jeden Sprung auf 0 — Kapitelsprünge und Scrubleiste
+wären damit tot. Als Blob liegt die Datei im Browser, Springen geht immer.
 
 | Datei | Zweck |
 |-------|-------|
@@ -53,6 +73,7 @@ python3 build/assemble.py act1 build/act1_slots.ass   # concat + Korn + Musik
 | `build/render.py` | EDL → einzelne Shots (ein ffmpeg-Aufruf pro Shot) |
 | `build/captions.py` | ASS-Typo (libass; `drawtext` fehlt in diesem ffmpeg-Build) |
 | `build/qc.py` | misst Helligkeit **innerhalb des Bands**, nicht über den ganzen Rahmen |
+| `build/deliver.py` | Ansichtsfassungen in zwei Codecs plus Poster |
 | `build/phones.py` | Maße, Maßstab und gezeichnete Variante des Größenvergleichs |
 | `build/phones_real.py` | stellt echte Geräte aus Produktfotos frei, gleicher Mittelpunkt |
 | `edl/act1.json` | die eigentliche Schnittliste |
