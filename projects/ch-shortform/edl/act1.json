@@ -635,31 +635,39 @@
   {
    "beat_in": 88,
    "beats": 4,
-   "src": "phone_all_anim",
+   "src": "phone_compare",
    "band": "portrait",
    "grade": "neutral",
-   "fx": [
-    "punch"
-   ],
-   "note": "2024 mit Umriss 2007 - Display scrollt auf dem Beat",
+   "fx": [],
+   "note": "Groessenvergleich 2007 gegen 2024, beide animiert",
    "src_in": 0.0
   },
   {
    "beat_in": 92,
    "beats": 2,
-   "src": "scroll_mx00",
-   "band": "full",
-   "grade": "cold",
+   "src": "ov_bed_over",
+   "band": "portrait",
+   "grade": "neutral",
    "fx": [
-    "punch",
-    "rgbhit",
-    "grain"
+    "punch"
    ],
-   "note": "Hand scrollt Feed im Dunkeln",
-   "src_in": 1.5
+   "note": "Im Bett am Handy, Vektornetz",
+   "src_in": 0.0
   },
   {
    "beat_in": 94,
+   "beats": 1,
+   "src": "ov_bed_solo",
+   "band": "full",
+   "grade": "neutral",
+   "fx": [
+    "thump"
+   ],
+   "note": "Nur noch das Netz",
+   "src_in": 0.0
+  },
+  {
+   "beat_in": 95,
    "beats": 1,
    "src": "ia_logicmachine",
    "band": "square",
@@ -672,56 +680,41 @@
    "mask": "bars"
   },
   {
-   "beat_in": 95,
-   "beats": 1,
-   "src": "scroll_mx01",
-   "band": "cinema",
-   "grade": "cold",
-   "fx": [
-    "punch"
-   ],
-   "note": "Brille spiegelt den Bildschirm",
-   "src_in": 1.0
-  },
-  {
    "beat_in": 96,
    "beats": 2,
-   "src": "scroll_mx02",
-   "band": "portrait",
-   "grade": "cold",
-   "fx": [
-    "drift",
-    "grain"
-   ],
-   "note": "Im Bett am Handy",
-   "src_in": 4.0
-  },
-  {
-   "beat_in": 98,
-   "beats": 1,
-   "src": "ia_telephone65",
-   "band": "tv",
-   "grade": "bw",
-   "fx": [
-    "thump",
-    "grain_heavy"
-   ],
-   "note": "Telefongesellschaft, Draehte",
-   "src_in": 483.0,
-   "boost": 1.15
-  },
-  {
-   "beat_in": 99,
-   "beats": 1,
-   "src": "scroll_mx03",
-   "band": "wide",
-   "grade": "cold",
+   "src": "ov_hand_over",
+   "band": "full",
+   "grade": "neutral",
    "fx": [
     "punch",
     "rgbhit"
    ],
+   "note": "Hand am Feed, Vektornetz",
+   "src_in": 0.0
+  },
+  {
+   "beat_in": 98,
+   "beats": 1,
+   "src": "ov_hand_solo",
+   "band": "square",
+   "grade": "neutral",
+   "fx": [
+    "thump"
+   ],
+   "note": "Nur noch das Netz",
+   "src_in": 0.0
+  },
+  {
+   "beat_in": 99,
+   "beats": 1,
+   "src": "ov_glasses_over",
+   "band": "cinema",
+   "grade": "neutral",
+   "fx": [
+    "punch"
+   ],
    "note": "Augen hinter der Brille",
-   "src_in": 2.0
+   "src_in": 0.0
   },
   {
    "beat_in": 100,
@@ -740,78 +733,77 @@
   {
    "beat_in": 102,
    "beats": 1,
-   "src": "hand_mx08",
-   "band": "square",
-   "grade": "bleak",
-   "fx": [
-    "punch"
-   ],
-   "note": "Mann am Handy, dunkel",
-   "src_in": 2.0
-  },
-  {
-   "beat_in": 103,
-   "beats": 1,
-   "src": "night_cv07",
+   "src": "ov_eye_over",
    "band": "slab",
-   "grade": "cold",
+   "grade": "neutral",
    "fx": [
     "rgbhit"
    ],
    "note": "Auge, extrem nah",
-   "src_in": 1.5
+   "src_in": 0.0
+  },
+  {
+   "beat_in": 103,
+   "beats": 1,
+   "src": "ov_eye_solo",
+   "band": "wide",
+   "grade": "neutral",
+   "fx": [
+    "thump"
+   ],
+   "note": "Netz ueber dem Auge",
+   "src_in": 0.0
   },
   {
    "beat_in": 104,
    "beats": 2,
-   "src": "hand_mx09",
+   "src": "ov_subway_over",
    "band": "cinema",
-   "grade": "cold",
+   "grade": "neutral",
    "fx": [
-    "push",
-    "grain"
+    "push"
    ],
    "note": "Frau am Handy, Unterfuehrung",
-   "src_in": 3.0
+   "src_in": 0.0
   },
   {
    "beat_in": 106,
    "beats": 1,
    "src": "ia_telephone65",
-   "band": "square",
+   "band": "tv",
    "grade": "bw",
    "fx": [
-    "thump"
+    "thump",
+    "grain_heavy"
    ],
-   "note": "Abstrakte Form",
-   "src_in": 439.0,
+   "note": "Telefongesellschaft, Draehte",
+   "src_in": 483.0,
    "boost": 1.15
   },
   {
    "beat_in": 107,
    "beats": 1,
-   "src": "scroll_cv07",
-   "band": "wide",
-   "grade": "cold",
+   "src": "ov_subway_solo",
+   "band": "full",
+   "grade": "neutral",
    "fx": [
-    "punch"
+    "thump",
+    "rgbhit"
    ],
-   "note": "Haende, Handy vor Laptop",
-   "src_in": 2.0
+   "note": "Nur noch das Netz",
+   "src_in": 0.0
   },
   {
    "beat_in": 108,
    "beats": 2,
-   "src": "ia_telephone65",
-   "band": "strip",
-   "grade": "bleak",
+   "src": "ov_switch_over",
+   "band": "wide",
+   "grade": "neutral",
    "fx": [
-    "drift",
-    "grain"
+    "drift"
    ],
-   "note": "Vermittlungsfeld, Reihen von Buchsen",
-   "src_in": 1179.0,
-   "boost": 1.25
+   "note": "Vermittlungsfeld, Vektornetz",
+   "src_in": 0.0
   },
   {
    "beat_in": 110,
@@ -831,29 +823,26 @@
   {
    "beat_in": 112,
    "beats": 2,
-   "src": "alone_mx03",
+   "src": "ov_bench_over",
    "band": "wide",
-   "grade": "bleak",
+   "grade": "neutral",
    "fx": [
-    "push",
-    "grain"
+    "push"
    ],
-   "note": "Allein auf der Bank",
-   "src_in": 3.0
+   "note": "Allein auf der Bank, Vektornetz",
+   "src_in": 0.0
   },
   {
    "beat_in": 114,
    "beats": 2,
-   "src": "night_mx08",
+   "src": "ov_bench_solo",
    "band": "mini",
-   "grade": "bleak",
+   "grade": "neutral",
    "fx": [
-    "close",
-    "grain"
+    "close"
    ],
-   "note": "Kerze im Dunkeln",
-   "src_in": 2.0,
-   "boost": 1.55
+   "note": "Am Ende bleibt nur das Netz",
+   "src_in": 0.0
   }
  ]
 }
