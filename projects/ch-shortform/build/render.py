@@ -20,11 +20,15 @@ BEAT = 0.3715
 SRC_DIR = os.path.join(PROJ, "assets", "source")
 OUT_DIR = os.path.join(PROJ, "build", "shots")
 
+GEN_DIR = os.path.join(PROJ, "assets", "generated")
+
 def src_path(key):
-    p = os.path.join(SRC_DIR, key + ".mp4")
-    if not os.path.exists(p):
-        raise FileNotFoundError(f"Quelle fehlt: {p}")
-    return p
+    """Bewegtbild aus assets/source, generierte Standbilder aus assets/generated."""
+    for p in (os.path.join(SRC_DIR, key + ".mp4"),
+              os.path.join(GEN_DIR, key + ".png")):
+        if os.path.exists(p):
+            return p
+    raise FileNotFoundError(f"Quelle fehlt: {key}")
 
 def probe_dur(p):
     return float(subprocess.run(["ffprobe","-v","error","-show_entries","format=duration",
@@ -135,11 +139,14 @@ def render_shot(shot, idx, nframes, dst):
 
     # --- echtes Quellmaterial ---------------------------------------------
     src = src_path(shot["src"])
-    ss  = float(shot.get("src_in", 0.0))
-    need = dur * speed + 0.30            # etwas Reserve fuer fps-Konvertierung
-    sdur = probe_dur(src)
-    if ss + need > sdur:
-        ss = max(0.0, sdur - need)
+    still = src.lower().endswith(".png")
+    ss = 0.0
+    if not still:
+        ss  = float(shot.get("src_in", 0.0))
+        need = dur * speed + 0.30        # etwas Reserve fuer fps-Konvertierung
+        sdur = probe_dur(src)
+        if ss + need > sdur:
+            ss = max(0.0, sdur - need)
 
     sw, sh = bw * SUPER, bh * SUPER
     chain = [f"fps={FPS}"]
@@ -181,8 +188,9 @@ def render_shot(shot, idx, nframes, dst):
         graph = ("[0:v]" + ",".join(chain) +
                  f",pad={W}:{H}:{bx}:{by}:black,setsar=1,format=yuv420p[out]")
 
-    cmd = ["ffmpeg","-hide_banner","-loglevel","error","-y",
-           "-ss",f"{ss:.4f}","-i",src] + extra_in + [
+    src_in = (["-loop","1","-framerate",str(FPS),"-t",f"{dur+0.2:.4f}","-i",src]
+              if still else ["-ss",f"{ss:.4f}","-i",src])
+    cmd = ["ffmpeg","-hide_banner","-loglevel","error","-y"] + src_in + extra_in + [
            "-filter_complex",graph,"-map","[out]",
            "-frames:v",str(nframes),
            "-an","-c:v","libx264","-crf","14","-preset","medium",

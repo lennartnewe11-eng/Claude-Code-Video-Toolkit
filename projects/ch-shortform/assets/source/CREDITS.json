@@ -134,5 +134,13 @@
   "url": "https://upload.wikimedia.org/wikipedia/commons/4/44/September_2001_George_W._Bush_speech_to_a_joint_session_of_Congress.webm",
   "license": "Public domain",
   "attribution": "White House Television"
+ },
+ {
+  "key": "phone_00 … phone_06, phone_all",
+  "file": "assets/generated/*.png",
+  "source": "selbst generiert (build/phones.py)",
+  "id": "Groessenvergleich iPhone 2007-2024",
+  "license": "eigene Grafik - frei verwendbar",
+  "attribution": "Masse nach Herstellerangaben (Hoehe x Breite in mm)"
  }
 ]

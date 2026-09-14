@@ -1,6 +1,6 @@
 # Akt 1 — Shotliste
 
-20 Takte · 80 Beats · 29,72 s · 1080×1920 @ 60 fps · 161,5 BPM (Beat = 0,3715 s)
+23 Takte · 92 Beats · 34,18 s · 1080×1920 @ 60 fps · 161,5 BPM (Beat = 0,3715 s)
 
 Schnittpunkte sitzen auf dem Beatraster; die Framegrenzen werden aus der
 absoluten Zeit gerundet, der Fehler bleibt unter einer halben Frame.
@@ -19,6 +19,27 @@ absoluten Zeit gerundet, der Fehler bleibt unter einer halben Frame.
 | 17–18 | 66–71 | Nokia-Ära |
 | 18 | 72–73 | Ansprache vor dem Kongress, 20.09.2001 |
 | 19–20 | 74–79 | iPhone-Keynote 2007 |
+| 21–23 | 80–91 | Größenvergleich vor weißem Hintergrund |
+
+## Größenvergleich
+
+Generiert statt gesucht (`build/phones.py`): nur so sitzen alle Geräte auf
+exakt demselben Mittelpunkt (540, 700) und im echten Größenverhältnis
+zueinander. Maßstab 6,135 px/mm, das größte Gerät ist 1000 px hoch.
+Produktfotos hätten je eigene Perspektive und Skalierung — dann trägt der
+Vergleich nicht mehr. Kein Zoom auf diesen Shots: der Größensprung ist der
+Effekt, und ein Zoom würde die Beschriftung anschneiden.
+
+| Gerät | Jahr | Höhe × Breite | Diagonale |
+|-------|-----:|---------------|----------:|
+| iPhone | 2007 | 115.0 × 61.0 mm | 3.5″ |
+| iPhone 5 | 2012 | 123.8 × 58.6 mm | 4.0″ |
+| iPhone 6 | 2014 | 138.1 × 67.0 mm | 4.7″ |
+| iPhone 6 Plus | 2014 | 158.1 × 77.8 mm | 5.5″ |
+| iPhone X | 2017 | 143.6 × 70.9 mm | 5.8″ |
+| iPhone 11 Pro Max | 2019 | 158.0 × 77.8 mm | 6.5″ |
+| iPhone 12 Pro Max | 2020 | 160.8 × 78.1 mm | 6.7″ |
+| iPhone 16 Pro Max | 2024 | 163.0 × 77.6 mm | 6.9″ |
 
 ## Shots
 
@@ -65,6 +86,14 @@ absoluten Zeit gerundet, der Fehler bleibt unter einer halben Frame.
 | 38 | 74 | 0.74s | `cinema` | user_keynote_iphone | 0.7s | punchy | punch rgbhit | Publikum der Keynote |
 | 39 | 76 | 0.74s | `wide` | user_keynote_iphone | 4.6s | punchy | punch grain · mask:wipe_r | Buehne, Telefon-Icon auf der Leinwand |
 | 40 | 78 | 0.74s | `cinema` | user_keynote_iphone | 7.3s | punchy | thump zoom_in close | iPhone-Reveal - Jobs auf der Buehne |
+| 41 | 80 | 0.74s | `portrait` | phone_00 | — | neutral | flash | iPhone 2007 vor Weiss |
+| 42 | 82 | 0.37s | `portrait` | phone_01 | — | neutral | — | iPhone 5, 2012 |
+| 43 | 83 | 0.37s | `portrait` | phone_02 | — | neutral | — | iPhone 6, 2014 |
+| 44 | 84 | 0.37s | `portrait` | phone_03 | — | neutral | — | iPhone 6 Plus, 2014 |
+| 45 | 85 | 0.37s | `portrait` | phone_04 | — | neutral | — | iPhone X, 2017 |
+| 46 | 86 | 0.37s | `portrait` | phone_05 | — | neutral | — | iPhone 11 Pro Max, 2019 |
+| 47 | 87 | 0.37s | `portrait` | phone_06 | — | neutral | — | iPhone 12 Pro Max, 2020 |
+| 48 | 88 | 1.49s | `portrait` | phone_all | — | neutral | punch | 2024 mit Umriss von 2007 - Halteeinstellung |
 
 ## Quellen und Rechte
 
@@ -84,6 +113,7 @@ Die Lage ist **nicht einheitlich** — für eine Veröffentlichung relevant:
 | `ia_telephone65` | Internet Archive / Prelinger | public domain / Prelinger | — |
 | `nasa_mga_reel` | NASA | — | — |
 | `nasa_saturnv` | NASA | — | — |
+| `phone_00 … phone_06, phone_all` | selbst generiert (build/phones.py) | eigene Grafik - frei verwendbar | Masse nach Herstellerangaben (Hoehe x Breite in mm) |
 | `user_keynote_iphone` | vom Nutzer geliefert | Apple Keynote 2007 - Rechte bei Apple | Apple Inc. |
 | `wm_bush_2001` | Wikimedia Commons | Public domain | White House Television |
 | `wm_mauerfall_grenze` | Wikimedia Commons | CC BY 3.0 | Manfred Krellenberg |
@@ -97,8 +127,7 @@ Die Lage ist **nicht einheitlich** — für eine Veröffentlichung relevant:
 (Reagan Library). Namensnennung nötig.
 
 **CC BY-SA 3.0** — `wm_mauerfall_potsdam` (RIAS TV / Deutsche Welle).
-Namensnennung **und** Share-Alike. Das ist die Klausel, die man bei einem
-Wahlvideo prüfen sollte, bevor es online geht.
+Namensnennung **und** Share-Alike.
 
 **Ohne Lizenzangabe** — `ia_gte_cell89`, `ia_nokia95`, `ia_nokia8110` sind
 Werbespots. Die Rechte liegen bei den Markeninhabern, unabhängig davon, dass
@@ -107,8 +136,10 @@ die Spots im Internet Archive liegen.
 **`user_keynote_iphone`** — Apple-Keynote 2007, Rechte bei Apple. Vom Nutzer
 beigesteuert.
 
-Für diesen Test unkritisch. Vor einer Veröffentlichung wären die letzten drei
-Gruppen zu klären.
+**Eigene Grafiken** — der Größenvergleich ist generiert und frei verwendbar.
+
+Für diesen Test unkritisch. Vor einer Veröffentlichung wären die Werbespots,
+die Keynote und die Share-Alike-Klausel zu klären.
 
 ### Nicht verwendet
 

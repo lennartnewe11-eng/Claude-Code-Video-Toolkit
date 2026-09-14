@@ -1,6 +1,6 @@
 {
  "name": "act1_aufbruch",
- "note": "Akt 1 - 20 Takte / 80 Beats / 29.720s. Raketenstart -> Innovation 60er -> Telefon/Rechner -> erste Mobiltelefone 80er -> Mauerfall -> Nokia-Aera -> War on Terror -> iPhone-Keynote.",
+ "note": "Akt 1 - 23 Takte / 92 Beats / 34.178s. Raketenstart -> Innovation 60er -> Telefon/Rechner -> erste Mobiltelefone 80er -> Mauerfall -> Nokia -> War on Terror -> iPhone-Keynote -> Groessenvergleich vor Weiss.",
  "beat": 0.3715,
  "shots": [
   {
@@ -566,6 +566,82 @@
    ],
    "note": "iPhone-Reveal - Jobs auf der Buehne",
    "boost": 1.15
+  },
+  {
+   "beat_in": 80,
+   "beats": 2,
+   "src": "phone_00",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [
+    "flash"
+   ],
+   "note": "iPhone 2007 vor Weiss"
+  },
+  {
+   "beat_in": 82,
+   "beats": 1,
+   "src": "phone_01",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [],
+   "note": "iPhone 5, 2012"
+  },
+  {
+   "beat_in": 83,
+   "beats": 1,
+   "src": "phone_02",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [],
+   "note": "iPhone 6, 2014"
+  },
+  {
+   "beat_in": 84,
+   "beats": 1,
+   "src": "phone_03",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [],
+   "note": "iPhone 6 Plus, 2014"
+  },
+  {
+   "beat_in": 85,
+   "beats": 1,
+   "src": "phone_04",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [],
+   "note": "iPhone X, 2017"
+  },
+  {
+   "beat_in": 86,
+   "beats": 1,
+   "src": "phone_05",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [],
+   "note": "iPhone 11 Pro Max, 2019"
+  },
+  {
+   "beat_in": 87,
+   "beats": 1,
+   "src": "phone_06",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [],
+   "note": "iPhone 12 Pro Max, 2020"
+  },
+  {
+   "beat_in": 88,
+   "beats": 4,
+   "src": "phone_all",
+   "band": "portrait",
+   "grade": "neutral",
+   "fx": [
+    "punch"
+   ],
+   "note": "2024 mit Umriss von 2007 - Halteeinstellung"
   }
  ]
 }
