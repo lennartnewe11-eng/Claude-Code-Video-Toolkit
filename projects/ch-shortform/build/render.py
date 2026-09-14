@@ -143,6 +143,9 @@ def render_shot(shot, idx, nframes, dst):
 
     sw, sh = bw * SUPER, bh * SUPER
     chain = [f"fps={FPS}"]
+    # Vorab-Beschnitt, z.B. um UI-Reste aus einem Bildschirmmitschnitt zu entfernen
+    if shot.get("pre_crop"):
+        chain.append(f"crop={shot['pre_crop']}")
     if speed != 1.0:
         chain.append(f"setpts=PTS/{speed}")
     chain.append(f"scale={sw}:{sh}:force_original_aspect_ratio=increase:flags=bicubic")

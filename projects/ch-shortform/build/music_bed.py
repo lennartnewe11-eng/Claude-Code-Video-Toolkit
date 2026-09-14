@@ -22,19 +22,19 @@ def bt(n):        # Zeit des Beats n im Originaltrack
 
 # --- Splice-Punkte (Beat-Indizes im Original) --------------------------------
 N_START   = 3      # 1.1619s  erster hoerbarer Downbeat
-N_CUT     = 59     # 21.9653s Ende Akt 1
+N_CUT     = 83     # 30.8813s Ende Akt 1 (20 Takte)
 N_BREAK   = 295    # 109.6455s Breakdown beginnt (Bass faellt weg)
 N_END     = 395    # 146.7899s Ende
 
 ACTS = [
     # name,            beat_from, beat_to
-    ("act1_aufbruch",  N_START,  N_CUT),    # 14 Takte
+    ("act1_aufbruch",  N_START,  N_CUT),    # 20 Takte
     ("act2_3_shift",   N_BREAK,  N_END),    # 25 Takte (8 Breakdown + 17 Drop)
 ]
 
 # --- Programmierte Aussetzer (Video-Zeit, Sekunden) --------------------------
 # Skript: "letztes bild leere Spielplaetze. Ohne Hintergrund Musik kurze Stille"
-MUTES = [(31.2060, 32.6921)]   # genau 1 Takt vor dem Drop-in
+MUTES = [(40.1220, 41.6081)]   # genau 1 Takt vor dem Drop-in
 
 def main():
     out_dir = os.path.join(PROJ, "assets", "audio")

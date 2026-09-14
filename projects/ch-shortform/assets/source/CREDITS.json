@@ -68,11 +68,71 @@
   "license": "http://creativecommons.org/licenses/publicdomain/"
  },
  {
-  "key": "ia_turmoil67",
-  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_turmoil67.mp4",
-  "source": "Internet Archive / Prelinger",
-  "id": "201376_America_in_Turmoil",
-  "url": "https://archive.org/download/201376_America_in_Turmoil/201376_America_in_Turmoil_master.intros.mp4",
-  "license": "public domain / Prelinger"
+  "key": "ia_gte_cell89",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_gte_cell89.mp4",
+  "source": "Internet Archive",
+  "id": "CLE-B27_68299-69279",
+  "license": "keine Lizenzangabe - Werbespot, Rechte beim Markeninhaber",
+  "note": "GTE MobileNet Portable Cellular Phone Ad ESPN 1989-07-08"
+ },
+ {
+  "key": "ia_nokia95",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_nokia95.mp4",
+  "source": "Internet Archive",
+  "id": "NokiaMobileCommunicationsAdvert",
+  "license": "keine Lizenzangabe - Werbespot, Rechte beim Markeninhaber",
+  "note": "Nokia Mobile Communications Advert"
+ },
+ {
+  "key": "ia_nokia8110",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_nokia8110.mp4",
+  "source": "Internet Archive",
+  "id": "1996-commercial-for-nokia-8110",
+  "license": "keine Lizenzangabe - Werbespot, Rechte beim Markeninhaber",
+  "note": "1996 commercial for Nokia 8110"
+ },
+ {
+  "key": "user_keynote_iphone",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/user_keynote_iphone.mp4",
+  "source": "vom Nutzer geliefert",
+  "id": "1ccbd89e-ScreenRecording_09-14-2026_18-52-12_1.mov",
+  "license": "Apple Keynote 2007 - Rechte bei Apple",
+  "attribution": "Apple Inc."
+ },
+ {
+  "key": "wm_mauerfall_potsdam",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/wm_mauerfall_potsdam.mp4",
+  "source": "Wikimedia Commons",
+  "id": "Grenzöffnung am Potsdamer Platz.webm",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Grenz%C3%B6ffnung_am_Potsdamer_Platz.webm",
+  "license": "CC BY-SA 3.0",
+  "attribution": "RIAS TV - Deutsche Welle"
+ },
+ {
+  "key": "wm_mauerfall_grenze",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/wm_mauerfall_grenze.mp4",
+  "source": "Wikimedia Commons",
+  "id": "Grenzöffnung November 1989 - Selmsdorf (DDR) - Lübeck-Schlutup.webm",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Grenz%C3%B6ffnung_November_1989_-_Selmsdorf_%28DDR%29_-_L%C3%BCbeck-Schlutup.webm",
+  "license": "CC BY 3.0",
+  "attribution": "Manfred Krellenberg"
+ },
+ {
+  "key": "wm_reagan_wall",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/wm_reagan_wall.mp4",
+  "source": "Wikimedia Commons",
+  "id": "President Ronald Reagan's Speech at the Berlin Wall, June 12, 1987.webm",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/1/13/President_Ronald_Reagan%27s_Speech_at_the_Berlin_Wall%2C_June_12%2C_1987.webm",
+  "license": "CC BY 3.0",
+  "attribution": "Reagan Library"
+ },
+ {
+  "key": "wm_bush_2001",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/wm_bush_2001.mp4",
+  "source": "Wikimedia Commons",
+  "id": "September 2001 George W. Bush speech to a joint session of Congress.webm",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/4/44/September_2001_George_W._Bush_speech_to_a_joint_session_of_Congress.webm",
+  "license": "Public domain",
+  "attribution": "White House Television"
  }
 ]

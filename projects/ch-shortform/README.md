@@ -4,7 +4,7 @@ Beatsynchroner Edit auf schwarzem Grund. Jeder Clip sitzt in einem eigenen
 Seitenverhältnis-Band, der 1080×1920-Rahmen bleibt stehen — dadurch wirkt es,
 als wechsle das Format des Videos selbst.
 
-**Status: Akt 1 gebaut** (20,80 s). Akt 2 und 3 sind geplant, aber noch nicht gerendert.
+**Status: Akt 1 gebaut** (29,72 s, 41 Shots). Akt 2 und 3 sind geplant, aber noch nicht gerendert.
 
 ## Musik
 
@@ -17,16 +17,16 @@ Vibe Shift und braucht dafür genau **einen** Schnitt:
 
 | Akt | Video | Musik (Original) | Takte | Funktion |
 |-----|-------|------------------|-------|----------|
-| 1 — Aufbruch | 0 – 20,80 s | 1,16 – 21,97 s | 14 | volle Energie |
-| 2 — Vibe Shift | 20,80 – 32,69 s | 109,65 – 121,53 s | 8 | Bass weg |
-| 3 — Zusammenrücken | 32,69 – 57,95 s | 121,53 – 146,79 s | 17 | Drop, Bass zurück |
+| 1 — Aufbruch | 0 – 29,72 s | 1,16 – 30,88 s | 20 | volle Energie |
+| 2 — Vibe Shift | 29,72 – 41,61 s | 109,65 – 121,53 s | 8 | Bass weg |
+| 3 — Zusammenrücken | 41,61 – 66,87 s | 121,53 – 146,79 s | 17 | Drop, Bass zurück |
 
-Der Schnitt bei 20,80 s springt von Beat 59 auf Beat 295. Beide liegen auf dem
-Raster und (295−59) ist durch 4 teilbar — damit bleibt die Taktphase erhalten
+Der Schnitt bei 29,72 s springt von Beat 83 auf Beat 295. Beide liegen auf dem
+Raster und (295−83) ist durch 4 teilbar — damit bleibt die Taktphase erhalten
 und der Übergang ist rhythmisch nahtlos. Akt 2→3 ist gar kein Schnitt, das ist
 der originale Drop des Songs.
 
-Programmierter Aussetzer: **31,21 – 32,69 s** komplett stumm (ein Takt vor dem
+Programmierter Aussetzer: **40,12 – 41,61 s** komplett stumm (ein Takt vor dem
 Drop) — für „leere Spielplätze, ohne Hintergrundmusik kurze Stille“ aus dem Skript.
 
 > Der Track ist für diesen Test nicht lizenziert. Für eine Veröffentlichung
@@ -35,7 +35,8 @@ Drop) — für „leere Spielplätze, ohne Hintergrundmusik kurze Stille“ aus 
 ## Pipeline
 
 ```bash
-python3 build/fetch_sources.py          # Quellclips aus NASA + Internet Archive
+python3 build/fetch_sources.py          # NASA + Prelinger
+python3 build/fetch_extra.py            # Wikimedia Commons, Werbespots, Nutzerclip
 python3 build/music_bed.py              # Musikbett mit Splice und Aussetzer
 python3 build/render.py edl/act1.json act1   # Shots einzeln rendern
 python3 build/qc.py     edl/act1.json act1   # Helligkeit je Shot prüfen
@@ -74,8 +75,10 @@ solange `beat_in` und `beats` unverändert sind.
 
 ## Quellen
 
-Alles gemeinfrei — NASA und Internet Archive / Prelinger. Nachweis in
-`assets/source/CREDITS.json` und in der Shotliste.
+Gemischt: gemeinfrei (NASA, Prelinger, Kongressansprache), CC BY / CC BY-SA
+(Mauerfall, Reagan — Namensnennung nötig) und Werbespots ohne Lizenzangabe
+(GTE, Nokia — Rechte bei den Markeninhabern). Vollständige Aufstellung in
+`docs/akt1_shotliste.md` und `assets/source/CREDITS.json`.
 
 Ausdrücklich **nicht** verwendet: `America in Turmoil` (1967), ein Film der
 rechtsextremen *Liberty Lobby*. Details in der Shotliste.

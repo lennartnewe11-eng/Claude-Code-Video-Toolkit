@@ -1,6 +1,6 @@
 {
  "name": "act1_aufbruch",
- "note": "Akt 1 - 14 Takte / 56 Beats / 20.804s. Skript: Raketenstart -> Innovation 60er/70er/80er -> Telefon bis Smartphone -> Jobs/iPhone -> Menschen mit Handy.",
+ "note": "Akt 1 - 20 Takte / 80 Beats / 29.720s. Raketenstart -> Innovation 60er -> Telefon/Rechner -> erste Mobiltelefone 80er -> Mauerfall -> Nokia-Aera -> War on Terror -> iPhone-Keynote.",
  "beat": 0.3715,
  "shots": [
   {
@@ -370,18 +370,202 @@
   {
    "beat_in": 52,
    "beats": 2,
-   "src": "SLOT",
+   "src": "ia_gte_cell89",
+   "src_in": 3.9,
    "band": "wide",
-   "slot_color": "0x101010",
-   "note": "SLOT Steve Jobs / erstes iPhone (Rechte!)"
+   "grade": "archive",
+   "boost": 1.15,
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Bauleiter mit Ziegel-Telefon, 1989"
   },
   {
    "beat_in": 54,
    "beats": 2,
-   "src": "SLOT",
-   "band": "portrait",
-   "slot_color": "0x101010",
-   "note": "SLOT Menschen mit Handy in der Hand"
+   "src": "ia_gte_cell89",
+   "src_in": 7.7,
+   "band": "classic",
+   "grade": "archive",
+   "fx": [
+    "thump",
+    "grain_heavy"
+   ],
+   "mask": "wipe_d",
+   "note": "$498 - Werbekarte mit Klotz-Handy"
+  },
+  {
+   "beat_in": 56,
+   "beats": 2,
+   "src": "ia_gte_cell89",
+   "src_in": 21.4,
+   "band": "tv",
+   "grade": "archive",
+   "boost": 1.15,
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Taschentelefon, Hand auf der Tastatur"
+  },
+  {
+   "beat_in": 58,
+   "beats": 2,
+   "src": "ia_gte_cell89",
+   "src_in": 16.6,
+   "band": "cinema",
+   "grade": "archive",
+   "boost": 1.1,
+   "fx": [
+    "push",
+    "grain"
+   ],
+   "note": "Geschaeftsmann traegt das Telefon zum Wagen"
+  },
+  {
+   "beat_in": 60,
+   "beats": 2,
+   "src": "wm_mauerfall_potsdam",
+   "src_in": 111.0,
+   "band": "wide",
+   "grade": "archive",
+   "boost": 1.2,
+   "fx": [
+    "thump",
+    "grain_heavy"
+   ],
+   "mask": "circle_in",
+   "note": "Menschenmenge an der Mauer"
+  },
+  {
+   "beat_in": 62,
+   "beats": 2,
+   "src": "wm_mauerfall_potsdam",
+   "src_in": 174.0,
+   "band": "classic",
+   "grade": "archive",
+   "boost": 1.2,
+   "fx": [
+    "punch",
+    "grain_heavy"
+   ],
+   "note": "Menschen auf der Mauer"
+  },
+  {
+   "beat_in": 64,
+   "beats": 2,
+   "src": "wm_mauerfall_potsdam",
+   "src_in": 132.0,
+   "band": "strip",
+   "grade": "archive",
+   "boost": 1.2,
+   "fx": [
+    "drift",
+    "grain_heavy"
+   ],
+   "note": "Menge bis zum Horizont"
+  },
+  {
+   "beat_in": 66,
+   "beats": 2,
+   "src": "ia_nokia8110",
+   "src_in": 0.9,
+   "band": "square",
+   "grade": "punchy",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Nokia 8110 - hold me"
+  },
+  {
+   "beat_in": 68,
+   "beats": 2,
+   "src": "ia_nokia8110",
+   "src_in": 2.9,
+   "band": "full",
+   "grade": "punchy",
+   "fx": [
+    "thump",
+    "rgbhit"
+   ],
+   "mask": "bars",
+   "note": "Tastatur - touch me"
+  },
+  {
+   "beat_in": 70,
+   "beats": 2,
+   "src": "ia_nokia95",
+   "src_in": 7.6,
+   "band": "wide",
+   "grade": "punchy",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Nokia - Connecting People"
+  },
+  {
+   "beat_in": 72,
+   "beats": 2,
+   "src": "wm_bush_2001",
+   "src_in": 129.0,
+   "band": "classic",
+   "grade": "cold",
+   "fx": [
+    "dip",
+    "grain_heavy"
+   ],
+   "note": "Ansprache vor dem Kongress, 20.09.2001",
+   "boost": 1.15
+  },
+  {
+   "beat_in": 74,
+   "beats": 2,
+   "src": "user_keynote_iphone",
+   "src_in": 0.7,
+   "pre_crop": "1600:860:160:12",
+   "band": "cinema",
+   "grade": "punchy",
+   "fx": [
+    "punch",
+    "rgbhit"
+   ],
+   "note": "Publikum der Keynote",
+   "boost": 1.28
+  },
+  {
+   "beat_in": 76,
+   "beats": 2,
+   "src": "user_keynote_iphone",
+   "src_in": 4.6,
+   "pre_crop": "1600:860:160:12",
+   "band": "wide",
+   "grade": "punchy",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "mask": "wipe_r",
+   "note": "Buehne, Telefon-Icon auf der Leinwand",
+   "boost": 1.22
+  },
+  {
+   "beat_in": 78,
+   "beats": 2,
+   "src": "user_keynote_iphone",
+   "src_in": 7.3,
+   "pre_crop": "1600:860:160:12",
+   "band": "cinema",
+   "grade": "punchy",
+   "fx": [
+    "thump",
+    "zoom_in",
+    "close"
+   ],
+   "note": "iPhone-Reveal - Jobs auf der Buehne",
+   "boost": 1.15
   }
  ]
 }
