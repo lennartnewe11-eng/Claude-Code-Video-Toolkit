@@ -1,0 +1,387 @@
+{
+ "name": "act1_aufbruch",
+ "note": "Akt 1 - 14 Takte / 56 Beats / 20.804s. Skript: Raketenstart -> Innovation 60er/70er/80er -> Telefon bis Smartphone -> Jobs/iPhone -> Menschen mit Handy.",
+ "beat": 0.3715,
+ "shots": [
+  {
+   "beat_in": 0,
+   "beats": 4,
+   "src": "nasa_saturnv",
+   "src_in": 33.2,
+   "band": "cinema",
+   "grade": "punchy",
+   "fx": [
+    "open",
+    "thump",
+    "zoom_in",
+    "grain"
+   ],
+   "note": "Zuendung - Feuerball"
+  },
+  {
+   "beat_in": 4,
+   "beats": 2,
+   "src": "nasa_saturnv",
+   "src_in": 103.0,
+   "band": "full",
+   "grade": "punchy",
+   "fx": [
+    "punch",
+    "rgbhit",
+    "grain"
+   ],
+   "note": "Abheben, Duese + Turm"
+  },
+  {
+   "beat_in": 6,
+   "beats": 2,
+   "src": "nasa_saturnv",
+   "src_in": 84.0,
+   "band": "square",
+   "grade": "punchy",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Triebwerke am Pad"
+  },
+  {
+   "beat_in": 8,
+   "beats": 4,
+   "src": "nasa_saturnv",
+   "src_in": 138.5,
+   "band": "portrait",
+   "grade": "punchy",
+   "fx": [
+    "zoom_in",
+    "grain"
+   ],
+   "note": "Saturn V steigt"
+  },
+  {
+   "beat_in": 12,
+   "beats": 2,
+   "src": "nasa_mga_reel",
+   "src_in": 1100.0,
+   "band": "strip",
+   "grade": "archive",
+   "fx": [
+    "punch",
+    "rgbhit"
+   ],
+   "note": "COUNTDOWN-Uhr",
+   "boost": 1.95
+  },
+  {
+   "beat_in": 14,
+   "beats": 2,
+   "src": "ia_highlights65",
+   "src_in": 300.0,
+   "band": "wide",
+   "grade": "punchy",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Nachtstart",
+   "boost": 1.55
+  },
+  {
+   "beat_in": 16,
+   "beats": 2,
+   "src": "nasa_mga_reel",
+   "src_in": 1290.0,
+   "band": "classic",
+   "grade": "archive",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "mask": "circle_in",
+   "note": "Menschen schauen hoch"
+  },
+  {
+   "beat_in": 18,
+   "beats": 2,
+   "src": "nasa_mga_reel",
+   "src_in": 1168.0,
+   "band": "tv",
+   "grade": "archive",
+   "fx": [
+    "punch"
+   ],
+   "note": "Zuschauer am Start"
+  },
+  {
+   "beat_in": 20,
+   "beats": 2,
+   "src": "ia_highlights65",
+   "src_in": 120.0,
+   "band": "square",
+   "grade": "punchy",
+   "fx": [
+    "zoom_in"
+   ],
+   "note": "Erde aus dem All"
+  },
+  {
+   "beat_in": 22,
+   "beats": 2,
+   "src": "ia_highlights65",
+   "src_in": 700.0,
+   "band": "cinema",
+   "grade": "punchy",
+   "fx": [
+    "drift",
+    "grain"
+   ],
+   "note": "Mondoberflaeche",
+   "boost": 1.25
+  },
+  {
+   "beat_in": 24,
+   "beats": 2,
+   "src": "ia_telephone20",
+   "src_in": 8.6,
+   "band": "classic",
+   "grade": "bw",
+   "fx": [
+    "punch",
+    "grain_heavy"
+   ],
+   "note": "Titelkarte 1920 Telefon",
+   "boost": 1.35
+  },
+  {
+   "beat_in": 26,
+   "beats": 2,
+   "src": "ia_telephone20",
+   "src_in": 44.6,
+   "band": "tv",
+   "grade": "bw",
+   "fx": [
+    "thump",
+    "grain_heavy"
+   ],
+   "note": "Telefonglocke"
+  },
+  {
+   "beat_in": 28,
+   "beats": 2,
+   "src": "ia_telephone20",
+   "src_in": 125.6,
+   "band": "wide",
+   "grade": "bw",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "mask": "wipe_r",
+   "note": "Haende am Kerzenhalter-Telefon",
+   "boost": 1.2
+  },
+  {
+   "beat_in": 30,
+   "beats": 2,
+   "src": "ia_telephone20",
+   "src_in": 233.6,
+   "band": "classic",
+   "grade": "bw",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Buero 1920, Mann telefoniert",
+   "boost": 1.3
+  },
+  {
+   "beat_in": 32,
+   "beats": 2,
+   "src": "ia_logicmachine",
+   "src_in": 95.6,
+   "band": "square",
+   "grade": "bw",
+   "fx": [
+    "thump"
+   ],
+   "mask": "bars",
+   "note": "Lochkarten-Raster"
+  },
+  {
+   "beat_in": 34,
+   "beats": 2,
+   "src": "ia_logicmachine",
+   "src_in": 119.6,
+   "band": "cinema",
+   "grade": "bw",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Grossrechner + Operator",
+   "boost": 1.25
+  },
+  {
+   "beat_in": 36,
+   "beats": 2,
+   "src": "ia_logicmachine",
+   "src_in": 1547.6,
+   "band": "tv",
+   "grade": "bw",
+   "fx": [
+    "punch"
+   ],
+   "note": "IBM-Bandlaufwerke"
+  },
+  {
+   "beat_in": 38,
+   "beats": 2,
+   "src": "ia_logicmachine",
+   "src_in": 445.6,
+   "band": "strip",
+   "grade": "bw",
+   "fx": [
+    "drift",
+    "grain"
+   ],
+   "note": "Rechnerraum, Reihen"
+  },
+  {
+   "beat_in": 40,
+   "beats": 2,
+   "src": "ia_logicmachine",
+   "src_in": 403.6,
+   "band": "full",
+   "grade": "bw",
+   "fx": [
+    "thump",
+    "rgbhit"
+   ],
+   "mask": "diag",
+   "note": "Rotierende Kontakttrommel"
+  },
+  {
+   "beat_in": 42,
+   "beats": 2,
+   "src": "ia_rhythmprod",
+   "src_in": 150.0,
+   "band": "cinema",
+   "grade": "archive",
+   "fx": [
+    "push",
+    "grain"
+   ],
+   "note": "Fliessband 1957",
+   "boost": 1.4
+  },
+  {
+   "beat_in": 44,
+   "beats": 2,
+   "src": "ia_electronics66",
+   "src_in": 19.4,
+   "band": "classic",
+   "grade": "bw",
+   "fx": [
+    "punch",
+    "grain_heavy"
+   ],
+   "note": "ELECTRONICS ON PARADE",
+   "boost": 1.3
+  },
+  {
+   "beat_in": 46,
+   "beats": 1,
+   "src": "ia_dynamiccity",
+   "src_in": 400.0,
+   "band": "wide",
+   "grade": "archive",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Pferdefuhrwerk neben Auto",
+   "boost": 1.25
+  },
+  {
+   "beat_in": 47,
+   "beats": 1,
+   "src": "ia_dynamiccity",
+   "src_in": 1000.0,
+   "band": "square",
+   "grade": "archive",
+   "fx": [
+    "punch"
+   ],
+   "note": "Parkhaus",
+   "boost": 1.2
+  },
+  {
+   "beat_in": 48,
+   "beats": 1,
+   "src": "ia_logicmachine",
+   "src_in": 1559.6,
+   "band": "tv",
+   "grade": "bw",
+   "fx": [
+    "thump"
+   ],
+   "note": "Nummernskala",
+   "boost": 1.2
+  },
+  {
+   "beat_in": 49,
+   "beats": 1,
+   "src": "nasa_mga_reel",
+   "src_in": 2270.0,
+   "band": "cinema",
+   "grade": "punchy",
+   "fx": [
+    "punch"
+   ],
+   "note": "Kapsel vor Erde",
+   "boost": 1.65
+  },
+  {
+   "beat_in": 50,
+   "beats": 1,
+   "src": "ia_dynamiccity",
+   "src_in": 1380.0,
+   "band": "wide",
+   "grade": "archive",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Strasse 60er"
+  },
+  {
+   "beat_in": 51,
+   "beats": 1,
+   "src": "nasa_mga_reel",
+   "src_in": 1310.0,
+   "band": "mini",
+   "grade": "punchy",
+   "fx": [
+    "thump"
+   ],
+   "note": "Instrumente",
+   "boost": 1.95
+  },
+  {
+   "beat_in": 52,
+   "beats": 2,
+   "src": "SLOT",
+   "band": "wide",
+   "slot_color": "0x101010",
+   "note": "SLOT Steve Jobs / erstes iPhone (Rechte!)"
+  },
+  {
+   "beat_in": 54,
+   "beats": 2,
+   "src": "SLOT",
+   "band": "portrait",
+   "slot_color": "0x101010",
+   "note": "SLOT Menschen mit Handy in der Hand"
+  }
+ ]
+}

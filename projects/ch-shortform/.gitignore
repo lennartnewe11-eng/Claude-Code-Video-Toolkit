@@ -1,0 +1,9 @@
+# Medien nicht ins Repo -- ueber build/fetch_sources.py reproduzierbar
+assets/source/*.mp4
+assets/audio/*.wav
+build/shots/
+build/*_silent.mp4
+build/*_concat.txt
+out/*.mp4
+__pycache__/
+*.pyc

@@ -1,0 +1,78 @@
+[
+ {
+  "key": "nasa_saturnv",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/nasa_saturnv.mp4",
+  "source": "NASA",
+  "id": "Ultimate Saturn V Launch w Enhanced Sound"
+ },
+ {
+  "key": "nasa_mga_reel",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/nasa_mga_reel.mp4",
+  "source": "NASA",
+  "id": "HD 049 Mercury_Gemini_Apollo_Resource Reel 1"
+ },
+ {
+  "key": "ia_telephone20",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_telephone20.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "6136_How_the_Telephone_Talks_01_26_45_28",
+  "url": "https://archive.org/download/6136_How_the_Telephone_Talks_01_26_45_28/6136_How_the_Telephone_Talks_01_26_45_28.mp4",
+  "license": "public domain / Prelinger"
+ },
+ {
+  "key": "ia_telephone65",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_telephone65.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "0355_We_Learn_About_the_Telephone_I_09_01_02_00",
+  "url": "https://archive.org/download/0355_We_Learn_About_the_Telephone_I_09_01_02_00/0355_We_Learn_About_the_Telephone_I_09_01_02_00.mp4",
+  "license": "public domain / Prelinger"
+ },
+ {
+  "key": "ia_electronics66",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_electronics66.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "0823_Electronics_on_Parade_M04040_07_02_59_00",
+  "url": "https://archive.org/download/0823_Electronics_on_Parade_M04040_07_02_59_00/0823_Electronics_on_Parade_M04040_07_02_59_00.mp4",
+  "license": "public domain / Prelinger"
+ },
+ {
+  "key": "ia_logicmachine",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_logicmachine.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "0577_Logic_by_Machine_15_01_03_00",
+  "url": "https://archive.org/download/0577_Logic_by_Machine_15_01_03_00/0577_Logic_by_Machine_15_01_03_00.mp4",
+  "license": "public domain / Prelinger"
+ },
+ {
+  "key": "ia_rhythmprod",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_rhythmprod.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "0594_Rhythm_of_Production_Automatic_Mass_Production_with_Progress_Th_11_34_56_00",
+  "url": "https://archive.org/download/0594_Rhythm_of_Production_Automatic_Mass_Production_with_Progress_Th_11_34_56_00/0594_Rhythm_of_Production_Automatic_Mass_Production_with_Progress_Th_11_34_56_00.mp4",
+  "license": "public domain / Prelinger"
+ },
+ {
+  "key": "ia_dynamiccity",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_dynamiccity.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "0229_Dynamic_American_City_The_23_00_35_24-0035",
+  "url": "https://archive.org/download/0229_Dynamic_American_City_The_23_00_35_24-0035/0229_Dynamic_American_City_The_23_00_35_24-0035.mp4",
+  "license": "public domain / Prelinger"
+ },
+ {
+  "key": "ia_highlights65",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_highlights65.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "highlights_1965_1",
+  "url": "https://archive.org/download/highlights_1965_1/highlights_1965_1.mp4",
+  "license": "http://creativecommons.org/licenses/publicdomain/"
+ },
+ {
+  "key": "ia_turmoil67",
+  "file": "/home/user/Claude-Code-Video-Toolkit/projects/ch-shortform/assets/source/ia_turmoil67.mp4",
+  "source": "Internet Archive / Prelinger",
+  "id": "201376_America_in_Turmoil",
+  "url": "https://archive.org/download/201376_America_in_Turmoil/201376_America_in_Turmoil_master.intros.mp4",
+  "license": "public domain / Prelinger"
+ }
+]
