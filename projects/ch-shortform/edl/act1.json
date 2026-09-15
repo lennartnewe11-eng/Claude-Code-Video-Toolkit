@@ -757,92 +757,117 @@
   {
    "beat_in": 104,
    "beats": 2,
-   "src": "ov_subway_over",
-   "band": "cinema",
-   "grade": "neutral",
-   "fx": [
-    "push"
-   ],
-   "note": "Frau am Handy, Unterfuehrung",
-   "src_in": 0.0
-  },
-  {
-   "beat_in": 106,
-   "beats": 1,
-   "src": "ia_telephone65",
-   "band": "tv",
-   "grade": "bw",
-   "fx": [
-    "thump",
-    "grain_heavy"
-   ],
-   "note": "Telefongesellschaft, Draehte",
-   "src_in": 483.0,
-   "boost": 1.15
-  },
-  {
-   "beat_in": 107,
-   "beats": 1,
-   "src": "ov_subway_solo",
-   "band": "full",
-   "grade": "neutral",
-   "fx": [
-    "thump",
-    "rgbhit"
-   ],
-   "note": "Nur noch das Netz",
-   "src_in": 0.0
-  },
-  {
-   "beat_in": 108,
-   "beats": 2,
-   "src": "ov_switch_over",
-   "band": "wide",
-   "grade": "neutral",
-   "fx": [
-    "drift"
-   ],
-   "note": "Vermittlungsfeld, Vektornetz",
-   "src_in": 0.0
-  },
-  {
-   "beat_in": 110,
-   "beats": 2,
-   "src": "ia_telephone65",
+   "src": "u_friseur",
    "band": "classic",
-   "grade": "bleak",
+   "grade": "bw",
    "fx": [
     "punch",
     "grain"
    ],
-   "note": "Vermittlungsdame mit Headset",
-   "src_in": 1239.0,
-   "boost": 1.2,
-   "mask": "circle_in"
+   "note": "Priester am Altar, am Handy",
+   "src_in": 0.3
+  },
+  {
+   "beat_in": 106,
+   "beats": 1,
+   "src": "u_warten",
+   "band": "square",
+   "grade": "bw",
+   "fx": [
+    "punch"
+   ],
+   "note": "Wartezimmer",
+   "src_in": 0.5
+  },
+  {
+   "beat_in": 107,
+   "beats": 1,
+   "src": "u_pissoir",
+   "band": "tv",
+   "grade": "bw",
+   "fx": [
+    "thump"
+   ],
+   "note": "Pissoir",
+   "src_in": 0.6
+  },
+  {
+   "beat_in": 108,
+   "beats": 1,
+   "src": "u_klippe",
+   "band": "classic",
+   "grade": "bw",
+   "fx": [
+    "punch",
+    "grain"
+   ],
+   "note": "Klippe, am Handy",
+   "src_in": 0.5
+  },
+  {
+   "beat_in": 109,
+   "beats": 1,
+   "src": "hand_mx09",
+   "band": "cinema",
+   "grade": "cold",
+   "fx": [
+    "punch"
+   ],
+   "note": "Unterfuehrung",
+   "src_in": 3.0
+  },
+  {
+   "beat_in": 110,
+   "beats": 1,
+   "src": "scroll_cv07",
+   "band": "wide",
+   "grade": "cold",
+   "fx": [
+    "punch"
+   ],
+   "note": "Haende, Handy vor Laptop",
+   "src_in": 2.0
+  },
+  {
+   "beat_in": 111,
+   "beats": 1,
+   "src": "u_strassennacht",
+   "band": "square",
+   "grade": "bw",
+   "fx": [
+    "thump",
+    "grain"
+   ],
+   "note": "Strasse nachts, Schirme im Dunkeln",
+   "src_in": 0.6,
+   "boost": 1.45
   },
   {
    "beat_in": 112,
    "beats": 2,
-   "src": "ov_bench_over",
-   "band": "wide",
-   "grade": "neutral",
+   "src": "u_strasse",
+   "band": "classic",
+   "grade": "bw",
    "fx": [
-    "push"
+    "push",
+    "grain"
    ],
-   "note": "Allein auf der Bank, Vektornetz",
-   "src_in": 0.0
+   "note": "Paar am Handy, Hund am Boden uebersehen",
+   "src_in": 0.4
   },
   {
    "beat_in": 114,
    "beats": 2,
-   "src": "ov_bench_solo",
-   "band": "mini",
-   "grade": "neutral",
+   "src": "u_spielplatz",
+   "band": "classic",
+   "grade": "bw",
    "fx": [
-    "close"
+    "punch",
+    "close",
+    "grain"
    ],
-   "note": "Am Ende bleibt nur das Netz",
-   "src_in": 0.0
+   "note": "Kinder auf der Bank, Spielplatz leer",
+   "src_in": 0.6
   }
  ]
 }
