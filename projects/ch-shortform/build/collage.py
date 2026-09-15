@@ -22,7 +22,13 @@ LAYOUTS = [
     [(0.04,0.17,0.44,0.28),(0.52,0.17,0.44,0.28),
      (0.04,0.49,0.44,0.28),(0.52,0.49,0.44,0.28)],                       # 4  Vierer-Raster
     [(0.08,0.26,0.84,0.44)],                                             # 5  eins gross
-    [(0.01,0.26,0.33,0.42),(0.335,0.26,0.33,0.42),(0.66,0.26,0.33,0.42)], # 6  drei auf einer Standlinie
+    # 6/7 Freisteller-Streuung: ueber die volle Hoehe verteilt statt in einer
+    # Reihe in der Mitte. Im 9:16 sind sonst oben und unten je ein Viertel leer
+    # und in der Mitte ueberlappt alles.
+    [(0.02,0.04,0.36,0.20),(0.56,0.17,0.42,0.22),(0.06,0.35,0.40,0.22),
+     (0.52,0.56,0.46,0.22),(0.08,0.75,0.38,0.21)],                       # 6
+    [(0.56,0.03,0.40,0.21),(0.03,0.18,0.40,0.22),(0.50,0.38,0.46,0.23),
+     (0.05,0.58,0.40,0.22),(0.46,0.76,0.48,0.21)],                       # 7
 ]
 
 def cover(im, w, h):
@@ -49,18 +55,20 @@ def render(clips, beats, dst, tmp_root=None, cut_keys=()):
     dur = n_beats * BEAT
     n = round(dur * FPS)
 
-    first = {}                       # ab welchem Beat ein Clip sichtbar ist
+    first, last = {}, {}             # von welchem bis zu welchem Beat sichtbar
     for bi, (_, keys) in enumerate(beats):
-        for k in keys: first.setdefault(k, bi)
+        for k in keys:
+            first.setdefault(k, bi); last[k] = bi
 
-    dirs, counts = {}, {}
+    dirs, counts, boxes = {}, {}, {}
     for k, (src, ss) in clips.items():
         if k not in first: continue
-        need = dur - first[k]*BEAT
+        need = (last[k] + 1 - first[k]) * BEAT
         if k in cut_keys:
-            from cutout import cutout_frames
+            from cutout import cutout_frames, clip_figure_box
             d = os.path.join(tmp, k); cutout_frames(src, ss, need, d)
             dirs[k] = d
+            boxes[k] = clip_figure_box(d)   # einmal messen, fuer den ganzen Clip
         else:
             dirs[k] = extract(src, ss, need, k, tmp)
         counts[k] = len([f for f in os.listdir(dirs[k]) if f.endswith(".png")])
@@ -85,15 +93,19 @@ def render(clips, beats, dst, tmp_root=None, cut_keys=()):
             if k in cut_keys:                  # freigestellt: mit Alpha einsetzen
                 src_im = src_im.convert("RGBA")
                 # auf die Figur beschneiden -- sonst skaliert man vor allem
-                # den leeren Raum drumherum und die Figur wird winzig
-                bb = src_im.getbbox() if src_im.mode == "RGBA" else None
-                bb = src_im.split()[3].getbbox()
+                # den leeren Raum drumherum und die Figur wird winzig.
+                # Der Kasten steht fuer den ganzen Clip fest, sonst pulsiert
+                # die Figur mit jedem Frame in der Groesse.
+                bb = boxes.get(k)
                 if bb: src_im = src_im.crop(bb)
                 sc = min(rh/src_im.height, (rw*3.2)/src_im.width)  # Hoehe bestimmt, Gruppen duerfen breiter werden
                 nw, nh = max(1,int(src_im.width*sc)), max(1,int(src_im.height*sc))
                 src_im = src_im.resize((nw, nh), Image.LANCZOS)
-                canvas.paste(src_im,
-                             (int(fx*W)+(rw-nw)//2, int(fy*H)+(rh-nh)), src_im)
+                # Gruppen duerfen breiter als ihr Feld werden -- dann aber
+                # in den Rahmen schieben statt am Rand abzuschneiden
+                px = min(max(int(fx*W)+(rw-nw)//2, 0), max(0, W-nw))
+                py = min(max(int(fy*H)+(rh-nh), 0), max(0, H-nh))
+                canvas.paste(src_im, (px, py), src_im)
             else:
                 canvas.paste(cover(src_im.convert("RGB"), rw, rh),
                              (int(fx*W), int(fy*H)))
@@ -115,7 +127,15 @@ if __name__ == "__main__":
         "strasse":    (S("u_strasse"), 0.3),
         "pissoir":    (S("u_pissoir"), 0.5),
         "spielplatz": (S("u_spielplatz"), 0.4),
+        # dieselben Szenen, nur freigestellt -- zwei Beats lang loest sich die
+        # Umgebung auf und es bleiben die Menschen mit ihren Geraeten uebrig
+        "c_warten":   (S("u_warten"), 0.4),
+        "c_pissoir":  (S("u_pissoir"), 0.5),
+        "c_strasse":  (S("u_strasse"), 0.3),
+        "c_klippe":   (S("u_klippe"), 0.4),
+        "c_spiel":    (S("u_spielplatz"), 0.4),
     }
+    CUT = ("c_warten","c_pissoir","c_strasse","c_klippe","c_spiel")
     BEATS = [
         (0, ["friseur","warten"]),
         (1, ["friseur","warten"]),
@@ -123,11 +143,12 @@ if __name__ == "__main__":
         (3, ["friseur","klippe","warten"]),
         (1, ["klippe","strasse"]),
         (4, ["friseur","klippe","strasse","pissoir"]),
-        (2, ["strasse","pissoir","klippe"]),
-        (0, ["strasse","pissoir"]),
+        (6, ["c_warten","c_pissoir","c_strasse","c_klippe","c_spiel"]),
+        (7, ["c_pissoir","c_klippe","c_warten","c_spiel","c_strasse"]),
         (3, ["pissoir","strasse","spielplatz"]),
         (2, ["spielplatz","strasse","pissoir"]),
         (5, ["spielplatz"]),
         (5, ["spielplatz"]),
     ]
-    render(CLIPS, BEATS, os.path.join(PROJ,"assets","generated","collage_end.mp4"))
+    render(CLIPS, BEATS, os.path.join(PROJ,"assets","generated","collage_end.mp4"),
+           cut_keys=CUT)

@@ -4,7 +4,10 @@ Beatsynchroner Edit auf schwarzem Grund. Jeder Clip sitzt in einem eigenen
 Seitenverhältnis-Band, der 1080×1920-Rahmen bleibt stehen — dadurch wirkt es,
 als wechsle das Format des Videos selbst.
 
-**Status: Akt 1 gebaut** (34,18 s, 49 Shots). Akt 2 und 3 sind geplant, aber noch nicht gerendert.
+**Status: Akt 1 gebaut** (43,08 s, 59 Shots, 116 Beats). Akt 2 und 3 sind geplant, aber noch nicht gerendert.
+
+Die Bildsprache ist in [`docs/stil.md`](docs/stil.md) festgehalten — Bänder, Raster,
+Grades, Effekthäufigkeit, Freistellerregeln. Akt 2 und 3 folgen ihr.
 
 ## Musik
 
@@ -17,16 +20,16 @@ Vibe Shift und braucht dafür genau **einen** Schnitt:
 
 | Akt | Video | Musik (Original) | Takte | Funktion |
 |-----|-------|------------------|-------|----------|
-| 1 — Aufbruch | 0 – 34,18 s | 1,16 – 35,34 s | 23 | volle Energie |
-| 2 — Vibe Shift | 34,18 – 46,07 s | 109,65 – 121,53 s | 8 | Bass weg |
-| 3 — Zusammenrücken | 46,07 – 71,33 s | 121,53 – 146,79 s | 17 | Drop, Bass zurück |
+| 1 — Aufbruch | 0 – 43,09 s | 1,16 – 44,26 s | 29 | volle Energie |
+| 2 — Vibe Shift | 43,09 – 54,98 s | 109,65 – 121,53 s | 8 | Bass weg |
+| 3 — Zusammenrücken | 54,98 – 80,24 s | 121,53 – 146,79 s | 17 | Drop, Bass zurück |
 
-Der Schnitt bei 34,18 s springt von Beat 95 auf Beat 295. Beide liegen auf dem
-Raster und (295−95) ist durch 4 teilbar — damit bleibt die Taktphase erhalten
+Der Schnitt bei 43,09 s springt von Beat 119 auf Beat 295. Beide liegen auf dem
+Raster und (295−119) ist durch 4 teilbar — damit bleibt die Taktphase erhalten
 und der Übergang ist rhythmisch nahtlos. Akt 2→3 ist gar kein Schnitt, das ist
 der originale Drop des Songs.
 
-Programmierter Aussetzer: **44,58 – 46,07 s** komplett stumm (ein Takt vor dem
+Programmierter Aussetzer: **53,50 – 54,98 s** komplett stumm (ein Takt vor dem
 Drop) — für „leere Spielplätze, ohne Hintergrundmusik kurze Stille“ aus dem Skript.
 `music_bed.py` rechnet das aus der Aktstruktur aus, es bleibt also richtig,
 während Akt 1 weiter wächst.
@@ -41,10 +44,14 @@ python3 build/fetch_sources.py          # NASA + Prelinger
 python3 build/fetch_extra.py            # Wikimedia Commons, Werbespots, Nutzerclip
 python3 build/phones.py                 # Größenvergleich, gezeichnet (Fallback)
 python3 build/phones_real.py            # Größenvergleich, echte Geräte freigestellt
+python3 build/fetch_user_clips.py       # eigene Clips aus den Bildschirmaufnahmen schneiden
+python3 build/make_overlays.py          # Vektornetz-Clips, je in ihrer Bandgröße
+python3 build/collage.py                # Panel-Choreographie + Freisteller für den Schluss
 python3 build/music_bed.py              # Musikbett mit Splice und Aussetzer
 python3 build/render.py edl/act1.json act1   # Shots einzeln rendern
 python3 build/qc.py     edl/act1.json act1   # Helligkeit je Shot prüfen
-python3 build/assemble.py act1 build/act1_slots.ass   # concat + Korn + Musik
+python3 build/assemble.py act1          # concat + Musik (reiner Kopiervorgang)
+python3 build/shotliste.py               # Shotliste im docs/ aus der EDL nachziehen
 python3 build/deliver.py                # Ansichtsfassungen (720p H.264 + VP9, 1080p, Poster)
 ```
 
@@ -58,9 +65,9 @@ dekodieren kann.
 
 | Datei | Auflösung | Codec | Bitrate | Größe |
 |-------|-----------|-------|---------|-------|
-| `act1_720.mp4` | 720 × 1280 @ 30 | H.264 Main 4.0 | 1,0 Mbit/s | 4,1 MB |
-| `act1_720.webm` | 720 × 1280 @ 30 | VP9 / Opus | 1,1 Mbit/s | 4,3 MB |
-| `act1_web.mp4` | 1080 × 1920 @ 30 | H.264 High 4.1 | 2,6 Mbit/s | 11,5 MB |
+| `act1_720.mp4` | 720 × 1280 @ 30 | H.264 Main 4.0 | 1,0 Mbit/s | 5,3 MB |
+| `act1_720.webm` | 720 × 1280 @ 30 | VP9 / Opus | 1,2 Mbit/s | 6,5 MB |
+| `act1_web.mp4` | 1080 × 1920 @ 30 | H.264 High 4.1 | 2,0 Mbit/s | 10,1 MB |
 
 Die Ansichtsseite lädt das Video **vollständig als Blob** statt es zu streamen.
 Liefert ein Host keine Range-Anfragen (HTTP 206), meldet das `video`-Element
@@ -69,15 +76,21 @@ wären damit tot. Als Blob liegt die Datei im Browser, Springen geht immer.
 
 | Datei | Zweck |
 |-------|-------|
+| `docs/stil.md` | **die Bildsprache** — Bänder, Raster, Effekthäufigkeit, Regeln |
 | `build/looks.py` | Formatbänder, Grades, Zoom-/Schüttel-Ausdrücke |
 | `build/render.py` | EDL → einzelne Shots (ein ffmpeg-Aufruf pro Shot) |
 | `build/captions.py` | ASS-Typo (libass; `drawtext` fehlt in diesem ffmpeg-Build) |
+| `build/act1_slots.ass` | Platzhalter „DEIN CLIP HIER“ für offene Slots — alle gefüllt, daher nicht mehr eingebrannt |
 | `build/qc.py` | misst Helligkeit **innerhalb des Bands**, nicht über den ganzen Rahmen |
 | `build/deliver.py` | Ansichtsfassungen in zwei Codecs plus Poster |
 | `build/phones.py` | Maße, Maßstab und gezeichnete Variante des Größenvergleichs |
 | `build/phones_real.py` | stellt echte Geräte aus Produktfotos frei, gleicher Mittelpunkt |
+| `build/overlay.py` | Vektornetz aus dem Bild selbst, Knoten auf jedem Beat neu |
+| `build/collage.py` | Panel-Choreographie: Position springt auf dem Beat, Clip läuft weiter |
+| `build/cutout.py` | Freisteller (rembg/u2net) plus stabiler Figurenkasten je Clip |
 | `edl/act1.json` | die eigentliche Schnittliste |
-| `docs/akt1_shotliste.md` | Shotliste, offene Slots, Quellennachweis |
+| `docs/akt1_shotliste.md` | Shotliste und Quellennachweis (Tabelle erzeugt) |
+| `build/shotliste.py` | schreibt die Shot-Tabelle aus der EDL — von Hand driftet sie |
 
 ## Formatbänder
 

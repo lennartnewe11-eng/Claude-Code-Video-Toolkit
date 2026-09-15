@@ -1,9 +1,15 @@
 # Akt 1 — Shotliste
 
-23 Takte · 92 Beats · 34,18 s · 1080×1920 @ 60 fps · 161,5 BPM (Beat = 0,3715 s)
+<!-- kopf:begin -->
+29 Takte · 116 Beats · 43.09 s · 1080×1920 @ 60 fps · 161,5 BPM (Beat = 0,3715 s) · 59 Shots
+<!-- kopf:end -->
 
 Schnittpunkte sitzen auf dem Beatraster; die Framegrenzen werden aus der
 absoluten Zeit gerundet, der Fehler bleibt unter einer halben Frame.
+
+Kopfzeile und Shot-Tabelle erzeugt `build/shotliste.py` aus `edl/act1.json` —
+nach jeder Änderung an der EDL einmal laufen lassen. Die Bildsprache dahinter
+steht in [`stil.md`](stil.md).
 
 ## Aufbau
 
@@ -19,16 +25,28 @@ absoluten Zeit gerundet, der Fehler bleibt unter einer halben Frame.
 | 17–18 | 66–71 | Nokia-Ära |
 | 18 | 72–73 | Ansprache vor dem Kongress, 20.09.2001 |
 | 19–20 | 74–79 | iPhone-Keynote 2007 |
-| 21–23 | 80–91 | Größenvergleich vor weißem Hintergrund |
+| 21–22 | 80–87 | Größenvergleich, echte Geräte vor Weiß |
+| 22–23 | 88–91 | 2024 gegen 2007, beide animiert |
+| 24–26 | 92–103 | Scrollen, Brille, Ohr, Auge — Vektornetze |
+| 27–29 | 104–115 | Panel-Choreographie, zuletzt die Freisteller |
 
 ## Größenvergleich
 
-Generiert statt gesucht (`build/phones.py`): nur so sitzen alle Geräte auf
-exakt demselben Mittelpunkt (540, 700) und im echten Größenverhältnis
-zueinander. Maßstab 6,135 px/mm, das größte Gerät ist 1000 px hoch.
-Produktfotos hätten je eigene Perspektive und Skalierung — dann trägt der
-Vergleich nicht mehr. Kein Zoom auf diesen Shots: der Größensprung ist der
-Effekt, und ein Zoom würde die Beschriftung anschneiden.
+Zwei Wege, gleiche Geometrie. `build/phones_real.py` stellt die echten Geräte
+aus Apple-Produktfotos frei: Höhe und Unterkante aus der Freistellermaske, die
+**Breite aus dem echten mm-Verhältnis** (nicht aus dem Foto, das perspektivisch
+verzerrt), Eckenradius als Rundrechteck-Maske. `build/phones.py` zeichnet
+dieselbe Tabelle als Fallback.
+
+Beides skaliert nach Millimetern, Maßstab 6,135 px/mm, alle Geräte auf exakt
+demselben Mittelpunkt (540, 700). Nur so trägt der Vergleich — Produktfotos in
+ihrer eigenen Skalierung nebeneinander zeigen gar nichts.
+
+Kein Zoom auf diesen Shots: der Größensprung ist der Effekt, ein Zoom würde
+die Beschriftung anschneiden. Der Schlussvergleich (`phone_compare`) ist
+nachgebaut und animiert — 2007 baut sich auf, 2024 schnappt auf dem Beat
+heraus, 2007 bleibt als rote Kontur stehen, dann Beschriftung, dann Maßbalken.
+Keine Scroll-Animation.
 
 | Gerät | Jahr | Höhe × Breite | Diagonale |
 |-------|-----:|---------------|----------:|
@@ -42,6 +60,8 @@ Effekt, und ein Zoom würde die Beschriftung anschneiden.
 | iPhone 16 Pro Max | 2024 | 163.0 × 77.6 mm | 6.9″ |
 
 ## Shots
+
+<!-- shots:begin -->
 
 | # | Beat | Dauer | Format | Quelle | In | Grade | Effekte / Maske | Inhalt |
 |--:|-----:|------:|--------|--------|---:|-------|-----------------|--------|
@@ -86,14 +106,26 @@ Effekt, und ein Zoom würde die Beschriftung anschneiden.
 | 38 | 74 | 0.74s | `cinema` | user_keynote_iphone | 0.7s | punchy | punch rgbhit | Publikum der Keynote |
 | 39 | 76 | 0.74s | `wide` | user_keynote_iphone | 4.6s | punchy | punch grain · mask:wipe_r | Buehne, Telefon-Icon auf der Leinwand |
 | 40 | 78 | 0.74s | `cinema` | user_keynote_iphone | 7.3s | punchy | thump zoom_in close | iPhone-Reveal - Jobs auf der Buehne |
-| 41 | 80 | 0.74s | `portrait` | phone_00 | — | neutral | flash | iPhone 2007 vor Weiss |
-| 42 | 82 | 0.37s | `portrait` | phone_01 | — | neutral | — | iPhone 5, 2012 |
-| 43 | 83 | 0.37s | `portrait` | phone_02 | — | neutral | — | iPhone 6, 2014 |
-| 44 | 84 | 0.37s | `portrait` | phone_03 | — | neutral | — | iPhone 6 Plus, 2014 |
-| 45 | 85 | 0.37s | `portrait` | phone_04 | — | neutral | — | iPhone X, 2017 |
-| 46 | 86 | 0.37s | `portrait` | phone_05 | — | neutral | — | iPhone 11 Pro Max, 2019 |
-| 47 | 87 | 0.37s | `portrait` | phone_06 | — | neutral | — | iPhone 12 Pro Max, 2020 |
-| 48 | 88 | 1.49s | `portrait` | phone_all | — | neutral | punch | 2024 mit Umriss von 2007 - Halteeinstellung |
+| 41 | 80 | 0.74s | `portrait` | real_00 | — | neutral | flash | iPhone 2007 vor Weiss |
+| 42 | 82 | 0.37s | `portrait` | real_01 | — | neutral | — | iPhone 5, 2012 |
+| 43 | 83 | 0.37s | `portrait` | real_02 | — | neutral | — | iPhone 6, 2014 |
+| 44 | 84 | 0.37s | `portrait` | real_03 | — | neutral | — | iPhone 6 Plus, 2014 |
+| 45 | 85 | 0.37s | `portrait` | real_04 | — | neutral | — | iPhone X, 2017 |
+| 46 | 86 | 0.37s | `portrait` | real_05 | — | neutral | — | iPhone 11 Pro Max, 2019 |
+| 47 | 87 | 0.37s | `portrait` | real_06 | — | neutral | — | iPhone 12 Pro Max, 2020 |
+| 48 | 88 | 1.49s | `portrait` | phone_compare | 0.0s | neutral | — | Groessenvergleich 2007 gegen 2024, beide animiert |
+| 49 | 92 | 0.74s | `portrait` | ov_bed_over | 0.0s | neutral | punch | Im Bett am Handy, Vektornetz |
+| 50 | 94 | 0.37s | `full` | ov_bed_solo | 0.0s | neutral | thump | Nur noch das Netz |
+| 51 | 95 | 0.37s | `square` | ia_logicmachine | 95.6s | bw | thump · mask:bars | Lochkarten-Raster |
+| 52 | 96 | 0.74s | `full` | ov_hand_over | 0.0s | neutral | punch rgbhit | Hand am Feed, Vektornetz |
+| 53 | 98 | 0.37s | `square` | ov_hand_solo | 0.0s | neutral | thump | Nur noch das Netz |
+| 54 | 99 | 0.37s | `cinema` | ov_glasses_over | 0.0s | neutral | punch | Augen hinter der Brille |
+| 55 | 100 | 0.74s | `classic` | ia_telephone65 | 527.0s | bw | thump grain_heavy | Ohr und Hoerer, stilisiert |
+| 56 | 102 | 0.37s | `slab` | ov_eye_over | 0.0s | neutral | rgbhit | Auge, extrem nah |
+| 57 | 103 | 0.37s | `wide` | ov_eye_solo | 0.0s | neutral | thump | Netz ueber dem Auge |
+| 58 | 104 | 4.46s | `full` | collage_end | 0.0s | neutral | — | Panel-Choreographie: sechs Szenen, Position springt auf dem Beat; zwei Beats nur freigestellte Figuren, ueber die volle Hoehe gestreut |
+
+<!-- shots:end -->
 
 ## Quellen und Rechte
 
@@ -113,7 +145,12 @@ Die Lage ist **nicht einheitlich** — für eine Veröffentlichung relevant:
 | `ia_telephone65` | Internet Archive / Prelinger | public domain / Prelinger | — |
 | `nasa_mga_reel` | NASA | — | — |
 | `nasa_saturnv` | NASA | — | — |
-| `phone_00 … phone_06, phone_all` | selbst generiert (build/phones.py) | eigene Grafik - frei verwendbar | Masse nach Herstellerangaben (Hoehe x Breite in mm) |
+| `phone_00 … phone_07, phone_all` | selbst generiert (build/phones.py) | eigene Grafik - frei verwendbar | Masse nach Herstellerangaben (Hoehe x Breite in mm) |
+| `real_00 … real_07` | Apple-Produktfotos, freigestellt (build/phones_real.py) | Rechte bei Apple | Apple Inc. |
+| `phone_compare` | selbst gezeichnet (build/phone_compare.py) | eigene Grafik - frei verwendbar | — |
+| `ov_*` | Vektornetz ueber eigenem bzw. Stockmaterial (build/make_overlays.py) | folgt der Unterlage | — |
+| `collage_end` | eigene Clips, Choreographie + Freisteller (build/collage.py) | vom Nutzer geliefert | — |
+| `u_*` | vom Nutzer geliefert (Bildschirmaufnahmen) | vom Nutzer geliefert | — |
 | `user_keynote_iphone` | vom Nutzer geliefert | Apple Keynote 2007 - Rechte bei Apple | Apple Inc. |
 | `wm_bush_2001` | Wikimedia Commons | Public domain | White House Television |
 | `wm_mauerfall_grenze` | Wikimedia Commons | CC BY 3.0 | Manfred Krellenberg |
@@ -136,7 +173,12 @@ die Spots im Internet Archive liegen.
 **`user_keynote_iphone`** — Apple-Keynote 2007, Rechte bei Apple. Vom Nutzer
 beigesteuert.
 
-**Eigene Grafiken** — der Größenvergleich ist generiert und frei verwendbar.
+**Eigene Grafiken** — der gezeichnete Größenvergleich (`phone_*`,
+`phone_compare`) ist generiert und frei verwendbar. Die freigestellten Geräte
+(`real_*`) stammen dagegen aus Apple-Produktfotos; die Rechte liegen bei Apple.
+
+**Vom Nutzer geliefert** — die Beobachtungsclips (`u_*`, daraus `collage_end`
+und die Netz-Overlays) sowie die Keynote-Aufnahme.
 
 Für diesen Test unkritisch. Vor einer Veröffentlichung wären die Werbespots,
 die Keynote und die Share-Alike-Klausel zu klären.
