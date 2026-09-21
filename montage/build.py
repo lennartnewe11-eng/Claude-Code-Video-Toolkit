@@ -77,6 +77,15 @@ def resolve():
         head = max(0.5, s["len"] * s["rate"] * 0.20)
         max_rate = max((src - head) / s["len"], 0.05)
         if s["rate"] > max_rate:
+            # A small trim is fine. A large one means the EDL asked a short
+            # clip to fill a long shot, and the clamp turns it into extreme
+            # slow motion nobody chose - that belongs in the EDL, not here.
+            if s["rate"] / max_rate > 1.5:
+                raise RuntimeError(
+                    f"{s['clip']}: {s['beats']} Beats brauchen "
+                    f"{s['len'] * s['rate']:.1f}s Quelle bei Tempo "
+                    f"{s['rate']}x, der Clip hat nur {src:.1f}s. "
+                    f"Das ergaebe {max_rate:.2f}x - Shot in der EDL kuerzen.")
             print(f"  {s['clip']}: Tempo {s['rate']}x -> {max_rate:.2f}x "
                   f"(Quelle nur {src:.1f}s)")
             s["rate"] = max_rate

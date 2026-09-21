@@ -47,7 +47,7 @@ GRID_OFFSET = 0.410        # where the fitted grid starts
 # --- Akt 1: Nacht - 85 Beats ---------------------------------------------
 ACT1 = [
     # clip        at   beats rate  look    transition in   move   amb
-    ("IMG_3926", 0.30, 10,  0.80, "dark", None,           "in",  False),
+    ("IMG_3926", 0.30, 12,  0.80, "dark", None,           "in",  False),
     ("IMG_4090", 0.25,  8,  0.70, "dark", None,           None,  False),
     ("IMG_4209", 0.40,  6,  0.80, "dark", ("fade", 0.20), None,  True),
     ("IMG_4128", 0.20,  6,  0.50, "dark", None,           None,  True),   # Gang
@@ -60,9 +60,9 @@ ACT1 = [
     # und wieder aufmachen
     ("IMG_3847", 0.25,  4,  1.20, "dark", None,           None,  False),
     ("IMG_4426", 0.30,  6,  0.60, "dark", None,           None,  True),   # Tisch
-    ("IMG_3925", 0.20, 10,  0.80, "dark", ("fade", 0.17), "in",  False),
-    ("IMG_3882", 0.30,  8,  0.90, "dark", None,           None,  False),
-    ("IMG_4119", 0.25, 15,  0.70, "dark", ("fade", 0.23), None,  False),
+    ("IMG_3925", 0.20, 13,  0.80, "dark", ("fade", 0.17), "in",  False),
+    ("IMG_3882", 0.30, 10,  0.90, "dark", None,           None,  False),
+    ("IMG_4119", 0.25,  8,  0.70, "dark", ("fade", 0.23), None,  False),
 ]
 
 # --- Akt 2: Bewegung - 113 Beats -----------------------------------------
