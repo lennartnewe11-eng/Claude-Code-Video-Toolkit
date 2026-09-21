@@ -251,6 +251,9 @@ def sound_design(shots, total, music_path=None):
         if i and i not in edl.ACT_STARTS and not (burst_lo <= i < burst_hi):
             events.append((t0, "tick", {"dur": 0.13, "over_db": 2.0}))
 
+    # nothing in the opening or over the fade-out; the track is almost
+    # silent there and any accent would be the loudest thing in the film
+    events = [e for e in events if 2.0 < e[0] < total - 9.0]
     events = sorted((max(t, 0.0), k, kw) for t, k, kw in events)
     dst = WORK / "sfx.wav"
     sfx.write_wav(dst, sfx.render(events, total, music_mono=music))

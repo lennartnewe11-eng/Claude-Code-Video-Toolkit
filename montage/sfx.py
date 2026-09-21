@@ -168,12 +168,15 @@ def _peak_window_rms(x, window=0.040):
     return np.sqrt(power.max())
 
 
-def _local_db(music_mono, t, window=0.8):
+def _local_db(music_mono, t, window=0.30):
     """How loud the music READS around time t, in dBFS.
 
     Measured as its loudest short window, not the average over `window`:
     an accent is heard against the music's peaks, and levelling against a
-    long-window average puts the effect below them, where it vanishes.
+    long-window average puts the effect below them, where it vanishes. The
+    window is kept tight, though - read over most of a second, it picks up
+    a peak the accent does not actually land on, and the accent is then set
+    far too loud for the dip it lands in.
     """
     if music_mono is None:
         return None
@@ -184,7 +187,20 @@ def _local_db(music_mono, t, window=0.8):
     return 20 * np.log10(_peak_window_rms(music_mono[a:b]) + 1e-9)
 
 
-def render(events, total_dur, music_mono=None, default_over_db=5.0):
+def _global_bed(music_mono):
+    """The track's own quiet level, as a 25th percentile of short-window RMS."""
+    w = int(SR * 0.04)
+    if music_mono is None or music_mono.size < w * 4:
+        return -26.0
+    hop = int(SR * 0.05)
+    n = (music_mono.size - w) // hop
+    fr = np.lib.stride_tricks.sliding_window_view(music_mono, w)[::hop][:n]
+    db = 20 * np.log10(np.sqrt((fr ** 2).mean(axis=1)) + 1e-9)
+    return float(np.percentile(db, 25))
+
+
+def render(events, total_dur, music_mono=None, default_over_db=5.0,
+           ceiling_over_bed=7.0):
     """Mix timestamped events, levelled against the music underneath.
 
     events: list of (time_seconds, voice, kwargs). `kwargs` may carry
@@ -194,6 +210,10 @@ def render(events, total_dur, music_mono=None, default_over_db=5.0):
     """
     n = int(SR * total_dur) + SR
     bus = np.zeros(n, dtype=np.float64)
+    # An absolute ceiling on top of the relative levelling. Without it an
+    # accent placed where the music happens to be near silent is set
+    # relative to almost nothing and leaps out of the mix.
+    ceiling = _global_bed(music_mono) + ceiling_over_bed
 
     for i, (t, kind, kw) in enumerate(events):
         kw = dict(kw)
@@ -207,6 +227,7 @@ def render(events, total_dur, music_mono=None, default_over_db=5.0):
         # the level is set on its loudest 40 ms window.
         rise = 10 ** (over / 20)
         target_db = bed + 20 * np.log10(max(rise ** 2 - 1.0, 1e-3)) / 2
+        target_db = min(target_db, ceiling)
         sig = sig * (10 ** (target_db / 20) / (_peak_window_rms(sig) + 1e-9))
 
         start = int(t * SR)
