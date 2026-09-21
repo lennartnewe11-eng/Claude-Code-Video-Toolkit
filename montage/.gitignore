@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+work/
+footage/
+analysis/
+*.mp4
+*.wav

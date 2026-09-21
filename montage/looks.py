@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+"""Colour grades for the three acts, plus the shared film treatment.
+
+The grades share one filmic S-curve and one grain/vignette pass so that
+clips shot hours apart still read as one colour world; only lift, warmth
+and saturation change between acts.
+"""
+
+# shared across every shot: subtle grain + vignette hold the look together
+FILM = "noise=alls=5:allf=t,vignette=a=PI/4.4"
+
+LOOKS = {
+    # night city: crushed blacks, teal shadows, pulled-back colour
+    "dark": (
+        "eq=contrast=1.20:brightness=-0.035:saturation=0.70:gamma=0.90,"
+        "curves=r='0/0.015 0.28/0.20 0.72/0.74 1/0.95':"
+        "g='0/0.02 0.28/0.22 0.72/0.75 1/0.96':"
+        "b='0/0.055 0.28/0.28 0.72/0.76 1/0.99',"
+        "colorbalance=rs=-0.07:gs=-0.01:bs=0.11:rm=-0.03:bm=0.05"
+    ),
+    # travel / contrast act: punchy S-curve, neutral-cool, still restrained
+    "mid": (
+        "eq=contrast=1.24:brightness=-0.005:saturation=0.84:gamma=0.97,"
+        "curves=r='0/0.012 0.25/0.21 0.75/0.79 1/0.985':"
+        "g='0/0.014 0.25/0.22 0.75/0.79 1/0.985':"
+        "b='0/0.035 0.25/0.25 0.75/0.78 1/0.97',"
+        "colorbalance=rs=-0.04:bs=0.06:rh=0.03:bh=-0.02"
+    ),
+    # sea / summer: lifted, warm, airy, open highlights
+    "bright": (
+        "eq=contrast=1.10:brightness=0.030:saturation=0.98:gamma=1.06,"
+        "curves=r='0/0.045 0.3/0.34 0.7/0.75 1/1':"
+        "g='0/0.042 0.3/0.33 0.7/0.73 1/0.995':"
+        "b='0/0.055 0.3/0.32 0.7/0.70 1/0.965',"
+        "colorbalance=rh=0.06:gh=0.01:bh=-0.05:rm=0.03:bm=-0.02"
+    ),
+}
+
+
+def fit_filter(width, height, target=(1920, 1080)):
+    """Scale a source into the 16:9 frame.
+
+    Landscape sources fill the frame; portrait ones sit on a blurred
+    version of themselves rather than black bars.
+    """
+    tw, th = target
+    if width / height >= (tw / th) - 0.01:
+        return (f"scale={tw}:{th}:force_original_aspect_ratio=increase,"
+                f"crop={tw}:{th},setsar=1")
+    return (
+        f"split[bg][fg];"
+        f"[bg]scale={tw}:{th}:force_original_aspect_ratio=increase,"
+        f"crop={tw}:{th},gblur=sigma=42,eq=brightness=-0.12[bgb];"
+        f"[fg]scale={tw}:{th}:force_original_aspect_ratio=decrease[fgs];"
+        f"[bgb][fgs]overlay=(W-w)/2:(H-h)/2,setsar=1"
+    )
+
+
+def build_chain(width, height, rate, look, fps=30):
+    """Full per-segment chain: fit -> speed -> grade -> film -> output format."""
+    parts = [fit_filter(width, height)]
+    if abs(rate - 1.0) > 1e-3:
+        parts.append(f"setpts={1.0 / rate:.6f}*PTS")
+    parts.append(LOOKS[look])
+    parts.append(FILM)
+    parts.append(f"fps={fps}")
+    parts.append("format=yuv420p")
+    return ",".join(parts)
