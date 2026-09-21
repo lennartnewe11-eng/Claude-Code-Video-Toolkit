@@ -63,18 +63,22 @@ def resolve():
         s["len_frames"] = f + tf            # extra material for the overlap
         s["len"] = s["len_frames"] / FPS
         src = s["meta"]["dur"]
-        # a short source cannot feed a fast ramp for the whole shot; slow the
-        # ramp down rather than let the segment come up short and drift
-        max_rate = (src - 0.05) / s["len"]
+        # Real headroom, not a token margin. If the source runs out even a
+        # few frames early the fps filter pads by repeating the last frame,
+        # so the shot freezes just before the cut - and the frame count still
+        # comes out right, which is why counting frames never caught it.
+        head = max(0.5, s["len"] * s["rate"] * 0.20)
+        max_rate = max((src - head) / s["len"], 0.05)
         if s["rate"] > max_rate:
             print(f"  {s['clip']}: Tempo {s['rate']}x -> {max_rate:.2f}x "
                   f"(Quelle nur {src:.1f}s)")
             s["rate"] = max_rate
         need = s["len"] * s["rate"]         # source seconds consumed
         start = s["at"] * src
-        if start + need > src - 0.05:       # keep the in-point inside the clip
-            start = max(0.0, src - need - 0.05)
-        s["start"], s["need"] = start, min(need, src - start)
+        if start + need + head > src:       # keep the whole window inside
+            start = max(0.0, src - need - head)
+        s["start"], s["need"] = start, need
+        s["head"] = min(head, max(src - start - need, 0.0))
 
     assert sum(s["frames"] for s in shots) == target_frames
     return shots
@@ -86,14 +90,16 @@ def render_segment(args):
     if dst.exists():
         return dst
     m = s["meta"]
+    # the move ramps over the SOURCE frames it will actually see
+    src_frames = max(int(round(s["need"] * (m["fps"] or FPS))), 2)
     chain = looks.build_chain(m["w"], m["h"], s["rate"], s["look"], FPS,
-                              move=s.get("move"), frames=s["len_frames"])
+                              move=s.get("move"), src_frames=src_frames)
     flag = "-filter_complex" if chain.startswith("split") else "-vf"
     spec = f"{chain}[vout]" if flag == "-filter_complex" else chain
     # -t belongs on the INPUT side: as an output option it would cut slow
     # motion short, since `need` is shorter than the shot when rate < 1.
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
-           "-ss", f"{s['start']:.3f}", "-t", f"{s['need'] + 0.25:.3f}",
+           "-ss", f"{s['start']:.3f}", "-t", f"{s['need'] + s['head']:.3f}",
            "-i", str(FOOT / (s["clip"] + ".mov")),
            flag, spec]
     if flag == "-filter_complex":
@@ -107,6 +113,14 @@ def render_segment(args):
         raise RuntimeError(
             f"{s['clip']}: {got} Frames statt {s['len_frames']} "
             f"(rate={s['rate']:.2f}, Quelle {s['meta']['dur']:.1f}s)")
+    # not named `run`: that is the module-level ffmpeg helper, and shadowing
+    # it here breaks the call above this line
+    tail = frozen_tail(dst)
+    allowed = int(1 / s["rate"]) + 2 if s["rate"] < 1 else 2
+    if tail > allowed:
+        raise RuntimeError(
+            f"{s['clip']}: Standbild am Ende - {tail} gleiche Frames "
+            f"(erlaubt {allowed} bei Tempo {s['rate']:.2f}x)")
     return dst
 
 
@@ -128,6 +142,32 @@ def concat(indices, dst):
     run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
          "-i", str(lst), "-c", "copy", str(dst)])
     return dst
+
+
+def frozen_tail(path, look=16, size=(64, 36)):
+    """How many identical frames the segment ends on.
+
+    Slow motion repeats frames by design, so the caller compares this
+    against what its rate implies; what this catches is a source that ran
+    out and left the fps filter holding one frame.
+    """
+    w, h = size
+    r = subprocess.run(
+        ["ffmpeg", "-v", "error", "-sseof", "-2", "-i", str(path),
+         "-vf", f"scale={w}:{h},format=gray", "-f", "rawvideo", "-"],
+        capture_output=True)
+    buf = r.stdout
+    n = len(buf) // (w * h)
+    if n < 2:
+        return 0
+    frames = [buf[i * w * h:(i + 1) * w * h] for i in range(max(n - look, 0), n)]
+    same = 1
+    for a, b in zip(reversed(frames), reversed(frames[:-1])):
+        if a == b:
+            same += 1
+        else:
+            break
+    return same
 
 
 def count_frames(p):
@@ -174,12 +214,13 @@ def join(shots, chunks):
 
 
 def sound_design(shots, total, music_path=None):
-    """Place the effect layer against the cut AND the music's own shape.
+    """A sparse, quiet click layer - what the reference actually does.
 
-    Levels are not set in absolute terms: sfx.render reads the music under
-    each event, so an accent in a quiet passage stays quiet. `over_db` is
-    how far the mix should lift at that moment - the reference sits its
-    accents around +5 dB, so that is the default here.
+    Counting distinct transients in the reference gives four in 45 seconds,
+    about fourteen across a film this long. An earlier pass placed sixty,
+    led by swept-noise whooshes, and it buried the music. This places
+    roughly fifteen, almost all of them short dry ticks, and sets them only
+    1.5-3 dB over the music instead of 4.5-6.5.
     """
     music = sfx.load_mono(music_path) * MUSIC_GAIN if music_path else None
 
@@ -189,34 +230,28 @@ def sound_design(shots, total, music_path=None):
         t += s["out"]
 
     burst_lo, burst_hi = edl.BURST_RANGE
+
     for t0, i, s in cuts:
         if i in edl.ACT_STARTS and i > 0:
-            events.append((t0 - 2.0, "swell", {"dur": 2.0, "over_db": 4.0}))
-            events.append((t0, "drop", {"dur": 1.5, "over_db": 6.5}))
-        elif burst_lo <= i < burst_hi:
-            events.append((t0, "tick", {"dur": 0.13, "over_db": 3.5}))
-        elif s["rate"] >= 3.0:
-            events.append((t0 - 0.26, "air_whoosh",
-                           {"dur": 0.5, "direction": "up", "over_db": 4.5}))
-        elif s["rate"] <= 0.6 and s["tin"]:
-            events.append((t0 - 1.0, "reverse_air", {"dur": 1.2, "over_db": 3.5}))
-        elif s["tin"] and s["tin"][0] in ("fadewhite", "distance", "pixelize"):
-            events.append((t0, "soft_thud", {"dur": 0.5, "over_db": 5.5}))
+            # an act change is the one place a little weight is allowed
+            events.append((t0, "tick", {"dur": 0.16, "over_db": 3.0}))
+            events.append((t0 - 0.9, "reverse_air", {"dur": 1.0, "over_db": 1.5}))
+        elif burst_lo <= i < burst_hi and (i - burst_lo) % 4 == 0:
+            events.append((t0, "tick", {"dur": 0.11, "over_db": 2.5}))
 
-    # the burst is the one place the layer is allowed to lead
-    events.append((cuts[burst_lo][0] - 2.2, "swell", {"dur": 2.2, "over_db": 6.0}))
+    # a handful of quiet marks on the longest holds, nowhere near every cut
+    longest = sorted(cuts, key=lambda c: -c[2]["out"])[:8]
+    for t0, i, s in longest:
+        if i and i not in edl.ACT_STARTS and not (burst_lo <= i < burst_hi):
+            events.append((t0, "tick", {"dur": 0.13, "over_db": 2.0}))
 
-    # lean on the music's own builds, not only on the cut list
-    for sw in edl.MUSIC_SWELLS:
-        if 2.0 < sw < total - 3.0:
-            quiet = edl.MUSIC_BREAKDOWN[0] <= sw <= edl.MUSIC_BREAKDOWN[1]
-            events.append((sw - 0.9, "reverse_air",
-                           {"dur": 1.0, "over_db": 2.5 if quiet else 4.0}))
-
-    events = [(max(t, 0.0), k, kw) for t, k, kw in events]
+    events = sorted((max(t, 0.0), k, kw) for t, k, kw in events)
     dst = WORK / "sfx.wav"
     sfx.write_wav(dst, sfx.render(events, total, music_mono=music))
-    print(f"  Sounddesign: {len(events)} Effekte, gegen die Musik eingepegelt")
+    kinds = {}
+    for _, k, _ in events:
+        kinds[k] = kinds.get(k, 0) + 1
+    print(f"  Sounddesign: {len(events)} Effekte {kinds} - leise, keine Whooshes")
     return dst
 
 

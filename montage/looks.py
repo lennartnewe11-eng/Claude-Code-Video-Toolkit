@@ -62,10 +62,10 @@ def fit_filter(width, height, target=(1920, 1080)):
 # a shot that moves is fitted to this first, so the zoom crops into real
 # detail instead of upscaling a frame already cut to the target size
 OVERSCAN = (2112, 1188)
-ZOOM = 0.12
+ZOOM = 0.05        # barely perceptible; a strong push reads as a slideshow
 
 
-def move_filter(kind, frames, target=(1920, 1080)):
+def move_filter(kind, frames, target=(1920, 1080), fps=30):
     """Slow push in or pull out across the shot."""
     tw, th = target
     n = max(frames - 1, 1)
@@ -76,17 +76,24 @@ def move_filter(kind, frames, target=(1920, 1080)):
     else:
         return None
     return (f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
-            f":d=1:s={tw}x{th}:fps=30")
+            f":d=1:s={tw}x{th}:fps={fps}")
 
 
-def build_chain(width, height, rate, look, fps=30, move=None, frames=None):
-    """Full per-segment chain: fit -> speed -> move -> grade -> film -> format."""
-    moving = move in ("in", "out") and frames
+def build_chain(width, height, rate, look, fps=30, move=None, src_frames=None):
+    """Full per-segment chain: fit -> move -> speed -> grade -> film -> format.
+
+    The move runs BEFORE the speed change. zoompan's own fps setting
+    rewrites the frame rate, which discards the stretch setpts applied - in
+    slow motion the segment then ran out of frames and the fps filter
+    padded it by holding the last one, freezing the shot before the cut.
+    Its ramp is therefore counted in source frames, not timeline frames.
+    """
+    moving = move in ("in", "out") and src_frames
     parts = [fit_filter(width, height, OVERSCAN if moving else (1920, 1080))]
+    if moving:
+        parts.append(move_filter(move, src_frames, fps=fps))
     if abs(rate - 1.0) > 1e-3:
         parts.append(f"setpts={1.0 / rate:.6f}*PTS")
-    if moving:
-        parts.append(move_filter(move, frames))
     parts.append(LOOKS[look])
     parts.append(FILM)
     parts.append(f"fps={fps}")
