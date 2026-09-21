@@ -20,6 +20,7 @@ OUTPUT = ROOT / "montage_16x9.mp4"
 FPS    = 30
 MUSIC_GAIN = 0.708        # -3 dB, headroom for the other layers
 AMB_GAIN   = 1.0          # levels are set per piece in ambience()
+PROLOG_AMB_DB = -20.0     # before the music, the clips' own sound carries it
 
 
 def run(cmd, **kw):
@@ -47,14 +48,24 @@ def resolve():
     if missing:
         print(f"WARNUNG: nicht gefunden: {missing}", file=sys.stderr)
 
-    target_frames = round(edl.TARGET_DURATION * FPS)
-    # The detected grid starts at GRID_OFFSET, not at zero. The film has to
-    # start at zero, so the opening shot absorbs the offset and every cut
-    # after it lands on a beat.
+    # The film opens BEFORE the soundtrack: a few calm shots and the
+    # double-time run, carried by the clips' own sound alone. The music
+    # starts when that is over, and everything after it is on the beat grid.
+    n_pro = edl.N_PROLOG
+    pro_beats = sum(s["beats"] for s in shots[:n_pro])
+    music_start = pro_beats * edl.BEAT
+    music_frames = round(edl.TARGET_DURATION * FPS)
+    target_frames = round(music_start * FPS) + music_frames
+
     pos, cum = [0.0], 0.0
-    for s in shots:
+    for i, s in enumerate(shots):
         cum += s["beats"]
-        pos.append(edl.GRID_OFFSET + cum * edl.BEAT)
+        if i < n_pro:
+            pos.append(cum * edl.BEAT)          # prologue runs from zero
+        else:
+            # the grid the music sits on starts at GRID_OFFSET after it
+            pos.append(music_start + edl.GRID_OFFSET
+                       + (cum - pro_beats) * edl.BEAT)
     # No scaling. Stretching the grid to land exactly on the end walks every
     # cut off the beat - 0.1% over two and a half minutes is several frames.
     # The grid is left alone and the closing shot takes up the remainder,
@@ -101,6 +112,10 @@ def resolve():
         s["head"] = min(head, max(src - st - need, 0.0))
 
     assert sum(s["frames"] for s in shots) == target_frames
+    for s in shots:
+        s["music_start"] = music_start
+    print(f"  Vorspann {music_start:.2f}s ohne Musik, danach "
+          f"{music_frames / FPS:.2f}s mit Soundtrack")
     return shots
 
 
@@ -295,9 +310,13 @@ def ambience(shots, total, dst, music_mono=None, under_db=16.0):
         if music_mono is not None:
             here = music_mono[start:min(end, music_mono.size)]
             if here.size > 100:
-                target = 20 * np.log10(sfx._peak_window_rms(here) + 1e-9) - under_db
+                lvl = 20 * np.log10(sfx._peak_window_rms(here) + 1e-9)
+                if lvl > -55.0:
+                    target = lvl - under_db          # under the music
+                else:
+                    target = PROLOG_AMB_DB           # prologue: it IS the sound
                 have = 20 * np.log10(sfx._peak_window_rms(a) + 1e-9)
-                a = a * min(10 ** ((target - have) / 20), 40.0)   # cap the lift
+                a = a * min(10 ** ((target - have) / 20), 60.0)   # cap the lift
         bus[start:end] += a[:end - start]
         used += 1
 
@@ -309,48 +328,58 @@ def ambience(shots, total, dst, music_mono=None, under_db=16.0):
     return dst
 
 
-def sound_design(shots, total, music_path=None):
-    """A quiet click layer: a steady pulse over the opening, then sparse.
+def place_music(src, start, total, dst):
+    """Lay the soundtrack onto a full-length bed so it starts after the
+    prologue. Everything else levels against this track, so the silence at
+    the top has to be real silence in the same timeline, not an offset
+    applied later in the mixer."""
+    y = sfx.load_mono(src)
+    bed = np.zeros(int(sfx.SR * total) + sfx.SR, dtype=np.float64)
+    a = int(start * sfx.SR)
+    b = min(a + y.size, bed.size)
+    bed[a:b] = y[:b - a]
+    sfx.write_wav(dst, np.stack([bed, bed], axis=1))
+    return dst
 
-    The opening runs clicks on a fixed beat interval so they read as a
-    rhythm rather than as scattered accents. After that the layer thins
-    out to act changes and the staccato passage only.
+
+def sound_design(shots, total, music_path=None):
+    """Clicks carry the opening, where there is no music yet.
+
+    The double-time run at the top has nothing under it but the clips' own
+    sound, so the clicks are the rhythm there - one per cut. Once the
+    soundtrack comes in the layer thins right out: act changes only.
     """
-    music = sfx.load_mono(music_path) * MUSIC_GAIN if music_path else None
+    music = sfx.load_mono(music_path) if music_path else None
 
     events, t, cuts = [], 0.0, []
     for i, s in enumerate(shots):
         cuts.append((t, i, s))
         t += s["out"]
 
-    # steady pulse over the opening
-    lo, hi, every = edl.OPENING_PULSE
-    step = edl.BEAT * every
-    k = 0
-    while True:
-        tp = edl.GRID_OFFSET + lo + k * step
-        if tp > hi:
-            break
-        # a light accent every fourth click gives the pulse a bar feel
-        strong = (k % 4 == 0)
-        events.append((tp, "tick", {"dur": 0.12 if strong else 0.09,
-                                    "over_db": 2.2 if strong else 1.4}))
-        k += 1
-
     burst_lo, burst_hi = edl.BURST_RANGE
     for t0, i, s in cuts:
-        if i in edl.ACT_STARTS and i > 0:
+        if burst_lo <= i < burst_hi:
+            # every cut of the double-time run, accented every fourth
+            strong = (i - burst_lo) % 4 == 0
+            events.append((t0, "tick", {"dur": 0.13 if strong else 0.10,
+                                        "over_db": 5.0 if strong else 3.5}))
+        elif i in edl.ACT_STARTS and i > 0:
             events.append((t0, "tick", {"dur": 0.14, "over_db": 2.4}))
             events.append((t0 - 0.9, "reverse_air", {"dur": 1.0, "over_db": 1.2}))
-        elif burst_lo <= i < burst_hi and (i - burst_lo) % 2 == 0:
-            events.append((t0, "tick", {"dur": 0.09, "over_db": 1.8}))
+
+    # a couple of clicks leading into the run, so it does not start cold
+    lead = cuts[burst_lo][0]
+    for k in (4, 3, 2, 1):
+        events.append((lead - k * edl.BEAT, "tick",
+                       {"dur": 0.10, "over_db": 2.0 + (4 - k) * 0.6}))
 
     events = [e for e in events if 0.3 < e[0] < total - 9.0]
     events = sorted((max(t, 0.0), k, kw) for t, k, kw in events)
     dst = WORK / "sfx.wav"
     sfx.write_wav(dst, sfx.render(events, total, music_mono=music,
                                   ceiling_over_bed=4.0))
-    print(f"  Sounddesign: {len(events)} Klicks, davon {k} als Puls im Vorspann")
+    n_burst = sum(1 for e in events if cuts[burst_lo][0] <= e[0] <= cuts[burst_hi - 1][0])
+    print(f"  Sounddesign: {len(events)} Klicks, {n_burst} im Vorspann-Stakkato")
     return dst
 
 
@@ -403,9 +432,10 @@ def main():
         raise RuntimeError(f"Bildspur {got} Frames statt {want}")
     print(f"Bildspur fertig: {total:.2f}s ({got} Frames, exakt)", flush=True)
 
-    music = ROOT / "music_raw.wav"
-    if not music.exists():
-        music = None
+    raw_music = ROOT / "music_raw.wav"
+    music = place_music(raw_music, shots[0]["music_start"], total,
+                        WORK / "music_placed.wav") if raw_music.exists() else None
+    if music is None:
         print("  WARNUNG: music_raw.wav fehlt - nur Effektspur", flush=True)
     audio = sound_design(shots, total, music)
     amb = ambience(shots, total, WORK / "amb.wav",

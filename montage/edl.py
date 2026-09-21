@@ -44,6 +44,36 @@ GRID_OFFSET = 0.410        # where the fitted grid starts
 # an ambient score is not metronomic, so there is no exact beat to hit. The
 # grid is here to give the cutting a steady pulse, not a false precision.
 
+
+# --- Vorspann: laeuft VOR der Musik, nur mit dem Ton der Clips -----------
+# Erst ein paar ruhige Einstellungen, dann der doppelt so schnell
+# geschnittene Teil - und erst danach setzt der Soundtrack ein.
+PROLOG_CALM = [
+    ("IMG_3926", 0.30,  7,  1.00, "dark", None,           None, True),
+    ("IMG_4209", 0.40,  6,  1.00, "dark", ("fade", 0.20), None, True),
+    ("IMG_4128", 0.20,  6,  1.00, "dark", None,           None, True),
+    ("IMG_4208", 0.30,  5,  1.00, "dark", None,           None, True),
+]
+
+PROLOG_FAST = [
+    ("IMG_4064", 0.30, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3871", 0.35, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4056", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3828", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4101", 0.60, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3997", 0.30, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3998", 0.60, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4207", 0.30, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3824", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4177", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_1074", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4028", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3960", 0.60, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4085", 0.55, 0.5, 1.00, "mid", None, None, False),
+]
+
+PROLOG = PROLOG_CALM + PROLOG_FAST
+
 # --- Akt 1: Nacht - 85 Beats ---------------------------------------------
 ACT1 = [
     # clip        at   beats rate  look    transition in   move   amb
@@ -70,17 +100,17 @@ ACT2 = [
     ("IMG_3886", 0.25,  4,  1.00, "mid", ("fade", 0.20), None, True),    # Bahnhof
     ("IMG_4148", 0.55,  2,  1.00, "mid", None,           None, False),
     ("IMG_3960", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4121", 0.35,  6,  0.90, "mid", None,           None, False),
+    ("IMG_4121", 0.35,  8,  0.90, "mid", None,           None, False),
     ("IMG_3959", 0.45,  2,  1.00, "mid", None,           None, False),
     ("IMG_4115", 0.30,  4,  0.90, "mid", ("fade", 0.13), None, False),
     ("IMG_3961", 0.30,  2,  1.00, "mid", None,           None, True),    # Zug
-    ("IMG_4079", 0.35,  6,  0.90, "mid", None,           None, True),    # Meer
+    ("IMG_4079", 0.35,  8,  0.90, "mid", None,           None, True),    # Meer
     ("IMG_4055", 0.30,  1,  1.00, "mid", None,           None, False),   # ein Beat
-    ("IMG_3870", 0.40,  6,  0.90, "mid", None,           None, False),
+    ("IMG_3870", 0.40,  7,  0.90, "mid", None,           None, False),
     ("IMG_4062", 0.30,  1,  1.00, "mid", None,           None, False),   # ein Beat
-    ("IMG_3974", 0.35,  4,  0.90, "mid", ("fade", 0.17), None, False),
+    ("IMG_3974", 0.35,  5,  0.90, "mid", ("fade", 0.17), None, False),
     ("IMG_4044", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3831", 0.30,  4,  1.00, "mid", None,           None, False),
+    ("IMG_3831", 0.30,  5,  1.00, "mid", None,           None, False),
     ("IMG_4056", 0.30,  4,  1.00, "mid", None,           None, False),
     ("IMG_4061", 0.30,  2,  1.00, "mid", None,           None, False),
     ("IMG_3917", 0.30,  2,  1.00, "mid", None,           None, False),
@@ -98,21 +128,6 @@ ACT2 = [
     ("IMG_4028", 0.30,  2,  1.00, "mid", None,           None, False),
     ("IMG_3824", 0.30,  2,  1.00, "mid", None,           None, False),
     ("IMG_3968", 0.30,  2,  1.00, "mid", None,           None, False),
-    # --- Stakkato: 14 Schnitte auf dem halben Beat, 7 Beats gesamt
-    ("IMG_4064", 0.30, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3871", 0.35, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4056", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3828", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4101", 0.60, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3997", 0.30, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3998", 0.60, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4207", 0.30, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3824", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4177", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_1074", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4028", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3960", 0.60, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4085", 0.55, 0.5, 1.00, "mid", None, None, False),
     # --- Aufloesung
     ("IMG_3904", 0.30,  6,  0.70, "mid", ("fade", 0.20), "in", False),
     ("IMG_3860", 0.35,  4,  1.00, "mid", None,           None, False),
@@ -136,10 +151,12 @@ ACT3 = [
     ("IMG_3827", 0.30,  8,  0.90, "bright", ("fade", 0.23), "in",  False),
 ]
 
-TIMELINE = ACT1 + ACT2 + ACT3
+TIMELINE = PROLOG + ACT1 + ACT2 + ACT3
+N_PROLOG = len(PROLOG)
 
-ACT_STARTS = {0: "akt1", len(ACT1): "akt2", len(ACT1) + len(ACT2): "akt3"}
-BURST_RANGE = (len(ACT1) + 31, len(ACT1) + 45)
+ACT_STARTS = {N_PROLOG: "akt1", N_PROLOG + len(ACT1): "akt2",
+              N_PROLOG + len(ACT1) + len(ACT2): "akt3"}
+BURST_RANGE = (len(PROLOG_CALM), len(PROLOG))   # jetzt im Vorspann
 
 # The opening carries a steady pulse of clicks rather than scattered
 # accents: every second beat from here to here, so it reads as a rhythm.

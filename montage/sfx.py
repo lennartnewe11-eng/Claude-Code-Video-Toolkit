@@ -23,6 +23,9 @@ from scipy import signal
 
 SR = 48000
 
+# stand-in level for stretches with no music under them (the prologue)
+SILENT_REF_DB = -30.0
+
 
 # --------------------------------------------------------------------------
 # helpers
@@ -183,8 +186,11 @@ def _local_db(music_mono, t, window=0.30):
     a = max(int((t - window / 2) * SR), 0)
     b = min(int((t + window / 2) * SR), music_mono.size)
     if b <= a:
-        return -60.0
-    return 20 * np.log10(_peak_window_rms(music_mono[a:b]) + 1e-9)
+        return SILENT_REF_DB
+    lvl = 20 * np.log10(_peak_window_rms(music_mono[a:b]) + 1e-9)
+    # Before the soundtrack starts there is nothing to level against, so
+    # fall back to a fixed reference rather than to negative infinity.
+    return lvl if lvl > -55.0 else SILENT_REF_DB
 
 
 def _global_bed(music_mono):
