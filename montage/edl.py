@@ -158,6 +158,11 @@ ACT_STARTS = {N_PROLOG: "akt1", N_PROLOG + len(ACT1): "akt2",
               N_PROLOG + len(ACT1) + len(ACT2): "akt3"}
 BURST_RANGE = (len(PROLOG_CALM), len(PROLOG))   # jetzt im Vorspann
 
+# The double-time run cuts every eight frames, so its per-shot ambience is
+# almost all fade and leaves near-silence between the clicks. One clip's
+# sound runs continuously underneath the whole run to give it a floor.
+BURST_BED = ("IMG_3886", 0.25)      # Bahnhofshalle
+
 # The opening carries a steady pulse of clicks rather than scattered
 # accents: every second beat from here to here, so it reads as a rhythm.
 OPENING_PULSE = (2.4, 22.0, 2)     # from, to, every N beats

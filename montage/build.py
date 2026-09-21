@@ -21,6 +21,7 @@ FPS    = 30
 MUSIC_GAIN = 0.708        # -3 dB, headroom for the other layers
 AMB_GAIN   = 1.0          # levels are set per piece in ambience()
 PROLOG_AMB_DB = -20.0     # before the music, the clips' own sound carries it
+BURST_BED_DB  = -14.0     # the run is the energy peak of the opening
 
 
 def run(cmd, **kw):
@@ -320,6 +321,36 @@ def ambience(shots, total, dst, music_mono=None, under_db=16.0):
         bus[start:end] += a[:end - start]
         used += 1
 
+    # continuous bed under the double-time run
+    lo, hi = edl.BURST_RANGE
+    if getattr(edl, "BURST_BED", None) and lo < len(shots):
+        clip, at = edl.BURST_BED
+        t0 = shots[lo]["at_frame"] / FPS
+        t1 = (shots[hi - 1]["at_frame"] + shots[hi - 1]["frames"]) / FPS
+        span = t1 - t0
+        piece = tmp / "bed.wav"
+        if not piece.exists():
+            src = FOOT / (clip + ".mov")
+            dur = next((c["dur"] for c in json.loads(
+                (ROOT / "analysis/manifest.json").read_text())
+                if c["name"] == clip + ".mov"), 0)
+            run(["ffmpeg", "-y", "-loglevel", "error",
+                 "-ss", f"{min(at * dur, max(dur - span - 0.2, 0)):.3f}",
+                 "-t", f"{span + 0.2:.3f}", "-i", str(src),
+                 "-vn", "-ac", "1", "-ar", str(sfx.SR),
+                 "-c:a", "pcm_s16le", str(piece)])
+        b = sfx.load_mono(piece)[:int(span * sfx.SR)]
+        if b.size > 400:
+            f = min(int(0.25 * sfx.SR), b.size // 3)
+            b[:f] *= np.linspace(0, 1, f)
+            b[-f:] *= np.linspace(1, 0, f)
+            have = 20 * np.log10(sfx._peak_window_rms(b) + 1e-9)
+            b = b * min(10 ** ((BURST_BED_DB - have) / 20), 60.0)
+            a0 = int(t0 * sfx.SR)
+            a1 = min(a0 + b.size, bus.size)
+            bus[a0:a1] += b[:a1 - a0]
+            print(f"  Stakkato-Bett: {clip}, {span:.2f}s")
+
     peak = np.max(np.abs(bus))
     if peak < 1e-6:
         return None
@@ -362,7 +393,7 @@ def sound_design(shots, total, music_path=None):
             # every cut of the double-time run, accented every fourth
             strong = (i - burst_lo) % 4 == 0
             events.append((t0, "tick", {"dur": 0.13 if strong else 0.10,
-                                        "over_db": 5.0 if strong else 3.5}))
+                                        "over_db": 9.0 if strong else 6.5}))
         elif i in edl.ACT_STARTS and i > 0:
             events.append((t0, "tick", {"dur": 0.14, "over_db": 2.4}))
             events.append((t0 - 0.9, "reverse_air", {"dur": 1.0, "over_db": 1.2}))
@@ -376,8 +407,11 @@ def sound_design(shots, total, music_path=None):
     events = [e for e in events if 0.3 < e[0] < total - 9.0]
     events = sorted((max(t, 0.0), k, kw) for t, k, kw in events)
     dst = WORK / "sfx.wav"
+    # the ceiling has to clear the prologue, where the clicks carry the
+    # section on their own; under the music they stay low by their own
+    # over_db regardless
     sfx.write_wav(dst, sfx.render(events, total, music_mono=music,
-                                  ceiling_over_bed=4.0))
+                                  ceiling_over_bed=9.0))
     n_burst = sum(1 for e in events if cuts[burst_lo][0] <= e[0] <= cuts[burst_hi - 1][0])
     print(f"  Sounddesign: {len(events)} Klicks, {n_burst} im Vorspann-Stakkato")
     return dst
