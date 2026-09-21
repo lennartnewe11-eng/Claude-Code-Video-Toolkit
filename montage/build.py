@@ -15,7 +15,7 @@ SEG    = WORK / "seg";  SEG.mkdir(exist_ok=True)
 OUTPUT = ROOT / "montage_16x9.mp4"
 FPS    = 30
 MUSIC_GAIN = 0.708        # -3 dB, headroom for the other layers
-AMB_GAIN   = 0.10         # -20 dB: the clips' own sound as texture, not a track
+AMB_GAIN   = 1.0          # levels are set per piece in ambience()
 
 
 def run(cmd, **kw):
@@ -246,12 +246,13 @@ def _atempo_chain(rate):
     return ",".join(f"atempo={x:.6f}" for x in parts)
 
 
-def ambience(shots, total, dst):
+def ambience(shots, total, dst, music_mono=None, under_db=16.0):
     """The clips' own sound, quietly, under the music.
 
-    Only the shots flagged for it, and only as texture: waves, a train, a
-    room. Each piece is speed-matched to its shot, faded at both ends so a
-    cut never clicks, and the whole bus is set well below the music.
+    Each piece is levelled against the music beneath it, not by one shared
+    gain. The clips were recorded at wildly different levels - a flat gain
+    left nine of fourteen more than 26 dB under the music, which is
+    inaudible, including the splash on the jump.
     """
     flagged = [(i, s) for i, s in enumerate(shots)
                if s.get("amb") and s["meta"].get("audio")]
@@ -285,9 +286,16 @@ def ambience(shots, total, dst):
             a[-f:] *= np.linspace(1, 0, f)
         start = int(s["at_frame"] / FPS * sfx.SR)
         end = min(start + a.size, bus.size)
-        if end > start:
-            bus[start:end] += a[:end - start]
-            used += 1
+        if end <= start:
+            continue
+        if music_mono is not None:
+            here = music_mono[start:min(end, music_mono.size)]
+            if here.size > 100:
+                target = 20 * np.log10(sfx._peak_window_rms(here) + 1e-9) - under_db
+                have = 20 * np.log10(sfx._peak_window_rms(a) + 1e-9)
+                a = a * min(10 ** ((target - have) / 20), 40.0)   # cap the lift
+        bus[start:end] += a[:end - start]
+        used += 1
 
     peak = np.max(np.abs(bus))
     if peak < 1e-6:
@@ -396,7 +404,8 @@ def main():
         music = None
         print("  WARNUNG: music_raw.wav fehlt - nur Effektspur", flush=True)
     audio = sound_design(shots, total, music)
-    amb = ambience(shots, total, WORK / "amb.wav")
+    amb = ambience(shots, total, WORK / "amb.wav",
+                   sfx.load_mono(music) * MUSIC_GAIN if music else None)
     if music:
         audio = mix_audio(audio, music, total, WORK / "mix.wav", amb)
     run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-i", str(audio),
