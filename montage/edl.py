@@ -1,130 +1,150 @@
 #!/usr/bin/env python3
 """The edit decision list: which shot, from where, how long, how fast.
 
-The act boundaries are not guesses - they sit on measured swells in the
-soundtrack. Analysing "Still Life" gave a very quiet opening (0-10s, around
--33 dBFS), a rise to -16 by 0:20, swells roughly every twelve seconds
-through the middle (35.6, 47.6, 59.7, 71.6, 83.6, 89.6, 92.7, 100.0,
-104.9s), a second peak at 110-120s, a clear breakdown at 120-130s
-(-24.6 dBFS) and a fade from 150s.
+Shot lengths are counted in BEATS, not seconds. Fitting a uniform grid to
+"Still Life" gives 108.33 BPM - one beat every 0.554s. 283 beats fill the
+film. Cut positions are accumulated in beats and converted to frames
+once, so they sit on the grid instead of drifting off it.
 
-So:
-  Akt 1  night city      0.0  -  47.6s   ends on the 47.6s swell
-  Akt 2  travel         47.6  - 110.4s   staccato burst on the 100/105 pair
-  Akt 3  sea and light 110.4  - 157.7s   opens on the second peak, breathes
-                                         through the 120-130s breakdown
+Density is varied deliberately rather than held steady: a run of 4-beat
+shots drops to 2, or to 1, and comes back. The staccato passage cuts on
+the half beat.
+
+The act boundaries sit on measured swells in the same track: a very quiet
+opening (0-10s, around -33 dBFS), swells roughly every twelve seconds
+through the middle, a second peak at 110-120s, a breakdown at 120-130s
+and a fade from 150s.
+
+  Akt 1  night city      0.0  -  47.6s    85 beats
+  Akt 2  travel         47.6  - 110.4s   113 beats
+  Akt 3  sea and light 110.4  - 157.7s    85 beats
+
+Slow motion is spent where a person is moving in the middle of frame -
+the jump into the water, the swimmers, the walk down the alley. Sunsets
+and sea surfaces run close to real time; slowing them buys nothing and
+only makes the film feel sluggish.
 
 Fields per shot:
   clip  source stem
   at    in-point as a fraction of the source duration
-  out   length on the finished timeline, in seconds
+  beats length on the finished timeline, in beats (0.5 allowed)
   rate  playback speed (0.4 = strong slow motion, 6.0 = very fast)
   look  which grade from looks.LOOKS
   tin   transition into this shot: None = hard cut, else (xfade name, seconds)
-
-Measuring the reference settled the cutting style: it runs 80% hard cuts,
-and where it does dissolve the dissolve lasts 0.10-0.23s (median 0.17) -
-three to seven frames. Wipes, slides, pixelise and the rest of that
-vocabulary do not appear in it at all. So there is one soft transition
-here, a short dissolve, used on 13 of 71 cuts.
   move  in-shot camera move: "in", "out" or None
+  amb   take the clip's own sound, quietly, under the music
 """
 
 TARGET_DURATION = 157.71   # exact length of the soundtrack
+BPM = 108.33               # fitted to the track, not just estimated
+BEAT = 60.0 / BPM          # 0.5539s
+GRID_OFFSET = 0.410        # where the fitted grid starts
 
-# --- Akt 1: Nacht - lange Einstellungen -----------------------------------
+# A uniform grid still sits about 90 ms from the detected beats on average:
+# an ambient score is not metronomic, so there is no exact beat to hit. The
+# grid is here to give the cutting a steady pulse, not a false precision.
+
+# --- Akt 1: Nacht - 85 Beats ---------------------------------------------
 ACT1 = [
-    # clip          at    out  rate  look     transition in        move
-    ("IMG_3926", 0.30,  5.0, 0.60, "dark", None, "in"),
-    ("IMG_4090", 0.25,  3.4, 0.50, "dark", None, None),
-    ("IMG_4209", 0.40,  4.2, 0.60, "dark", ("fade", 0.20), None),
-    ("IMG_4128", 0.20,  3.8, 1.00, "dark", None, None),
-    ("IMG_4208", 0.30,  3.2, 0.80, "dark", None, None),
-    ("IMG_3927", 0.35,  2.4, 1.50, "dark", None, None),
-    ("IMG_3885", 0.25,  2.4, 1.20, "dark", None, None),
-    ("IMG_4130", 0.30,  2.8, 1.00, "dark", None, None),
-    ("IMG_3833", 0.35,  3.2, 0.70, "dark", None, None),
-    ("IMG_4426", 0.30,  2.6, 1.00, "dark", None, None),
-    ("IMG_3847", 0.25,  2.4, 1.20, "dark", None, None),
-    ("IMG_3925", 0.20,  5.6, 0.50, "dark", ("fade", 0.17), "in"),
-    ("IMG_3882", 0.30,  3.6, 0.80, "dark", None, None),
-    ("IMG_4119", 0.25,  3.0, 0.50, "dark", ("fade", 0.23), None),
+    # clip        at   beats rate  look    transition in   move   amb
+    ("IMG_3926", 0.30, 10,  0.80, "dark", None,           "in",  False),
+    ("IMG_4090", 0.25,  8,  0.70, "dark", None,           None,  False),
+    ("IMG_4209", 0.40,  6,  0.80, "dark", ("fade", 0.20), None,  True),
+    ("IMG_4128", 0.20,  6,  0.50, "dark", None,           None,  True),   # Gang
+    ("IMG_4208", 0.30,  4,  1.00, "dark", None,           None,  False),
+    # Verdichtung: vier Shots auf je zwei Beats
+    ("IMG_3927", 0.35,  2,  1.50, "dark", None,           None,  False),
+    ("IMG_3885", 0.25,  2,  1.40, "dark", None,           None,  False),
+    ("IMG_4130", 0.30,  2,  1.20, "dark", None,           None,  False),
+    ("IMG_3833", 0.35,  2,  1.00, "dark", None,           None,  True),
+    # und wieder aufmachen
+    ("IMG_3847", 0.25,  4,  1.20, "dark", None,           None,  False),
+    ("IMG_4426", 0.30,  6,  0.60, "dark", None,           None,  True),   # Tisch
+    ("IMG_3925", 0.20, 10,  0.80, "dark", ("fade", 0.17), "in",  False),
+    ("IMG_3882", 0.30,  8,  0.90, "dark", None,           None,  False),
+    ("IMG_4119", 0.25, 15,  0.70, "dark", ("fade", 0.23), None,  False),
 ]
 
-# --- Akt 2: Bewegung - Tempowechsel ---------------------------------------
+# --- Akt 2: Bewegung - 113 Beats -----------------------------------------
 ACT2 = [
-    ("IMG_3886", 0.25,  2.2, 2.00, "mid", ("fade", 0.20), None),
-    ("IMG_4148", 0.55,  1.5, 3.00, "mid", None, None),
-    ("IMG_3960", 0.30,  1.9, 2.50, "mid", None, None),
-    ("IMG_4121", 0.35,  2.4, 0.60, "mid", None, None),
-    ("IMG_3959", 0.45,  1.7, 4.00, "mid", None, None),
-    ("IMG_4115", 0.30,  2.2, 0.50, "mid", ("fade", 0.13), None),
-    ("IMG_3961", 0.30,  1.9, 3.00, "mid", None, None),
-    ("IMG_4079", 0.35,  2.8, 0.70, "mid", None, None),
-    ("IMG_4055", 0.30,  1.4, 6.00, "mid", None, None),
-    ("IMG_3870", 0.40,  2.8, 0.60, "mid", None, None),
-    ("IMG_4062", 0.30,  1.4, 5.00, "mid", None, None),
-    ("IMG_3974", 0.35,  2.2, 0.50, "mid", ("fade", 0.17), None),
-    ("IMG_4044", 0.30,  1.7, 3.00, "mid", None, None),
-    ("IMG_3831", 0.30,  2.2, 1.00, "mid", None, None),
-    ("IMG_4056", 0.30,  2.4, 1.50, "mid", None, None),
-    ("IMG_4061", 0.30,  1.4, 4.00, "mid", None, None),
-    ("IMG_3917", 0.30,  1.4, 3.00, "mid", None, None),
-    ("IMG_3828", 0.30,  2.6, 0.80, "mid", None, None),
-    ("IMG_4057", 0.30,  1.9, 2.00, "mid", None, None),
-    ("IMG_4058", 0.30,  1.9, 2.00, "mid", None, None),
-    ("IMG_4101", 0.30,  2.2, 1.20, "mid", None, None),
-    ("IMG_3966", 0.30,  1.7, 2.50, "mid", None, None),
-    ("IMG_3918", 0.30,  1.5, 2.00, "mid", None, None),
-    ("IMG_3998", 0.30,  2.4, 0.70, "mid", ("fade", 0.13), None),
-    ("IMG_4027", 0.30,  1.7, 2.00, "mid", None, None),
-    ("IMG_4085", 0.30,  1.1, 0.80, "mid", None, None),
-    ("IMG_3968", 0.30,  1.3, 2.60, "mid", None, None),
-    # --- Stakkato: 14 Schnitte in unter drei Sekunden, auf dem Swell-Paar
-    ("IMG_4064", 0.30, 0.20, 4.00, "mid", None, None),
-    ("IMG_3871", 0.35, 0.20, 5.00, "mid", None, None),
-    ("IMG_4056", 0.55, 0.20, 6.00, "mid", None, None),
-    ("IMG_3828", 0.55, 0.20, 4.00, "mid", None, None),
-    ("IMG_4101", 0.60, 0.20, 5.00, "mid", None, None),
-    ("IMG_3997", 0.30, 0.20, 4.00, "mid", None, None),
-    ("IMG_3998", 0.60, 0.20, 5.00, "mid", None, None),
-    ("IMG_4207", 0.30, 0.20, 4.00, "mid", None, None),
-    ("IMG_3824", 0.30, 0.20, 5.00, "mid", None, None),
-    ("IMG_4177", 0.25, 0.20, 3.00, "mid", None, None),
-    ("IMG_1074", 0.30, 0.20, 6.00, "mid", None, None),
-    ("IMG_4028", 0.30, 0.20, 4.00, "mid", None, None),
-    ("IMG_3960", 0.60, 0.20, 6.00, "mid", None, None),
-    ("IMG_4085", 0.55, 0.20, 5.00, "mid", None, None),
+    ("IMG_3886", 0.25,  4,  2.00, "mid", ("fade", 0.20), None, True),    # Bahnhof
+    ("IMG_4148", 0.55,  2,  3.00, "mid", None,           None, False),
+    ("IMG_3960", 0.30,  4,  2.00, "mid", None,           None, False),
+    ("IMG_4121", 0.35,  6,  0.90, "mid", None,           None, False),
+    ("IMG_3959", 0.45,  2,  4.00, "mid", None,           None, False),
+    ("IMG_4115", 0.30,  4,  0.90, "mid", ("fade", 0.13), None, False),
+    ("IMG_3961", 0.30,  2,  3.00, "mid", None,           None, True),    # Zug
+    ("IMG_4079", 0.35,  6,  0.90, "mid", None,           None, True),    # Meer
+    ("IMG_4055", 0.30,  1,  6.00, "mid", None,           None, False),   # ein Beat
+    ("IMG_3870", 0.40,  6,  0.90, "mid", None,           None, False),
+    ("IMG_4062", 0.30,  1,  5.00, "mid", None,           None, False),   # ein Beat
+    ("IMG_3974", 0.35,  4,  0.90, "mid", ("fade", 0.17), None, False),
+    ("IMG_4044", 0.30,  2,  3.00, "mid", None,           None, False),
+    ("IMG_3831", 0.30,  4,  1.00, "mid", None,           None, False),
+    ("IMG_4056", 0.30,  4,  1.50, "mid", None,           None, False),
+    ("IMG_4061", 0.30,  2,  4.00, "mid", None,           None, False),
+    ("IMG_3917", 0.30,  2,  3.00, "mid", None,           None, False),
+    ("IMG_3828", 0.30,  4,  1.00, "mid", None,           None, False),
+    ("IMG_4057", 0.30,  2,  2.00, "mid", None,           None, False),
+    ("IMG_4058", 0.30,  2,  2.00, "mid", None,           None, False),
+    ("IMG_4101", 0.30,  4,  1.20, "mid", None,           None, False),
+    ("IMG_3966", 0.30,  2,  2.50, "mid", None,           None, False),
+    ("IMG_3918", 0.30,  2,  2.00, "mid", None,           None, False),
+    ("IMG_3998", 0.30,  4,  0.90, "mid", ("fade", 0.13), None, False),
+    ("IMG_4027", 0.30,  2,  2.00, "mid", None,           None, False),
+    ("IMG_4085", 0.30,  2,  1.00, "mid", None,           None, False),
+    ("IMG_4177", 0.25,  2,  2.00, "mid", None,           None, False),
+    ("IMG_1074", 0.30,  4,  1.00, "mid", None,           None, False),
+    ("IMG_4028", 0.30,  2,  1.50, "mid", None,           None, False),
+    ("IMG_3824", 0.30,  2,  1.50, "mid", None,           None, False),
+    ("IMG_3968", 0.30,  2,  2.00, "mid", None,           None, False),
+    # --- Stakkato: 14 Schnitte auf dem halben Beat, 7 Beats gesamt
+    ("IMG_4064", 0.30, 0.5, 4.00, "mid", None, None, False),
+    ("IMG_3871", 0.35, 0.5, 5.00, "mid", None, None, False),
+    ("IMG_4056", 0.55, 0.5, 6.00, "mid", None, None, False),
+    ("IMG_3828", 0.55, 0.5, 4.00, "mid", None, None, False),
+    ("IMG_4101", 0.60, 0.5, 5.00, "mid", None, None, False),
+    ("IMG_3997", 0.30, 0.5, 4.00, "mid", None, None, False),
+    ("IMG_3998", 0.60, 0.5, 5.00, "mid", None, None, False),
+    ("IMG_4207", 0.30, 0.5, 4.00, "mid", None, None, False),
+    ("IMG_3824", 0.55, 0.5, 5.00, "mid", None, None, False),
+    ("IMG_4177", 0.55, 0.5, 3.00, "mid", None, None, False),
+    ("IMG_1074", 0.55, 0.5, 6.00, "mid", None, None, False),
+    ("IMG_4028", 0.55, 0.5, 4.00, "mid", None, None, False),
+    ("IMG_3960", 0.60, 0.5, 6.00, "mid", None, None, False),
+    ("IMG_4085", 0.55, 0.5, 5.00, "mid", None, None, False),
     # --- Aufloesung
-    ("IMG_3904", 0.30,  3.2, 0.50, "mid", ("fade", 0.20), "in"),
-    ("IMG_3860", 0.35,  2.4, 1.50, "mid", None, None),
-    ("IMG_3903", 0.30,  2.6, 0.60, "mid", ("fade", 0.17), None),
+    ("IMG_3904", 0.30,  6,  0.70, "mid", ("fade", 0.20), "in", False),
+    ("IMG_3860", 0.35,  4,  1.50, "mid", None,           None, False),
+    ("IMG_3903", 0.30,  4,  0.90, "mid", ("fade", 0.17), None, False),
 ]
 
-# --- Akt 3: Licht - langes Ausatmen ---------------------------------------
+# --- Akt 3: Licht - 85 Beats ---------------------------------------------
 ACT3 = [
-    ("IMG_4407", 0.30,  4.0, 0.50, "bright", ("fade", 0.23), "in"),
-    ("IMG_4182", 0.30,  3.2, 0.60, "bright", None, None),
-    ("IMG_4084", 0.35,  3.2, 0.70, "bright", None, None),
-    ("IMG_4181", 0.40,  3.0, 0.40, "bright", ("fade", 0.13), None),
-    ("IMG_4029", 0.35,  3.2, 0.60, "bright", None, None),
-    ("IMG_1247", 0.30,  2.8, 0.70, "bright", None, None),
-    ("IMG_4075", 0.30,  3.2, 0.60, "bright", ("fade", 0.17), None),
-    ("IMG_4393", 0.30,  2.6, 0.80, "bright", None, None),
-    ("IMG_4082", 0.25,  2.2, 1.00, "bright", None, None),
-    ("IMG_4212", 0.10,  6.5, 0.60, "bright", ("fade", 0.20), "out"),
-    ("IMG_3879", 0.30,  3.2, 0.70, "bright", None, None),
-    ("IMG_4424", 0.25,  3.8, 0.50, "bright", None, "out"),
-    ("IMG_3827", 0.30,  6.4, 0.60, "bright", ("fade", 0.23), "in"),
+    ("IMG_4407", 0.30,  6,  0.90, "bright", ("fade", 0.23), "in",  True),
+    ("IMG_4182", 0.30,  6,  0.90, "bright", None,           None,  False),
+    ("IMG_4084", 0.35,  6,  0.70, "bright", None,           None,  True),   # Steg
+    ("IMG_4181", 0.40, 10,  0.40, "bright", ("fade", 0.13), None,  True),   # Sprung
+    ("IMG_4029", 0.35,  8,  0.50, "bright", None,           None,  True),   # Schwimmen
+    ("IMG_1247", 0.30,  6,  0.55, "bright", None,           None,  True),   # Schwimmer
+    ("IMG_4075", 0.30,  6,  0.90, "bright", ("fade", 0.17), None,  False),
+    ("IMG_4393", 0.30,  4,  0.80, "bright", None,           None,  False),
+    ("IMG_4082", 0.25,  4,  0.60, "bright", None,           None,  True),
+    ("IMG_4212", 0.10, 10,  0.70, "bright", ("fade", 0.20), "out", True),   # Wellen
+    ("IMG_3879", 0.30,  6,  0.90, "bright", None,           None,  False),
+    ("IMG_4424", 0.25,  5,  0.90, "bright", None,           "out", False),
+    ("IMG_3827", 0.30,  8,  0.90, "bright", ("fade", 0.23), "in",  False),
 ]
 
 TIMELINE = ACT1 + ACT2 + ACT3
 
 ACT_STARTS = {0: "akt1", len(ACT1): "akt2", len(ACT1) + len(ACT2): "akt3"}
-BURST_RANGE = (len(ACT1) + 27, len(ACT1) + 41)
+BURST_RANGE = (len(ACT1) + 31, len(ACT1) + 45)
 
-# where the soundtrack builds, measured from its own envelope - the sound
-# design leans on these rather than on the cut list
+# The opening carries a steady pulse of clicks rather than scattered
+# accents: every second beat from here to here, so it reads as a rhythm.
+OPENING_PULSE = (2.4, 22.0, 2)     # from, to, every N beats
+
 MUSIC_SWELLS = [11.5, 35.6, 47.6, 59.7, 71.6, 83.6, 89.6, 92.7, 100.0,
                 104.9, 128.5, 134.5, 138.3, 145.0, 150.1]
 MUSIC_BREAKDOWN = (120.0, 130.0)
