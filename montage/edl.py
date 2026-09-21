@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 """The edit decision list: which shot, from where, how long, how fast.
 
-Three acts following the brightness arc of the footage.
-  Akt 1  night city, slow and dark
-  Akt 2  travel, dark and bright alternating, speed ramps, one burst
-  Akt 3  sea and summer, bright, opening out
+The act boundaries are not guesses - they sit on measured swells in the
+soundtrack. Analysing "Still Life" gave a very quiet opening (0-10s, around
+-33 dBFS), a rise to -16 by 0:20, swells roughly every twelve seconds
+through the middle (35.6, 47.6, 59.7, 71.6, 83.6, 89.6, 92.7, 100.0,
+104.9s), a second peak at 110-120s, a clear breakdown at 120-130s
+(-24.6 dBFS) and a fade from 150s.
+
+So:
+  Akt 1  night city      0.0  -  47.6s   ends on the 47.6s swell
+  Akt 2  travel         47.6  - 110.4s   staccato burst on the 100/105 pair
+  Akt 3  sea and light 110.4  - 157.7s   opens on the second peak, breathes
+                                         through the 120-130s breakdown
 
 Fields per shot:
   clip  source stem
@@ -12,91 +20,105 @@ Fields per shot:
   out   length on the finished timeline, in seconds
   rate  playback speed (0.4 = strong slow motion, 6.0 = very fast)
   look  which grade from looks.LOOKS
-  tin   transition into this shot: None = hard cut, else (kind, seconds)
+  tin   transition into this shot: None = hard cut, else (xfade name, seconds)
+  move  in-shot camera move: "in", "out" or None
 """
 
 TARGET_DURATION = 157.71   # exact length of the soundtrack
 
+# --- Akt 1: Nacht - lange Einstellungen, weiche Uebergaenge ----------------
 ACT1 = [
-    # shot            at    out  rate  look     transition in
-    ("IMG_3926", 0.30,  5.0, 0.60, "dark", ("black", 1.6)),
-    ("IMG_4090", 0.25,  3.6, 0.50, "dark", ("fade", 0.9)),
-    ("IMG_4209", 0.40,  4.4, 0.60, "dark", ("fade", 0.7)),
-    ("IMG_4128", 0.20,  4.0, 1.00, "dark", None),
-    ("IMG_4208", 0.30,  3.4, 0.80, "dark", None),
-    ("IMG_3927", 0.35,  2.6, 1.50, "dark", None),
-    ("IMG_3885", 0.25,  2.4, 1.20, "dark", ("fade", 0.5)),
-    ("IMG_4130", 0.30,  3.0, 1.00, "dark", None),
-    ("IMG_3833", 0.35,  3.4, 0.70, "dark", None),
-    ("IMG_4426", 0.30,  2.8, 1.00, "dark", None),
-    ("IMG_3847", 0.25,  2.6, 1.20, "dark", None),
-    ("IMG_3925", 0.20,  6.2, 0.50, "dark", ("fade", 0.8)),
-    ("IMG_3882", 0.30,  4.0, 0.80, "dark", None),
-    ("IMG_4119", 0.25,  5.0, 0.50, "dark", ("fade", 1.0)),
+    # clip          at    out  rate  look     transition in        move
+    ("IMG_3926", 0.30,  5.0, 0.60, "dark", ("fadeblack", 1.8), "in"),
+    ("IMG_4090", 0.25,  3.4, 0.50, "dark", ("fade",      1.0), "in"),
+    ("IMG_4209", 0.40,  4.2, 0.60, "dark", ("dissolve",  0.8), "out"),
+    ("IMG_4128", 0.20,  3.8, 1.00, "dark", ("smoothup",  0.7), "in"),
+    ("IMG_4208", 0.30,  3.2, 0.80, "dark", None,               None),
+    ("IMG_3927", 0.35,  2.4, 1.50, "dark", ("fadegrays", 0.5), None),
+    ("IMG_3885", 0.25,  2.4, 1.20, "dark", None,               "in"),
+    ("IMG_4130", 0.30,  2.8, 1.00, "dark", ("circleopen",0.6), None),
+    ("IMG_3833", 0.35,  3.2, 0.70, "dark", None,               "out"),
+    ("IMG_4426", 0.30,  2.6, 1.00, "dark", ("dissolve",  0.5), None),
+    ("IMG_3847", 0.25,  2.4, 1.20, "dark", None,               None),
+    ("IMG_3925", 0.20,  5.6, 0.50, "dark", ("fade",      0.9), "in"),
+    ("IMG_3882", 0.30,  3.6, 0.80, "dark", None,               "out"),
+    ("IMG_4119", 0.25,  3.0, 0.50, "dark", ("fade",      1.0), "in"),
 ]
 
+# --- Akt 2: Bewegung - kinetische Uebergaenge, Tempowechsel ---------------
 ACT2 = [
-    ("IMG_3886", 0.25,  2.4, 2.00, "mid", ("white", 0.25)),
-    ("IMG_4148", 0.55,  1.6, 3.00, "mid", None),
-    ("IMG_3960", 0.30,  2.0, 2.50, "mid", None),
-    ("IMG_4121", 0.35,  2.6, 0.60, "mid", ("fade", 0.6)),
-    ("IMG_3959", 0.45,  1.8, 4.00, "mid", None),
-    ("IMG_4115", 0.30,  2.4, 0.50, "mid", ("fade", 0.5)),
-    ("IMG_3961", 0.30,  2.0, 3.00, "mid", None),
-    ("IMG_4079", 0.35,  3.0, 0.70, "mid", None),
-    ("IMG_4055", 0.30,  1.5, 6.00, "mid", None),
-    ("IMG_3870", 0.40,  3.0, 0.60, "mid", ("fade", 0.6)),
-    ("IMG_4062", 0.30,  1.5, 5.00, "mid", None),
-    ("IMG_3974", 0.35,  2.4, 0.50, "mid", None),
-    ("IMG_4044", 0.30,  1.8, 3.00, "mid", None),
-    ("IMG_3831", 0.30,  2.4, 1.00, "mid", None),
-    ("IMG_4061", 0.30,  1.5, 4.00, "mid", None),
-    ("IMG_3917", 0.30,  1.5, 3.00, "mid", None),
-    ("IMG_4057", 0.30,  2.0, 2.00, "mid", None),
-    ("IMG_4058", 0.30,  2.0, 2.00, "mid", ("fade", 0.4)),
-    ("IMG_3966", 0.30,  1.8, 2.50, "mid", None),
-    ("IMG_3918", 0.30,  1.6, 2.00, "mid", None),
-    ("IMG_4027", 0.30,  1.8, 2.00, "mid", None),
-    ("IMG_3968", 0.30,  1.4, 3.00, "mid", None),
-    # --- Burst: Stakkato-Schnitte, angelehnt an die Referenz ---
-    ("IMG_4064", 0.30, 0.22, 4.00, "mid", None),
-    ("IMG_3871", 0.35, 0.18, 5.00, "mid", None),
-    ("IMG_4056", 0.30, 0.18, 6.00, "mid", None),
-    ("IMG_3828", 0.30, 0.22, 4.00, "mid", None),
-    ("IMG_4101", 0.30, 0.18, 5.00, "mid", None),
-    ("IMG_3997", 0.30, 0.18, 4.00, "mid", None),
-    ("IMG_3998", 0.30, 0.22, 5.00, "mid", None),
-    ("IMG_4207", 0.30, 0.18, 4.00, "mid", None),
-    ("IMG_3824", 0.30, 0.18, 5.00, "mid", None),
-    ("IMG_4177", 0.25, 0.22, 3.00, "mid", None),
-    ("IMG_1074", 0.30, 0.18, 6.00, "mid", None),
-    ("IMG_4028", 0.30, 0.18, 4.00, "mid", None),
-    ("IMG_3960", 0.60, 0.22, 6.00, "mid", None),
-    ("IMG_4085", 0.30, 0.18, 5.00, "mid", None),
-    # --- Auflösung des Bursts ---
-    ("IMG_3904", 0.30,  3.4, 0.50, "mid", ("white", 0.3)),
-    ("IMG_3860", 0.35,  2.6, 1.50, "mid", None),
-    ("IMG_3903", 0.30,  2.8, 0.60, "mid", None),
+    ("IMG_3886", 0.25,  2.2, 2.00, "mid", ("fadewhite",  0.25), None),
+    ("IMG_4148", 0.55,  1.5, 3.00, "mid", None,                 None),
+    ("IMG_3960", 0.30,  1.9, 2.50, "mid", ("slideleft",  0.35), None),
+    ("IMG_4121", 0.35,  2.4, 0.60, "mid", ("fade",       0.60), "in"),
+    ("IMG_3959", 0.45,  1.7, 4.00, "mid", None,                 None),
+    ("IMG_4115", 0.30,  2.2, 0.50, "mid", ("dissolve",   0.50), "out"),
+    ("IMG_3961", 0.30,  1.9, 3.00, "mid", ("wiperight",  0.30), None),
+    ("IMG_4079", 0.35,  2.8, 0.70, "mid", None,                 "in"),
+    ("IMG_4055", 0.30,  1.4, 6.00, "mid", ("hblur",      0.25), None),
+    ("IMG_3870", 0.40,  2.8, 0.60, "mid", ("radial",     0.60), "out"),
+    ("IMG_4062", 0.30,  1.4, 5.00, "mid", None,                 None),
+    ("IMG_3974", 0.35,  2.2, 0.50, "mid", ("circleopen", 0.50), "in"),
+    ("IMG_4044", 0.30,  1.7, 3.00, "mid", ("squeezeh",   0.30), None),
+    ("IMG_3831", 0.30,  2.2, 1.00, "mid", None,                 "in"),
+    ("IMG_4056", 0.30,  2.4, 1.50, "mid", ("smoothleft", 0.40), "in"),
+    ("IMG_4061", 0.30,  1.4, 4.00, "mid", ("pixelize",   0.30), None),
+    ("IMG_3917", 0.30,  1.4, 3.00, "mid", None,                 None),
+    ("IMG_3828", 0.30,  2.6, 0.80, "mid", None,                 "out"),
+    ("IMG_4057", 0.30,  1.9, 2.00, "mid", ("diagtl",     0.35), None),
+    ("IMG_4058", 0.30,  1.9, 2.00, "mid", None,                 None),
+    ("IMG_4101", 0.30,  2.2, 1.20, "mid", ("vertopen",   0.40), None),
+    ("IMG_3966", 0.30,  1.7, 2.50, "mid", ("coverup",    0.35), None),
+    ("IMG_3918", 0.30,  1.5, 2.00, "mid", None,                 None),
+    ("IMG_3998", 0.30,  2.4, 0.70, "mid", None,                 "in"),
+    ("IMG_4027", 0.30,  1.7, 2.00, "mid", ("hlslice",    0.30), None),
+    ("IMG_4085", 0.30,  1.1, 0.80, "mid", ("distance",   0.50), None),
+    ("IMG_3968", 0.30,  1.3, 2.60, "mid", None,                 None),
+    # --- Stakkato: 14 Schnitte in unter drei Sekunden, auf dem Swell-Paar
+    ("IMG_4064", 0.30, 0.20, 4.00, "mid", None, None),
+    ("IMG_3871", 0.35, 0.20, 5.00, "mid", None, None),
+    ("IMG_4056", 0.55, 0.20, 6.00, "mid", None, None),
+    ("IMG_3828", 0.55, 0.20, 4.00, "mid", None, None),
+    ("IMG_4101", 0.60, 0.20, 5.00, "mid", None, None),
+    ("IMG_3997", 0.30, 0.20, 4.00, "mid", None, None),
+    ("IMG_3998", 0.60, 0.20, 5.00, "mid", None, None),
+    ("IMG_4207", 0.30, 0.20, 4.00, "mid", None, None),
+    ("IMG_3824", 0.30, 0.20, 5.00, "mid", None, None),
+    ("IMG_4177", 0.25, 0.20, 3.00, "mid", None, None),
+    ("IMG_1074", 0.30, 0.20, 6.00, "mid", None, None),
+    ("IMG_4028", 0.30, 0.20, 4.00, "mid", None, None),
+    ("IMG_3960", 0.60, 0.20, 6.00, "mid", None, None),
+    ("IMG_4085", 0.55, 0.20, 5.00, "mid", None, None),
+    # --- Aufloesung
+    ("IMG_3904", 0.30,  3.2, 0.50, "mid", ("fadewhite",  0.30), "in"),
+    ("IMG_3860", 0.35,  2.4, 1.50, "mid", None,                 None),
+    ("IMG_3903", 0.30,  2.6, 0.60, "mid", ("dissolve",   0.50), "out"),
 ]
 
+# --- Akt 3: Licht - oeffnende Uebergaenge, langes Ausatmen ----------------
 ACT3 = [
-    ("IMG_4407", 0.30,  4.2, 0.50, "bright", ("fade", 1.2)),
-    ("IMG_4182", 0.30,  3.4, 0.60, "bright", None),
-    ("IMG_4084", 0.35,  3.4, 0.70, "bright", None),
-    ("IMG_4181", 0.40,  3.2, 0.40, "bright", ("fade", 0.5)),
-    ("IMG_4029", 0.35,  3.4, 0.60, "bright", None),
-    ("IMG_1247", 0.30,  3.0, 0.70, "bright", None),
-    ("IMG_4075", 0.30,  3.4, 0.60, "bright", ("fade", 0.6)),
-    ("IMG_4393", 0.30,  2.8, 0.80, "bright", None),
-    ("IMG_4082", 0.25,  2.4, 1.00, "bright", None),
-    ("IMG_4212", 0.10,  5.2, 0.60, "bright", ("fade", 0.7)),
-    ("IMG_3879", 0.30,  3.4, 0.70, "bright", None),
-    ("IMG_4424", 0.25,  4.0, 0.50, "bright", ("fade", 0.9)),
-    ("IMG_3827", 0.30,  4.6, 0.60, "bright", ("fade", 1.1)),
+    ("IMG_4407", 0.30,  4.0, 0.50, "bright", ("fade",        1.30), "in"),
+    ("IMG_4182", 0.30,  3.2, 0.60, "bright", ("circleopen",  0.70), "out"),
+    ("IMG_4084", 0.35,  3.2, 0.70, "bright", None,                  "in"),
+    ("IMG_4181", 0.40,  3.0, 0.40, "bright", ("smoothright", 0.50), None),
+    ("IMG_4029", 0.35,  3.2, 0.60, "bright", None,                  "out"),
+    ("IMG_1247", 0.30,  2.8, 0.70, "bright", ("dissolve",    0.50), "in"),
+    ("IMG_4075", 0.30,  3.2, 0.60, "bright", ("revealdown",  0.60), None),
+    ("IMG_4393", 0.30,  2.6, 0.80, "bright", None,                  "in"),
+    ("IMG_4082", 0.25,  2.2, 1.00, "bright", ("fade",        0.40), None),
+    ("IMG_4212", 0.10,  6.5, 0.60, "bright", ("vertopen",    0.70), "out"),
+    ("IMG_3879", 0.30,  3.2, 0.70, "bright", None,                  "in"),
+    ("IMG_4424", 0.25,  3.8, 0.50, "bright", ("fade",        0.90), "out"),
+    ("IMG_3827", 0.30,  6.4, 0.60, "bright", ("fadewhite",   1.10), "in"),
 ]
 
 TIMELINE = ACT1 + ACT2 + ACT3
 
-# act boundaries as indices into TIMELINE, used for sound design accents
 ACT_STARTS = {0: "akt1", len(ACT1): "akt2", len(ACT1) + len(ACT2): "akt3"}
-BURST_RANGE = (len(ACT1) + 22, len(ACT1) + 36)
+BURST_RANGE = (len(ACT1) + 27, len(ACT1) + 41)
+
+# where the soundtrack builds, measured from its own envelope - the sound
+# design leans on these rather than on the cut list
+MUSIC_SWELLS = [11.5, 35.6, 47.6, 59.7, 71.6, 83.6, 89.6, 92.7, 100.0,
+                104.9, 128.5, 134.5, 138.3, 145.0, 150.1]
+MUSIC_BREAKDOWN = (120.0, 130.0)

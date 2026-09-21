@@ -59,11 +59,34 @@ def fit_filter(width, height, target=(1920, 1080)):
     )
 
 
-def build_chain(width, height, rate, look, fps=30):
-    """Full per-segment chain: fit -> speed -> grade -> film -> output format."""
-    parts = [fit_filter(width, height)]
+# a shot that moves is fitted to this first, so the zoom crops into real
+# detail instead of upscaling a frame already cut to the target size
+OVERSCAN = (2112, 1188)
+ZOOM = 0.12
+
+
+def move_filter(kind, frames, target=(1920, 1080)):
+    """Slow push in or pull out across the shot."""
+    tw, th = target
+    n = max(frames - 1, 1)
+    if kind == "in":
+        z = f"min(1.0+{ZOOM}*on/{n},{1.0 + ZOOM})"
+    elif kind == "out":
+        z = f"max({1.0 + ZOOM}-{ZOOM}*on/{n},1.0)"
+    else:
+        return None
+    return (f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)'"
+            f":d=1:s={tw}x{th}:fps=30")
+
+
+def build_chain(width, height, rate, look, fps=30, move=None, frames=None):
+    """Full per-segment chain: fit -> speed -> move -> grade -> film -> format."""
+    moving = move in ("in", "out") and frames
+    parts = [fit_filter(width, height, OVERSCAN if moving else (1920, 1080))]
     if abs(rate - 1.0) > 1e-3:
         parts.append(f"setpts={1.0 / rate:.6f}*PTS")
+    if moving:
+        parts.append(move_filter(move, frames))
     parts.append(LOOKS[look])
     parts.append(FILM)
     parts.append(f"fps={fps}")
