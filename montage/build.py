@@ -89,15 +89,23 @@ def render_segment(args):
     chain = looks.build_chain(m["w"], m["h"], s["rate"], s["look"], FPS)
     flag = "-filter_complex" if chain.startswith("split") else "-vf"
     spec = f"{chain}[vout]" if flag == "-filter_complex" else chain
+    # -t belongs on the INPUT side: as an output option it would cut slow
+    # motion short, since `need` is shorter than the shot when rate < 1.
     cmd = ["ffmpeg", "-y", "-loglevel", "error",
-           "-ss", f"{s['start']:.3f}", "-i", str(FOOT / (s["clip"] + ".mov")),
-           "-t", f"{s['need']:.3f}", flag, spec]
+           "-ss", f"{s['start']:.3f}", "-t", f"{s['need'] + 0.25:.3f}",
+           "-i", str(FOOT / (s["clip"] + ".mov")),
+           flag, spec]
     if flag == "-filter_complex":
         cmd += ["-map", "[vout]"]
     cmd += ["-an", "-c:v", "libx264", "-crf", "17", "-preset", "medium",
             "-pix_fmt", "yuv420p", "-r", str(FPS),
             "-frames:v", str(s["len_frames"]), str(dst)]
     run(cmd)
+    got = count_frames(dst)
+    if got != s["len_frames"]:
+        raise RuntimeError(
+            f"{s['clip']}: {got} Frames statt {s['len_frames']} "
+            f"(rate={s['rate']:.2f}, Quelle {s['meta']['dur']:.1f}s)")
     return dst
 
 
@@ -119,6 +127,13 @@ def concat(indices, dst):
     run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
          "-i", str(lst), "-c", "copy", str(dst)])
     return dst
+
+
+def count_frames(p):
+    r = run(["ffprobe", "-v", "error", "-count_frames", "-select_streams", "v:0",
+             "-show_entries", "stream=nb_read_frames",
+             "-of", "default=nw=1:nk=1", str(p)])
+    return int(r.stdout.strip())
 
 
 def probe_dur(p):
@@ -201,11 +216,15 @@ def main():
         list(ex.map(render_segment, enumerate(shots)))
 
     chunks = chunk_shots(shots)
-    print(f"Fuegen: {len(chunks)} Bloecke, "
-          f"{sum(1 for s in shots if s['tin'])} weiche Uebergaenge", flush=True)
+    print(f"Fuegen: {len(chunks)} Bloecke, {len(chunks) - 1} weiche Uebergaenge",
+          flush=True)
     video = join(shots, chunks)
     total = probe_dur(video)
-    print(f"Bildspur fertig: {total:.2f}s", flush=True)
+    want = sum(s["frames"] for s in shots)
+    got = count_frames(video)
+    if got != want:
+        raise RuntimeError(f"Bildspur {got} Frames statt {want}")
+    print(f"Bildspur fertig: {total:.2f}s ({got} Frames, exakt)", flush=True)
 
     audio = sound_design(shots, total)
     run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(video), "-i", str(audio),
