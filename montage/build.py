@@ -91,6 +91,66 @@ def resolve():
     return shots
 
 
+def render_segment(args):
+    idx, s = args
+    dst = SEG / f"{idx:03d}.mp4"
+    if dst.exists():
+        return dst
+    m = s["meta"]
+    # the move ramps over the SOURCE frames it will actually see
+    src_frames = max(int(round(s["need"] * (m["fps"] or FPS))), 2)
+    chain = looks.build_chain(m["w"], m["h"], s["rate"], s["look"], FPS,
+                              move=s.get("move"), src_frames=src_frames)
+    flag = "-filter_complex" if chain.startswith("split") else "-vf"
+    spec = f"{chain}[vout]" if flag == "-filter_complex" else chain
+    # -t belongs on the INPUT side: as an output option it would cut slow
+    # motion short, since `need` is shorter than the shot when rate < 1.
+    cmd = ["ffmpeg", "-y", "-loglevel", "error",
+           "-ss", f"{s['start']:.3f}", "-t", f"{s['need'] + s['head']:.3f}",
+           "-i", str(FOOT / (s["clip"] + ".mov")),
+           flag, spec]
+    if flag == "-filter_complex":
+        cmd += ["-map", "[vout]"]
+    cmd += ["-an", "-c:v", "libx264", "-crf", "17", "-preset", "medium",
+            "-pix_fmt", "yuv420p", "-r", str(FPS),
+            "-frames:v", str(s["len_frames"]), str(dst)]
+    run(cmd)
+    got = count_frames(dst)
+    if got != s["len_frames"]:
+        raise RuntimeError(
+            f"{s['clip']}: {got} Frames statt {s['len_frames']} "
+            f"(rate={s['rate']:.2f}, Quelle {s['meta']['dur']:.1f}s)")
+    # not named `run`: that is the module-level ffmpeg helper, and shadowing
+    # it here breaks the call above this line
+    tail = frozen_tail(dst)
+    allowed = int(1 / s["rate"]) + 2 if s["rate"] < 1 else 2
+    if tail > allowed:
+        raise RuntimeError(
+            f"{s['clip']}: Standbild am Ende - {tail} gleiche Frames "
+            f"(erlaubt {allowed} bei Tempo {s['rate']:.2f}x)")
+    return dst
+
+
+def chunk_shots(shots):
+    """Group consecutive hard cuts; a soft transition starts a new chunk."""
+    chunks, cur = [], []
+    for i, s in enumerate(shots):
+        if s["tin"] and cur:
+            chunks.append(cur); cur = []
+        cur.append(i)
+    if cur:
+        chunks.append(cur)
+    return chunks
+
+
+def concat(indices, dst):
+    lst = WORK / f"concat_{dst.stem}.txt"
+    lst.write_text("".join(f"file '{(SEG / f'{i:03d}.mp4').resolve()}'\n" for i in indices))
+    run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
+         "-i", str(lst), "-c", "copy", str(dst)])
+    return dst
+
+
 def frozen_tail(path, look=16, size=(64, 36)):
     """How many identical frames the segment ends on.
 
