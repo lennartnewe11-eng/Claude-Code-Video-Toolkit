@@ -183,31 +183,37 @@ def probe_dur(p):
     return float(r.stdout.strip())
 
 
-def join(shots, chunks):
+def join(shots, chunks, want_frames):
     parts = [concat(c, WORK / f"chunk{n:02d}.mp4") for n, c in enumerate(chunks)]
-    durs = [probe_dur(p) for p in parts]
     if len(parts) == 1:
         return parts[0]
 
-    inputs, graph, acc, prev = [], [], durs[0], "[0:v]"
+    # Offsets are accumulated in FRAMES. Adding them up in float seconds
+    # across a chain of cross-fades drifts, and one frame of drift is
+    # enough to miss the soundtrack length.
+    lens = [count_frames(p) for p in parts]
+
+    inputs, graph, acc, prev = [], [], lens[0], "[0:v]"
     for n in range(1, len(parts)):
         head = shots[chunks[n][0]]
-        kind = head["tin"][0]
-        d = head["tframes"] / FPS
-        off = max(acc - d, 0.0)
+        kind, df = head["tin"][0], head["tframes"]
+        off = max(acc - df, 0) / FPS
         out = f"[x{n}]"
         graph.append(f"{prev}[{n}:v]xfade=transition={kind}"
-                     f":duration={d:.3f}:offset={off:.3f}{out}")
-        acc = acc + durs[n] - d
+                     f":duration={df / FPS:.4f}:offset={off:.4f}{out}")
+        acc += lens[n] - df
         prev = out
     for p in parts:
         inputs += ["-i", str(p)]
 
-    total = acc
+    total = want_frames / FPS
     graph.append(f"{prev}fade=t=in:st=0:d=1.6,fade=t=out:st={total-3.0:.2f}:d=3.0[v]")
     dst = WORK / "video_only.mp4"
     run(["ffmpeg", "-y", "-loglevel", "error", *inputs,
          "-filter_complex", ";".join(graph), "-map", "[v]",
+         # -frames:v pins the result: xfade can still land a frame either
+         # side of the arithmetic, and the length has to be exact
+         "-frames:v", str(want_frames),
          "-c:v", "libx264", "-crf", "18", "-preset", "slow",
          "-pix_fmt", "yuv420p", "-r", str(FPS), str(dst)])
     return dst
@@ -285,9 +291,9 @@ def main():
     chunks = chunk_shots(shots)
     print(f"Fuegen: {len(chunks)} Bloecke, {len(chunks) - 1} weiche Uebergaenge",
           flush=True)
-    video = join(shots, chunks)
-    total = probe_dur(video)
     want = sum(s["frames"] for s in shots)
+    video = join(shots, chunks, want)
+    total = probe_dur(video)
     got = count_frames(video)
     if got != want:
         raise RuntimeError(f"Bildspur {got} Frames statt {want}")
