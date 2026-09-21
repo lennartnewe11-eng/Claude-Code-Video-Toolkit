@@ -5,6 +5,7 @@ The grades share one filmic S-curve and one grain/vignette pass so that
 clips shot hours apart still read as one colour world; only lift, warmth
 and saturation change between acts.
 """
+import os
 
 # shared across every shot: subtle grain + vignette hold the look together
 FILM = "noise=alls=3:allf=t,vignette=a=PI/9"
@@ -79,6 +80,12 @@ def move_filter(kind, frames, target=(1920, 1080), fps=30):
             f":d=1:s={tw}x{th}:fps={fps}")
 
 
+# Whether to apply the colour grade at all. build.py sets this to False for
+# --no-grade, which renders the footage as shot: no grade, no grain, no
+# vignette. Useful for judging whether the grade is earning its place.
+GRADE = True
+
+
 def build_chain(width, height, rate, look, fps=30, move=None, src_frames=None):
     """Full per-segment chain: fit -> move -> speed -> grade -> film -> format.
 
@@ -94,8 +101,9 @@ def build_chain(width, height, rate, look, fps=30, move=None, src_frames=None):
         parts.append(move_filter(move, src_frames, fps=fps))
     if abs(rate - 1.0) > 1e-3:
         parts.append(f"setpts={1.0 / rate:.6f}*PTS")
-    parts.append(LOOKS[look])
-    parts.append(FILM)
+    if GRADE:
+        parts.append(LOOKS[look])
+        parts.append(FILM)
     parts.append(f"fps={fps}")
     parts.append("format=yuv420p")
     return ",".join(parts)

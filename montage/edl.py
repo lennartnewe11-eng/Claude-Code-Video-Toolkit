@@ -47,75 +47,75 @@ GRID_OFFSET = 0.410        # where the fitted grid starts
 # --- Akt 1: Nacht - 85 Beats ---------------------------------------------
 ACT1 = [
     # clip        at   beats rate  look    transition in   move   amb
-    ("IMG_3926", 0.30, 12,  0.80, "dark", None,           "in",  False),
-    ("IMG_4090", 0.25,  8,  0.70, "dark", None,           None,  False),
+    ("IMG_3926", 0.30, 12,  0.80, "dark", None,           "in", True),
+    ("IMG_4090", 0.25,  8,  0.70, "dark", None,           None, True),
     ("IMG_4209", 0.40,  6,  0.80, "dark", ("fade", 0.20), None,  True),
-    ("IMG_4128", 0.20,  6,  0.50, "dark", None,           None,  True),   # Gang
-    ("IMG_4208", 0.30,  4,  1.00, "dark", None,           None,  False),
+    ("IMG_4128", 0.20,  6,  0.50, "dark", None,           None, True),   # Gang
+    ("IMG_4208", 0.30,  4,  1.00, "dark", None,           None, True),
     # Verdichtung: vier Shots auf je zwei Beats
-    ("IMG_3927", 0.35,  2,  1.50, "dark", None,           None,  False),
-    ("IMG_3885", 0.25,  2,  1.40, "dark", None,           None,  False),
-    ("IMG_4130", 0.30,  2,  1.20, "dark", None,           None,  False),
-    ("IMG_3833", 0.35,  2,  1.00, "dark", None,           None,  True),
+    ("IMG_3927", 0.35,  2,  1.00, "dark", None,           None, True),
+    ("IMG_3885", 0.25,  2,  1.00, "dark", None,           None, True),
+    ("IMG_4130", 0.30,  2,  1.00, "dark", None,           None, True),
+    ("IMG_3833", 0.35,  2,  1.00, "dark", None,           None, True),
     # und wieder aufmachen
-    ("IMG_3847", 0.25,  4,  1.20, "dark", None,           None,  False),
-    ("IMG_4426", 0.30,  6,  0.60, "dark", None,           None,  True),   # Tisch
-    ("IMG_3925", 0.20, 13,  0.80, "dark", ("fade", 0.17), "in",  False),
-    ("IMG_3882", 0.30, 10,  0.90, "dark", None,           None,  False),
-    ("IMG_4119", 0.25,  8,  0.70, "dark", ("fade", 0.23), None,  False),
+    ("IMG_3847", 0.25,  4,  1.00, "dark", None,           None, True),
+    ("IMG_4426", 0.30,  6,  0.60, "dark", None,           None, True),   # Tisch
+    ("IMG_3925", 0.20, 13,  0.80, "dark", ("fade", 0.17), "in",  True),
+    ("IMG_3882", 0.30, 10,  0.90, "dark", None,           None, True),
+    ("IMG_4119", 0.25,  8,  0.70, "dark", ("fade", 0.23), None,  True),
 ]
 
 # --- Akt 2: Bewegung - 113 Beats -----------------------------------------
 ACT2 = [
-    ("IMG_3886", 0.25,  4,  2.00, "mid", ("fade", 0.20), None, True),    # Bahnhof
-    ("IMG_4148", 0.55,  2,  3.00, "mid", None,           None, False),
-    ("IMG_3960", 0.30,  4,  2.00, "mid", None,           None, False),
+    ("IMG_3886", 0.25,  4,  1.00, "mid", ("fade", 0.20), None, True),    # Bahnhof
+    ("IMG_4148", 0.55,  2,  1.00, "mid", None,           None, False),
+    ("IMG_3960", 0.30,  4,  1.00, "mid", None,           None, False),
     ("IMG_4121", 0.35,  6,  0.90, "mid", None,           None, False),
-    ("IMG_3959", 0.45,  2,  4.00, "mid", None,           None, False),
+    ("IMG_3959", 0.45,  2,  1.00, "mid", None,           None, False),
     ("IMG_4115", 0.30,  4,  0.90, "mid", ("fade", 0.13), None, False),
-    ("IMG_3961", 0.30,  2,  3.00, "mid", None,           None, True),    # Zug
+    ("IMG_3961", 0.30,  2,  1.00, "mid", None,           None, True),    # Zug
     ("IMG_4079", 0.35,  6,  0.90, "mid", None,           None, True),    # Meer
-    ("IMG_4055", 0.30,  1,  6.00, "mid", None,           None, False),   # ein Beat
+    ("IMG_4055", 0.30,  1,  1.00, "mid", None,           None, False),   # ein Beat
     ("IMG_3870", 0.40,  6,  0.90, "mid", None,           None, False),
-    ("IMG_4062", 0.30,  1,  5.00, "mid", None,           None, False),   # ein Beat
+    ("IMG_4062", 0.30,  1,  1.00, "mid", None,           None, False),   # ein Beat
     ("IMG_3974", 0.35,  4,  0.90, "mid", ("fade", 0.17), None, False),
-    ("IMG_4044", 0.30,  2,  3.00, "mid", None,           None, False),
+    ("IMG_4044", 0.30,  2,  1.00, "mid", None,           None, False),
     ("IMG_3831", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4056", 0.30,  4,  1.50, "mid", None,           None, False),
-    ("IMG_4061", 0.30,  2,  4.00, "mid", None,           None, False),
-    ("IMG_3917", 0.30,  2,  3.00, "mid", None,           None, False),
+    ("IMG_4056", 0.30,  4,  1.00, "mid", None,           None, False),
+    ("IMG_4061", 0.30,  2,  1.00, "mid", None,           None, False),
+    ("IMG_3917", 0.30,  2,  1.00, "mid", None,           None, False),
     ("IMG_3828", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4057", 0.30,  2,  2.00, "mid", None,           None, False),
-    ("IMG_4058", 0.30,  2,  2.00, "mid", None,           None, False),
-    ("IMG_4101", 0.30,  4,  1.20, "mid", None,           None, False),
-    ("IMG_3966", 0.30,  2,  2.50, "mid", None,           None, False),
-    ("IMG_3918", 0.30,  2,  2.00, "mid", None,           None, False),
+    ("IMG_4057", 0.30,  2,  1.00, "mid", None,           None, False),
+    ("IMG_4058", 0.30,  2,  1.00, "mid", None,           None, False),
+    ("IMG_4101", 0.30,  4,  1.00, "mid", None,           None, False),
+    ("IMG_3966", 0.30,  2,  1.00, "mid", None,           None, False),
+    ("IMG_3918", 0.30,  2,  1.00, "mid", None,           None, False),
     ("IMG_3998", 0.30,  4,  0.90, "mid", ("fade", 0.13), None, False),
-    ("IMG_4027", 0.30,  2,  2.00, "mid", None,           None, False),
+    ("IMG_4027", 0.30,  2,  1.00, "mid", None,           None, False),
     ("IMG_4085", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_4177", 0.25,  2,  2.00, "mid", None,           None, False),
+    ("IMG_4177", 0.25,  2,  1.00, "mid", None,           None, False),
     ("IMG_1074", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4028", 0.30,  2,  1.50, "mid", None,           None, False),
-    ("IMG_3824", 0.30,  2,  1.50, "mid", None,           None, False),
-    ("IMG_3968", 0.30,  2,  2.00, "mid", None,           None, False),
+    ("IMG_4028", 0.30,  2,  1.00, "mid", None,           None, False),
+    ("IMG_3824", 0.30,  2,  1.00, "mid", None,           None, False),
+    ("IMG_3968", 0.30,  2,  1.00, "mid", None,           None, False),
     # --- Stakkato: 14 Schnitte auf dem halben Beat, 7 Beats gesamt
-    ("IMG_4064", 0.30, 0.5, 4.00, "mid", None, None, False),
-    ("IMG_3871", 0.35, 0.5, 5.00, "mid", None, None, False),
-    ("IMG_4056", 0.55, 0.5, 6.00, "mid", None, None, False),
-    ("IMG_3828", 0.55, 0.5, 4.00, "mid", None, None, False),
-    ("IMG_4101", 0.60, 0.5, 5.00, "mid", None, None, False),
-    ("IMG_3997", 0.30, 0.5, 4.00, "mid", None, None, False),
-    ("IMG_3998", 0.60, 0.5, 5.00, "mid", None, None, False),
-    ("IMG_4207", 0.30, 0.5, 4.00, "mid", None, None, False),
-    ("IMG_3824", 0.55, 0.5, 5.00, "mid", None, None, False),
-    ("IMG_4177", 0.55, 0.5, 3.00, "mid", None, None, False),
-    ("IMG_1074", 0.55, 0.5, 6.00, "mid", None, None, False),
-    ("IMG_4028", 0.55, 0.5, 4.00, "mid", None, None, False),
-    ("IMG_3960", 0.60, 0.5, 6.00, "mid", None, None, False),
-    ("IMG_4085", 0.55, 0.5, 5.00, "mid", None, None, False),
+    ("IMG_4064", 0.30, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3871", 0.35, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4056", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3828", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4101", 0.60, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3997", 0.30, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3998", 0.60, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4207", 0.30, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3824", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4177", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_1074", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4028", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_3960", 0.60, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4085", 0.55, 0.5, 1.00, "mid", None, None, False),
     # --- Aufloesung
     ("IMG_3904", 0.30,  6,  0.70, "mid", ("fade", 0.20), "in", False),
-    ("IMG_3860", 0.35,  4,  1.50, "mid", None,           None, False),
+    ("IMG_3860", 0.35,  4,  1.00, "mid", None,           None, False),
     ("IMG_3903", 0.30,  4,  0.90, "mid", ("fade", 0.17), None, False),
 ]
 

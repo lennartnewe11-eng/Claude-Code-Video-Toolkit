@@ -8,7 +8,11 @@ from concurrent.futures import ThreadPoolExecutor
 sys.path.insert(0, str(Path(__file__).parent))
 import looks, edl, sfx
 
-ROOT   = Path(sys.argv[1] if len(sys.argv) > 1 else ".")
+args = [a for a in sys.argv[1:] if not a.startswith("--")]
+flags = {a for a in sys.argv[1:] if a.startswith("--")}
+ROOT   = Path(args[0] if args else ".")
+if "--no-grade" in flags:
+    looks.GRADE = False
 FOOT   = ROOT / "footage"
 WORK   = ROOT / "work"; WORK.mkdir(exist_ok=True)
 SEG    = WORK / "seg";  SEG.mkdir(exist_ok=True)
