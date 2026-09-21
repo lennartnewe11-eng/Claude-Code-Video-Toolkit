@@ -36,18 +36,47 @@ def resolve():
     if missing:
         print(f"WARNUNG: nicht gefunden: {missing}", file=sys.stderr)
 
-    # stretch the visible durations so the film matches the soundtrack exactly
-    k = edl.TARGET_DURATION / sum(s["out"] for s in shots)
-    for s in shots:
-        s["out"] *= k
-        tdur = s["tin"][1] if s["tin"] else 0.0
-        s["len"] = s["out"] + tdur          # extra material for the overlap
-        need = s["len"] * s["rate"]         # source seconds consumed
+    # Work in whole frames, not seconds: rounding 66 segments independently
+    # is what let the first cut drift away from the soundtrack length.
+    target_frames = round(edl.TARGET_DURATION * FPS)
+    k = target_frames / (sum(s["out"] for s in shots) * FPS)
+    frames = [max(round(s["out"] * FPS * k), 2) for s in shots]
+
+    # hand the rounding remainder to the longest shots, where it is invisible
+    diff = target_frames - sum(frames)
+    order = sorted(range(len(frames)), key=lambda i: -frames[i])
+    i = 0
+    while diff:
+        j = order[i % len(order)]
+        step = 1 if diff > 0 else -1
+        if frames[j] + step >= 2:
+            frames[j] += step
+            diff -= step
+        i += 1
+
+    for idx, (s, f) in enumerate(zip(shots, frames)):
+        # the opening shot has no predecessor to cross-fade with, so its
+        # transition must not buy extra frames - the final fade-in covers it
+        tf = round(s["tin"][1] * FPS) if (s["tin"] and idx) else 0
+        s["frames"], s["tframes"] = f, tf
+        s["out"] = f / FPS
+        s["len_frames"] = f + tf            # extra material for the overlap
+        s["len"] = s["len_frames"] / FPS
         src = s["meta"]["dur"]
+        # a short source cannot feed a fast ramp for the whole shot; slow the
+        # ramp down rather than let the segment come up short and drift
+        max_rate = (src - 0.05) / s["len"]
+        if s["rate"] > max_rate:
+            print(f"  {s['clip']}: Tempo {s['rate']}x -> {max_rate:.2f}x "
+                  f"(Quelle nur {src:.1f}s)")
+            s["rate"] = max_rate
+        need = s["len"] * s["rate"]         # source seconds consumed
         start = s["at"] * src
         if start + need > src - 0.05:       # keep the in-point inside the clip
             start = max(0.0, src - need - 0.05)
         s["start"], s["need"] = start, min(need, src - start)
+
+    assert sum(s["frames"] for s in shots) == target_frames
     return shots
 
 
@@ -67,7 +96,7 @@ def render_segment(args):
         cmd += ["-map", "[vout]"]
     cmd += ["-an", "-c:v", "libx264", "-crf", "17", "-preset", "medium",
             "-pix_fmt", "yuv420p", "-r", str(FPS),
-            "-t", f"{s['len']:.3f}", str(dst)]
+            "-frames:v", str(s["len_frames"]), str(dst)]
     run(cmd)
     return dst
 
@@ -106,7 +135,9 @@ def join(shots, chunks):
 
     inputs, graph, acc, prev = [], [], durs[0], "[0:v]"
     for n in range(1, len(parts)):
-        kind, d = shots[chunks[n][0]]["tin"]
+        head = shots[chunks[n][0]]
+        kind = head["tin"][0]
+        d = head["tframes"] / FPS
         off = max(acc - d, 0.0)
         out = f"[x{n}]"
         graph.append(f"{prev}[{n}:v]xfade=transition={XFADE[kind]}"

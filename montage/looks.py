@@ -7,32 +7,35 @@ and saturation change between acts.
 """
 
 # shared across every shot: subtle grain + vignette hold the look together
-FILM = "noise=alls=5:allf=t,vignette=a=PI/4.4"
+FILM = "noise=alls=3:allf=t,vignette=a=PI/9"
 
 LOOKS = {
     # night city: crushed blacks, teal shadows, pulled-back colour
     "dark": (
-        "eq=contrast=1.20:brightness=-0.035:saturation=0.70:gamma=0.90,"
-        "curves=r='0/0.015 0.28/0.20 0.72/0.74 1/0.95':"
-        "g='0/0.02 0.28/0.22 0.72/0.75 1/0.96':"
-        "b='0/0.055 0.28/0.28 0.72/0.76 1/0.99',"
-        "colorbalance=rs=-0.07:gs=-0.01:bs=0.11:rm=-0.03:bm=0.05"
+        # the footage is already dark - lift it so it stays readable and
+        # carry the mood with cool shadows instead of less exposure
+        "eq=contrast=1.14:brightness=0.030:saturation=0.74:gamma=1.10,"
+        "curves=r='0/0 0.2/0.19 0.6/0.62 1/0.97':"
+        "g='0/0 0.2/0.20 0.6/0.63 1/0.98':"
+        "b='0/0.02 0.2/0.24 0.6/0.65 1/1',"
+        "colorbalance=rs=-0.06:bs=0.10:rm=-0.02:bm=0.04"
     ),
     # travel / contrast act: punchy S-curve, neutral-cool, still restrained
     "mid": (
-        "eq=contrast=1.24:brightness=-0.005:saturation=0.84:gamma=0.97,"
-        "curves=r='0/0.012 0.25/0.21 0.75/0.79 1/0.985':"
-        "g='0/0.014 0.25/0.22 0.75/0.79 1/0.985':"
-        "b='0/0.035 0.25/0.25 0.75/0.78 1/0.97',"
-        "colorbalance=rs=-0.04:bs=0.06:rh=0.03:bh=-0.02"
+        "eq=contrast=1.18:brightness=0.005:saturation=0.86:gamma=1.00,"
+        "curves=r='0/0.005 0.25/0.23 0.75/0.79 1/0.99':"
+        "g='0/0.006 0.25/0.24 0.75/0.79 1/0.99':"
+        "b='0/0.020 0.25/0.26 0.75/0.78 1/0.975',"
+        "colorbalance=rs=-0.03:bs=0.05:rh=0.03:bh=-0.02"
     ),
     # sea / summer: lifted, warm, airy, open highlights
     "bright": (
-        "eq=contrast=1.10:brightness=0.030:saturation=0.98:gamma=1.06,"
-        "curves=r='0/0.045 0.3/0.34 0.7/0.75 1/1':"
-        "g='0/0.042 0.3/0.33 0.7/0.73 1/0.995':"
-        "b='0/0.055 0.3/0.32 0.7/0.70 1/0.965',"
-        "colorbalance=rh=0.06:gh=0.01:bh=-0.05:rm=0.03:bm=-0.02"
+        # keep the blacks honest so the sea holds contrast, warmth up top
+        "eq=contrast=1.14:brightness=0.015:saturation=0.98:gamma=1.02,"
+        "curves=r='0/0.012 0.3/0.32 0.7/0.74 1/1':"
+        "g='0/0.012 0.3/0.31 0.7/0.72 1/0.995':"
+        "b='0/0.022 0.3/0.30 0.7/0.69 1/0.965',"
+        "colorbalance=rh=0.05:bh=-0.045:rm=0.02:bm=-0.015"
     ),
 }
 
