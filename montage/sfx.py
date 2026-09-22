@@ -113,12 +113,34 @@ def soft_thud(dur=0.55, seed=2, pitch=120.0):
     return _norm(y)
 
 
-def tick(dur=0.16, seed=3):
-    """Dry mid click for staccato cuts."""
+def tick(dur=0.16, seed=3, pitch=1.0):
+    """Dry mid click. `pitch` shifts the band so a run of them varies."""
     n = int(SR * dur)
     t = np.arange(n) / SR
-    y = _bp(_noise(n, seed), 1100, 6500) * np.exp(-40 * t)
+    y = _bp(_noise(n, seed), 1100 * pitch, min(6500 * pitch, 18000)) * np.exp(-40 * t)
     return _norm(y)
+
+
+def drone(dur=6.0, seed=7, rise=True):
+    """Slow airy swell for the opening - texture, not a note.
+
+    Kept above 150 Hz: the reference's sound design had no bass-led
+    material at all, and a low drone would be the one thing in this film
+    that contradicts it.
+    """
+    n = int(SR * dur)
+    t = np.linspace(0, 1, n)
+    y = _bp(_noise(n, seed), 160, 2600)
+    # two detuned partials give it movement without becoming a chord
+    for f, a in ((196.0, 0.22), (293.7, 0.13)):
+        y = y / (np.max(np.abs(y)) + 1e-9)
+        y += np.sin(2 * np.pi * f * np.arange(n) / SR) * a * (t if rise else 1 - t)
+    shape = (t ** 1.6) if rise else ((1 - t) ** 1.6)
+    edge = min(int(0.4 * SR), n // 4)
+    env = np.ones(n)
+    env[:edge] *= np.linspace(0, 1, edge)
+    env[-edge:] *= np.linspace(1, 0, edge)
+    return _norm(_hp(y * shape * env, 150))
 
 
 def swell(dur=2.2, seed=4):
@@ -149,6 +171,7 @@ def drop(dur=1.6, seed=6):
 
 
 VOICES = {
+    "drone": drone,
     "air_whoosh": air_whoosh,
     "soft_thud": soft_thud,
     "tick": tick,

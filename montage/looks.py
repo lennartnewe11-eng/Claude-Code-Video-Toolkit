@@ -41,6 +41,75 @@ LOOKS = {
 }
 
 
+
+
+# --------------------------------------------------------------------------
+# Effects. Each entry is a filter fragment appended after the grade, so the
+# look stays the base and these sit on top of it.
+#
+# `pulse` is the one that ties picture to music: eq evaluates per frame, so
+# saturation and brightness breathe on the beat grid rather than on a guess.
+# --------------------------------------------------------------------------
+
+BEAT = 0.55386          # kept in step with edl.BEAT
+
+
+def _pulse(depth=0.10, on="sat"):
+    """Saturation or brightness breathing on the beat."""
+    w = f"(0.5+0.5*cos(2*PI*t/{BEAT:.5f}))"
+    if on == "sat":
+        return f"eq=eval=frame:saturation='1+{depth}*{w}'"
+    return f"eq=eval=frame:brightness='{depth}*{w}'"
+
+
+FX = {
+    # colour
+    "warm":    "colortemperature=temperature=4600:mix=0.55",
+    "cool":    "colortemperature=temperature=8800:mix=0.50",
+    "bleach":  "eq=saturation=0.35:contrast=1.30,curves=all='0/0 0.35/0.28 0.7/0.80 1/1'",
+    "rich":    "vibrance=intensity=0.55",
+    "drain":   "eq=saturation=0.45",
+    # split tone: cool shadows, warm highs - subtle where duotone was a
+    # flat purple cast over the whole frame
+    "splittone": "colorbalance=rs=-0.10:bs=0.12:rh=0.10:bh=-0.10",
+
+    # optical
+    "bloom":   "split[a][b];[b]gblur=sigma=26,eq=brightness=0.06[bl];[a][bl]blend=all_mode=screen:all_opacity=0.32",
+    "dream":   "split[a][b];[b]gblur=sigma=14[bl];[a][bl]blend=all_mode=lighten:all_opacity=0.28",
+    "sharp":   "unsharp=5:5:0.7:5:5:0.0",
+    "split":   "rgbashift=rh=-3:bh=3",
+    "splitx":  "rgbashift=rh=-7:bh=7:rv=2:bv=-2",
+    "edge":    "vignette=a=PI/7",   # a touch of fall-off, not the heavy ring
+
+    # rhythm - locked to the beat grid
+    "pulse":   _pulse(0.12, "sat"),
+    "pulsehi": _pulse(0.20, "sat"),
+    "breathe": _pulse(0.035, "bri"),
+}
+
+
+def logmean(a, b):
+    """Average rate of a linear speed ramp - what the source has to supply."""
+    import math
+    if abs(a - b) < 1e-6:
+        return a
+    return (b - a) / math.log(b / a)
+
+
+def ramp_filter(r0, r1, src_dur):
+    """Linear speed ramp across the shot.
+
+    Integrating dt/r(t) over a rate that moves linearly from r0 to r1 gives
+    a logarithm, which is what setpts gets here - a plain linear PTS scale
+    would change speed abruptly at the cut instead of gliding.
+    """
+    k = r1 - r0
+    if abs(k) < 1e-6:
+        return f"setpts={1.0 / r0:.6f}*PTS"
+    return (f"setpts='({src_dur:.5f}/{k:.5f})"
+            f"*log(1+({k:.5f}*T)/({src_dur:.5f}*{r0:.5f}))/TB'")
+
+
 def fit_filter(width, height, target=(1920, 1080)):
     """Scale a source into the 16:9 frame.
 
@@ -86,7 +155,8 @@ def move_filter(kind, frames, target=(1920, 1080), fps=30):
 GRADE = True
 
 
-def build_chain(width, height, rate, look, fps=30, move=None, src_frames=None):
+def build_chain(width, height, rate, look, fps=30, move=None, src_frames=None,
+                fx=None, src_dur=None):
     """Full per-segment chain: fit -> move -> speed -> grade -> film -> format.
 
     The move runs BEFORE the speed change. zoompan's own fps setting
@@ -99,10 +169,14 @@ def build_chain(width, height, rate, look, fps=30, move=None, src_frames=None):
     parts = [fit_filter(width, height, OVERSCAN if moving else (1920, 1080))]
     if moving:
         parts.append(move_filter(move, src_frames, fps=fps))
-    if abs(rate - 1.0) > 1e-3:
+    if isinstance(rate, (tuple, list)):
+        parts.append(ramp_filter(rate[0], rate[1], src_dur or 1.0))
+    elif abs(rate - 1.0) > 1e-3:
         parts.append(f"setpts={1.0 / rate:.6f}*PTS")
     if GRADE:
         parts.append(LOOKS[look])
+        for name in (fx or []):
+            parts.append(FX[name])
         parts.append(FILM)
     parts.append(f"fps={fps}")
     parts.append("format=yuv420p")

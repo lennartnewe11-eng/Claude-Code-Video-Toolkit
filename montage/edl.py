@@ -33,6 +33,7 @@ Fields per shot:
   tin   transition into this shot: None = hard cut, else (xfade name, seconds)
   move  in-shot camera move: "in", "out" or None
   amb   take the clip's own sound, quietly, under the music
+  fx    effects from looks.FX, applied after the grade
 """
 
 TARGET_DURATION = 157.71   # exact length of the soundtrack
@@ -49,106 +50,121 @@ GRID_OFFSET = 0.410        # where the fitted grid starts
 # Erst ein paar ruhige Einstellungen, dann der doppelt so schnell
 # geschnittene Teil - und erst danach setzt der Soundtrack ein.
 PROLOG_CALM = [
-    ("IMG_3926", 0.30,  7,  1.00, "dark", None,           None, True),
-    ("IMG_4209", 0.40,  6,  1.00, "dark", ("fade", 0.20), None, True),
-    ("IMG_4128", 0.20,  6,  1.00, "dark", None,           None, True),
-    ("IMG_4208", 0.30,  5,  1.00, "dark", None,           None, True),
+    ("IMG_3926", 0.30,  7,  1.00, "dark", None,           None, True, []),
+    ("IMG_4209", 0.40,  6,  1.00, "dark", ("fade", 0.20), None, True, []),
+    ("IMG_4128", 0.20,  6,  1.00, "dark", None,           None, True, []),
+    ("IMG_4208", 0.30,  5,  1.00, "dark", None,           None, True, []),
 ]
 
 PROLOG_FAST = [
-    ("IMG_4064", 0.30, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3871", 0.35, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4056", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3828", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4101", 0.60, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3997", 0.30, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3998", 0.60, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4207", 0.30, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3824", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4177", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_1074", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4028", 0.55, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_3960", 0.60, 0.5, 1.00, "mid", None, None, False),
-    ("IMG_4085", 0.55, 0.5, 1.00, "mid", None, None, False),
+    ("IMG_4064", 0.30, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_3871", 0.35, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_4056", 0.55, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_3828", 0.55, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_4101", 0.60, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_3997", 0.30, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_3998", 0.60, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_4207", 0.30, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_3824", 0.55, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_4177", 0.55, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_1074", 0.55, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_4028", 0.55, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_3960", 0.60, 0.5, 1.00, "mid", None, None, False, []),
+    ("IMG_4085", 0.55, 0.5, 1.00, "mid", None, None, False, []),
 ]
 
 PROLOG = PROLOG_CALM + PROLOG_FAST
 
-# --- Akt 1: Nacht - 85 Beats ---------------------------------------------
+# --- Der Musikteil ---------------------------------------------------------
+# Die Abschnittsgrenzen liegen auf Swells, die in "Still Life" gemessen
+# wurden - umgerechnet in Beats: 20, 64, 85, 107, 129, 150, 161, 167, 180,
+# 189, 198, 231, 242, 249, 261, 270. Dort wechseln Tempo, Look oder Effekt,
+# damit Bild und Musik an denselben Stellen atmen.
+#
+# rate darf ein Paar sein: (0.35, 0.70) faehrt die Geschwindigkeit ueber den
+# Shot hinweg hoch - eine echte Rampe, kein Sprung am Schnitt.
+
+# --- Akt 1: Nacht - 85 Beats, Grenzen bei 20 und 64 -----------------------
 ACT1 = [
-    # clip        at   beats rate  look    transition in   move   amb
-    ("IMG_3926", 0.30, 12,  0.80, "dark", None,           "in", True),
-    ("IMG_4090", 0.25,  8,  0.70, "dark", None,           None, True),
-    ("IMG_4209", 0.40,  6,  0.80, "dark", ("fade", 0.20), None,  True),
-    ("IMG_4128", 0.20,  6,  0.50, "dark", None,           None, True),   # Gang
-    ("IMG_4208", 0.30,  4,  1.00, "dark", None,           None, True),
-    # Verdichtung: vier Shots auf je zwei Beats
-    ("IMG_3927", 0.35,  2,  1.00, "dark", None,           None, True),
-    ("IMG_3885", 0.25,  2,  1.00, "dark", None,           None, True),
-    ("IMG_4130", 0.30,  2,  1.00, "dark", None,           None, True),
-    ("IMG_3833", 0.35,  2,  1.00, "dark", None,           None, True),
-    # und wieder aufmachen
-    ("IMG_3847", 0.25,  4,  1.00, "dark", None,           None, True),
-    ("IMG_4426", 0.30,  6,  0.60, "dark", None,           None, True),   # Tisch
-    ("IMG_3925", 0.20, 13,  0.80, "dark", ("fade", 0.17), "in",  True),
-    ("IMG_3882", 0.30, 10,  0.90, "dark", None,           None, True),
-    ("IMG_4119", 0.25,  8,  0.70, "dark", ("fade", 0.23), None,  True),
+    # clip        at  beats  rate          look    transition      move  amb   fx
+    ("IMG_3926", 0.30,  8, 0.75, "dark", None,           "in", True, ["dream"]),
+    ("IMG_4090", 0.25,  6, 0.70, "dark", None,           None, True, ["cool"]),
+    ("IMG_4209", 0.40,  6, 0.80, "dark", ("fade", 0.20), None, True, ["bloom"]),
+    # --- Swell 11.5s
+    ("IMG_4128", 0.20,  6, 0.50, "dark", None,           None, True, ["drain", "edge"]),
+    ("IMG_4208", 0.30,  4, 0.85, "dark", None,           None, True, ["warm"]),
+    ("IMG_3927", 0.35,  3, 0.90, "dark", None,           None, True, ["split"]),
+    ("IMG_3885", 0.25,  3, 0.90, "dark", None,           None, True, ["cool"]),
+    ("IMG_4130", 0.30,  3, 0.85, "dark", None,           None, True, []),
+    ("IMG_3833", 0.35,  4, 0.80, "dark", None,           None, True, ["rich", "pulse"]),
+    ("IMG_3847", 0.25,  4, 0.90, "dark", None,           None, True, []),
+    ("IMG_4426", 0.30,  6, 0.55, "dark", None,           None, True, ["dream"]),
+    ("IMG_3925", 0.20, 10.5, 0.70, "dark", ("fade", 0.17), "in", True, ["bloom"]),
+    # --- Swell 35.6s
+    ("IMG_3882", 0.30, 10, 0.80, "dark", None,           None, True, ["splittone"]),
+    ("IMG_4119", 0.25, 11.5, 0.50, "dark", ("fade", 0.23), None, True, ["bloom", "breathe"]),
 ]
 
-# --- Akt 2: Bewegung - 113 Beats -----------------------------------------
+# --- Akt 2: Bewegung - 113 Beats, Grenzen bei 107,129,150,161,167,180,189 -
 ACT2 = [
-    ("IMG_3886", 0.25,  4,  1.00, "mid", ("fade", 0.20), None, True),    # Bahnhof
-    ("IMG_4148", 0.55,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3960", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4121", 0.35,  8,  0.90, "mid", None,           None, False),
-    ("IMG_3959", 0.45,  2,  1.00, "mid", None,           None, False),
-    ("IMG_4115", 0.30,  4,  0.90, "mid", ("fade", 0.13), None, False),
-    ("IMG_3961", 0.30,  2,  1.00, "mid", None,           None, True),    # Zug
-    ("IMG_4079", 0.35,  8,  0.90, "mid", None,           None, True),    # Meer
-    ("IMG_4055", 0.30,  1,  1.00, "mid", None,           None, False),   # ein Beat
-    ("IMG_3870", 0.40,  7,  0.90, "mid", None,           None, False),
-    ("IMG_4062", 0.30,  1,  1.00, "mid", None,           None, False),   # ein Beat
-    ("IMG_3974", 0.35,  5,  0.90, "mid", ("fade", 0.17), None, False),
-    ("IMG_4044", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3831", 0.30,  5,  1.00, "mid", None,           None, False),
-    ("IMG_4056", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4061", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3917", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3828", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4057", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_4058", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_4101", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_3966", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3918", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3998", 0.30,  4,  0.90, "mid", ("fade", 0.13), None, False),
-    ("IMG_4027", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_4085", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_4177", 0.25,  2,  1.00, "mid", None,           None, False),
-    ("IMG_1074", 0.30,  4,  1.00, "mid", None,           None, False),
-    ("IMG_4028", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3824", 0.30,  2,  1.00, "mid", None,           None, False),
-    ("IMG_3968", 0.30,  2,  1.00, "mid", None,           None, False),
-    # --- Aufloesung
-    ("IMG_3904", 0.30,  6,  0.70, "mid", ("fade", 0.20), "in", False),
-    ("IMG_3860", 0.35,  4,  1.00, "mid", None,           None, False),
-    ("IMG_3903", 0.30,  4,  0.90, "mid", ("fade", 0.17), None, False),
+    ("IMG_3886", 0.25,  6, 0.90, "mid", ("fade", 0.20), None, True,  ["sharp"]),
+    ("IMG_4148", 0.55,  4, 0.85, "mid", None,           None, False, ["cool"]),
+    ("IMG_3960", 0.30,  5, 0.90, "mid", None,           None, False, ["split"]),
+    ("IMG_4121", 0.35,  7, 0.60, "mid", None,           None, False, ["bloom", "warm"]),
+    # --- Swell 59.7s
+    ("IMG_3959", 0.45,  4, 0.90, "mid", None,           None, False, ["sharp"]),
+    ("IMG_4115", 0.30,  6, 0.55, "mid", ("fade", 0.13), None, False, ["dream"]),
+    ("IMG_3961", 0.30,  4, 0.90, "mid", None,           None, True,  ["drain"]),
+    ("IMG_4079", 0.35, 7.5, 0.65, "mid", None,           None, True,  ["bloom"]),
+    # --- Swell 71.6s
+    ("IMG_4055", 0.30,  2, 1.00, "mid", None,           None, False, []),
+    ("IMG_3870", 0.40,  7, 0.60, "mid", ("fade", 0.17), None, False, ["warm", "bloom"]),
+    ("IMG_4062", 0.30,  2, 1.00, "mid", None,           None, False, []),
+    ("IMG_3974", 0.35,  6, 0.70, "mid", None,           None, False, ["bloom", "pulse"]),
+    ("IMG_4044", 0.30, 4.5, 0.90, "mid", None,           None, False, ["cool"]),
+    # --- Swell 83.6s: verdichten
+    ("IMG_3831", 0.30,  3, 0.90, "mid", None,           None, False, []),
+    ("IMG_4056", 0.30,  3, 0.90, "mid", None,           None, False, ["split"]),
+    ("IMG_4061", 0.30,  2, 1.00, "mid", None,           None, False, []),
+    ("IMG_3917", 0.30,  3, 0.90, "mid", None,           None, False, ["bleach"]),
+    # --- Swell 89.6s: kurzer Stoss auf dem Swell-Paar
+    ("IMG_3828", 0.30,  1, 1.00, "mid", None,           None, False, []),
+    ("IMG_4057", 0.30,  1, 1.00, "mid", None,           None, False, ["splitx"]),
+    ("IMG_4058", 0.30,  1, 1.00, "mid", None,           None, False, []),
+    ("IMG_4101", 0.30,  1, 1.00, "mid", None,           None, False, ["splitx"]),
+    ("IMG_3966", 0.30, 1.5, 1.00, "mid", None,           None, False, []),
+    # --- Swell 92.7s: wieder aufmachen
+    ("IMG_3918", 0.30,  4, 0.85, "mid", ("fade", 0.13), None, False, ["rich"]),
+    ("IMG_3998", 0.30,  5, 0.70, "mid", None,           None, False, ["dream"]),
+    ("IMG_4027", 0.30, 4.5, 0.85, "mid", None,           None, False, ["warm"]),
+    # --- Swell 100.0s
+    ("IMG_4085", 0.30,  3, 0.90, "mid", None,           None, False, ["cool"]),
+    ("IMG_1074", 0.30, 5.5, 0.80, "mid", None,           None, False, ["bloom"]),
+    # --- Swell 104.9s: Aufloesung, Rampe in den zweiten Hoehepunkt
+    ("IMG_3904", 0.30,  6, (0.45, 0.80), "mid", ("fade", 0.20), "in", False, ["dream", "bloom"]),
+    ("IMG_3903", 0.30, 3.5, 0.80, "mid", ("fade", 0.17), None, False, ["splittone"]),
 ]
 
-# --- Akt 3: Licht - 85 Beats ---------------------------------------------
+# --- Akt 3: Licht - 85 Beats, Grenzen bei 231,242,249,261,270 -------------
 ACT3 = [
-    ("IMG_4407", 0.30,  6,  0.90, "bright", ("fade", 0.23), "in",  True),
-    ("IMG_4182", 0.30,  6,  0.90, "bright", None,           None,  False),
-    ("IMG_4084", 0.35,  6,  0.70, "bright", None,           None,  True),   # Steg
-    ("IMG_4181", 0.40, 10,  0.40, "bright", ("fade", 0.13), None,  True),   # Sprung
-    ("IMG_4029", 0.35,  8,  0.50, "bright", None,           None,  True),   # Schwimmen
-    ("IMG_1247", 0.30,  6,  0.55, "bright", None,           None,  True),   # Schwimmer
-    ("IMG_4075", 0.30,  6,  0.90, "bright", ("fade", 0.17), None,  False),
-    ("IMG_4393", 0.30,  4,  0.80, "bright", None,           None,  False),
-    ("IMG_4082", 0.25,  4,  0.60, "bright", None,           None,  True),
-    ("IMG_4212", 0.10, 10,  0.70, "bright", ("fade", 0.20), "out", True),   # Wellen
-    ("IMG_3879", 0.30,  6,  0.90, "bright", None,           None,  False),
-    ("IMG_4424", 0.25,  5,  0.90, "bright", None,           "out", False),
-    ("IMG_3827", 0.30,  8,  0.90, "bright", ("fade", 0.23), "in",  False),
+    ("IMG_4407", 0.30,  7, 0.70, "bright", ("fade", 0.23), "in", True,  ["bloom", "warm"]),
+    ("IMG_4182", 0.30,  6, 0.75, "bright", None,           None, False, ["rich"]),
+    ("IMG_4084", 0.35,  6, 0.65, "bright", None,           None, True,  ["dream"]),
+    ("IMG_4181", 0.40, 10, (0.35, 0.70), "bright", ("fade", 0.13), None, True, ["bloom", "breathe"]),
+    ("IMG_4029", 0.35, 4.5, 0.50, "bright", None,           None, True,  ["rich"]),
+    # --- Breakdown der Musik, 120-130s: zuruecknehmen
+    ("IMG_1247", 0.30,  6, 0.50, "bright", None,           None, True,  ["dream", "drain"]),
+    ("IMG_4075", 0.30, 4.5, 0.65, "bright", ("fade", 0.17), None, False, ["bloom"]),
+    # --- Swell 134.5s
+    ("IMG_4393", 0.30,  4, 0.75, "bright", None,           None, False, ["warm"]),
+    ("IMG_4082", 0.25,  3, 0.60, "bright", None,           None, True,  ["rich"]),
+    # --- Swell 138.3s
+    ("IMG_4212", 0.10, 12, (0.50, 0.90), "bright", ("fade", 0.20), "out", True, ["bloom", "pulse"]),
+    # --- Swell 145.0s
+    ("IMG_3879", 0.30,  5, 0.75, "bright", None,           None, False, ["warm", "bloom"]),
+    ("IMG_4424", 0.25, 4.5, 0.80, "bright", None,           None, False, ["splittone"]),
+    # --- Swell 150.1s: Ausklang
+    ("IMG_3827", 0.30, 12.5, 0.70, "bright", ("fade", 0.23), "in", False, ["bloom", "breathe"]),
 ]
 
 TIMELINE = PROLOG + ACT1 + ACT2 + ACT3

@@ -41,11 +41,11 @@ def resolve():
     meta = {Path(c["name"]).stem: c
             for c in json.loads((ROOT/"analysis/manifest.json").read_text())}
     shots, missing = [], []
-    for clip, at, beats, rate, look, tin, move, amb in edl.TIMELINE:
+    for clip, at, beats, rate, look, tin, move, amb, fx in edl.TIMELINE:
         if clip not in meta:
             missing.append(clip); continue
         shots.append(dict(clip=clip, at=at, beats=beats, rate=rate, look=look,
-                          tin=tin, move=move, amb=amb, meta=meta[clip]))
+                          tin=tin, move=move, amb=amb, fx=fx, meta=meta[clip]))
     if missing:
         print(f"WARNUNG: nicht gefunden: {missing}", file=sys.stderr)
 
@@ -90,22 +90,32 @@ def resolve():
         s["len"] = s["len_frames"] / FPS
 
         src = s["meta"]["dur"]
-        head = max(0.5, s["len"] * s["rate"] * 0.20)
+        # A ramp consumes source at its logarithmic mean rate, not at either
+        # endpoint - that is what the setpts integral works out to.
+        ramp = isinstance(s["rate"], (tuple, list))
+        eff = looks.logmean(*s["rate"]) if ramp else s["rate"]
+        s["eff_rate"] = eff
+        head = max(0.5, s["len"] * eff * 0.20)
         max_rate = max((src - head) / s["len"], 0.05)
-        if s["rate"] > max_rate:
+        if eff > max_rate:
             # A small trim is fine. A large one means the EDL asked a short
             # clip to fill a long shot, and the clamp turns it into extreme
             # slow motion nobody chose - that belongs in the EDL, not here.
-            if s["rate"] / max_rate > 1.5:
+            if eff / max_rate > 1.5:
                 raise RuntimeError(
                     f"{s['clip']}: {s['beats']} Beats brauchen "
                     f"{s['len'] * s['rate']:.1f}s Quelle bei Tempo "
-                    f"{s['rate']}x, der Clip hat nur {src:.1f}s. "
+                    f"{eff:.2f}x, der Clip hat nur {src:.1f}s. "
                     f"Das ergaebe {max_rate:.2f}x - Shot in der EDL kuerzen.")
-            print(f"  {s['clip']}: Tempo {s['rate']}x -> {max_rate:.2f}x "
+            print(f"  {s['clip']}: Tempo {eff:.2f}x -> {max_rate:.2f}x "
                   f"(Quelle nur {src:.1f}s)")
-            s["rate"] = max_rate
-        need = s["len"] * s["rate"]
+            if ramp:
+                sc = max_rate / eff
+                s["rate"] = (s["rate"][0] * sc, s["rate"][1] * sc)
+            else:
+                s["rate"] = max_rate
+            eff = s["eff_rate"] = max_rate
+        need = s["len"] * eff
         st = s["at"] * src
         if st + need + head > src:
             st = max(0.0, src - need - head)
@@ -129,8 +139,12 @@ def render_segment(args):
     # the move ramps over the SOURCE frames it will actually see
     src_frames = max(int(round(s["need"] * (m["fps"] or FPS))), 2)
     chain = looks.build_chain(m["w"], m["h"], s["rate"], s["look"], FPS,
-                              move=s.get("move"), src_frames=src_frames)
-    flag = "-filter_complex" if chain.startswith("split") else "-vf"
+                              move=s.get("move"), src_frames=src_frames,
+                              fx=s.get("fx"), src_dur=s["need"])
+    # any effect that branches (bloom, dream, the portrait fill) makes this a
+    # multi-chain graph, which -vf cannot take - not just ones that start with
+    # a split
+    flag = "-filter_complex" if ";" in chain else "-vf"
     spec = f"{chain}[vout]" if flag == "-filter_complex" else chain
     # -t belongs on the INPUT side: as an output option it would cut slow
     # motion short, since `need` is shorter than the shot when rate < 1.
@@ -148,15 +162,16 @@ def render_segment(args):
     if got != s["len_frames"]:
         raise RuntimeError(
             f"{s['clip']}: {got} Frames statt {s['len_frames']} "
-            f"(rate={s['rate']:.2f}, Quelle {s['meta']['dur']:.1f}s)")
+            f"(rate={s['eff_rate']:.2f}, Quelle {s['meta']['dur']:.1f}s)")
     # not named `run`: that is the module-level ffmpeg helper, and shadowing
     # it here breaks the call above this line
     tail = frozen_tail(dst)
-    allowed = int(1 / s["rate"]) + 2 if s["rate"] < 1 else 2
+    r = s["eff_rate"]
+    allowed = int(1 / r) + 2 if r < 1 else 2
     if tail > allowed:
         raise RuntimeError(
             f"{s['clip']}: Standbild am Ende - {tail} gleiche Frames "
-            f"(erlaubt {allowed} bei Tempo {s['rate']:.2f}x)")
+            f"(erlaubt {allowed} bei Tempo {r:.2f}x)")
     return dst
 
 
@@ -289,7 +304,7 @@ def ambience(shots, total, dst, music_mono=None, under_db=16.0):
                 run(["ffmpeg", "-y", "-loglevel", "error",
                      "-ss", f"{s['start']:.3f}", "-t", f"{s['need']:.3f}",
                      "-i", str(FOOT / (s["clip"] + ".mov")),
-                     "-vn", "-af", _atempo_chain(s["rate"]),
+                     "-vn", "-af", _atempo_chain(s["eff_rate"]),
                      "-ac", "1", "-ar", str(sfx.SR),
                      "-c:a", "pcm_s16le", str(piece)])
             except RuntimeError:
@@ -388,11 +403,23 @@ def sound_design(shots, total, music_path=None):
         t += s["out"]
 
     burst_lo, burst_hi = edl.BURST_RANGE
+
+    # A drone builds under the calm opening so the film does not simply sit
+    # there until the run starts, with a second one falling underneath it.
+    calm_end = cuts[burst_lo][0]
+    events.append((0.6, "drone", {"dur": calm_end - 0.9, "rise": True,
+                                  "over_db": 3.0}))
+    events.append((calm_end * 0.45, "drone", {"dur": calm_end * 0.5,
+                                              "rise": False, "over_db": 0.5}))
+
     for t0, i, s in cuts:
         if burst_lo <= i < burst_hi:
-            # every cut of the double-time run, accented every fourth
-            strong = (i - burst_lo) % 4 == 0
+            # every cut of the run, accented every fourth; the pitch walks so
+            # fourteen identical clicks do not read as a machine
+            k = i - burst_lo
+            strong = k % 4 == 0
             events.append((t0, "tick", {"dur": 0.13 if strong else 0.10,
+                                        "pitch": 1.0 + 0.10 * (k % 5),
                                         "over_db": 9.0 if strong else 6.5}))
         elif i in edl.ACT_STARTS and i > 0:
             events.append((t0, "tick", {"dur": 0.14, "over_db": 2.4}))
@@ -400,9 +427,10 @@ def sound_design(shots, total, music_path=None):
 
     # a couple of clicks leading into the run, so it does not start cold
     lead = cuts[burst_lo][0]
-    for k in (4, 3, 2, 1):
+    for k in (6, 5, 4, 3, 2, 1):
         events.append((lead - k * edl.BEAT, "tick",
-                       {"dur": 0.10, "over_db": 2.0 + (4 - k) * 0.6}))
+                       {"dur": 0.10, "pitch": 0.8 + 0.08 * (6 - k),
+                        "over_db": 1.2 + (6 - k) * 0.9}))
 
     events = [e for e in events if 0.3 < e[0] < total - 9.0]
     events = sorted((max(t, 0.0), k, kw) for t, k, kw in events)
