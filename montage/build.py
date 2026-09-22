@@ -17,6 +17,7 @@ FOOT   = ROOT / "footage"
 WORK   = ROOT / "work"; WORK.mkdir(exist_ok=True)
 SEG    = WORK / "seg";  SEG.mkdir(exist_ok=True)
 OUTPUT = ROOT / "montage_16x9.mp4"
+SEG_PATH = {}          # index -> rendered file, filled once they exist
 FPS    = 30
 MUSIC_GAIN = 0.708        # -3 dB, headroom for the other layers
 AMB_GAIN   = 1.0          # levels are set per piece in ambience()
@@ -130,11 +131,28 @@ def resolve():
     return shots
 
 
+def segment_key(s):
+    """Everything that decides what a segment looks like.
+
+    The cache was keyed on position alone, so inserting or removing a shot
+    shifted every later index and a cached file could be reused for a
+    different shot entirely - the frame-count check would not catch it when
+    the lengths happened to match.
+    """
+    import hashlib
+    parts = (s["clip"], s["start"], s["need"], s["head"], s["len_frames"],
+             s["rate"], s["look"], s["move"], tuple(s.get("fx") or ()),
+             looks.GRADE)
+    return hashlib.sha1(repr(parts).encode()).hexdigest()[:10]
+
+
 def render_segment(args):
     idx, s = args
-    dst = SEG / f"{idx:03d}.mp4"
+    dst = SEG / f"{idx:03d}_{segment_key(s)}.mp4"
     if dst.exists():
         return dst
+    for stale in SEG.glob(f"{idx:03d}_*.mp4"):
+        stale.unlink()
     m = s["meta"]
     # the move ramps over the SOURCE frames it will actually see
     src_frames = max(int(round(s["need"] * (m["fps"] or FPS))), 2)
@@ -189,7 +207,7 @@ def chunk_shots(shots):
 
 def concat(indices, dst):
     lst = WORK / f"concat_{dst.stem}.txt"
-    lst.write_text("".join(f"file '{(SEG / f'{i:03d}.mp4').resolve()}'\n" for i in indices))
+    lst.write_text("".join(f"file '{SEG_PATH[i].resolve()}'\n" for i in indices))
     run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
          "-i", str(lst), "-c", "copy", str(dst)])
     return dst
@@ -481,7 +499,8 @@ def main():
 
     print("Segmente rendern ...", flush=True)
     with ThreadPoolExecutor(max_workers=5) as ex:
-        list(ex.map(render_segment, enumerate(shots)))
+        paths = list(ex.map(render_segment, enumerate(shots)))
+    SEG_PATH.update(enumerate(paths))
 
     chunks = chunk_shots(shots)
     print(f"Fuegen: {len(chunks)} Bloecke, {len(chunks) - 1} weiche Uebergaenge",

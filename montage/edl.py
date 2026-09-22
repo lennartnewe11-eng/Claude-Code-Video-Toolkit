@@ -86,19 +86,22 @@ PROLOG = PROLOG_CALM + PROLOG_FAST
 
 # --- Akt 1: Nacht - 85 Beats, Grenzen bei 20 und 64 -----------------------
 ACT1 = [
-    # clip        at  beats  rate          look    transition      move  amb   fx
-    ("IMG_3926", 0.30,  8, 0.75, "dark", None,           "in", True, ["dream"]),
-    ("IMG_4090", 0.25,  6, 0.70, "dark", None,           None, True, ["cool"]),
-    ("IMG_4209", 0.40,  6, 0.80, "dark", ("fade", 0.20), None, True, ["bloom"]),
+    # Der Vorspann hat IMG_3926/4209/4128/4208 schon gezeigt. Akt 1 beginnt
+    # deshalb mit anderem Material - sonst laeuft beim Musikeinsatz genau
+    # dieselbe Folge noch einmal - und greift zwei davon erst spaeter wieder
+    # auf, mit deutlich anderem In-Punkt.
+    # clip        at  beats  rate   look    transition      move  amb   fx
+    ("IMG_4090", 0.25,  7, 0.70, "dark", None,           None, True, ["cool"]),
+    ("IMG_3833", 0.20,  6, 0.80, "dark", None,           None, True, ["bloom"]),
+    ("IMG_4130", 0.30,  7, 0.75, "dark", None,           None, True, ["drain", "edge"]),
     # --- Swell 11.5s
-    ("IMG_4128", 0.20,  6, 0.50, "dark", None,           None, True, ["drain", "edge"]),
-    ("IMG_4208", 0.30,  4, 0.85, "dark", None,           None, True, ["warm"]),
-    ("IMG_3927", 0.35,  3, 0.90, "dark", None,           None, True, ["split"]),
-    ("IMG_3885", 0.25,  3, 0.90, "dark", None,           None, True, ["cool"]),
-    ("IMG_4130", 0.30,  3, 0.85, "dark", None,           None, True, []),
-    ("IMG_3833", 0.35,  4, 0.80, "dark", None,           None, True, ["rich", "pulse"]),
+    ("IMG_3927", 0.35,  5, 0.85, "dark", None,           None, True, ["split"]),
+    ("IMG_4203", 0.30,  5, 0.80, "dark", None,           None, True, ["warm"]),
+    ("IMG_3885", 0.25,  4, 0.90, "dark", None,           None, True, ["cool"]),
+    ("IMG_4209", 0.70,  5, 0.55, "dark", None,           None, True, ["dream"]),
     ("IMG_3847", 0.25,  4, 0.90, "dark", None,           None, True, []),
     ("IMG_4426", 0.30,  6, 0.55, "dark", None,           None, True, ["dream"]),
+    ("IMG_4128", 0.60,  4, 0.50, "dark", None,           None, True, ["drain"]),
     ("IMG_3925", 0.20, 10.5, 0.70, "dark", ("fade", 0.17), "in", True, ["bloom"]),
     # --- Swell 35.6s
     ("IMG_3882", 0.30, 10, 0.80, "dark", None,           None, True, ["splittone"]),
