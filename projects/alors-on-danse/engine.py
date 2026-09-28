@@ -241,70 +241,68 @@ def grade(img, look, ev=1.0, desat=0.0):
 # ----------------------------------------------------------------------------
 
 class Typo:
+    """One calligraphic script (Ballet, OFL) for every lyric, with a crayon texture."""
+
     def __init__(self, cfg):
         self.cfg = cfg
-        f = cfg.fonts
-        self.paths = {
-            "anton": os.path.join(f, "Anton-Regular.ttf"),
-            "serif": os.path.join(f, "InstrumentSerif-Regular.ttf"),
-            "serif_i": os.path.join(f, "InstrumentSerif-Italic.ttf"),
-            "mono": os.path.join(f, "SpaceMono-Regular.ttf"),
-            "mono_b": os.path.join(f, "SpaceMono-Bold.ttf"),
-            "archivo": os.path.join(f, "ArchivoBlack-Regular.ttf"),
-        }
+        self.path = os.path.join(cfg.fonts, "Ballet.ttf")
         self.cache = {}
 
-    def font(self, name, size):
-        key = ("font", name, size)
+    def font(self, size):
+        key = ("font", size)
         if key not in self.cache:
-            self.cache[key] = ImageFont.truetype(self.paths[name], size)
+            self.cache[key] = ImageFont.truetype(self.path, size)
         return self.cache[key]
 
-    def mask(self, text, font, size, tracking=0.0, outline=0):
-        """Tight alpha mask (float32 0..1) of `text`. outline>0 -> stroke only."""
-        size = max(6, int(round(size)))
-        key = ("mask", text, font, size, round(tracking, 1), outline)
+    def mask(self, text, size, texture=True):
+        """Tight alpha mask (float32 0..1) of `text`, swashes included."""
+        size = max(8, int(round(size)))
+        key = ("mask", text, size, texture)
         if key in self.cache:
             return self.cache[key]
-        fnt = self.font(font, size)
-        pad = int(size * 0.35) + outline * 2 + 4
-        widths = [fnt.getlength(ch) for ch in text]
-        total = sum(widths) + tracking * max(0, len(text) - 1)
-        asc, desc = fnt.getmetrics()
-        W = int(math.ceil(total)) + 2 * pad
-        H = asc + desc + 2 * pad
+        fnt = self.font(size)
+        W = int(fnt.getlength(text)) + 3 * size
+        H = int(size * 3.2)
         img = Image.new("L", (W, H), 0)
-        d = ImageDraw.Draw(img)
-        x = pad
-        for ch, w in zip(text, widths):
-            if outline:
-                d.text((x, pad), ch, font=fnt, fill=255, stroke_width=outline, stroke_fill=255)
-            else:
-                d.text((x, pad), ch, font=fnt, fill=255)
-            x += w + tracking
+        ImageDraw.Draw(img).text((size * 1.2, size * 0.9), text, font=fnt, fill=255)
         m = np.asarray(img, np.float32) / 255.0
-        if outline:
-            inner = Image.new("L", (W, H), 0)
-            di = ImageDraw.Draw(inner)
-            x = pad
-            for ch, w in zip(text, widths):
-                di.text((x, pad), ch, font=fnt, fill=255)
-                x += w + tracking
-            inner = cv2.erode(np.asarray(inner, np.float32) / 255.0,
-                              np.ones((3, 3), np.uint8), iterations=max(1, outline // 3))
-            m = np.clip(m - inner, 0, 1)
         ys, xs = np.nonzero(m > 0.01)
         if len(xs):
-            m = m[max(0, ys.min() - 2):ys.max() + 3, max(0, xs.min() - 2):xs.max() + 3]
+            m = m[max(0, ys.min() - 4):ys.max() + 5, max(0, xs.min() - 4):xs.max() + 5]
+        if texture:
+            m = crayon(m, seed=sum(map(ord, text)) + size, sc=size / 300.0)
         self.cache[key] = np.ascontiguousarray(m)
         return self.cache[key]
 
 
+def crayon(m, seed=1, sc=1.0):
+    """Wobbly edge + grainy fill, like a wax crayon / pencil stroke."""
+    rng = np.random.default_rng(seed)
+    h, w = m.shape
+    sig = max(1.0, 2.0 * sc)
+    amp = max(0.8, 2.2 * sc)
+    dx = cv2.GaussianBlur(rng.normal(0, 1, (h, w)).astype(np.float32), (0, 0), sig) * amp * 2.5
+    dy = cv2.GaussianBlur(rng.normal(0, 1, (h, w)).astype(np.float32), (0, 0), sig) * amp * 2.5
+    gx, gy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32))
+    mm = cv2.remap(m, gx + dx, gy + dy, cv2.INTER_LINEAR)
+    g = cv2.GaussianBlur(rng.random((h, w)).astype(np.float32), (0, 0), 0.7)
+    g = (g - g.min()) / max(1e-6, g.max() - g.min())
+    return np.clip(mm * (0.55 + 0.45 * g) * 1.18, 0, 1)
+
+
 def blit(out, m, cx, cy, scale=1.0, alpha=1.0, color=(255, 255, 255), mode="normal",
-         shadow=0.0, rot=0.0):
-    """Composite alpha mask `m` centred at (cx, cy) onto `out` in place."""
-    if alpha <= 0.003 or m is None or m.size == 0:
+         shadow=0.0, rot=0.0, wipe=1.0):
+    """Composite alpha mask `m` centred at (cx, cy) onto `out` in place.
+
+    wipe < 1 reveals the mask from the left (a soft pen-stroke write-on)."""
+    if alpha <= 0.003 or m is None or m.size == 0 or wipe <= 0:
         return
+    if wipe < 1.0:
+        w_ = m.shape[1]
+        soft = 0.18 * w_
+        x = np.arange(w_, dtype=np.float32)
+        ramp = np.clip((wipe * (w_ + soft) - x) / soft, 0, 1)
+        m = m * ramp[None, :]
     if abs(scale - 1.0) > 1e-3 or abs(rot) > 1e-3:
         h, w = m.shape
         s = max(scale, 0.01)

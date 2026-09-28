@@ -182,11 +182,6 @@ class Edit:
             dt = t_out - self.out_t(b)
             if 0 <= dt < 1.0:
                 f += amp * math.exp(-dt / tau)
-        for ev in self.texts:  # slams hit with a small flash
-            if ev["style"] == "word" and ev.get("mode") == "diff":
-                dt = t_out - self.out_t(ev["b0"])
-                if 0 <= dt < 0.5:
-                    f += 0.35 * math.exp(-dt / 0.05)
         return min(1.0, f)
 
     def rgb_split_amount(self, t_out, idx, tl):
@@ -194,28 +189,20 @@ class Edit:
         a = 0.0
         if s.get("punch", 0) >= 0.12 or s.get("flash", 0) >= 0.8:
             a = max(a, 14 * math.exp(-tl / 0.09))
-        for ev in self.texts:
-            if ev["style"] in ("word", "stack", "pulse", "kw"):
-                dt = t_out - self.out_t(ev["b0"])
-                if 0 <= dt < 0.5:
-                    a = max(a, 10 * math.exp(-dt / 0.07))
         return a * self.cfg.sc
 
     # --- typography -----------------------------------------------------------
-    WHITE = (255, 255, 255)
-    YELLOW = (255, 210, 20)      # the highlight colour that runs through the edit
-    INK = (18, 16, 12)           # text on a yellow marker
-
-    def colour(self, c):
-        return self.YELLOW if c == "y" else self.WHITE
+    # Every lyric is one calligraphic script in white. Each word is written on
+    # (left-to-right wipe) exactly while it is sung: `t` = sung onset and `d` =
+    # sung duration, both in song seconds, measured from the isolated vocals.
 
     def anchor_xy(self, w, h, anchor, bleed=(0.0, 0.0), lb=0, margin=None, y=0.5, x=0.5):
         """Centre of a w x h box placed against a frame edge/corner.
 
-        bleed = fraction of the box pushed outside the frame on the anchored
-        side(s), so big words are deliberately cut by the frame edge."""
+        bleed = fraction of the box pushed outside the picture on the anchored
+        side(s), so words are deliberately cut by the frame edge."""
         W, H = self.cfg.W, self.cfg.H
-        m = 72 * self.cfg.sc if margin is None else margin
+        m = 60 * self.cfg.sc if margin is None else margin
         bx, by = bleed
         if anchor in ("tl", "bl", "l"):
             cx = (-bx * w if bx > 0 else m) + w / 2
@@ -232,197 +219,60 @@ class Edit:
             cy = y * H
         return cx, cy
 
-    def draw_word(self, out, ev, te, tleft, lb):
-        ty, sc = self.typo, self.cfg.sc
-        mode = ev.get("mode", "normal")
-        m = ty.mask(ev["text"], "anton", ev.get("size", 330) * sc,
-                    outline=int(6 * sc) if mode == "outline" else 0)
+    def draw_script_word(self, out, wd, t_song, t1, lb):
+        sc = self.cfg.sc
+        dt = t_song - wd["t"]
+        if dt < 0:
+            return
+        m = self.typo.mask(wd["text"], wd.get("size", 260) * sc)
         h, w = m.shape
-        cx, cy = self.anchor_xy(w, h, ev.get("anchor", "bl"), ev.get("bleed", (0, 0)), lb,
-                                y=ev.get("y", 0.5), x=ev.get("x", 0.5))
-        s = 1 + 0.35 * math.exp(-te / 0.055) if ev.get("slam", True) else 1.0
-        fade = E.clamp(tleft / 0.08)
-        if ev.get("shake"):
-            A = 12 * sc * math.exp(-te / 0.3)
-            cx += A * E.hash_noise(int(te * 300), 1)
-            cy += A * E.hash_noise(int(te * 300), 2)
-        if mode == "marker":
-            pad = int(0.16 * h)
-            box = np.ones((h + 2 * pad, w + 3 * pad), np.float32)
-            E.blit(out, box, cx, cy, s, fade, color=self.YELLOW, shadow=0.35)
-            E.blit(out, m, cx, cy, s, fade, color=self.INK)
-        elif mode == "diff":
-            E.blit(out, m, cx, cy, s, fade, mode="diff")
-        else:
-            E.blit(out, m, cx, cy, s, fade, color=self.colour(ev.get("color", "w")),
-                   shadow=0.45)
+        cx, cy = self.anchor_xy(w, h, wd.get("anchor", "c"), wd.get("bleed", (0, 0)), lb,
+                                y=wd.get("y", 0.5), x=wd.get("x", 0.5))
+        d = max(0.12, wd.get("d", 0.3))
+        p = E.clamp(dt / d)
+        wipe = E.ease_out(p, 2.0)
+        settle = 1 + 0.05 * (1 - E.ease_out(dt / 0.45))
+        drift = 10 * sc * (1 - E.ease_out(dt / 0.45))
+        fade = E.clamp((t1 - t_song) / 0.15) * wd.get("alpha", 1.0)
+        rot = wd.get("rot", 0.0)
+        n = wd.get("layers", 0)
+        lx, ly = wd.get("step", (0.05, -0.16))
+        for i in range(n, 0, -1):      # ghost repeats behind the word, like overwritten ink
+            dti = dt - 0.05 * i
+            if dti <= 0:
+                continue
+            E.blit(out, m, cx + i * lx * w, cy + i * ly * h, settle, fade * (0.5 / (i + 0.6)),
+                   rot=rot + i * wd.get("rot_step", -2.5), wipe=E.ease_out(E.clamp(dti / d), 2.0))
+        E.blit(out, m, cx, cy + drift, settle, fade, shadow=0.45, rot=rot, wipe=wipe)
 
     def draw_texts(self, out, t_out, bp):
-        cfg, ty, sc = self.cfg, self.typo, self.cfg.sc
+        cfg, sc = self.cfg, self.cfg.sc
         W, H = cfg.W, cfg.H
+        t_song = t_out + self.T0
         lb_amt = E.pw_linear(TL.LETTERBOX, bp)
         lb = int(round(lb_amt * (H - W / 2.39) / 2))
         for ev in self.texts:
-            if not (ev["b0"] <= bp < ev["b1"]):
+            if not (ev["t0"] <= t_song < ev["t1"]):
                 continue
-            te = t_out - self.out_t(ev["b0"])
-            tleft = self.out_t(ev["b1"]) - t_out
-            st = ev["style"]
-            if st == "word":
-                self.draw_word(out, ev, te, tleft, lb)
-            elif st == "serif":
-                size = ev.get("size", 150) * sc
-                words = ev["words"]
-                hl = set(ev.get("hl", []))
-                masks = [ty.mask(w_, "serif_i", size) for w_ in words]
-                space = size * 0.26
-                total = sum(m.shape[1] for m in masks) + space * (len(words) - 1)
-                hmax = max(m.shape[0] for m in masks)
-                cx, cy = self.anchor_xy(total, hmax, ev.get("anchor", "bl"), (0, 0), lb)
-                x = cx - total / 2
-                fade_out = E.clamp(tleft / 0.15)
-                for i, (m, b) in enumerate(zip(masks, ev["beats"])):
-                    wt = t_out - self.out_t(ev["b0"] + b)
-                    wm = m.shape[1]
-                    if wt >= 0:
-                        a = E.ease_out(wt / 0.16) * fade_out
-                        dy = 22 * sc * (1 - E.ease_out(wt / 0.3))
-                        E.blit(out, m, x + wm / 2, cy + dy, 1.0, a,
-                               color=self.YELLOW if i in hl else self.WHITE, shadow=0.6)
-                    x += wm + space
-            elif st == "stack":
-                lines = ev["lines"]
-                lh = ev.get("lh", 0.36) * H
-                y0 = ev.get("y0", 0.0) * H
-                align = ev.get("align", "l")
-                bx = ev.get("bleed_x", 0.05)
-                modes = ev.get("modes", ["solid"] * len(lines))
-                cols = ev.get("colors", ["w"] * len(lines))
-                for i, (ln, b) in enumerate(zip(lines, ev["beats"])):
-                    lt = t_out - self.out_t(ev["b0"] + b)
-                    if lt < 0:
-                        continue
-                    mode = modes[i]
-                    m = ty.mask(ln, "anton", lh * 1.25, tracking=4 * sc,
-                                outline=int(6 * sc) if mode == "outline" else 0)
-                    fit = lh * 0.96 / m.shape[0]
-                    w = m.shape[1] * fit
-                    cx = (-bx * w + w / 2) if align == "l" else (W + bx * w - w / 2)
-                    cy = y0 + i * lh + lh / 2
-                    s = fit * (1 + 0.28 * math.exp(-lt / 0.06))
-                    if mode == "diff":
-                        E.blit(out, m, cx, cy, s, 1.0, mode="diff")
-                    else:
-                        E.blit(out, m, cx, cy, s, 1.0, color=self.colour(cols[i]), shadow=0.3)
-            elif st == "kw":
-                marker = ev.get("mode") == "marker"
-                ev2 = dict(ev, text=ev["word"],
-                           bleed=ev.get("bleed", (0.05, 0.05) if marker else (0.07, 0.13)))
-                ev2.setdefault("size", 250)
-                self.draw_word(out, ev2, te, tleft, lb)
-                if not ev.get("pre"):
-                    continue
-                m = ty.mask(ev["word"], "anton", ev2["size"] * sc)
-                h, w = m.shape
-                anchor = ev2.get("anchor", "bl")
-                cx, cy = self.anchor_xy(w, h, anchor, ev2["bleed"], lb)
-                pre = ty.mask(ev["pre"], "serif_i", 96 * sc)
-                ph, pw = pre.shape
-                margin = 72 * sc
-                if anchor in ("bl", "tl", "l"):
-                    px = max(margin, cx - w / 2) + pw / 2
-                else:
-                    px = min(W - margin, cx + w / 2) - pw / 2
-                if anchor in ("bl", "br", "b"):
-                    py = max(cy - h / 2, 0) - ph * 0.6 - 10 * sc
-                else:
-                    py = min(cy + h / 2, H) + ph * 0.6 + 10 * sc
-                pa = E.ease_out(te / 0.12) * E.clamp(tleft / 0.08)
-                E.blit(out, pre, px, py, 1.0, pa, shadow=0.6)
-            elif st == "pulse":
-                k = int(bp - ev["b0"])
-                bt_ = t_out - self.out_t(ev["b0"] + k)
-                outline = k % 2 == 1
-                m = ty.mask(ev["text"], "anton", ev.get("size", 560) * sc,
-                            outline=int(8 * sc) if outline else 0)
-                h, w = m.shape
-                cx, cy = self.anchor_xy(w, h, ev.get("anchor", "b"), ev.get("bleed", (0, 0.35)),
-                                        lb, x=ev.get("x", 0.5))
-                E.blit(out, m, cx, cy, 1 + 0.12 * math.exp(-bt_ / 0.08), 1.0,
-                       color=self.colour(ev.get("color", "y")), shadow=0 if outline else 0.3)
-            elif st == "scatter":
+            if ev["style"] == "script":
+                for wd in ev["words"]:
+                    self.draw_script_word(out, wd, t_song, ev["t1"], lb)
+            elif ev["style"] == "scatter":
                 rng = np.random.default_rng(ev.get("seed", 0))
-                nb = int(round(ev["b1"] - ev["b0"]))
-                spots = []
-                for k in range(nb):
-                    fx = rng.choice([rng.uniform(0.06, 0.26), rng.uniform(0.74, 0.94)])
-                    fy = rng.choice([rng.uniform(0.14, 0.32), rng.uniform(0.68, 0.86)])
-                    spots.append((fx, fy, rng.uniform(130, 240), rng.uniform(-12, 12)))
-                for k, (fx, fy, size, rot) in enumerate(spots):
-                    lt = t_out - self.out_t(ev["b0"] + k)
+                for it in ev["items"]:
+                    fx = rng.choice([rng.uniform(0.08, 0.28), rng.uniform(0.72, 0.92)])
+                    fy = rng.choice([rng.uniform(0.16, 0.34), rng.uniform(0.66, 0.84)])
+                    size, rot = rng.uniform(170, 280), rng.uniform(-14, 14)
+                    lt = t_song - it["t"]
                     if lt < 0:
                         continue
-                    life = self.out_t(ev["b0"] + k + 1.6) - self.out_t(ev["b0"] + k)
-                    a = E.ease_out(lt / 0.08) * E.clamp((life - lt) / 0.25) * E.clamp(tleft / 0.15)
+                    life = it.get("life", 0.9)
+                    a = E.clamp((life - lt) / 0.25) * E.clamp((ev["t1"] - t_song) / 0.15)
                     if a <= 0:
                         continue
-                    m = ty.mask(ev["text"], "serif_i", size * sc)
-                    E.blit(out, m, fx * W, fy * H, 1 + 0.25 * math.exp(-lt / 0.07), a,
-                           color=self.YELLOW if k % 3 == 1 else self.WHITE, shadow=0.5, rot=rot)
-            elif st == "echo":
-                k = int(bp - ev["b0"])
-                bt_ = t_out - self.out_t(ev["b0"] + k)
-                size = ev.get("size", 300) * sc
-                m = ty.mask(ev["text"], "anton", size)
-                mo = ty.mask(ev["text"], "anton", size, outline=int(4 * sc))
-                h, w = m.shape
-                anchor = ev.get("anchor", "bl")
-                cx, cy = self.anchor_xy(w, h, anchor, ev.get("bleed", (0.06, 0.0)), lb)
-                step = -1 if anchor in ("bl", "br", "b") else 1
-                fade = E.clamp(tleft / 0.2) * E.ease_out(te / 0.1)
-                for i in range(1, 4):
-                    if k >= i:
-                        E.blit(out, mo, cx, cy + step * i * h * 0.92, 1.0, (0.75 - 0.2 * i) * fade)
-                E.blit(out, m, cx, cy, 1 + 0.08 * math.exp(-bt_ / 0.08), fade,
-                       color=self.colour(ev.get("color", "y")), shadow=0.4)
-            elif st == "type":
-                n_chars = int(te * 16) + 1
-                txt = ev["text"][:n_chars]
-                cursor = "_" if int(te * 4) % 2 == 0 else " "
-                m = ty.mask(txt + cursor, "mono_b", 58 * sc, tracking=8 * sc)
-                full = ty.mask(ev["text"] + "_", "mono_b", 58 * sc, tracking=8 * sc)
-                cx, cy = self.anchor_xy(full.shape[1], full.shape[0], ev.get("anchor", "bl"),
-                                        (0, 0), lb)
-                E.blit(out, m, cx - full.shape[1] / 2 + m.shape[1] / 2, cy, 1.0,
-                       E.clamp(tleft / 0.1), shadow=0.6)
-            elif st == "track":
-                dur = self.out_t(ev["b1"]) - self.out_t(ev["b0"])
-                u = E.ease_out(te / dur, 2)
-                trk = (4 + 30 * u) * sc
-                words = ev["text"].split(" ")
-                hl = set(ev.get("hl", []))
-                masks = [ty.mask(w_, "serif_i", 104 * sc, tracking=trk) for w_ in words]
-                space = 46 * sc + trk
-                total = sum(m.shape[1] for m in masks) + space * (len(words) - 1)
-                hmax = max(m.shape[0] for m in masks)
-                sub = ty.mask(ev["sub"], "mono", 24 * sc, tracking=(18 + 10 * u) * sc) \
-                    if ev.get("sub") else None
-                extra = (sub.shape[0] + 26 * sc) if sub is not None else 0
-                anchor = ev.get("anchor", "bl")
-                cx, cy = self.anchor_xy(total, hmax + extra, anchor, (0, 0), lb)
-                a = E.ease_io(te / 1.6) * E.clamp(tleft / 0.3)
-                x = cx - total / 2
-                ty_ = cy - (hmax + extra) / 2 + hmax / 2
-                for i, m in enumerate(masks):
-                    E.blit(out, m, x + m.shape[1] / 2, ty_, 1.0, a,
-                           color=self.YELLOW if i in hl else self.WHITE, shadow=0.5)
-                    x += m.shape[1] + space
-                if sub is not None:
-                    a2 = E.ease_io((te - 1.0) / 1.2) * E.clamp(tleft / 0.3)
-                    sx = (cx - total / 2 + sub.shape[1] / 2) if anchor in ("bl", "tl", "l") \
-                        else (cx + total / 2 - sub.shape[1] / 2)
-                    E.blit(out, sub, sx, ty_ + hmax / 2 + 26 * sc + sub.shape[0] / 2, 1.0,
-                           a2 * 0.85, shadow=0.5)
+                    m = self.typo.mask(it["text"], size * sc)
+                    E.blit(out, m, fx * W, fy * H, 1 + 0.06 * (1 - E.ease_out(lt / 0.3)), a,
+                           shadow=0.45, rot=rot, wipe=E.ease_out(E.clamp(lt / max(0.1, it.get("d", 0.2))), 2.0))
 
     # --- one output frame -----------------------------------------------------
     def render(self, n):
