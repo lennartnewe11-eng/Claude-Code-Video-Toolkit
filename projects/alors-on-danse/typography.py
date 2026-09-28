@@ -3,8 +3,8 @@
 Every word appears exactly while it is sung: `t` is the sung onset and `d` the
 sung duration (song seconds) from lyric_timing.json, measured on the isolated
 vocals (tools/lyric_timing.py). The renderer writes each word on over `d`.
-Phrases sit in the corners and are cut by the frame edge; key words get
-ghosted repeats, like overwritten ink.
+Phrases sit in the corners and are cut by the frame edge. Strokes are plain
+solid lines: no texture, no ghosted repeats (GHOSTS switches those back on).
 """
 import json
 import os
@@ -14,6 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BIG, MID, SMALL = 330, 250, 150
 HOLD = 1.3          # seconds a phrase stays after its last word
 GAP = 0.06          # a phrase leaves this long before the next one starts
+GHOSTS = False      # offset repeats behind key words (read as hatching)
 
 PLACES = {
     "bl": dict(layout="line", anchor="bl", bleed=(0.04, 0.10)),
@@ -41,7 +42,7 @@ def texts():
         ws = []
         for i, w in enumerate(words):
             d = dict(w, size=sizes[i] if i < len(sizes) else sizes[-1])
-            if layers and i < len(layers) and layers[i]:
+            if GHOSTS and layers and i < len(layers) and layers[i]:
                 d.update(layers=layers[i], step=step)
             ws.append(d)
         T.append(dict(style="script", t0=words[0]["t"], words=ws, **place))

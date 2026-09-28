@@ -35,7 +35,9 @@ the song's beat grid.
    the song is muxed (+5 dB, limited, faded).
 
 **Lyrics** (`typography.py`, `lyric_timing.json`): one white calligraphic
-script (Ballet, OFL, in `fonts/`) with a crayon texture. Each word appears
+script (Ballet, OFL, in `fonts/`), drawn as plain solid strokes;
+`fonts/Ballet-Solid.ttf` is a static instance with overlapping contours merged
+(`tools/make_solid_font.py`). Each word appears
 exactly while it is sung and is written on over its sung duration. The timing
 comes from `tools/lyric_timing.py`: Demucs isolates the vocals, faster-whisper
 (large-v3) gives word timestamps, and every start is snapped to the nearest

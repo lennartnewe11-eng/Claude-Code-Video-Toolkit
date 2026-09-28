@@ -241,11 +241,14 @@ def grade(img, look, ev=1.0, desat=0.0):
 # ----------------------------------------------------------------------------
 
 class Typo:
-    """One calligraphic script (Ballet, OFL) for every lyric, with a crayon texture."""
+    """One calligraphic script (Ballet, OFL) for every lyric, drawn as clean solid strokes."""
 
     def __init__(self, cfg):
         self.cfg = cfg
-        self.path = os.path.join(cfg.fonts, "Ballet.ttf")
+        # Ballet-Solid.ttf: static opsz-16 instance of Ballet with overlapping
+        # contours removed (tools/make_solid_font.py). The variable font's
+        # overlaps rasterise as holes, which made the strokes look hatched.
+        self.path = os.path.join(cfg.fonts, "Ballet-Solid.ttf")
         self.cache = {}
 
     def font(self, size):
@@ -254,10 +257,10 @@ class Typo:
             self.cache[key] = ImageFont.truetype(self.path, size)
         return self.cache[key]
 
-    def mask(self, text, size, texture=True):
+    def mask(self, text, size):
         """Tight alpha mask (float32 0..1) of `text`, swashes included."""
         size = max(8, int(round(size)))
-        key = ("mask", text, size, texture)
+        key = ("mask", text, size)
         if key in self.cache:
             return self.cache[key]
         fnt = self.font(size)
@@ -272,25 +275,10 @@ class Typo:
         if size >= 60:  # a slightly heavier nib so hairlines survive on moving footage
             k = max(2, int(round(size / 110)))
             m = cv2.dilate(m, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k)))
-        if texture:
-            m = crayon(m, seed=sum(map(ord, text)) + size, sc=size / 300.0)
         self.cache[key] = np.ascontiguousarray(m)
         return self.cache[key]
 
 
-def crayon(m, seed=1, sc=1.0):
-    """Wobbly edge + grainy fill, like a wax crayon / pencil stroke."""
-    rng = np.random.default_rng(seed)
-    h, w = m.shape
-    sig = max(1.0, 2.0 * sc)
-    amp = max(0.8, 2.2 * sc)
-    dx = cv2.GaussianBlur(rng.normal(0, 1, (h, w)).astype(np.float32), (0, 0), sig) * amp * 2.5
-    dy = cv2.GaussianBlur(rng.normal(0, 1, (h, w)).astype(np.float32), (0, 0), sig) * amp * 2.5
-    gx, gy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32))
-    mm = cv2.remap(m, gx + dx, gy + dy, cv2.INTER_LINEAR)
-    g = cv2.GaussianBlur(rng.random((h, w)).astype(np.float32), (0, 0), 0.7)
-    g = (g - g.min()) / max(1e-6, g.max() - g.min())
-    return np.clip(mm * (0.55 + 0.45 * g) * 1.18, 0, 1)
 
 
 def blit(out, m, cx, cy, scale=1.0, alpha=1.0, color=(255, 255, 255), mode="normal",
