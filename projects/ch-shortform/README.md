@@ -52,7 +52,7 @@ python3 build/render.py edl/act1.json act1   # Shots einzeln rendern
 python3 build/qc.py     edl/act1.json act1   # Helligkeit je Shot prüfen
 python3 build/assemble.py act1          # concat + Musik (reiner Kopiervorgang)
 python3 build/shotliste.py               # Shotliste im docs/ aus der EDL nachziehen
-python3 build/deliver.py                # Ansichtsfassungen (720p H.264 + VP9, 1080p, Poster)
+python3 build/deliver.py                # Ansichtsfassungen + Downloadfassung in Stuecken
 ```
 
 ## Ansichtsfassungen
@@ -67,12 +67,42 @@ dekodieren kann.
 |-------|-----------|-------|---------|-------|
 | `act1_720.mp4` | 720 × 1280 @ 30 | H.264 Main 4.0 | 1,0 Mbit/s | 5,3 MB |
 | `act1_720.webm` | 720 × 1280 @ 30 | VP9 / Opus | 1,2 Mbit/s | 6,5 MB |
-| `act1_web.mp4` | 1080 × 1920 @ 30 | H.264 High 4.1 | 2,0 Mbit/s | 10,1 MB |
+| `act1_web.mp4` | 1080 × 1920 @ 30 | H.264 High 4.1 | 2,0 Mbit/s | 10,0 MB |
+| `act1_1080p60.mp4` | 1080 × 1920 @ 60 | H.264 High 5.0 | 6,3 Mbit/s | 33,4 MB |
 
 Die Ansichtsseite lädt das Video **vollständig als Blob** statt es zu streamen.
 Liefert ein Host keine Range-Anfragen (HTTP 206), meldet das `video`-Element
 `seekable = 0–0` und klemmt jeden Sprung auf 0 — Kapitelsprünge und Scrubleiste
 wären damit tot. Als Blob liegt die Datei im Browser, Springen geht immer.
+
+## Herunterladen über die Ansichtsseite
+
+`act1_1080p60.mp4` ist die Fassung zum Weitergeben: volle Bildrate, gut das
+Dreifache der Bitrate der Ansichtsfassung. Das Master selbst (729 MB,
+135 Mbit/s) geht diesen Weg nicht — die Seite darf 15 MB je Datei und 64 MB je
+Version ausliefern.
+
+Deshalb zwei Dinge in `deliver.py`:
+
+- **Zielgröße statt CRF.** CRF trifft keine Größe; bei einem festen Budget ist
+  die Bitrate das vorzugebende Maß, also zwei Durchgänge auf 36 MB.
+- **Die Datei liegt in Stücken.** `split_parts()` zerlegt sie byteweise in drei
+  Teile unter dem Dateilimit; die Seite holt sie und fügt sie wieder zusammen.
+  Byteweise geteilt und byteweise gefügt ergibt dieselbe Datei — beim Bauen
+  über SHA-256 geprüft. Die Teile heißen `.p0.mp4` usw., weil die Seite nur
+  bekannte Web-Dateitypen ausliefert und eine Endung wie `.000` ablehnt.
+
+Übergeben wird über die **Speicher-Berechtigung** des Artefakts
+(`capabilities: {downloads: true}`). Ein `<a download>` oder ein Blob-Link tut
+dort nichts: die Seite darf dem Betrachter keine Datei unterschieben, sie reicht
+die fertigen Bytes weiter und er bestätigt.
+
+Größen und Stückliste stehen in `out/hq/downloads.json`, geschrieben von
+`write_manifest()`. Sie gehören nicht in die HTML-Seite — dort standen sie
+schon einmal veraltet drin, und eine falsche Größe lässt die Längenprüfung im
+Browser fehlschlagen. **Nach jedem `deliver.py` müssen die Ansichtsfassungen
+und der Index zusammen neu veröffentlicht werden**, sonst passen die Bytes
+nicht mehr zum Index.
 
 | Datei | Zweck |
 |-------|-------|
@@ -82,7 +112,7 @@ wären damit tot. Als Blob liegt die Datei im Browser, Springen geht immer.
 | `build/captions.py` | ASS-Typo (libass; `drawtext` fehlt in diesem ffmpeg-Build) |
 | `build/act1_slots.ass` | Platzhalter „DEIN CLIP HIER“ für offene Slots — alle gefüllt, daher nicht mehr eingebrannt |
 | `build/qc.py` | misst Helligkeit **innerhalb des Bands**, nicht über den ganzen Rahmen |
-| `build/deliver.py` | Ansichtsfassungen in zwei Codecs plus Poster |
+| `build/deliver.py` | Ansichtsfassungen, Downloadfassung in Stücken, Index, Poster |
 | `build/phones.py` | Maße, Maßstab und gezeichnete Variante des Größenvergleichs |
 | `build/phones_real.py` | stellt echte Geräte aus Produktfotos frei, gleicher Mittelpunkt |
 | `build/overlay.py` | Vektornetz aus dem Bild selbst, Knoten auf jedem Beat neu |

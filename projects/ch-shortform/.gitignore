@@ -5,7 +5,8 @@ build/shots/
 build/*_silent.mp4
 build/*_concat.txt
 out/*.mp4
-__pycache__/
-*.pyc
 out/*.webm
 out/*.jpg
+out/hq/
+__pycache__/
+*.pyc
