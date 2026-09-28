@@ -1,0 +1,10 @@
+media
+media/
+build/*.mp4
+build/*.wav
+build/*.log
+build/chunks/
+build/frames/
+build/*.jpg
+!build/contact_sheet.jpg
+__pycache__/
