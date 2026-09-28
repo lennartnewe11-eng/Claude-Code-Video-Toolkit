@@ -78,3 +78,11 @@ python3 web/make_download_parts.py Alors_on_danse_1080p.mp4 OUTDIR
 
 `web/download.html` (published with the `downloads` capability) joins the
 parts back into the original file and offers it to the viewer's save dialog.
+
+## Frame gallery
+
+`web/make_frame_gallery.py MASTER.mp4 OUTDIR` finds every frame where the full
+phrase "Alors on danse" is on screen (19 occurrences, 643 frames) straight from
+the typography timeline, and packs the full-resolution JPGs for
+`web/frames.html` (published with the `downloads` capability), which shows
+them as contact sheets and saves single frames as JPG or occurrences as ZIP.

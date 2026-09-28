@@ -1,0 +1,285 @@
+<title>Alors on danse Frames</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  /* Same screening-room look as the player and download pages. */
+  :root {
+    color-scheme: dark;
+    --ground: #0e0d0b;
+    --surface: #181612;
+    --line: #2b2822;
+    --text: #efeae0;
+    --muted: #8f887c;
+    --accent: #f4efe6;
+    --ink: #14120e;
+    --bad: #e8a08a;
+    --script: "Ballet", "Snell Roundhand", "Apple Chancery", cursive;
+    --mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  html, body { background: var(--ground); }
+  body { color: var(--text); font-family: var(--mono); padding-inline: 16px; padding-block: 28px 64px; }
+  .wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 34px; }
+
+  header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 28px; }
+  h1 { margin: 0; font-family: var(--script); font-weight: 400; font-size: clamp(52px, 9vw, 104px); line-height: 1.05; }
+  .summary { display: grid; gap: 12px; justify-items: start; }
+  .facts { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 12px; color: var(--muted); }
+  .facts b { color: var(--text); font-weight: 400; font-variant-numeric: tabular-nums; }
+
+  button.act {
+    font: 700 13px/1 var(--mono); letter-spacing: .03em; color: var(--ink); background: var(--accent);
+    border: 0; border-radius: 3px; padding: 12px 16px; cursor: pointer;
+  }
+  button.act.ghost { color: var(--text); background: transparent; border: 1px solid var(--line); }
+  button.act:hover { filter: brightness(.94); }
+  button.act.ghost:hover { border-color: var(--muted); filter: none; }
+  button.act:disabled { opacity: .5; cursor: default; }
+  button:focus-visible, .tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .status { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; min-height: 1.3em; }
+  .status.bad { color: var(--bad); }
+  section.occ > .status:empty { display: none; }
+
+  section.occ { display: grid; gap: 12px; }
+  .occ-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .occ-no { font-family: var(--script); font-size: 34px; line-height: 1; min-width: 1.6em; }
+  .occ-meta { font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .occ-meta b { color: var(--text); font-weight: 400; }
+  .occ-head .act { margin-left: auto; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 6px; }
+  .tile {
+    position: relative; aspect-ratio: 16 / 9; max-width: 100%; border: 0; padding: 0; cursor: pointer;
+    background-color: #000; background-repeat: no-repeat; border-radius: 2px;
+  }
+  .tile span {
+    position: absolute; left: 4px; bottom: 3px; font: 10px/1 var(--mono); color: var(--text);
+    text-shadow: 0 0 3px #000, 0 0 2px #000; font-variant-numeric: tabular-nums;
+  }
+
+  .viewer { position: fixed; inset: 0; z-index: 10; background: rgba(8, 7, 6, .96); display: grid; grid-template-rows: auto 1fr auto;
+    padding: calc(12px + env(safe-area-inset-top, 0px)) 16px calc(12px + env(safe-area-inset-bottom, 0px)); gap: 10px; }
+  .viewer .bar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .viewer .bar b { color: var(--text); font-weight: 400; }
+  .viewer .bar .spacer { flex: 1; }
+  .viewer .stage { display: grid; place-items: center; min-height: 0; }
+  .viewer img { max-width: 100%; max-height: 100%; object-fit: contain; background: #000; }
+  .viewer .nav { display: flex; justify-content: center; gap: 10px; }
+  .note { font-size: 12px; line-height: 1.6; color: var(--muted); max-width: 70ch; }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Alors on danse</h1>
+    <div class="summary">
+      <div class="facts" id="facts"><span><b>643</b> Frames</span><span><b>19</b> Stellen</span><span><b>1920 × 1080</b> JPG</span></div>
+      <button class="act" id="zip-all" type="button">Alle 643 Frames als ZIP (225 MB)</button>
+      <div class="status" id="status-all" role="status" aria-live="polite"></div>
+    </div>
+  </header>
+
+  <p class="note">
+    Jede Stelle zeigt alle Frames, in denen „Alors on danse“ vollständig im Bild steht: ab dem Frame, in dem „danse“ fertig geschrieben ist,
+    bis kurz bevor die Schrift ausblendet. Frame‑Nummern zählen ab 0:00 bei 30 Bildern pro Sekunde. Ein Frame antippen öffnet ihn in voller Auflösung.
+  </p>
+
+  <div id="list"></div>
+</div>
+
+<div class="viewer" id="viewer" hidden>
+  <div class="bar">
+    <span id="v-title"><b>–</b></span>
+    <span class="spacer"></span>
+    <button class="act" id="v-save" type="button">JPG speichern</button>
+    <button class="act ghost" id="v-close" type="button">Schließen</button>
+  </div>
+  <div class="stage"><img id="v-img" alt=""></div>
+  <div class="nav">
+    <button class="act ghost" id="v-prev" type="button">← Vorheriger</button>
+    <span class="status" id="v-status" role="status" aria-live="polite"></span>
+    <button class="act ghost" id="v-next" type="button">Nächster →</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+  let data = null;                 // packs/index.json
+  const packCache = new Map();     // pack index -> Promise<ArrayBuffer>
+  let flat = [];                   // every frame in order: {occ, f}
+  let current = -1;
+  let viewerUrl = null;
+  let downloads = null;
+
+  const $ = id => document.getElementById(id);
+  const pad = (n, w) => String(n).padStart(w, "0");
+  const tc = s => Math.floor(s / 60) + ":" + (s % 60).toFixed(2).padStart(5, "0").replace(".", ",");
+  const mb = n => (n / 1e6).toLocaleString("de-DE", { maximumFractionDigits: 0 }) + " MB";
+  const fname = (occ, f) => `alors_on_danse_${pad(occ.no, 2)}_frame_${pad(f.n, 5)}.jpg`;
+
+  (async () => { try { downloads = await window.claude?.use?.("downloads"); } catch (e) { downloads = null; } })();
+
+  function status(el, text, bad) { el.textContent = text; el.classList.toggle("bad", !!bad); }
+
+  function pack(i, onbytes) {
+    if (!packCache.has(i)) {
+      const p = (async () => {
+        for (let attempt = 0; ; attempt++) {
+          try {
+            const r = await fetch("packs/" + data.packs[i].name, { cache: "force-cache" });
+            if (!r.ok) throw new Error(String(r.status));
+            const buf = await r.arrayBuffer();
+            if (buf.byteLength !== data.packs[i].size) throw new Error("unvollständig");
+            return buf;
+          } catch (e) {
+            if (attempt >= 2) { packCache.delete(i); throw e; }
+            await new Promise(res => setTimeout(res, 1000 * (attempt + 1)));
+          }
+        }
+      })();
+      packCache.set(i, p);
+    }
+    return packCache.get(i).then(buf => { onbytes && onbytes(buf.byteLength); return buf; });
+  }
+
+  async function frameBytes(f) {
+    const buf = await pack(f.p);
+    return new Uint8Array(buf, f.o, f.l);
+  }
+
+  function render() {
+    const list = $("list");
+    data.occurrences.forEach(occ => {
+      const sec = document.createElement("section");
+      sec.className = "occ";
+      const rows = Math.ceil(occ.frames.length / occ.cols);
+      const bytes = occ.frames.reduce((a, f) => a + f.l, 0);
+      sec.innerHTML = `
+        <div class="occ-head">
+          <span class="occ-no">${occ.no}</span>
+          <span class="occ-meta"><b>${tc(occ.t0)} – ${tc(occ.t1)}</b> · Frames ${occ.f0}–${occ.f1} · ${occ.frames.length} Frames</span>
+          <button class="act ghost" type="button">Als ZIP (${mb(bytes)})</button>
+        </div>
+        <div class="status" role="status" aria-live="polite"></div>
+        <div class="grid"></div>`;
+      const grid = sec.querySelector(".grid");
+      occ.frames.forEach((f, k) => {
+        const idx = flat.length;
+        flat.push({ occ, f });
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "tile";
+        const col = k % occ.cols, row = Math.floor(k / occ.cols);
+        b.style.backgroundImage = `url("${occ.sprite}")`;
+        b.style.backgroundSize = `${occ.cols * 100}% ${rows * 100}%`;
+        b.style.backgroundPosition = `${occ.cols > 1 ? col / (occ.cols - 1) * 100 : 0}% ${rows > 1 ? row / (rows - 1) * 100 : 0}%`;
+        b.setAttribute("aria-label", `Frame ${f.n}, Stelle ${occ.no}`);
+        b.innerHTML = `<span>${f.n}</span>`;
+        b.addEventListener("click", () => openFrame(idx));
+        grid.appendChild(b);
+      });
+      const btn = sec.querySelector(".act");
+      const st = sec.querySelector(".status");
+      btn.addEventListener("click", () => zip([occ], `alors_on_danse_stelle_${pad(occ.no, 2)}.zip`, btn, st));
+      list.appendChild(sec);
+    });
+  }
+
+  async function openFrame(idx) {
+    current = idx;
+    const { occ, f } = flat[idx];
+    $("viewer").hidden = false;
+    $("v-title").innerHTML = `<b>Frame ${f.n}</b> · Stelle ${occ.no} · ${tc(f.n / data.fps)}`;
+    $("v-prev").disabled = idx === 0;
+    $("v-next").disabled = idx === flat.length - 1;
+    const img = $("v-img");
+    img.alt = `Frame ${f.n} aus dem Video, Stelle ${occ.no}`;
+    const loaded = packCache.has(f.p);
+    if (!loaded) status($("v-status"), "Lade Frame …");
+    try {
+      const bytes = await frameBytes(f);
+      if (current !== idx) return;
+      if (viewerUrl) URL.revokeObjectURL(viewerUrl);
+      viewerUrl = URL.createObjectURL(new Blob([bytes], { type: "image/jpeg" }));
+      img.src = viewerUrl;
+      status($("v-status"), "");
+    } catch (e) {
+      status($("v-status"), "Frame konnte nicht geladen werden. Bitte erneut versuchen.", true);
+    }
+  }
+
+  function close() { $("viewer").hidden = true; current = -1; }
+
+  async function getDownloads() {
+    if (!downloads) { try { downloads = await window.claude?.use?.("downloads"); } catch (e) { downloads = null; } }
+    return downloads;
+  }
+
+  function saveError(el, e) {
+    const code = e && e.code;
+    if (code === "declined") status(el, "Speichern abgebrochen.");
+    else if (code === "rate_limited") status(el, "Es ist bereits ein Speichern‑Dialog offen. Bitte kurz warten.");
+    else if (code === "too_large") status(el, "Die Datei ist für diese App zu groß. Bitte im Browser auf claude.ai speichern oder einzelne Stellen laden.", true);
+    else if (code === "extension_not_enabled") status(el, "ZIP‑Dateien können in dieser Ansicht nicht gespeichert werden. Einzelne Frames lassen sich als JPG speichern.", true);
+    else status(el, "Speichern ist hier nicht möglich (" + (code || "unbekannt") + ").", true);
+  }
+
+  async function saveCurrent() {
+    const el = $("v-status");
+    const dl = await getDownloads();
+    if (!dl) { status(el, "Speichern ist in dieser Ansicht nicht möglich. Öffne die Seite in der Claude‑App oder auf claude.ai.", true); return; }
+    const { occ, f } = flat[current];
+    try {
+      const bytes = await frameBytes(f);
+      const res = await dl.save({ filename: fname(occ, f), data: new Blob([bytes], { type: "image/jpeg" }) });
+      status(el, res.status === "saved" ? "Gespeichert: " + fname(occ, f) : "Übergeben.");
+    } catch (e) { saveError(el, e); }
+  }
+
+  async function zip(occs, filename, btn, el) {
+    const dl = await getDownloads();
+    if (!dl) { status(el, "Speichern ist in dieser Ansicht nicht möglich. Öffne die Seite in der Claude‑App oder auf claude.ai.", true); return; }
+    if (!window.JSZip) { status(el, "Die ZIP‑Funktion konnte nicht geladen werden. Bitte die Seite neu laden.", true); return; }
+    btn.disabled = true;
+    try {
+      const needed = [...new Set(occs.flatMap(o => o.frames.map(f => f.p)))];
+      const total = needed.reduce((a, i) => a + data.packs[i].size, 0);
+      let done = 0;
+      for (const i of needed) {
+        status(el, `Lade Frames … ${mb(done)} von ${mb(total)}`);
+        await pack(i, n => { done += n; });
+      }
+      const z = new JSZip();
+      for (const o of occs) {
+        const dir = occs.length > 1 ? z.folder(`stelle_${pad(o.no, 2)}`) : z;
+        for (const f of o.frames) dir.file(fname(o, f), await frameBytes(f), { binary: true });
+      }
+      const blob = await z.generateAsync({ type: "blob", compression: "STORE" },
+        m => status(el, `Erstelle ZIP … ${Math.round(m.percent)} %`));
+      status(el, "Bitte das Speichern bestätigen.");
+      const res = await dl.save({ filename, data: blob });
+      status(el, res.status === "saved" ? `Gespeichert: ${filename} (${mb(blob.size)})` : "Übergeben.");
+    } catch (e) {
+      if (e && e.code) saveError(el, e);
+      else status(el, "ZIP konnte nicht erstellt werden. Bitte erneut versuchen.", true);
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  $("v-close").addEventListener("click", close);
+  $("v-prev").addEventListener("click", () => current > 0 && openFrame(current - 1));
+  $("v-next").addEventListener("click", () => current < flat.length - 1 && openFrame(current + 1));
+  $("v-save").addEventListener("click", saveCurrent);
+  document.addEventListener("keydown", e => {
+    if ($("viewer").hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowLeft" && current > 0) openFrame(current - 1);
+    else if (e.key === "ArrowRight" && current < flat.length - 1) openFrame(current + 1);
+  });
+
+  fetch("packs/index.json").then(r => r.json()).then(j => {
+    data = j;
+    render();
+    const all = data.occurrences;
+    $("zip-all").addEventListener("click", () => zip(all, "alors_on_danse_alle_frames.zip", $("zip-all"), $("status-all")));
+  }).catch(() => status($("status-all"), "Die Frame‑Liste konnte nicht geladen werden. Bitte die Seite neu laden.", true));
+</script>
