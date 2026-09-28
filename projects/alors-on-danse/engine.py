@@ -120,7 +120,7 @@ class VReader:
         elif mode == "blur":  # portrait clip on a blurred copy of itself
             fh = SH
             vf = (f"fps={FPS},split[a][b];[a]scale={SW}:-2,crop={SW}:{SH},"
-                  f"boxblur=24:3,eq=brightness=-0.10:saturation=0.85[bg];"
+                  f"boxblur=40:3,eq=brightness=-0.06:saturation=0.9[bg];"
                   f"[b]scale=-2:{fh}[fg];[bg][fg]overlay=(W-w)/2:0,setsar=1")
         elif mode == "tri":  # the same portrait clip three times side by side
             gap = int(10 * cfg.sc)

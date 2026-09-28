@@ -220,9 +220,9 @@ def shots():
     add(V("IMG_4148", 50.0, 4, look="warm", z0=1.1, z1=1.0))                   # bar 90
     add(V("IMG_4207", 0.3, 4, z0=1.0, z1=1.08))                                # bar 91
     add(V("IMG_4203", 0.5, 4, look="night", z0=1.08, z1=1.0))                  # bar 92
-    add(V("IMG_4130", 0.5, 4, look="night", ev=1.15, z0=1.0, z1=1.1))          # bar 93
-    add(V("IMG_4208", 0.5, 4, look="night", ev=1.15))                          # bar 94
-    add(V("IMG_4209", 10.0, 4, look="night", ev=1.3, z0=1.0, z1=1.12))         # bar 95
+    add(V("IMG_4130", 0.5, 4, look="night", ev=1.3, z0=1.0, z1=1.1))           # bar 93
+    add(V("IMG_4208", 0.5, 4, look="night", ev=1.25))                          # bar 94
+    add(V("IMG_4208", 3.2, 4, look="night", ev=1.25, z0=1.12, z1=1.0))         # bar 95
 
     # --- M  final chorus, bars 96-103: the last leg + recap strobe -----------
     add(V("IMG_4380", 0.5, 2, punch=0.2, flash=1.0, flash_tau=0.25, shake=22, look="warm"))
@@ -230,7 +230,7 @@ def shots():
     add(V("IMG_4393", 0.5, 2, punch=0.08))                                     # bar 97
     add(V("IMG_4407", 0.5, 2, punch=0.08))
     add(V("IMG_4424", 0.3, 4, z0=1.0, z1=1.1, look="warm"))                    # bar 98
-    add(V(NIGHT, 0.5, 4, mode="blur", look="night", z0=1.0, z1=1.08))          # bar 99
+    add(V(NIGHT, 3.3, 4, mode="blur", look="night", ev=1.35, z0=1.0, z1=1.08))          # bar 99
     add(V("IMG_4393", 2.2, 2, punch=0.08))                                     # bar 100
     add(V("IMG_4380", 3.5, 2, punch=0.08, look="warm"))
     ext(STROBE([                                                               # bars 101-103
@@ -259,12 +259,15 @@ def texts():
     T = []
     add = T.append
 
-    def kw(bar, w1, w2=None, pre1="qui dit", pre2="dit", side=0):
+    def kw(bar, w1, w2=None, pre1="qui dit", pre2="dit", side=0, pos2=None):
         if w1:
             add(dict(style="kw", b0=at(bar, 1), b1=at(bar, 3), word=w1, pre=pre1, side=side))
         if w2:
-            add(dict(style="kw", b0=at(bar, 3), b1=at(bar + 1, 1), word=w2, pre=pre2,
-                     side=1 - side if w1 else side))
+            ev = dict(style="kw", b0=at(bar, 3), b1=at(bar + 1, 1), word=w2, pre=pre2,
+                      side=1 - side if w1 else side)
+            if pos2:
+                ev["pos"] = pos2
+            add(ev)
 
     # intro title
     add(dict(style="track", b0=at(1, 0), b1=at(4, 0), text="alors on danse", sub="STROMAE"))
@@ -298,7 +301,7 @@ def texts():
     kw(19, "TOUJOURS", "DIVORCE", pre1="dit", side=0)
     kw(20, "PROCHES", "DEUILS", side=1)
     kw(22, "CRISE", "TIERS-MONDE", side=0)
-    kw(24, "FATIGUE", "RÉVEIL", side=1)
+    kw(24, "FATIGUE", "RÉVEIL", side=1, pos2=(0.5, 0.87), pre2="")  # keep the 6:17 visible
     add(dict(style="serif", b0=at(26, 1), b1=at(27, 2), words=["alors", "on", "sort"],
              beats=[0, 0.5, 1], size=150))
 

@@ -265,27 +265,35 @@ class Edit:
                 side = ev.get("side", 0)
                 cx = W * (0.36 if side == 0 else 0.64)
                 cy = H * (0.52 if side == 0 else 0.56)
+                if "pos" in ev:
+                    cx, cy = W * ev["pos"][0], H * ev["pos"][1]
                 s = fit * (1 + 0.35 * math.exp(-te / 0.06))
                 fade = E.clamp(tleft / 0.08)
                 E.blit(out, word_m, cx, cy, s, fade, shadow=0.45)
-                pre = ty.mask(ev["pre"], "serif_i", 84 * sc)
+                if not ev["pre"]:
+                    continue
+                pre = ty.mask(ev["pre"], "serif_i", 96 * sc)
                 pa = E.ease_out(te / 0.12) * fade
-                E.blit(out, pre, cx - word_m.shape[1] * fit / 2 + pre.shape[1] / 2,
-                       cy - word_m.shape[0] * fit / 2 - pre.shape[0] * 0.55, 1.0, pa, shadow=0.5)
+                E.blit(out, pre, cx - word_m.shape[1] * fit / 2 + pre.shape[1] / 2 + 6 * sc,
+                       cy - word_m.shape[0] * fit / 2 - pre.shape[0] * 0.5 - 14 * sc, 1.0, pa,
+                       shadow=0.6)
             elif st == "label":
                 n_chars = int(te * 26)
                 a = E.clamp(tleft / 0.25)
                 x0 = 96 * sc
+                y0 = H * 0.775
                 if ev["text"]:
                     txt = ev["text"][:n_chars]
                     if txt:
-                        m = ty.mask(txt, "mono_b", 46 * sc, tracking=14 * sc)
-                        E.blit(out, m, x0 + m.shape[1] / 2, H * 0.80, 1.0, a, shadow=0.6)
+                        m = ty.mask(txt, "mono_b", 60 * sc, tracking=16 * sc)
+                        E.blit(out, m, x0 + m.shape[1] / 2, y0, 1.0, a, shadow=0.7)
+                    y0 += 58 * sc
                 sub = ev["sub"][:max(0, n_chars - (len(ev["text"]) // 2))]
                 if sub:
-                    m2 = ty.mask("— " + sub, "mono", 26 * sc, tracking=6 * sc)
-                    E.blit(out, m2, x0 + m2.shape[1] / 2, H * 0.80 + (46 if ev["text"] else 0) * sc,
-                           1.0, a * 0.9, shadow=0.6)
+                    big = not ev["text"]
+                    m2 = ty.mask(("— " if not big else "") + sub, "mono_b" if big else "mono",
+                                 (40 if big else 32) * sc, tracking=(10 if big else 7) * sc)
+                    E.blit(out, m2, x0 + m2.shape[1] / 2, y0, 1.0, a * 0.95, shadow=0.7)
             elif st == "track":
                 dur = self.out_t(ev["b1"]) - self.out_t(ev["b0"])
                 u = E.ease_out(te / dur, 2)
@@ -339,8 +347,8 @@ class Edit:
                 n_chars = int(te * 16) + 1
                 txt = ev["text"][:n_chars]
                 cursor = "_" if int(te * 4) % 2 == 0 else " "
-                m = ty.mask(txt + cursor, "mono", 44 * sc, tracking=6 * sc)
-                full = ty.mask(ev["text"] + "_", "mono", 44 * sc, tracking=6 * sc)
+                m = ty.mask(txt + cursor, "mono_b", 58 * sc, tracking=8 * sc)
+                full = ty.mask(ev["text"] + "_", "mono_b", 58 * sc, tracking=8 * sc)
                 E.blit(out, m, W / 2 - full.shape[1] / 2 + m.shape[1] / 2, H * 0.5, 1.0,
                        E.clamp(tleft / 0.1), shadow=0.6)
 
