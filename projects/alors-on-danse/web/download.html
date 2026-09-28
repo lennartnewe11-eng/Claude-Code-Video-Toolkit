@@ -1,0 +1,203 @@
+<title>Alors on danse Download</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  /* Same screening-room look as the player: near-black ground, chalk-white type only. */
+  :root {
+    color-scheme: dark;
+    --ground: #0e0d0b;
+    --surface: #181612;
+    --line: #2b2822;
+    --text: #efeae0;
+    --muted: #8f887c;
+    --accent: #f4efe6;
+    --ink: #14120e;
+    --bad: #e8a08a;
+    --script: "Ballet", "Snell Roundhand", "Apple Chancery", cursive;
+    --mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  }
+  html, body { background: var(--ground); }
+  body {
+    color: var(--text);
+    font-family: var(--mono);
+    padding-inline: 16px;
+    padding-block: 28px 48px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  header { display: grid; gap: 6px; }
+  h1 {
+    margin: 0;
+    font-family: var(--script);
+    font-weight: 400;
+    font-size: clamp(52px, 11vw, 104px);
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  .credit { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+  .credit b { color: var(--text); font-weight: 700; }
+
+  .poster {
+    display: block; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+    border-radius: 4px; background: #000;
+  }
+
+  .file {
+    display: grid; gap: 18px;
+    border: 1px solid var(--line); border-radius: 4px; background: var(--surface);
+    padding: 20px;
+  }
+  .name { font-size: 15px; font-weight: 700; word-break: break-all; }
+  dl { margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px 20px; }
+  dt { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  dd { margin: 4px 0 0; font-size: 14px; font-variant-numeric: tabular-nums; }
+
+  button#get {
+    font: 700 15px/1 var(--mono); letter-spacing: .04em;
+    color: var(--ink); background: var(--accent);
+    border: 0; border-radius: 3px; padding: 16px 20px; cursor: pointer;
+    justify-self: start;
+  }
+  button#get:hover { filter: brightness(.94); }
+  button#get:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  button#get:disabled { opacity: .55; cursor: default; }
+
+  .progress { display: grid; gap: 8px; }
+  .bar { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .bar span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .2s linear; }
+  .status { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; min-height: 1.4em; }
+  .status.bad { color: var(--bad); }
+
+  .note { font-size: 12px; line-height: 1.6; color: var(--muted); max-width: 62ch; }
+  .note a { color: var(--text); }
+  @media (prefers-reduced-motion: reduce) { .bar span { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Alors on danse</h1>
+    <div class="credit"><b>Stromae</b> · Reise‑Edit · Download</div>
+  </header>
+
+  <img class="poster" src="poster.jpg" alt="Standbild aus dem Video: das Nationaltheater in Prag mit dem Schriftzug Alors on danse">
+
+  <section class="file" aria-label="Videodatei">
+    <div class="name" id="fname">Alors_on_danse_1080p.mp4</div>
+    <dl>
+      <div><dt>Auflösung</dt><dd>1920 × 1080</dd></div>
+      <div><dt>Bildrate</dt><dd>30 fps</dd></div>
+      <div><dt>Länge</dt><dd id="dur">3:35</dd></div>
+      <div><dt>Video</dt><dd id="vcodec">H.264 · 8,6 Mbit/s</dd></div>
+      <div><dt>Ton</dt><dd>AAC · 320 kbit/s</dd></div>
+      <div><dt>Größe</dt><dd id="fsize">241 MB</dd></div>
+    </dl>
+    <button id="get" type="button">Video herunterladen</button>
+    <div class="progress" id="progress" hidden>
+      <div class="bar"><span id="barfill"></span></div>
+    </div>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+
+  <p class="note">
+    Die Datei wird in Teilen geladen und im Browser zu einer MP4 zusammengesetzt. Danach fragt Claude, ob du sie speichern willst.
+    Auf dem iPhone öffnet sich das Teilen‑Menü, dort „In Dateien sichern“ oder „Video sichern“ wählen.
+    Zum Ansehen im Browser: <a href="https://claude.ai/artifact/XpcB51LvqFhNsUsiKRg8Ha" target="_blank" rel="noopener">Player</a>.
+  </p>
+</div>
+
+<script>
+  const btn = document.getElementById("get");
+  const statusEl = document.getElementById("status");
+  const progress = document.getElementById("progress");
+  const barfill = document.getElementById("barfill");
+  const fsize = document.getElementById("fsize");
+  // decimal MB, as Finder, iOS Files and Windows Explorer's "Größe" show it
+  const mb = n => (n / 1e6).toLocaleString("de-DE", { maximumFractionDigits: 0 }) + " MB";
+  let manifest = null;
+  let blob = null;          // kept after a declined save, so a retry does not reload
+  let downloads = null;
+
+  function say(text, bad) {
+    statusEl.textContent = text;
+    statusEl.classList.toggle("bad", !!bad);
+  }
+
+  async function loadManifest() {
+    if (manifest) return manifest;
+    const r = await fetch("parts/manifest.json", { cache: "no-store" });
+    if (!r.ok) throw new Error("manifest " + r.status);
+    manifest = await r.json();
+    fsize.textContent = mb(manifest.size);
+    document.getElementById("fname").textContent = manifest.filename;
+    return manifest;
+  }
+  loadManifest().catch(() => {});
+
+  // The downloads capability arrives asynchronously; the button works either way
+  // and explains itself if this view cannot save files.
+  (async () => {
+    try { downloads = await window.claude?.use?.("downloads"); } catch (e) { downloads = null; }
+  })();
+
+  async function assemble(m) {
+    const chunks = [];
+    let done = 0;
+    progress.hidden = false;
+    for (let i = 0; i < m.parts.length; i++) {
+      const p = m.parts[i];
+      say(`Lade Teil ${i + 1} von ${m.parts.length} · ${mb(done)} von ${mb(m.size)}`);
+      let buf = null;
+      for (let attempt = 0; attempt < 3 && !buf; attempt++) {
+        try {
+          const r = await fetch("parts/" + p.name, { cache: "no-store" });
+          if (!r.ok) throw new Error(String(r.status));
+          buf = await r.arrayBuffer();
+        } catch (e) {
+          if (attempt === 2) throw new Error("Teil " + (i + 1) + " konnte nicht geladen werden");
+          await new Promise(res => setTimeout(res, 1200 * (attempt + 1)));
+        }
+      }
+      if (buf.byteLength !== p.size) throw new Error("Teil " + (i + 1) + " ist unvollständig");
+      chunks.push(buf);
+      done += buf.byteLength;
+      barfill.style.width = (100 * done / m.size).toFixed(1) + "%";
+    }
+    if (done !== m.size) throw new Error("Gesamtgröße stimmt nicht");
+    return new Blob(chunks, { type: "video/mp4" });
+  }
+
+  async function save() {
+    if (!downloads) {
+      try { downloads = await window.claude?.use?.("downloads"); } catch (e) { downloads = null; }
+    }
+    if (!downloads) {
+      say("Speichern ist in dieser Ansicht nicht möglich. Öffne die Seite in der Claude‑App oder auf claude.ai.", true);
+      return;
+    }
+    try {
+      say("Fertig zusammengesetzt. Bitte das Speichern bestätigen.");
+      const res = await downloads.save({ filename: manifest.filename, data: blob });
+      say(res.status === "saved" ? "Gespeichert: " + manifest.filename + " (" + mb(manifest.size) + ")." : "Übergeben.");
+    } catch (e) {
+      const code = e && e.code;
+      if (code === "declined") say("Speichern abgebrochen. Ein erneuter Klick speichert ohne neues Laden.");
+      else if (code === "rate_limited") say("Es ist bereits ein Speichern‑Dialog offen. Bitte kurz warten und erneut klicken.");
+      else if (code === "too_large") say("Die Datei ist für diese App zu groß. Bitte im Browser auf claude.ai herunterladen.", true);
+      else say("Speichern ist hier nicht möglich (" + (code || "unbekannt") + "). Bitte im Browser auf claude.ai versuchen.", true);
+    }
+  }
+
+  btn.addEventListener("click", async () => {
+    btn.disabled = true;
+    try {
+      const m = await loadManifest();
+      if (!blob) blob = await assemble(m);
+      btn.textContent = "Erneut speichern";
+      await save();
+    } catch (e) {
+      say("Download fehlgeschlagen: " + e.message + ". Bitte erneut versuchen.", true);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>

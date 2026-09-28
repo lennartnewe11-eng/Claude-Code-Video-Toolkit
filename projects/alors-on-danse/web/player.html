@@ -97,6 +97,8 @@
 
   .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
   .facts b { color: var(--text); font-weight: 400; font-variant-numeric: tabular-nums; }
+  .facts a.dl { margin-left: auto; color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+  .facts a.dl:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   @media (max-width: 560px) { .strip button { font-size: 0; padding: 0; } }
   @media (prefers-reduced-motion: reduce) { .playhead { transition: none; } }
 </style>
@@ -124,6 +126,7 @@
     <span><b>117,6</b> BPM</span>
     <span><b>106</b> Takte</span>
     <span><b>182</b> Schnitte auf dem Beat</span>
+    <a class="dl" href="https://claude.ai/artifact/WM9xc81wjvVDm8ZJR5sRC1" target="_blank" rel="noopener">MP4 in 1080p herunterladen →</a>
   </div>
 </div>
 

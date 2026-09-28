@@ -62,3 +62,19 @@ the two portrait clips and the song recording); it is not part of the repo.
 stream (1080p + 720p, 4 s fMP4 segments, playlists named `.txt` so the
 artifact host serves them) plus a poster; `web/player.html` plays it with
 hls.js and shows the song structure as clickable chapters.
+
+## Download page
+
+The master is re-encoded for download (H.264 High, 2-pass, 8.6 Mbit/s, AAC
+320 kbit/s, faststart; about 241 MB, under the artifact's 256 MB limit):
+
+```bash
+ffmpeg -i master.mp4 -c:v libx264 -preset slow -b:v 8600k -maxrate 16000k -bufsize 24000k \
+  -x264-params aq-mode=3 -pass 1 -an -f mp4 /dev/null
+ffmpeg -i master.mp4 -c:v libx264 -preset slow -b:v 8600k -maxrate 16000k -bufsize 24000k \
+  -x264-params aq-mode=3 -pass 2 -c:a aac -b:a 320k -movflags +faststart Alors_on_danse_1080p.mp4
+python3 web/make_download_parts.py Alors_on_danse_1080p.mp4 OUTDIR
+```
+
+`web/download.html` (published with the `downloads` capability) joins the
+parts back into the original file and offers it to the viewer's save dialog.
