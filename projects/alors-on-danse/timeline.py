@@ -230,7 +230,9 @@ def shots():
     add(V("IMG_4393", 0.5, 2, punch=0.08))                                     # bar 97
     add(V("IMG_4407", 0.5, 2, punch=0.08))
     add(V("IMG_4424", 0.3, 4, z0=1.0, z1=1.1, look="warm"))                    # bar 98
-    add(V(NIGHT, 3.3, 4, mode="blur", look="night", ev=1.35, z0=1.0, z1=1.08))          # bar 99
+    # portrait clip cropped to full 16:9 (no blurred sides); the camera tilts up
+    # from the street to the skyline, fy=0.65 keeps buildings in frame throughout
+    add(V(NIGHT, 3.3, 4, mode="fill", fy=0.65, look="night", ev=1.35, z0=1.0, z1=1.08))  # bar 99
     add(V("IMG_4393", 2.2, 2, punch=0.08))                                     # bar 100
     add(V("IMG_4380", 3.5, 2, punch=0.08, look="warm"))
     ext(STROBE([                                                               # bars 101-103

@@ -115,7 +115,8 @@ class Edit:
                 self.readers.pop(k).close()
             ts = [self.src_time(s, f / FPS) for f in range(s["F1"] - s["F0"] + 1)]
             nfr = int(max(ts) * FPS) + 4
-            self.readers[idx] = E.VReader(self.cfg, s["src"], s["t"], nfr, s.get("mode", "land"))
+            self.readers[idx] = E.VReader(self.cfg, s["src"], s["t"], nfr, s.get("mode", "land"),
+                                          s.get("fy", 0.5))
         return self.readers[idx]
 
     def photo(self, s):

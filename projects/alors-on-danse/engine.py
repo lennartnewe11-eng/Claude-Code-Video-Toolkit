@@ -112,11 +112,14 @@ def build_panels(cfg, imgs, focus=None, gap=None):
 class VReader:
     """Streams decoded frames of one shot from ffmpeg (sequential access)."""
 
-    def __init__(self, cfg, name, t_in, nframes, mode="land"):
+    def __init__(self, cfg, name, t_in, nframes, mode="land", fy=0.5):
         self.cfg = cfg
         SW, SH = cfg.SW, cfg.SH
         if mode == "land":
             vf = f"fps={FPS},scale={SW}:{SH}:flags=bicubic,setsar=1"
+        elif mode == "fill":  # portrait clip cropped to fill 16:9; fy = vertical focus
+            vf = (f"fps={FPS},scale={SW}:-2:flags=lanczos,"
+                  f"crop={SW}:{SH}:0:(ih-{SH})*{fy:.3f},setsar=1")
         elif mode == "blur":  # portrait clip on a blurred copy of itself
             fh = SH
             vf = (f"fps={FPS},split[a][b];[a]scale={SW}:-2,crop={SW}:{SH},"
