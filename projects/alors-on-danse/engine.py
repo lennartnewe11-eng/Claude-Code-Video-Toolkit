@@ -305,16 +305,26 @@ def blit(out, m, cx, cy, scale=1.0, alpha=1.0, color=(255, 255, 255), mode="norm
         M[0, 2] += nw / 2 - w / 2
         M[1, 2] += nh / 2 - h / 2
         m = cv2.warpAffine(m, M, (nw, nh), flags=cv2.INTER_LINEAR)
+    sigma = max(1.0, m.shape[0] * 0.04)
+    if shadow > 0:
+        # give the soft shadow room to fade out completely: without this margin
+        # it is cut off at the mask's bounding box and shows as a faint box
+        pad = int(3 * sigma) + 2
+        m = np.pad(m, pad)
     H, W = out.shape[:2]
     h, w = m.shape
     x0, y0 = int(round(cx - w / 2)), int(round(cy - h / 2))
     xa, ya, xb, yb = max(0, x0), max(0, y0), min(W, x0 + w), min(H, y0 + h)
     if xa >= xb or ya >= yb:
         return
+    if shadow > 0:
+        # blur the whole padded mask (zero border) before clipping to the frame,
+        # so the shadow of text past the frame edge still fades correctly
+        sh_full = cv2.GaussianBlur(m, (0, 0), sigma, borderType=cv2.BORDER_CONSTANT)
+        sh = sh_full[ya - y0:yb - y0, xa - x0:xb - x0] * alpha
     mm = m[ya - y0:yb - y0, xa - x0:xb - x0] * alpha
     roi = out[ya:yb, xa:xb].astype(np.float32)
     if shadow > 0:
-        sh = cv2.GaussianBlur(mm, (0, 0), max(1.0, h * 0.04))
         roi *= (1 - sh * shadow)[..., None]
     a = mm[..., None]
     if mode == "diff":
@@ -322,4 +332,6 @@ def blit(out, m, cx, cy, scale=1.0, alpha=1.0, color=(255, 255, 255), mode="norm
     else:
         col = np.array(color, np.float32)[::-1]
         roi = roi * (1 - a) + col * a
-    out[ya:yb, xa:xb] = np.clip(roi, 0, 255).astype(np.uint8)
+    # round, don't truncate: truncation darkens every pixel the shadow touches,
+    # however faintly, by a full level and outlines the blur kernel as a box
+    out[ya:yb, xa:xb] = np.clip(np.rint(roi), 0, 255).astype(np.uint8)
