@@ -252,116 +252,126 @@ CHECKPOINTS = [0, 4, 8, 12, 28, 45, 48, 56, 64, 70, 72, 87, 96, 104, 106]
 
 
 # ----------------------------------------------------------------------------
-# typography (French lyric fragments + trip labels)
+# typography: French lyric fragments, pushed into corners and cut by the frame
+# edge; yellow ("y") is the highlight colour that runs through the whole edit
+# ("DANSE" is always yellow).
 # ----------------------------------------------------------------------------
 
 def texts():
     T = []
     add = T.append
 
-    def kw(bar, w1, w2=None, pre1="qui dit", pre2="dit", side=0, pos2=None):
+    def word(b0, b1, text, anchor, size, bleed=(0.0, 0.0), color="w", mode="normal", **kw):
+        add(dict(style="word", b0=b0, b1=b1, text=text, anchor=anchor, size=size,
+                 bleed=bleed, color=color, mode=mode, **kw))
+
+    def kw(bar, w1, w2=None, a1="bl", a2="tr", c1="w", c2="w", m1="normal", m2="normal",
+           pre1="qui dit", pre2="dit"):
         if w1:
-            add(dict(style="kw", b0=at(bar, 1), b1=at(bar, 3), word=w1, pre=pre1, side=side))
+            add(dict(style="kw", b0=at(bar, 1), b1=at(bar, 3), word=w1, pre=pre1,
+                     anchor=a1, color=c1, mode=m1))
         if w2:
-            ev = dict(style="kw", b0=at(bar, 3), b1=at(bar + 1, 1), word=w2, pre=pre2,
-                      side=1 - side if w1 else side)
-            if pos2:
-                ev["pos"] = pos2
-            add(ev)
+            add(dict(style="kw", b0=at(bar, 3), b1=at(bar + 1, 1), word=w2, pre=pre2,
+                     anchor=a2, color=c2, mode=m2))
 
-    # intro title
-    add(dict(style="track", b0=at(1, 0), b1=at(4, 0), text="alors on danse", sub="STROMAE"))
-    # labels
-    add(dict(style="label", b0=at(4, 0), b1=at(6, 0), text="PRAHA", sub="04.08.2026"))
-    add(dict(style="label", b0=at(26, 0), b1=at(28, 0), text="WIEN", sub="07.08.2026"))
-    add(dict(style="label", b0=at(33, 0), b1=at(35, 0), text="BUDAPEST", sub="09.08.2026"))
-    add(dict(style="label", b0=at(45, 0), b1=at(47, 0), text="", sub="12.08.2026"))
-    add(dict(style="label", b0=at(52, 0), b1=at(54, 0), text="BLED", sub="15.08.2026"))
-    add(dict(style="label", b0=at(58, 0), b1=at(60, 0), text="HRVATSKA", sub="15.08.2026"))
-    add(dict(style="label", b0=at(74, 0), b1=at(76, 0), text="", sub="17.08.2026"))
-    add(dict(style="label", b0=at(97, 0), b1=at(99, 0), text="", sub="06.09.2026"))
+    def hook(bar, a=("tl", "r", "bl"), diff=False):
+        """ALORS / ON / DANSE, one word per beat, each in its own corner."""
+        end = at(bar + 1)
+        word(at(bar, 0), end, "ALORS", a[0], 350, (0.07, 0.2), mode="diff" if diff else "normal")
+        word(at(bar, 1), end, "ON", a[1], 300, (0.2, 0.0), mode="diff" if diff else "normal")
+        word(at(bar, 2), end, "DANSE", a[2], 430, (0.05, 0.27), color="y")
 
-    # "alors on danse" x4 (bars 8-11): four different treatments
-    for i, w in enumerate(("ALORS", "ON", "DANSE")):
-        add(dict(style="slam", b0=at(8, i), b1=at(8, i + 1) if i < 2 else at(9, 0), text=w))
+    # intro title (inside the letterbox picture, lower left)
+    add(dict(style="track", b0=at(1, 0), b1=at(4, 0), text="alors on danse", hl=[2],
+             sub="STROMAE", anchor="bl"))
+
+    # "alors on danse" x4 (bars 8-11)
+    hook(8)
     add(dict(style="serif", b0=at(9, 0), b1=at(10, 0), words=["alors", "on", "danse"],
-             beats=[0, 1, 2], size=170))
+             beats=[0, 1, 2], hl=[2], size=170, anchor="br"))
     add(dict(style="stack", b0=at(10, 0), b1=at(11, 0), lines=["ALORS", "ON", "DANSE"],
-             beats=[0, 1, 2], mode="outline"))
+             beats=[0, 1, 2], align="l", bleed_x=0.06, y0=-0.07, lh=0.36,
+             modes=["outline", "outline", "solid"], colors=["w", "w", "y"]))
     add(dict(style="stack", b0=at(11, 0), b1=at(12, 0), lines=["DANSE", "DANSE", "DANSE"],
-             beats=[0, 1, 2], mode="mixed"))
+             beats=[0, 1, 2], align="r", bleed_x=0.14, y0=-0.12, lh=0.40,
+             modes=["outline", "solid", "outline"], colors=["w", "y", "w"]))
 
-    # verse 1 keywords ("qui dit X dit Y")
-    kw(12, "ÉTUDE", "TRAVAIL", side=0)
-    kw(13, None, "LES THUNES", pre2="te dit", side=1)
-    kw(14, "ARGENT", "DÉPENSES", side=0)
-    kw(15, "CRÉDIT", "CRÉANCE", side=1)
-    kw(16, "DETTE", "HUISSIER", side=0)
-    kw(18, "AMOUR", "LES GOSSES", side=1)
-    kw(19, "TOUJOURS", "DIVORCE", pre1="dit", side=0)
-    kw(20, "PROCHES", "DEUILS", side=1)
-    kw(22, "CRISE", "TIERS-MONDE", side=0)
-    kw(24, "FATIGUE", "RÉVEIL", side=1, pos2=(0.5, 0.87), pre2="")  # keep the 6:17 visible
+    # verse 1: "qui dit X dit Y" keywords, alternating corners
+    kw(12, "ÉTUDE", "TRAVAIL", "bl", "tr")
+    kw(13, None, "LES THUNES", a2="br", c2="y", pre2="te dit")
+    kw(14, "ARGENT", "DÉPENSES", "tl", "br", m1="marker")
+    kw(15, "CRÉDIT", "CRÉANCE", "bl", "tr")
+    kw(16, "DETTE", "HUISSIER", "tl", "br")
+    kw(18, "AMOUR", "LES GOSSES", "bl", "tr", c1="y")
+    kw(19, "TOUJOURS", "DIVORCE", "tl", "br", pre1="dit")
+    kw(20, "PROCHES", "DEUILS", "bl", "tr")
+    kw(22, "CRISE", "TIERS-MONDE", "tl", "br", c2="y")
+    kw(24, "FATIGUE", "RÉVEIL", "tr", "bl", m2="marker", pre2="")   # clock stays readable
     add(dict(style="serif", b0=at(26, 1), b1=at(27, 2), words=["alors", "on", "sort"],
-             beats=[0, 0.5, 1], size=150))
+             beats=[0, 0.5, 1], size=150, anchor="tl"))
 
     # DROP 1 + chorus 1
     add(dict(style="stack", b0=at(28, 0), b1=at(29, 0), lines=["ALORS", "ON", "DANSE"],
-             beats=[0, 0, 0], mode="diff", big=True))
-    add(dict(style="serif", b0=at(32, 0), b1=at(33, 0), words=["alors on danse"],
-             beats=[0], size=130, y=0.78))
-    add(dict(style="pulse", b0=at(36, 0), b1=at(37, 0), text="DANSE"))
-    for i, w in enumerate(("ALORS", "ON", "DANSE")):
-        add(dict(style="slam", b0=at(40, i), b1=at(40, i + 1) if i < 2 else at(41, 0), text=w))
+             beats=[0, 0, 0], align="l", bleed_x=0.04, y0=-0.07, lh=0.41,
+             modes=["diff", "diff", "solid"], colors=["w", "w", "y"]))
+    add(dict(style="serif", b0=at(32, 0), b1=at(33, 0), words=["alors", "on", "danse"],
+             beats=[0, 0, 0], hl=[2], size=130, anchor="br"))
+    add(dict(style="pulse", b0=at(36, 0), b1=at(37, 0), text="DANSE", anchor="b",
+             bleed=(0, 0.36), size=560, color="y"))
+    hook(40, ("tr", "l", "br"))
 
     # "c'est fini" + break
     add(dict(style="serif", b0=at(44, 1), b1=at(45, 3), words=["c'est", "fini"],
-             beats=[0, 1], size=150))
+             beats=[0, 1], size=150, anchor="tl"))
 
     # verse 2
-    add(dict(style="slam", b0=at(48, 1), b1=at(49, 1), text="LA MUSIQUE", size=230))
-    add(dict(style="slam", b0=at(49, 2), b1=at(50, 1), text="LES PROBLÈMES", size=210))
-    add(dict(style="slam", b0=at(54, 1), b1=at(55, 0), text="PLUS FORT", size=300, shake=True))
+    word(at(48, 1), at(49, 1), "LA MUSIQUE", "bl", 250, (0.08, 0.2))
+    word(at(49, 2), at(50, 1), "LES PROBLÈMES", "tr", 230, (0.1, 0.2))
+    word(at(54, 1), at(55, 0), "PLUS FORT", "br", 330, (0.08, 0.22), color="y", shake=True)
 
     # "la la la"
     add(dict(style="serif", b0=at(56, 0), b1=at(57, 0), words=["alors", "on", "chante"],
-             beats=[0, 1, 2], size=160))
+             beats=[0, 1, 2], size=160, anchor="tr"))
     add(dict(style="scatter", b0=at(57, 0), b1=at(59, 0), text="la", seed=3))
     add(dict(style="serif", b0=at(60, 0), b1=at(61, 0), words=["alors", "on", "chante"],
-             beats=[0, 1, 2], size=160))
+             beats=[0, 1, 2], size=160, anchor="bl"))
     add(dict(style="scatter", b0=at(61, 0), b1=at(63, 0), text="la", seed=11))
     add(dict(style="stack", b0=at(64, 0), b1=at(65, 0), lines=["ALORS", "ON", "CHANTE"],
-             beats=[0, 1, 2], mode="outline"))
-    add(dict(style="serif", b0=at(68, 0), b1=at(69, 0), words=["alors on chante"],
-             beats=[0], size=130, y=0.78))
+             beats=[0, 1, 2], align="r", bleed_x=0.1, y0=-0.05, lh=0.37,
+             modes=["outline", "outline", "solid"], colors=["w", "w", "y"]))
+    add(dict(style="serif", b0=at(68, 0), b1=at(69, 0), words=["alors", "on", "chante"],
+             beats=[0, 0, 0], size=130, anchor="bl"))
 
     # pre-drop: typewriter, then the drop
-    add(dict(style="type", b0=at(70, 1), b1=at(71, 1.2), text="quand c'est fini"))
+    add(dict(style="type", b0=at(70, 1), b1=at(71, 1.2), text="quand c'est fini", anchor="bl"))
     add(dict(style="serif", b0=at(71, 2.6), b1=at(72, 0), words=["alors..."], beats=[0],
-             size=150))
+             size=150, anchor="tr"))
     add(dict(style="stack", b0=at(72, 0), b1=at(73, 0), lines=["ALORS", "ON", "DANSE"],
-             beats=[0, 0, 0], mode="diff", big=True))
-    add(dict(style="serif", b0=at(76, 0), b1=at(77, 0), words=["alors on danse"],
-             beats=[0], size=130, y=0.78))
-    for i, w in enumerate(("ALORS", "ON", "DANSE")):
-        add(dict(style="slam", b0=at(80, i), b1=at(80, i + 1) if i < 2 else at(81, 0), text=w))
-    add(dict(style="pulse", b0=at(84, 0), b1=at(85, 0), text="DANSE"))
+             beats=[0, 0, 0], align="r", bleed_x=0.05, y0=-0.1, lh=0.41,
+             modes=["diff", "diff", "solid"], colors=["w", "w", "y"]))
+    add(dict(style="serif", b0=at(76, 0), b1=at(77, 0), words=["alors", "on", "danse"],
+             beats=[0, 0, 0], hl=[2], size=130, anchor="bl"))
+    hook(80, ("tl", "r", "b"))
+    add(dict(style="pulse", b0=at(84, 0), b1=at(85, 0), text="DANSE", anchor="t",
+             bleed=(0, 0.36), size=560, color="y"))
 
     # breakdown
-    add(dict(style="echo", b0=at(88, 0), b1=at(90, 0), text="ENCORE"))
-    add(dict(style="echo", b0=at(92, 0), b1=at(94, 0), text="ENCORE"))
+    add(dict(style="echo", b0=at(88, 0), b1=at(90, 0), text="ENCORE", anchor="bl",
+             bleed=(0.06, 0.08)))
+    add(dict(style="echo", b0=at(92, 0), b1=at(94, 0), text="ENCORE", anchor="tr",
+             bleed=(0.06, 0.08)))
 
     # final chorus
     add(dict(style="stack", b0=at(96, 0), b1=at(97, 0), lines=["ALORS", "ON", "DANSE"],
-             beats=[0, 0, 0], mode="diff", big=True))
-    add(dict(style="serif", b0=at(100, 0), b1=at(101, 0), words=["alors on danse"],
-             beats=[0], size=130, y=0.78))
-    for i, w in enumerate(("ALORS", "ON", "DANSE")):
-        add(dict(style="slam", b0=at(103, i), b1=at(103, i + 1) if i < 2 else at(104, 0),
-                 text=w, mode="diff"))
+             beats=[0, 0, 0], align="l", bleed_x=0.04, y0=-0.12, lh=0.42,
+             modes=["diff", "diff", "solid"], colors=["w", "w", "y"]))
+    add(dict(style="serif", b0=at(100, 0), b1=at(101, 0), words=["alors", "on", "danse"],
+             beats=[0, 0, 0], hl=[2], size=130, anchor="tr"))
+    hook(103, ("tl", "r", "bl"), diff=True)
 
     # outro
-    add(dict(style="track", b0=at(104, 1), b1=at(106, 1), text="alors on danse", sub="STROMAE"))
+    add(dict(style="track", b0=at(104, 1), b1=at(106, 1), text="alors on danse", hl=[2],
+             sub="STROMAE", anchor="br"))
     return T
 
 
