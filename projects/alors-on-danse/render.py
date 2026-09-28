@@ -17,6 +17,7 @@ import numpy as np
 
 import engine as E
 import timeline as TL
+import typography as TY
 
 FPS = E.FPS
 
@@ -27,7 +28,7 @@ class Edit:
         self.BT = np.array(TL.load_beats(), float)
         self.T0 = self.BT[3]
         self.shots = TL.shots()
-        self.texts = TL.texts()
+        self.texts = TY.texts()
         self.blinks = TL.blinks()
         # --- place shots on the beat grid
         cur = TL.at(0)
@@ -219,6 +220,40 @@ class Edit:
             cy = y * H
         return cx, cy
 
+    def layout(self, ev, lb):
+        """Place a phrase: one line, or a staggered stack (each word a step lower
+        and further in), anchored as a whole against a corner of the picture."""
+        mode = ev.get("layout")
+        if mode not in ("line", "stack"):
+            return ev["words"]
+        sc = self.cfg.sc
+        masks = [self.typo.mask(w["text"], w.get("size", 260) * sc) for w in ev["words"]]
+        sizes = [w.get("size", 260) * sc for w in ev["words"]]
+        boxes = []  # (x_left, y_centre, w, h) relative to the phrase origin
+        if mode == "line":
+            x = 0.0
+            for m, s in zip(masks, sizes):
+                boxes.append((x, 0.0, m.shape[1], m.shape[0]))
+                x += m.shape[1] + 0.10 * s
+        else:
+            indent = 0.55 * max(sizes)
+            y = 0.0
+            for i, (m, s) in enumerate(zip(masks, sizes)):
+                boxes.append((i * indent, y, m.shape[1], m.shape[0]))
+                y += 0.62 * s
+        left = min(b[0] for b in boxes)
+        right = max(b[0] + b[2] for b in boxes)
+        top = min(b[1] - b[3] / 2 for b in boxes)
+        bottom = max(b[1] + b[3] / 2 for b in boxes)
+        cx, cy = self.anchor_xy(right - left, bottom - top, ev.get("anchor", "bl"),
+                                ev.get("bleed", (0, 0)), lb)
+        ox = cx - (right - left) / 2 - left
+        oy = cy - (bottom - top) / 2 - top
+        placed = []
+        for w, (x, yc, bw, bh) in zip(ev["words"], boxes):
+            placed.append(dict(w, pos=(ox + x + bw / 2, oy + yc)))
+        return placed
+
     def draw_script_word(self, out, wd, t_song, t1, lb):
         sc = self.cfg.sc
         dt = t_song - wd["t"]
@@ -226,8 +261,11 @@ class Edit:
             return
         m = self.typo.mask(wd["text"], wd.get("size", 260) * sc)
         h, w = m.shape
-        cx, cy = self.anchor_xy(w, h, wd.get("anchor", "c"), wd.get("bleed", (0, 0)), lb,
-                                y=wd.get("y", 0.5), x=wd.get("x", 0.5))
+        if "pos" in wd:
+            cx, cy = wd["pos"]
+        else:
+            cx, cy = self.anchor_xy(w, h, wd.get("anchor", "c"), wd.get("bleed", (0, 0)), lb,
+                                    y=wd.get("y", 0.5), x=wd.get("x", 0.5))
         d = max(0.12, wd.get("d", 0.3))
         p = E.clamp(dt / d)
         wipe = E.ease_out(p, 2.0)
@@ -255,7 +293,7 @@ class Edit:
             if not (ev["t0"] <= t_song < ev["t1"]):
                 continue
             if ev["style"] == "script":
-                for wd in ev["words"]:
+                for wd in self.layout(ev, lb):
                     self.draw_script_word(out, wd, t_song, ev["t1"], lb)
             elif ev["style"] == "scatter":
                 rng = np.random.default_rng(ev.get("seed", 0))

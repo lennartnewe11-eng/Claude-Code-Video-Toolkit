@@ -269,6 +269,9 @@ class Typo:
         ys, xs = np.nonzero(m > 0.01)
         if len(xs):
             m = m[max(0, ys.min() - 4):ys.max() + 5, max(0, xs.min() - 4):xs.max() + 5]
+        if size >= 60:  # a slightly heavier nib so hairlines survive on moving footage
+            k = max(2, int(round(size / 110)))
+            m = cv2.dilate(m, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k)))
         if texture:
             m = crayon(m, seed=sum(map(ord, text)) + size, sc=size / 300.0)
         self.cache[key] = np.ascontiguousarray(m)

@@ -34,7 +34,12 @@ the song's beat grid.
    The render is split into chunks rendered in parallel and concatenated;
    the song is muxed (+5 dB, limited, faded).
 
-Fonts (OFL): Anton, Instrument Serif, Space Mono — in `fonts/`.
+**Lyrics** (`typography.py`, `lyric_timing.json`): one white calligraphic
+script (Ballet, OFL, in `fonts/`) with a crayon texture. Each word appears
+exactly while it is sung and is written on over its sung duration. The timing
+comes from `tools/lyric_timing.py`: Demucs isolates the vocals, faster-whisper
+(large-v3) gives word timestamps, and every start is snapped to the nearest
+vocal onset. Only the displayed fragments are stored, not the full lyrics.
 
 ## Render
 
