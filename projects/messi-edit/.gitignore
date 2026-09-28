@@ -8,3 +8,5 @@ build/frames/
 build/*.jpg
 !build/contact_sheet.jpg
 __pycache__/
+build/x264pass*
+build/deliver.json

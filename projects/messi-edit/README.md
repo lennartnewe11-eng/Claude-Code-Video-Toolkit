@@ -36,6 +36,7 @@ python3 audio.py                                   # build/music.wav
 python3 render.py                                  # build/messi_edit_master.mp4
 python3 review.py 0-21 build/rv.jpg                # framegenaue Durchsicht
 python3 shotliste.py > SHOTLISTE.md
+python3 deliver.py --mb 48                         # Master + Lieferfassung, Sync-Prüfung
 ```
 
 `media/` (Footage, Song, Fonts) liegt nicht im Repo.
@@ -49,6 +50,7 @@ python3 shotliste.py > SHOTLISTE.md
 | `render.py` | Bänder, Grades, FX, Grid-Anordnungen, Labels; Chunks je Shot |
 | `review.py`, `contact.py` | Kontrollbögen aus den gerenderten Chunks |
 | `fetch.py` | Quellen (Archive-Items, Zeitstempel) |
+| `deliver.py` | Master (CRF) und Lieferfassung (2-Pass auf Zielgröße), Prüfung am fertigen File |
 
 ## Neu gemessen
 
@@ -61,3 +63,9 @@ python3 shotliste.py > SHOTLISTE.md
   0,5–0,75 s daneben; 20 In-Punkte zeigten dadurch Vorgänger-Szenen. Seitdem
   werden Frames per Index gezogen und jeder Shot aus dem gerenderten Chunk
   geprüft (`review.py`).
+- **Der Vorlauf fehlte im Bild.** Beat 0 liegt 0,4 s nach Songbeginn; gerendert
+  wurde erst ab Beat 0, das Bild lief also 20 Frames vor der Musik. Aufgefallen
+  nur, weil die Framezahl des Masters gegen die Erwartung geprüft wurde. Jetzt
+  verlangt `render.check()` lückenlose Abdeckung ab Frame 0, und `deliver.py`
+  misst den Sync am fertigen File (Weißblitz im Bild gegen Jubel im Ton am
+  Refrain-Einsatz).

@@ -4,7 +4,7 @@ Automatisch aus `edl.py` erzeugt. 86 Shots, 231 Ausgabe-Beats, 85.96 s, 4298 Fra
 
 | # | Beats | Zeit | Art | Band | Grade | Quelle @ In | FX | Label |
 |--:|------:|-----:|-----|------|-------|-------------|----|-------|
-| 0 | 0–4 | 0.40 | single | box43 | faded | ballondor09_11 @2.20 | grain_heavy, drift | 1995 |
+| 0 | 0–4 | 0.00 | single | box43 | faded | ballondor09_11 @2.20 | grain_heavy, drift | 1995 |
 | 1 | 4–8 | 1.93 | single | square | faded | lamasia @62.60 | grain_heavy, drift |  |
 | 2 | 8–12 | 3.55 | single | box43 | faded | lamasia @51.50 | grain, push |  |
 | 3 | 12–16 | 5.16 | single | wide | faded | lamasia @193.00 | grain, zoom_in | 2005 |

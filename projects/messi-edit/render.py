@@ -284,7 +284,10 @@ def resolve():
         k0, k1 = s['k']
         f0 = tl.kf(k0)
         f1 = tl.NFRAMES if k1 is None else tl.kf(k1)
-        s.update(i=i, f0=f0, f1=f1, t0=tl.kt(k0), t1=(tl.TOTAL if k1 is None else tl.kt(k1)))
+        t0 = tl.kt(k0)
+        if i == 0:                   # Vorlauf vor Beat 0 gehört zum ersten Shot (Einblendung)
+            f0, t0 = 0, 0.0
+        s.update(i=i, f0=f0, f1=f1, t0=t0, t1=(tl.TOTAL if k1 is None else tl.kt(k1)))
         dur = s['t1'] - s['t0']
         clips = []
         for c in s['clips']:
@@ -302,6 +305,8 @@ def resolve():
 def check(shots):
     """Plausibilität: lückenlos, Quelllängen reichen, Band wechselt (mit Begründung)."""
     ok = True
+    if shots[0]['f0'] != 0 or shots[-1]['f1'] != tl.NFRAMES:
+        print('ABDECKUNG', shots[0]['f0'], shots[-1]['f1'], tl.NFRAMES); ok = False
     for a, b in zip(shots, shots[1:]):
         if a['f1'] != b['f0']:
             print('LÜCKE', a['i'], b['i']); ok = False
@@ -450,6 +455,8 @@ def render_shot(args):
             p = ease_io((beat - (s['k'][1] - 0.6)) / 0.6)
             if p > 0:
                 canvas = cv2.convertScaleAbs(canvas, alpha=1 - p)
+        if t < tl.LEAD:
+            canvas = cv2.convertScaleAbs(canvas, alpha=ease_io(t / tl.LEAD))
         for (txt, x, ybot) in labels:
             ti = text_img(txt, FONT_MONO, lab_font, track=0.12)
             a = label_alpha(tl_, dur)
