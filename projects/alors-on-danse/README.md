@@ -48,3 +48,10 @@ python3 render.py --media "/path/to/video projekt" \
 
 The media folder is the shared Google Drive folder (`IMG_*.mov`, `IMG_*.jpeg`,
 the two portrait clips and the song recording); it is not part of the repo.
+
+## Web player (Artifact)
+
+`web/make_hls.sh MASTER.mp4 OUTDIR` cuts the master into an adaptive HLS
+stream (1080p + 720p, 4 s fMP4 segments, playlists named `.txt` so the
+artifact host serves them) plus a poster; `web/player.html` plays it with
+hls.js and shows the song structure as clickable chapters.

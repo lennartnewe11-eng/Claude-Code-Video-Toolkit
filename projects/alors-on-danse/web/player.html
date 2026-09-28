@@ -1,0 +1,209 @@
+<title>Alors on danse Edit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap">
+<style>
+  /* One deliberate look: a dark screening room, lit by the edit's own yellow. */
+  :root {
+    color-scheme: dark;
+    --ground: #0e0d0b;
+    --surface: #181612;
+    --line: #2b2822;
+    --text: #efeae0;
+    --muted: #8f887c;
+    --accent: #ffd214;
+    --ink: #14120e;
+    --serif: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+    --mono: "Space Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+    --display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  }
+  html, body { background: var(--ground); }
+  body {
+    color: var(--text);
+    font-family: var(--mono);
+    padding-inline: 16px;
+    padding-block: 28px 48px;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; }
+
+  header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 24px; }
+  h1 {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(44px, 8vw, 96px);
+    line-height: .92;
+    letter-spacing: .01em;
+    text-wrap: balance;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .credit {
+    font-size: 12px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 10px;
+  }
+  .credit b { color: var(--text); font-weight: 700; }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    max-width: 100%;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .9);
+  }
+  video { display: block; width: 100%; height: 100%; background: #000; }
+  .notice {
+    position: absolute; inset: auto 12px 12px 12px;
+    background: rgba(14, 13, 11, .88);
+    color: var(--text);
+    font-size: 13px; line-height: 1.5;
+    padding: 10px 12px; border-left: 3px solid var(--accent);
+  }
+
+  .map { display: grid; gap: 10px; }
+  .map-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+  .map-head .tc { font-variant-numeric: tabular-nums; letter-spacing: .06em; color: var(--text); }
+  .strip {
+    position: relative; display: flex; height: 34px; cursor: pointer;
+    border: 1px solid var(--line); border-radius: 3px; overflow: hidden;
+    background: var(--surface);
+  }
+  .strip button {
+    all: unset; box-sizing: border-box; height: 100%; min-width: 0;
+    border-right: 1px solid var(--line);
+    font-family: var(--display); font-size: 13px; letter-spacing: .04em;
+    color: var(--muted); padding: 0 6px; display: flex; align-items: center;
+    white-space: nowrap; overflow: hidden; text-overflow: clip;
+  }
+  .strip button:last-of-type { border-right: 0; }
+  .strip button.drop { background: rgba(255, 210, 20, .09); color: var(--text); }
+  .strip button.on { background: var(--accent); color: var(--ink); }
+  .strip button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  .playhead { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--text); left: 0; pointer-events: none; mix-blend-mode: difference; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips button {
+    font: 12px/1 var(--mono); color: var(--text); background: transparent;
+    border: 1px solid var(--line); border-radius: 999px; padding: 7px 11px; cursor: pointer;
+    display: inline-flex; gap: 8px; align-items: baseline;
+  }
+  .chips button span { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .chips button.on { border-color: var(--accent); color: var(--accent); }
+  .chips button:hover { border-color: var(--muted); }
+  .chips button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; }
+  .facts b { color: var(--text); font-weight: 400; font-variant-numeric: tabular-nums; }
+  @media (max-width: 560px) { .strip button { font-size: 0; padding: 0; } }
+  @media (prefers-reduced-motion: reduce) { .playhead { transition: none; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>alors on <em>danse</em></h1>
+    <div class="credit"><b>Stromae</b> · Reise‑Edit · v2</div>
+  </header>
+
+  <div class="stage">
+    <video id="film" controls playsinline preload="metadata" poster="poster.jpg"></video>
+    <div class="notice" id="notice" hidden></div>
+  </div>
+
+  <section class="map" aria-label="Songstruktur">
+    <div class="map-head"><span>Songstruktur · zum Springen antippen</span><span class="tc" id="tc">0:00 / 3:35</span></div>
+    <div class="strip" id="strip"><div class="playhead" id="playhead"></div></div>
+    <div class="chips" id="chips"></div>
+  </section>
+
+  <div class="facts">
+    <span><b>3:35</b> Laufzeit</span>
+    <span><b>1920×1080</b> · 30 fps</span>
+    <span><b>117,6</b> BPM</span>
+    <span><b>106</b> Takte</span>
+    <span><b>182</b> Schnitte auf dem Beat</span>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.20/hls.min.js"></script>
+<script>
+  const DURATION = 215.43;
+  const PARTS = [
+    ["Intro", 0.0], ["Riff", 7.73], ["Alors on danse", 15.87], ["Strophe 1", 24.01],
+    ["Drop 1", 56.54, true], ["Break", 89.1], ["Strophe 2", 97.22], ["La la la", 113.5],
+    ["Build", 129.76], ["Drop 2", 141.96, true], ["Encore", 176.55], ["Finale", 194.85, true],
+    ["Outro", 211.13]
+  ];
+  const video = document.getElementById("film");
+  const notice = document.getElementById("notice");
+  const strip = document.getElementById("strip");
+  const chips = document.getElementById("chips");
+  const playhead = document.getElementById("playhead");
+  const tc = document.getElementById("tc");
+  const fmt = s => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+
+  function say(msg) { notice.textContent = msg; notice.hidden = false; }
+
+  // --- playback: HLS (1080p + 720p, adaptive) --------------------------------
+  const SRC = "hls/master.txt";
+  if (window.Hls && Hls.isSupported()) {
+    const hls = new Hls({ maxBufferLength: 30, capLevelToPlayerSize: true, startLevel: -1 });
+    hls.loadSource(SRC);
+    hls.attachMedia(video);
+    hls.on(Hls.Events.ERROR, (_, data) => {
+      if (!data.fatal) return;
+      if (data.type === Hls.ErrorTypes.NETWORK_ERROR) hls.startLoad();
+      else if (data.type === Hls.ErrorTypes.MEDIA_ERROR) hls.recoverMediaError();
+      else say("Das Video konnte nicht geladen werden. Bitte die Seite neu laden.");
+    });
+  } else {
+    say("Dieser Browser kann den Videostream nicht abspielen. Bitte einen aktuellen Browser verwenden (Safari ab iOS 17.1, Chrome, Firefox oder Edge).");
+  }
+
+  // --- song map --------------------------------------------------------------
+  const segs = [], pills = [];
+  PARTS.forEach(([name, start, drop], i) => {
+    const end = i + 1 < PARTS.length ? PARTS[i + 1][1] : DURATION;
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = name;
+    b.title = fmt(start) + " " + name;
+    b.style.flex = String(end - start);
+    if (drop) b.classList.add("drop");
+    b.addEventListener("click", () => seek(start));
+    strip.insertBefore(b, playhead);
+    segs.push(b);
+
+    const c = document.createElement("button");
+    c.type = "button";
+    c.innerHTML = "<span>" + fmt(start) + "</span>";
+    c.append(document.createTextNode(name));
+    c.addEventListener("click", () => seek(start));
+    chips.append(c);
+    pills.push(c);
+  });
+
+  function seek(t) {
+    video.currentTime = t + 0.01;
+    const p = video.play();
+    if (p && p.catch) p.catch(() => {});
+  }
+
+  function update() {
+    const t = video.currentTime || 0;
+    playhead.style.left = (100 * t / DURATION) + "%";
+    tc.textContent = fmt(t) + " / " + fmt(DURATION);
+    let k = 0;
+    PARTS.forEach(([, s], i) => { if (t >= s) k = i; });
+    segs.forEach((b, i) => b.classList.toggle("on", i === k));
+    pills.forEach((b, i) => b.classList.toggle("on", i === k));
+  }
+  video.addEventListener("timeupdate", update);
+  video.addEventListener("seeked", update);
+  update();
+</script>
