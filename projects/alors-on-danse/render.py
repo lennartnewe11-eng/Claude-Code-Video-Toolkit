@@ -10,7 +10,7 @@ import os
 import subprocess
 import sys
 import time
-from multiprocessing import Process
+import multiprocessing as mp
 
 import cv2
 import numpy as np
@@ -492,7 +492,9 @@ def main():
     for k in range(len(bounds) - 1):
         p = os.path.join(work, f"part_{k:02d}.mp4")
         parts.append(p)
-        pr = Process(target=worker, args=(args, cfg, bounds[k], bounds[k + 1], p))
+        # spawn (not fork): OpenCV's thread pool can deadlock in forked children
+        pr = mp.get_context("spawn").Process(target=worker,
+                                             args=(args, cfg, bounds[k], bounds[k + 1], p))
         pr.start()
         procs.append(pr)
     for pr in procs:
