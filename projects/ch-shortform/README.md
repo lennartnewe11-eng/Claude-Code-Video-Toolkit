@@ -8,8 +8,6 @@ als wechsle das Format des Videos selbst.
 
 Die Bildsprache ist in [`docs/stil.md`](docs/stil.md) festgehalten — Bänder, Raster,
 Grades, Effekthäufigkeit, Freistellerregeln. Akt 2 und 3 folgen ihr.
-Wie diese Regeln zustande kamen, und was beim Bauen schiefging, steht in
-[`docs/erkenntnisse.md`](docs/erkenntnisse.md).
 
 ## Musik
 
@@ -109,7 +107,6 @@ nicht mehr zum Index.
 | Datei | Zweck |
 |-------|-------|
 | `docs/stil.md` | **die Bildsprache** — Bänder, Raster, Effekthäufigkeit, Regeln |
-| `docs/erkenntnisse.md` | **warum so** — Schnittlogik, die Fehler und was sie gelehrt haben |
 | `build/looks.py` | Formatbänder, Grades, Zoom-/Schüttel-Ausdrücke |
 | `build/render.py` | EDL → einzelne Shots (ein ffmpeg-Aufruf pro Shot) |
 | `build/captions.py` | ASS-Typo (libass; `drawtext` fehlt in diesem ffmpeg-Build) |

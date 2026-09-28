@@ -4,9 +4,6 @@ Was diesen Edit ausmacht — festgehalten, damit Akt 2 und 3 dieselbe Sprache
 sprechen und nicht neu erfunden werden müssen. Alle Zahlen sind aus dem
 gebauten Akt 1 gemessen (59 Shots, 116 Beats, 43,09 s), nicht geschätzt.
 
-Dies sind die Regeln. Wie sie zustande kamen — welche Fehler dahinterstecken und
-was davon sich verallgemeinern lässt — steht in [`erkenntnisse.md`](erkenntnisse.md).
-
 ---
 
 ## 1. Der Grundsatz
