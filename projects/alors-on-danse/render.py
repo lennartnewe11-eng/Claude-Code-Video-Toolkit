@@ -509,7 +509,7 @@ def main():
     dur = (f1 - f0) / FPS
     start = ed.T0 + f0 / FPS
     fade_out = max(0.0, dur - 2.0)
-    af = (f"volume=5dB,alimiter=limit=0.82:attack=5:release=60,"
+    af = (f"volume=5dB,alimiter=limit=0.84:attack=5:release=60:level=0,"
           f"afade=t=in:st=0:d=0.25,afade=t=out:st={fade_out:.3f}:d=2.0")
     subprocess.run(
         ["ffmpeg", "-v", "error", "-y", "-f", "concat", "-safe", "0", "-i", lst,
