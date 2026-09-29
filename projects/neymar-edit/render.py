@@ -586,7 +586,7 @@ def main():
     ap.add_argument('--scale', type=float, default=1.0)
     ap.add_argument('--only', default=None, help='Shotbereich a-b')
     ap.add_argument('--jobs', type=int, default=4)
-    ap.add_argument('--out', default=os.path.join(BUILD, 'messi_edit_master.mp4'))
+    ap.add_argument('--out', default=os.path.join(BUILD, 'neymar_edit_master.mp4'))
     a = ap.parse_args()
     os.makedirs(CHUNKS, exist_ok=True)
     shots = resolve()

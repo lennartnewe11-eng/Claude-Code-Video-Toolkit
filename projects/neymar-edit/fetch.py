@@ -30,12 +30,13 @@ FULL = [
      'Brazil 3 VS 0 Australia Neymar 1080i barcelona-hd.blogspot.com.ts'),
     ('src/confed13_hl.mp4', 'jogo-histo-rico-brasil-3-x-0-espanha-melhores-momentos-final-copa-das-confederaco-es-2013-720-p-hd',
      'JOGO HISTÓRICO _ BRASIL 3 X 0 ESPANHA _ MELHORES MOMENTOS _ FINAL COPA DAS CONFEDERAÇÕES 2013(720P_HD).mp4'),
-    ('src/friends.ts', 'MessiFriends8Vs5TheRestOfTheWorldNeymar1080iHDBarcelonaHd.blogspot.com', None),
-    ('src/speciale.mkv', 'SpecialeMessiENeymar', 'Speciale Messi e Neymar.mkv'),
     ('src/psg17_end.mp4', '2017.03.08-ucl-r-16-g-2-barcelona-psg-6-2', 'UCL-20170308-R16-G2-Barcelona Ending.mp4'),
-    ('src/tiktok_skills.mp4', 'TikTok-7326950448001322246', '7326950448001322246.mp4'),
-    ('src/humiliated.webm', 'youtube-wfaD7AnfaBU', 'wfaD7AnfaBU.webm'),
     ('src/samba.mp4', 'neymar-jr-samba-dance', 'Neymar Jr Samba Dance.mp4'),
+    # Saison 2014/15: Saisonrückblick in zwei Teilen (je ~1,5 GB), Athletic, Sevilla, Pokalfinale
+    ('src/b1415_1.mp4', 'barcelona-2014-15', 'Barcelona 2014-15 (1).mp4'),
+    ('src/b1415_2.mp4', 'barcelona-2014-15', 'Barcelona 2014-15 (2).mp4'),
+    # Champions-League-Finale Berlin 2015, die letzten Minuten bis zum 3:1
+    ('src/berlin95.mkv', '4RakiticKora1hd.blogspot.com', "95' Neymar kora-1hd.blogspot.com.mkv"),
 ]
 
 OLY = ('2016-olympic-games-Rio-Men-football-soccer-all-matchs-in-HD-no-ads-no-commentary',
@@ -55,10 +56,6 @@ CUTS = [
 
 
 def url(item, name):
-    if name is None:
-        import json
-        meta = json.loads(subprocess.check_output(['curl', '-sS', f'https://archive.org/metadata/{item}']))
-        name = [f['name'] for f in meta['files'] if f['name'].endswith('.ts')][0]
     return IA + item + '/' + urllib.parse.quote(name)
 
 

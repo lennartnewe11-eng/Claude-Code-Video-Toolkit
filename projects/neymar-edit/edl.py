@@ -6,12 +6,13 @@ olympisches Gold als Freudentränen wieder aus.
 
 Ausgabe-Beat k = Song-Beat - 152 (der Song läuft an einem Stück, siehe timeline.py).
 
-  k   0– 60  Groove      GINGA      Santos, London, Confed Cup: der Junge, der spielt   faded → warm
-  k  60– 96  Mitte       SHOW       Barça, PSG, Seleção: Skills, im Hochformat, wo     warm
-                                    die Quelle hochkant ist
-  k  96–104  Loch        Atem       ein Gesicht in Zeitlupe                             mono
-  k 104–136  Drop 2      Skills     die schnellste Stelle: Dribblings in Einer-Trauben, warm
-                                    Kroatien 2022, am Ende der Freistoß im Maracanã
+  k   0– 60  Strophe 2   GINGA      Santos (Solotor, Libertadores-Finale), London,      faded → warm
+                                    Confed-Cup-Finale: jedes Tor ganz, mit Jubel
+  k  60– 96  Pre-Chorus  BARCELONA  Saison 14/15: Athletic (Dribbling, Tor), Freistoß    warm
+                                    in Sevilla aus Sicht des Torwarts
+  k  96–104  Loch        Atem       Regenbogen-Lupfer im Pokalfinale, Zeitlupe          mono
+  k 104–136  Drop 2      Berlin     CL-Finale, 95. Minute: das 3:1; dann der Freistoß   warm
+                                    im Olympia-Finale
   k 136–200  Breakdown   DRUCK      Maracanã bei Nacht, Elfmeterschießen, Stille       bleak / mono
   k 200–216  Build       ANLAUF     Neymar legt sich den Ball hin, Schnitte werden     bleak
                                     schneller, Band zieht sich zusammen
@@ -20,8 +21,9 @@ Ausgabe-Beat k = Song-Beat - 152 (der Song läuft an einem Stück, siehe timelin
   k 248–280  Finale      Gold       Medaille, Samba, jedes Lachen noch einmal           warm
   Coda                              Ausklang, Titel
 
-Hochformat-Quellen (TikTok-Schnitte, Samba) laufen im Portrait-Band: das Band
-zeigt, woher das Bild kommt, statt es aufzublasen.
+Bis zum Elfmeterschießen nur Tore und Skills, jede Szene lang genug, um sie
+zu verstehen (4–12 Beats je Shot). Hochformat-Quellen (Samba) laufen im
+Portrait-Band: das Band zeigt, woher das Bild kommt, statt es aufzublasen.
 """
 
 LON = 'src/london12.mp4'
@@ -29,13 +31,12 @@ SCO = 'src/santos_colo.mp4'
 SFI = 'src/santos_final11.mp4'
 AUS = 'src/aus13.ts'
 CON = 'src/confed13_hl.mp4'
-FRI = 'src/friends.ts'
-SPE = 'src/speciale.mkv'
 PSG = 'src/psg17_end.mp4'
-TIK = 'src/tiktok_skills.mp4'
-HUM = 'src/humiliated.webm'
 SAM = 'src/samba.mp4'
 CRO = 'cuts/cro22.mp4'
+B1 = 'src/b1415_1.mp4'
+B2 = 'src/b1415_2.mp4'
+BER = 'src/berlin95.mkv'
 FK = 'cuts/oly_fk.mp4'
 PRE = 'cuts/oly_pre.mp4'
 STA = 'cuts/oly_stadium.mp4'
@@ -65,69 +66,36 @@ def CODA(k0, clip, title, sub, fade_at, title_at, band='scope', grade='warm'):
 
 
 SHOTS = [
-    # ── GINGA ────────────────────────────────────────────────────────────────
-    S(0, 4, C(SCO, 333.8, focus=(0.5, 0.4), zoom=1.1), 'box43', 'faded', ['grain_heavy', 'push'], 'SANTOS'),
-    S(4, 6, C(SCO, 349.2, zoom=1.1), 'full', 'faded', ['grain']),
-    S(6, 8, C(SCO, 361.0, zoom=1.1), 'scope', 'faded', ['grain']),
-    S(8, 9, C(SCO, 355.0, zoom=1.2), 'wide', 'faded', []),
-    S(9, 10, C(SCO, 367.3, zoom=1.1), 'full', 'faded', ['thump']),
-    S(10, 12, C(SCO, 358.0, zoom=1.1), 'scope', 'warm', ['punch']),
-    S(12, 16, C(SCO, 372.6, focus=(0.5, 0.4), zoom=1.1), 'wide', 'warm', ['thump', 'grain']),
-    S(16, 18, C(LON, 9.5, focus=(0.55, 0.45), zoom=1.2), 'square', 'mono', ['grain_heavy']),
-    S(18, 20, C(LON, 19.5, focus=(0.53, 0.54), zoom=1.12), 'box43', 'mono', ['grain_heavy']),
-    S(20, 22, C(SFI, 373.5, focus=(0.5, 0.45), zoom=1.1), 'full', 'warm', ['punch', 'grain']),
-    S(22, 24, C(SFI, 401.0, focus=(0.5, 0.45), zoom=1.1), 'scope', 'warm', ['grain']),
-    S(24, 26, C(LON, 40.0, focus=(0.53, 0.54), zoom=1.12), 'full', 'warm', ['punch']),
-    S(26, 27, C(LON, 43.0, focus=(0.53, 0.54), zoom=1.12), 'wide', 'warm', []),
-    S(27, 28, C(LON, 57.0, focus=(0.53, 0.54), zoom=1.12), 'scope', 'warm', []),
-    S(28, 29, C(LON, 60.5, focus=(0.53, 0.54), zoom=1.12), 'full', 'warm', ['thump']),
-    S(29, 30, C(LON, 63.0, focus=(0.53, 0.54), zoom=1.12), 'square', 'warm', ['rgbhit']),
-    S(30, 32, C(LON, 73.0, focus=(0.53, 0.54), zoom=1.12), 'wide', 'warm', ['punch']),
-    S(32, 36, C(AUS, 36.0, focus=(0.5, 0.4), zoom=1.1), 'full', 'warm', ['push', 'thump']),
-    S(36, 38, C(CON, 403.6, zoom=1.1), 'scope', 'warm', ['punch']),
-    S(38, 40, C(CON, 404.6, zoom=1.1), 'wide', 'warm', ['grain']),
-    S(40, 44, C(FRI, 16.0, focus=(0.5, 0.4)), 'box43', 'warm', ['push']),
-    S(44, 46, C(FRI, 47.0, zoom=1.2), 'full', 'warm', ['punch']),
-    S(46, 48, C(FRI, 50.0, zoom=1.2), 'scope', 'warm', []),
-    # Mosaik: vier Szenen laufen durch, auf jedem Beat springt die Anordnung
-    GRID(48, 56, [C(SCO, 350.0, zoom=1.1), C(LON, 58.0, focus=(0.53, 0.54), zoom=1.12), C(LON, 74.0, focus=(0.53, 0.54), zoom=1.12), C(SCO, 362.0, zoom=1.1),
-                  C(LON, 158.0, focus=(0.53, 0.54), zoom=1.12), C(FRI, 41.0, zoom=1.2)], 'warm', ['grain']),
-    S(56, 58, C(CON, 769.6, focus=(0.5, 0.45), zoom=1.1), 'square', 'warm', ['push']),
-    S(58, 60, C(CON, 772.3, focus=(0.5, 0.45), zoom=1.1), 'wide', 'warm', ['dip']),
+    # ── GINGA (Strophe 2): Santos, das Solotor gegen Colo-Colo ──────────────
+    S(0, 8, C(SCO, 352.6, focus=(0.5, 0.5), zoom=1.15), 'box43', 'faded', ['grain_heavy', 'push'], 'SANTOS'),
+    S(8, 16, C(SCO, 365.9, focus=(0.55, 0.5), zoom=1.1), 'full', 'faded', ['grain', 'push']),
+    S(16, 20, C(SCO, 370.5, zoom=1.05), 'full', 'warm', ['punch', 'grain']),
+    S(20, 24, C(SCO, 372.5, focus=(0.5, 0.4), zoom=1.1, speed=0.5), 'wide', 'warm', ['thump', 'grain']),
+    # Libertadores-Finale 2011: das 1:0, dann der Jubel
+    S(24, 32, C(SFI, 368.0, focus=(0.35, 0.5), zoom=1.45), 'full', 'warm', ['push', 'grain']),
+    S(32, 36, C(SFI, 373.55, focus=(0.5, 0.4), zoom=1.1, speed=0.5), 'wide', 'warm', ['punch', 'grain']),
+    # London 2012: zwei Dribblings, jedes ganz
+    S(36, 44, C(LON, 58.2, focus=(0.53, 0.54), zoom=1.12), 'full', 'warm', ['push'], 'SELEÇÃO'),
+    S(44, 52, C(LON, 71.0, focus=(0.53, 0.54), zoom=1.12), 'wide', 'warm', ['push']),
+    # Confed-Cup-Finale 2013 gegen Spanien: das 2:0
+    S(52, 60, C(CON, 398.3, focus=(0.35, 0.5), zoom=1.4), 'full', 'warm', ['push']),
 
-    # ── SHOW ─────────────────────────────────────────────────────────────────
-    S(60, 64, C(SPE, 485.0, focus=(0.5, 0.45)), 'full', 'warm', ['open', 'push'], 'BARCELONA'),
-    S(64, 68, C(HUM, 7.0, zoom=1.15), 'portrait', 'warm', ['push']),
-    S(68, 70, C(HUM, 19.5, zoom=1.15), 'portrait', 'warm', []),
-    S(70, 72, C(TIK, 3.0, zoom=1.3), 'portrait', 'warm', ['punch']),
-    S(72, 74, C(PSG, 292.5, focus=(0.5, 0.4), zoom=1.1), 'scope', 'warm', ['thump']),
-    S(74, 76, C(PSG, 300.5, focus=(0.5, 0.4), zoom=1.1), 'square', 'warm', []),
-    S(76, 80, C(TIK, 10.0, zoom=1.3), 'portrait', 'warm', ['push']),
-    S(80, 82, C(SPE, 648.0, zoom=1.1), 'full', 'warm', ['punch']),
-    S(82, 84, C(SPE, 655.0, zoom=1.1), 'wide', 'warm', []),
-    S(84, 86, C(HUM, 33.5, zoom=1.15), 'portrait', 'warm', ['thump']),
-    S(86, 88, C(TIK, 38.0, zoom=1.3), 'portrait', 'warm', []),
-    S(88, 92, C(LON, 92.0, focus=(0.53, 0.45), zoom=1.12), 'full', 'warm', ['push']),
-    S(92, 96, C(LON, 160.0, focus=(0.53, 0.54), zoom=1.12), 'scope', 'warm', ['drift', 'dip']),
+    # ── BARCELONA (Pre-Chorus) ───────────────────────────────────────────────
+    S(60, 64, C(CON, 403.5, focus=(0.5, 0.4), zoom=1.1, speed=0.75), 'wide', 'warm', ['punch']),
+    S(64, 72, C(B1, 316.3, speed=0.95), 'scope', 'warm', ['push'], 'BARCELONA'),
+    S(72, 80, C(B1, 320.0, focus=(0.55, 0.5), zoom=1.2), 'full', 'warm', ['push']),
+    S(80, 84, C(B1, 328.6, focus=(0.5, 0.4), zoom=1.1), 'wide', 'warm', ['punch']),
+    # Sevilla 2015: Freistoß, aus Sicht des Torwarts bis ins Netz
+    S(84, 86, C(B2, 1795.0, focus=(0.5, 0.4), zoom=1.1), 'scope', 'warm', ['push']),
+    S(86, 96, C(B2, 1833.5, focus=(0.5, 0.5), zoom=1.1), 'full', 'warm', ['push', 'dip']),
 
-    # ── Atem ─────────────────────────────────────────────────────────────────
-    S(96, 104, C(FRI, 20.0, focus=(0.5, 0.55), zoom=1.25, speed=0.5), 'slit', 'mono', ['push', 'grain']),
+    # ── Atem (Loch): der Regenbogen-Lupfer im Pokalfinale, Zeitlupe ─────────
+    S(96, 104, C(B2, 3520.3, focus=(0.5, 0.5), zoom=1.25, speed=0.8), 'wide', 'mono', ['push', 'grain']),
 
-    # ── Skills (Drop 2) ──────────────────────────────────────────────────────
-    S(104, 106, C(CRO, 24.5), 'full', 'warm', ['open', 'punch']),
-    S(106, 108, C(CRO, 28.0), 'scope', 'warm', []),
-    S(108, 109, C(CRO, 31.0), 'full', 'warm', ['thump']),
-    S(109, 110, C(CRO, 76.0, focus=(0.5, 0.4)), 'square', 'warm', ['rgbhit']),
-    S(110, 112, C(TIK, 16.0, zoom=1.3), 'portrait', 'warm', ['punch']),
-    S(112, 113, C(TIK, 40.0, zoom=1.3), 'portrait', 'warm', []),
-    S(113, 114, C(HUM, 21.5, zoom=1.15), 'portrait', 'warm', []),
-    S(114, 116, C(LON, 61.0, focus=(0.53, 0.54), zoom=1.12), 'wide', 'warm', ['punch']),
-    S(116, 117, C(LON, 75.0, focus=(0.53, 0.54), zoom=1.12), 'full', 'warm', []),
-    S(117, 118, C(LON, 162.0, focus=(0.53, 0.54), zoom=1.12), 'scope', 'warm', ['thump']),
-    S(118, 120, C(LON, 118.0, focus=(0.53, 0.54), zoom=1.12), 'wide', 'warm', ['punch']),
-    S(120, 122, C(FRI, 52.0, zoom=1.2), 'full', 'warm', []),
-    S(122, 123, C(SPE, 652.0, zoom=1.1), 'scope', 'warm', []),
-    S(123, 124, C(HUM, 9.0, zoom=1.15), 'portrait', 'warm', ['rgbhit']),
+    # ── Drop 2: Berlin, Champions-League-Finale, 95. Minute ─────────────────
+    S(104, 116, C(BER, 51.3, focus=(0.55, 0.55), zoom=1.3), 'full', 'warm', ['open', 'push']),
+    S(116, 120, C(BER, 57.9, focus=(0.5, 0.45), zoom=1.1, speed=0.88), 'scope', 'warm', ['punch']),
+    S(120, 124, C(B2, 1807.4, focus=(0.5, 0.45), zoom=1.1, speed=0.65), 'wide', 'warm', ['thump']),
     # Brücke: Freistoß im Olympia-Finale
     S(124, 128, C(FK, 41.6, focus=(0.5, 0.5), zoom=1.3), 'full', 'warm', ['push']),
     S(128, 130, C(FK, 46.5), 'scope', 'warm', ['thump']),

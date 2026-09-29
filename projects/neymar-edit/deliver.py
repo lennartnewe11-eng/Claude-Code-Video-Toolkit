@@ -97,7 +97,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--mb', type=float, default=28.5)   # Upload-Limit 30 MiB (= 31,4 MB)
     ap.add_argument('--no-master', action='store_true')
-    ap.add_argument('--name', default='messi_edit_1080p.mp4')
+    ap.add_argument('--name', default='neymar_edit_1080p.mp4')
     a = ap.parse_args()
     lst = concat_list()
     music = os.path.join(BUILD, 'music.wav')

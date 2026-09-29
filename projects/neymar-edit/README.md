@@ -12,10 +12,10 @@ Ausgabe-Beat k = Song-Beat − 152.
 
 | Ausgabe-Beats | Song-Abschnitt | Kapitel | Inhalt | Grade |
 |---|---|---|---|---|
-| 0–60 | Strophe 2, Pre-Chorus | GINGA | Santos 2011 (Solotor um den Torwart), London 2012, Confed Cup 2013 | faded → warm |
-| 60–96 | Pre-Chorus | SHOW | Barça, PSG, Seleção; Hochkant-Quellen im Portrait-Band | warm |
-| 96–104 | Loch | Atem | ein Profil in Zeitlupe | mono |
-| 104–136 | Drop 2 | Skills | Kroatien 2022, Dribbling-Trauben, Freistoß im Olympia-Finale | warm |
+| 0–60 | Strophe 2 | GINGA | Santos 2011 (Solotor um den Torwart, Tor im Libertadores-Finale), London 2012, Confed-Cup-Finale 2013 | faded → warm |
+| 60–96 | Pre-Chorus | BARCELONA | Saison 14/15: Athletic (Dribbling und Tor), Freistoß in Sevilla aus Sicht des Torwarts | warm |
+| 96–104 | Loch | Atem | Regenbogen-Lupfer im Pokalfinale, Zeitlupe | mono |
+| 104–136 | Drop 2 | Berlin | CL-Finale 2015, 95. Minute: das 3:1; Freistoß im Olympia-Finale | warm |
 | 136–200 | Breakdown | DRUCK | Maracanã bei Nacht, Elfmeterschießen, Hand aufs Herz, Blick nach oben | bleak / mono |
 | 200–216 | Build | ANLAUF | Neymar legt den Ball hin; Band zieht sich zusammen | mono |
 | 216–244 | Drop 3 | ALEGRIA | **Ball im Netz genau auf dem Drop**, Freudentränen | warm |
@@ -27,6 +27,9 @@ Ausgabe-Beat k = Song-Beat − 152.
 dass der Ball exakt auf Song-Beat 368 (Drop 3) im Netz ist (`audio.SYNC`).
 Darunter der Clean Feed aus dem Maracanã ohne Kommentar: vier Beats lang die
 angespannte Stille, dann der Jubel auf dem Drop.
+
+**Bis zum Elfmeterschießen nur Tore und Skills.** Jede Szene läuft ganz: Anlauf,
+Abschluss, Jubel, 4 bis 12 Beats pro Shot. Keine Fotos, keine Standbilder.
 
 **Farbe als Dramaturgie.** Alles bis zum Freistoß ist warm. Das Elfmeterschießen
 entsättigt sich bis zu Schwarzweiß; in dem Moment, in dem der Ball im Netz
@@ -40,7 +43,8 @@ python3 beatmap.py media/audio/song.mp3 build/beatmap.json
 python3 audio.py                                   # build/music.wav
 python3 render.py                                  # Chunks je Shot
 python3 review.py 0-24 build/rv.jpg                # framegenaue Durchsicht
-python3 deliver.py --name neymar_edit_1080p.mp4    # Master + Lieferfassung (28,5 MB)
+python3 stillcheck.py 0-63                         # kein Standbild am Shot-Anfang
+python3 deliver.py --name neymar_edit_v2_1080p.mp4 # Master + Lieferfassung (28,5 MB)
 python3 shotliste.py > SHOTLISTE.md
 ```
 
@@ -49,6 +53,11 @@ python3 shotliste.py > SHOTLISTE.md
 - **Tempo konstant.** Anders als beim Messi-Song: 127,87 BPM über die ganze
   Länge (Fensterstreuung < 0,1 %), also ein starres Raster, per Least-Squares
   auf die Onsets gefittet (Jitter 9 ms).
+- **Kein Standbild am Shot-Anfang.** Bei .ts-Quellen liegt der erste Frame nach
+  dem Seek hinter t=0; ffmpeg füllte die Lücke mit Kopien (bis zu 29 Frames).
+  Behoben mit `-fps_mode passthrough`; `stillcheck.py` misst je Shot den
+  längsten Lauf identischer Frames am Anfang gegen das, was Quell-fps und
+  Zeitlupe erklären.
 - **Nicht jede „Neymar"-Quelle zeigt Neymar.** Ein Item namens „Neymar" war ein
   indischer Spielfilm mit einem Hund dieses Namens; das Dribbling in den
   Santos-Highlights, das zuerst im Schnitt war, stammt vom Colo-Colo-Spieler
