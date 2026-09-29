@@ -22,6 +22,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 import audio
 import edl
+import faces
 import timeline as tl
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -42,6 +43,8 @@ BANDS = {                      # sichtbares Fenster (w, h) im 16:9-Rahmen
     'portrait': (608, 1080),   # 9:16
 }
 GAP = 8
+FACE_H = 0.44                  # Gesichtshöhe als Anteil der Bandhöhe (Höhe bestimmt den Maßstab)
+WOBBLE = 0.022                 # Trennlinie springt auf jedem Beat um ±2,2 % der Breite
 
 GRADES = {  # sat, contrast, gamma, lift(r,g,b), gain(r,g,b)
     'warm':    (1.10, 1.10, 0.97, (0.020, 0.012, 0.000), (1.05, 1.00, 0.88)),
@@ -49,6 +52,7 @@ GRADES = {  # sat, contrast, gamma, lift(r,g,b), gain(r,g,b)
     'bleak':   (0.10, 1.26, 1.14, (0.000, 0.004, 0.012), (0.95, 1.00, 1.03)),
     'faded':   (0.68, 0.88, 0.95, (0.070, 0.060, 0.040), (1.03, 0.99, 0.86)),
     'neutral': (0.95, 1.06, 1.00, (0.000, 0.000, 0.000), (1.00, 1.00, 1.00)),
+    'mono':    (0.00, 1.12, 1.02, (0.010, 0.010, 0.012), (1.00, 1.00, 1.00)),   # Gesichter-Reihe
 }
 
 
@@ -296,10 +300,33 @@ def resolve():
                 c['t'] = audio.ROAR_HIT - (tl.kt(audio.CHORUS_K) - tl.kt(k0))
             if c['out'] is not None:
                 c['speed'] = (c['out'] - c['t']) / dur
+            if c.get('auto'):                               # Ausschnitt aufs Gesicht zentrieren
+                fa = faces.get(c['src'], c['t'], c['t'] + min(dur, 2.0) * c['speed'])
+                if fa:
+                    c['focus'] = (fa['cx'], min(0.62, fa['cy'] + 0.1 * fa['h']))
+            if s['kind'] == 'face' and not c.get('face'):
+                c['face'] = faces.get(c['src'], c['t'], c['t'] + min(dur, 2.0) * c['speed'])
+                if not c['face']:
+                    raise SystemExit(f"Kein Gesicht gefunden: Shot {i} {c['src']} @{c['t']}")
             clips.append(c)
         s['clips'] = clips
+        if s['kind'] == 'split' and len(clips) == 2 and s.get('split') is not None:
+            prev = shots[-1] if shots else None
+            v = s['split']
+            v0 = prev['split_keys'][-1][1] if prev and prev.get('split_keys') else v
+            keys = [(k0, v0), (k0 + 0.5, v)] + [tuple(x) for x in s.get('keys', [])]
+            s['split_keys'] = sorted(keys)
         shots.append(s)
     return shots
+
+
+def split_at(keys, beat):
+    if beat <= keys[0][0]:
+        return keys[0][1]
+    for (ka, va), (kb, vb) in zip(keys, keys[1:]):
+        if beat <= kb:
+            return va + (vb - va) * ease_io((beat - ka) / max(kb - ka, 1e-6))
+    return keys[-1][1]
 
 
 def check(shots):
@@ -346,6 +373,28 @@ def render_shot(args):
         beat = tl.beat_of_time(t)
         bph = beat - np.floor(beat + 1e-6)
         canvas = np.zeros((Hc, Wc, 3), np.uint8)
+
+        if s['kind'] == 'coda':
+            c = s['clips'][0]
+            bw, bh = [int(round(v * sc)) // 2 * 2 for v in BANDS[s['band']]]
+            bx, by = (Wc - bw) // 2, (Hc - bh) // 2
+            fade = 1 - ease_io((tl_ - s['fade_at']) / 1.1)
+            if fade > 0:
+                fr = readers[0].get(tl_ * c['speed'])
+                img = fit(fr, bw, bh, c['focus'], c['zoom'] * (1 + 0.06 * ease_io(u)))
+                img = apply_grade(img, s['grade'])
+                img = (img.astype(np.float32) * vig[by:by + bh, bx:bx + bw]).astype(np.uint8)
+                canvas[by:by + bh, bx:bx + bw] = grain.apply(img, 8, f)
+                canvas = cv2.convertScaleAbs(canvas, alpha=fade)
+            a = ease_out((tl_ - s['title_at']) / 0.7) * (1 - ease_io((tl_ - (dur - 0.9)) / 0.9))
+            if a > 0:
+                ti = text_img(s['title'], FONT_TITLE, int(92 * sc), track=0.28)
+                su = text_img(s['sub'], FONT_MONO, int(26 * sc), track=0.18, color=(170, 170, 170))
+                blit(canvas, ti, (Wc - ti[1].shape[1]) / 2, Hc / 2 - ti[1].shape[0] * 0.62, a)
+                blit(canvas, su, (Wc - su[1].shape[1]) / 2, Hc / 2 + ti[1].shape[0] * 0.48, a * 0.9)
+            canvas = grain.apply(canvas, 5, f)
+            enc.stdin.write(canvas.tobytes())
+            continue
 
         if s['kind'] == 'card':
             a = ease_out(tl_ / 0.35) * (1 - ease_io((tl_ - (dur - 0.7)) / 0.7))
@@ -401,6 +450,28 @@ def render_shot(args):
             canvas[by:by + bh, bx:bx + bw] = img
             if s['label']:
                 labels.append((s['label'], bx, by + bh))
+        elif s['kind'] == 'split' and s.get('split_keys'):
+            # Parallelmontage: die Trennlinie trägt den Takt, die Clips laufen durch
+            v = split_at(s['split_keys'], beat)
+            j = int(np.floor(beat + 1e-6))
+            wj, wp = (WOBBLE if j % 2 == 0 else -WOBBLE), (WOBBLE if j % 2 == 1 else -WOBBLE)
+            w = wp + (wj - wp) * ease_out(bph / 0.2)
+            v = v + w * min(1.0, v / 0.1, (1 - v) / 0.1)
+            v = min(max(v, 0.0), 1.0)
+            g = GAP * sc * min(1.0, v / 0.02, (1 - v) / 0.02)
+            xs = int(round(bx + v * bw - g / 2))
+            xe = int(round(bx + v * bw + g / 2))
+            panels = [(bx, xs), (xe, bx + bw)]
+            for ci, c in enumerate(s['clips']):
+                fr = readers[ci].get(tl_ * c['speed'])       # läuft weiter, auch wenn schmal
+                x0, x1 = panels[ci]
+                if x1 - x0 < 4:
+                    continue
+                img = fit(fr, x1 - x0, bh, c['focus'], c['zoom'] * z, dx)
+                img = apply_grade(img, c['grade'])
+                canvas[by:by + bh, x0:x1] = img
+                if c['label'] and (x1 - x0) > 0.14 * Wc:
+                    labels.append((c['label'], x0, by + bh, 'persist'))
         elif s['kind'] == 'split':
             n = len(s['clips'])
             pw = (bw - GAP * sc * (n - 1)) / n
@@ -413,6 +484,19 @@ def render_shot(args):
                 canvas[by:by + bh, x0:x1] = img
                 if c['label']:
                     labels.append((c['label'], x0, by + bh))
+        elif s['kind'] == 'face':
+            # Band steht still, nur das Gesicht wechselt: gleiche Höhe, gleicher Ort
+            c = s['clips'][0]
+            fc = c['face']
+            fr = readers[0].get(tl_ * c['speed'])
+            h_src, w_src = fr.shape[:2]
+            s0 = max(bw / w_src, bh / h_src)
+            zf = max(1.0, FACE_H * bh / (fc['h'] * h_src * s0))
+            img = fit(fr, bw, bh, (fc['cx'], fc['cy'] + 0.06 * fc['h']), zf * (1 + 0.035 * u))
+            img = apply_grade(img, s['grade'])
+            canvas[by:by + bh, bx:bx + bw] = img
+            if s['label']:
+                labels.append((s['label'], bx, by + bh, 'year'))
         elif s['kind'] == 'grid':
             j = int(np.floor(beat - k0 + 1e-6))
             j = min(max(j, 0), nbeats - 1)
@@ -457,9 +541,15 @@ def render_shot(args):
                 canvas = cv2.convertScaleAbs(canvas, alpha=1 - p)
         if t < tl.LEAD:
             canvas = cv2.convertScaleAbs(canvas, alpha=ease_io(t / tl.LEAD))
-        for (txt, x, ybot) in labels:
+        for lab in labels:
+            txt, x, ybot = lab[:3]
+            mode = lab[3] if len(lab) > 3 else None
+            if mode == 'year':
+                ti = text_img(txt, FONT_MONO, int(46 * sc), track=0.10)
+                blit(canvas, ti, bx + bw + 28 * sc, ybot - ti[1].shape[0] - 10 * sc, 0.92)
+                continue
             ti = text_img(txt, FONT_MONO, lab_font, track=0.12)
-            a = label_alpha(tl_, dur)
+            a = 0.9 if mode == 'persist' else label_alpha(tl_, dur)
             blit(canvas, ti, x + 26 * sc, ybot - ti[1].shape[0] - 18 * sc, a)
         enc.stdin.write(canvas.tobytes())
     for r in readers:

@@ -1,12 +1,13 @@
-"""Musikschnitt und Zeitachse.
+"""Zeitachse.
 
-Der Edit läuft auf *Ausgabe-Beats* k. Jeder Ausgabe-Beat ist ein Song-Beat n aus
-einem der Segmente unten. Alle Zeiten werden aus absoluten Song-Zeiten gerechnet
-(beats[n] - beats[a] + Offset), nie aus aufaddierten Shotlängen, und erst ganz am
-Ende auf Frames gerundet: frame(k) = round(T(k) * FPS).
+Der Edit läuft auf *Ausgabe-Beats* k. Jeder Ausgabe-Beat ist ein Song-Beat n.
+Alle Zeiten werden aus absoluten Song-Zeiten gerechnet (beats[n] - beats[a] +
+Offset), nie aus aufaddierten Shotlängen, und erst ganz am Ende auf Frames
+gerundet: frame(k) = round(T(k) * FPS).
 
-Splice-Regel: Ein Sprung von Song-Beat a nach b ist nur zulässig, wenn
-(b - a) % 4 == 0 — sonst kippt die Taktphase. build() prüft das.
+Seit v2 läuft der Song an einem Stück durch (ein Segment, kein Splice). Der
+Mechanismus für mehrere Segmente bleibt; jeder Sprung müsste (b - a) % 4 == 0
+erfüllen, build() prüft das.
 """
 import json
 import os
@@ -17,14 +18,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FPS = 50                    # Quellen sind PAL (25/50p) → 50 fps ohne Pulldown-Ruckeln
 LEAD = 0.40                 # s Vorlauf vor Ausgabe-Beat 0 (Einblendung)
 
-# (erster Song-Beat, erster nicht mehr benutzter Song-Beat)
+# (erster Song-Beat, letzter Schlag des Songs). Ein Stück, von der zweiten Hälfte
+# des Breakdowns bis zum Ende:
+#   416–448 Breakdown   448–512 Build 2   512–612 Refrain 2   612–647 Outro
 SEGMENTS = [
-    (16, 80),     # Intro-Rest (16–32) + Drop A (32–80)       Kindheit → Barça
-    (96, 128),    # Teil B ohne Hi-Hats                        Niederlagen
-    (480, 576),   # Build 2 (480–512) + Refrain 2 (512–576)    Umschlag → 2022
-    (608, 647),   # Outro bis zum letzten Schlag               2026
+    (416, 647),
 ]
-TAIL = 1.80      # s Ausklang nach dem letzten Beat (Song-Ende)
+CODA = 7.0       # s nach dem letzten Schlag: Nachhall, Stadion, letztes Bild, Titel
 
 # Abschnitte in Ausgabe-Beats (werden aus SEGMENTS abgeleitet, s. u.)
 SECTIONS = {}
@@ -50,7 +50,7 @@ def build():
         off += B[b] - B[a]
     T.append(off)                     # Ende des letzten Beats
     k_song.append(SEGMENTS[-1][1])
-    total = off + TAIL
+    total = off + CODA
     return dict(B=B, T=np.array(T), k_song=np.array(k_song), pieces=pieces, total=total)
 
 

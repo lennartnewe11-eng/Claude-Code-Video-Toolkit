@@ -51,6 +51,7 @@ R16 = ('argentino-reacciona-a-la-final-de-copa-ame-rica-centenario-contra-chile-
 B15 = ('barcelona-vs-bayern-munich-ida-semifinal-champions-league-2014-15-partido-comple',
        'Barcelona.Vs.Bayern.Munich.Full.Match.HD720p.akoam.com_33096141455.mp4')
 M17 = ('2017.04.23-la-liga-j-33-madrid-vs-barca', '2017.04.23 - (LaLiga J33) - Madrid vs Barça.mkv')
+ROB = ('messi-mix-videos', 'El informe Robinson - Lionel Messi [DVBRIP][Spanish].mp4')
 
 # (Zieldatei, Quelle, Start s, Dauer s, Filter)   Zeiten per Kontaktbogen gesucht
 CUTS = [
@@ -69,7 +70,17 @@ CUTS = [
     ('anf19', ANF, 3028, 14, 'null'), ('sau22', SAU, 2744, 12, 'null'),
     ('r16_pen', R16, 1126, 18, 'null'), ('r16_cry', R16, 1158, 32, 'null'), ('r16_after', R16, 1200, 30, 'null'),
     ('b15_drib', B15, 4846, 32, 'null'), ('m17_celeb', M17, 6172, 18, 'null'),
+    # v2: Parallelmontage der Finals 2014 | 2022
+    ('w14_tunnel', W14, 1900, 70, 'yadif=1'), ('w14_walkout', W14, 2036, 40, 'yadif=1'),
+    ('w14_anthem', W14, 2188, 34, 'yadif=1'), ('w14_chance', W14, 6370, 36, 'yadif=1'),
+    ('w14_react', W14, 6438, 18, 'yadif=1'), ('w14_goetze', W14, 11376, 26, 'yadif=1'),
+    ('w14_fk', W14, 11694, 32, 'yadif=1'), ('w14_whistle', W14, 11762, 44, 'yadif=1'),
+    ('w22_tunnel', W22, 226, 48, 'null'), ('w22_walkout', W22, 312, 44, 'null'),
+    ('w22_anthem', W22, 370, 54, 'null'),
+    # v2: Kindheitsfotos (Gesichter-Reihe)
+    ('robinson_kid', ROB, 100, 30, 'scale=1280:-2'),
 ]
+CROWD = (W14, 13086, 16)          # Clean Feed, reiner Stadionton für die Coda
 
 
 def url(item, name):
@@ -89,9 +100,35 @@ def get_cut(e):
     p = os.path.join(MEDIA, 'cuts', name + '.mp4')
     if not os.path.exists(p):
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(t0), '-i', url(item, fn), '-t', str(dur), '-an',
-                        '-vf', f"{vf},scale='min(1920,iw)':-2:flags=lanczos", '-c:v', 'libx264', '-crf', '14',
+                        '-vf', vf if vf.startswith('scale') else f"{vf},scale='min(1920,iw)':-2:flags=lanczos", '-c:v', 'libx264', '-crf', '14',
                         '-preset', 'veryfast', '-pix_fmt', 'yuv420p', p], check=True)
     return name
+
+
+def get_crowd():
+    (item, fn), t0, dur = CROWD
+    p = os.path.join(MEDIA, 'src', 'crowd14.wav')
+    if not os.path.exists(p):
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(t0), '-i', url(item, fn), '-t', str(dur), '-vn',
+                        '-ac', '2', '-ar', '48000', p], check=True)
+
+
+def get_cascades():
+    """Haar-Kaskaden für faces.py (OpenCV 5 liefert sie nicht mehr mit): aus dem 4.10-Wheel."""
+    import glob
+    import tempfile
+    import zipfile
+    dst = os.path.join(MEDIA, 'models')
+    os.makedirs(dst, exist_ok=True)
+    if glob.glob(os.path.join(dst, 'haarcascade_frontalface_default.xml')):
+        return
+    tmp = tempfile.mkdtemp()
+    subprocess.run([sys.executable, '-m', 'pip', 'download', '--no-deps', 'opencv-python-headless==4.10.0.84',
+                    '-d', tmp], check=True)
+    z = zipfile.ZipFile(glob.glob(os.path.join(tmp, '*.whl'))[0])
+    for n in z.namelist():
+        if n.endswith(('frontalface_default.xml', 'frontalface_alt2.xml')):
+            open(os.path.join(dst, os.path.basename(n)), 'wb').write(z.read(n))
 
 
 def main():
@@ -108,6 +145,8 @@ def main():
             print('ok', r)
         for r in ex.map(get_cut, CUTS):
             print('ok', r)
+    get_crowd()
+    get_cascades()
 
 
 if __name__ == '__main__':
