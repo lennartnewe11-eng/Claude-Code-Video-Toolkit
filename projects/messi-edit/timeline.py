@@ -18,11 +18,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FPS = 50                    # Quellen sind PAL (25/50p) → 50 fps ohne Pulldown-Ruckeln
 LEAD = 0.40                 # s Vorlauf vor Ausgabe-Beat 0 (Einblendung)
 
-# (erster Song-Beat, letzter Schlag des Songs). Ein Stück, von der zweiten Hälfte
+# (erster Song-Beat, letzter Schlag des Songs). Ein Stück, vom Anfang
 # des Breakdowns bis zum Ende:
-#   416–448 Breakdown   448–512 Build 2   512–612 Refrain 2   612–647 Outro
+#   384–448 Breakdown   448–512 Build 2   512–612 Refrain 2   612–647 Outro
 SEGMENTS = [
-    (416, 647),
+    (384, 647),
 ]
 CODA = 7.0       # s nach dem letzten Schlag: Nachhall, Stadion, letztes Bild, Titel
 

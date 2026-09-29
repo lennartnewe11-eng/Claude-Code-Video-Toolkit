@@ -76,7 +76,7 @@ CUTS = [
     ('w14_react', W14, 6438, 18, 'yadif=1'), ('w14_goetze', W14, 11376, 26, 'yadif=1'),
     ('w14_fk', W14, 11694, 32, 'yadif=1'), ('w14_whistle', W14, 11762, 44, 'yadif=1'),
     ('w22_tunnel', W22, 226, 48, 'null'), ('w22_walkout', W22, 312, 44, 'null'),
-    ('w22_anthem', W22, 370, 54, 'null'),
+    ('w22_anthem', W22, 370, 54, 'null'), ('w22_pen', W22, 9824, 44, 'null'),
     # v2: Kindheitsfotos (Gesichter-Reihe)
     ('robinson_kid', ROB, 100, 30, 'scale=1280:-2'),
 ]

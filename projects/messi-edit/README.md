@@ -1,44 +1,47 @@
 # Messi — Karriere-Edit (16:9)
 
-v2: 89,7 s, 1920×1080, 50 fps. Ganze Karriere von Rosario bis MetLife 2026; große
+v3: 1:41, 1920×1080, 50 fps. Ganze Karriere von Rosario bis MetLife 2026; große
 Niederlagen und große Erfolge stehen gegeneinander. Geschnitten nach den Regeln
 aus `erkenntnisse.md` (Raster aus absoluter Zeit, Zweierpuls mit
 Einzelbeat-Trauben und Vierer-Atempausen, seltene laute Effekte, Grades tragen
 den Umschlag, Band steht still, wo der Inhalt die Veränderung trägt).
+Keine Jahreszahlen im Bild.
 
 ## Dramaturgie
 
-Der Song läuft **an einem Stück**, Song-Beat 416 bis zum letzten Schlag (647),
-ohne Splice. Ausgabe-Beat k = Song-Beat − 416.
+Der Song läuft **an einem Stück**, Song-Beat 384 bis zum letzten Schlag (647),
+ohne Splice. Ausgabe-Beat k = Song-Beat − 384.
 
 | Ausgabe-Beats | Song-Beats | Teil | Inhalt | Grade |
 |---|---|---|---|---|
-| 0–32 | 416–448 | Breakdown | Rosario, La Masia, Barça 2005–2017 | faded → warm |
-| 32–40 | 448–456 | Build | Niederlagen 2016, 2019, 2021 | cold / bleak |
-| 40–96 | 456–512 | Build | **Parallelmontage WM-Finale 2014 \| 2022** | cold \| neutral |
-| 96–160 | 512–576 | Refrain | Weltmeister; Golden Ball und Pokal 2014 ↔ 2022; Vermächtnis-Wand | warm |
-| 160–196 | 576–612 | Refrain | MetLife 2026, 2016 ↔ 2026, Triptychon der drei Pokal-Begegnungen | cold / bleak |
-| 196–231 | 612–647 | Outro | **Gesichter über die Jahre**: Baby → 2026 | mono |
+| 0–64 | 384–448 | Breakdown | Rosario, La Masia, Barça 2005–2017 | faded → warm |
+| 64–72 | 448–456 | Build | Niederlagen 2016, 2019, 2021 | cold / bleak |
+| 72–128 | 456–512 | Build | **WM-Finale 2014 ↔ 2022, im Wechsel geschnitten** | cold ↔ warm |
+| 128–192 | 512–576 | Refrain | Weltmeister; Golden Ball und Pokal 2014 ↔ 2022; Vermächtnis-Wand | warm |
+| 192–228 | 576–612 | Refrain | MetLife 2026, 2016 ↔ 2026, Triptychon der drei Pokal-Begegnungen | cold / bleak |
+| 228–263 | 612–647 | Outro | **Gesichter über die Jahre**: Baby → 2026 | mono |
 | Coda | Ausklang | — | Nachhall, Stadion, Abgang in den Tunnel, Titel | bleak |
 
-**Parallelmontage (k 40–96).** Zwei Finals, Moment für Moment nebeneinander:
+**2014 ↔ 2022 (k 72–128).** Harte Schnitte hin und her, nie beide gleichzeitig:
 Tunnel · Einlauf am Pokal vorbei · Hymne · Messis Chance (vorbei | drin) ·
-Reaktion · Gegentor (Götze entscheidet | Mbappé gleicht aus) · letzte Chance
-(Freistoß drüber | Martínez hält) · Schlusspfiff | Elfmeterschießen · Messi
-allein | Montiel läuft an. Die Clips laufen durch, auf jedem Beat springt nur
-die Trennlinie. Sie wandert zu der Seite, die den Moment hat; bei Montiels
-Elfmeter schiebt 2022 das Jahr 2014 aus dem Bild.
+Reaktion · Gegentor (Götze | Mbappé) · letzte Chance (Freistoß | Martínez) ·
+Schlusspfiff | Elfmeterschießen mit Messis eigenem Elfmeter. Der Wechsel wird
+schneller: Vierer, dann Zweier, zuletzt eine Traube aus Einzelbeats. Ohne
+Jahreszahlen trägt das Band die Unterscheidung — 2014 immer im Scope-Band und
+kalt, 2022 immer im Vollbild und warm. Nur der Schluss bleibt wie in v2: bei
+Montiels Anlauf steht 2014 noch einmal daneben und wird aus dem Bild
+geschoben, der Jubel landet auf dem Refrain. Golden Ball und Pokal 2014/2022
+im Refrain sind ebenfalls im Wechsel geschnitten.
 
-**Gesichter (k 196–231).** Vierzehn Nahaufnahmen, einmal je Clip vermessen
+**Gesichter (k 228–263).** Vierzehn Nahaufnahmen, einmal je Clip vermessen
 (`faces.py`), auf gleiche Höhe und gleichen Ort gebracht. Das Band steht
-still, nur das Gesicht altert. Jahreszahlen nur dort, wo das Jahr belegt ist
-(Spielaufnahmen); die Kindheitsfotos bleiben ohne Zahl.
+still, nur das Gesicht altert.
 
 **Musik.** Vor dem Refrain wird der Song zwei Beats lang abgesenkt, nicht
 stumm geschaltet; darüber das Stadion bei Montiels Elfmeter, der Jubel landet
 exakt auf Song-Beat 512. Nach dem letzten Schlag: natürlicher Ausklang,
 Nachhall aus dem letzten Schlag, leiser Stadion-Teppich (Clean Feed 2014, ohne
-Kommentar), Ausblendung — kein harter Stopp mehr.
+Kommentar), Ausblendung.
 
 ## Bauen
 
@@ -49,7 +52,7 @@ python3 audio.py                                   # build/music.wav
 python3 render.py                                  # build/messi_edit_master.mp4
 python3 review.py 0-21 build/rv.jpg                # framegenaue Durchsicht
 python3 shotliste.py > SHOTLISTE.md
-python3 deliver.py --name messi_edit_v2_1080p.mp4  # Master + Lieferfassung (28,5 MB), Sync-Prüfung
+python3 deliver.py --name messi_edit_v3_1080p.mp4  # Master + Lieferfassung (28,5 MB), Sync-Prüfung
 ```
 
 `media/` (Footage, Song, Fonts) liegt nicht im Repo.
