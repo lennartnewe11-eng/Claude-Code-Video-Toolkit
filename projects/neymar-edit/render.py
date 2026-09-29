@@ -125,8 +125,12 @@ class ClipReader:
         ww = int(round(p['w'] * p.get('sar', 1.0) * hh / p['h'] / 2)) * 2
         self.w, self.h = ww, hh
         vf = (['yadif=1'] if p['inter'] else []) + [f'scale={ww}:{hh}:flags=bicubic']
+        # fps_mode passthrough: rawvideo ist ein CFR-Muxer; liegt der erste Frame nach dem Seek
+        # hinter t=0 (TS-Zeitstempel), füllt ffmpeg die Lücke sonst mit Kopien des ersten
+        # Frames auf — bis zu 29 Frames Standbild am Shot-Anfang (nachgemessen).
         self.proc = subprocess.Popen(['ffmpeg', '-v', 'fatal', '-ss', f'{t0:.4f}', '-i', self.path, '-an',
-                                      '-vf', ','.join(vf), '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-'],
+                                      '-vf', ','.join(vf), '-fps_mode', 'passthrough',
+                                      '-f', 'rawvideo', '-pix_fmt', 'bgr24', '-'],
                                      stdout=subprocess.PIPE, bufsize=ww * hh * 3 * 4)
         self.n = -1
         self.frame = np.zeros((hh, ww, 3), np.uint8)
