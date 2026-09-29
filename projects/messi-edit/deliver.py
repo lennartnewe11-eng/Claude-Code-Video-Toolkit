@@ -73,9 +73,14 @@ def verify(path):
     # Ton: Hüllkurvensprung des Jubels
     pcm = subprocess.run(['ffmpeg', '-v', 'quiet', '-ss', f'{t0:.3f}', '-i', path, '-t', '1.0', '-vn', '-ac', '1',
                           '-ar', '8000', '-f', 'f32le', '-'], capture_output=True).stdout
-    x = np.abs(np.frombuffer(pcm, np.float32))
-    env = np.convolve(x, np.ones(80) / 80, 'same')
-    t_aud = t0 + int(np.argmax(np.diff(env[::40]))) * 40 / 8000
+    x = np.frombuffer(pcm, np.float32)
+    hop = 80                                          # 10-ms-RMS; Fensterränder ausgenommen
+    rms = np.sqrt(np.convolve(x ** 2, np.ones(hop) / hop, 'valid')[::hop])
+    tt = t0 + np.arange(len(rms)) * hop / 8000
+    pre = np.median(rms[(tt > t_hit - 0.45) & (tt < t_hit - 0.1)])     # Stadion im Aussetzer
+    post = np.median(rms[(tt > t_hit + 0.05) & (tt < t_hit + 0.45)])   # Refrain
+    i = np.where((tt > t_hit - 0.3) & (rms > (pre + post) / 2))[0][0]  # erster Durchgang der Mitte
+    t_aud = tt[i]
     return dict(frames=frames, frames_expected=tl.NFRAMES, v_dur=float(v['duration']), a_dur=float(a['duration']),
                 chorus_t=round(t_hit, 3), flash_t=round(t_vid, 3), roar_t=round(t_aud, 3),
                 av_offset_ms=round((t_vid - t_aud) * 1000, 1))
