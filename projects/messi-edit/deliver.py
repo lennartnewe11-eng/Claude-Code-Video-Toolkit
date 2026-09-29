@@ -96,13 +96,14 @@ def sha(path):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--mb', type=float, default=48)
+    ap.add_argument('--mb', type=float, default=28.5)   # Upload-Limit 30 MiB (= 31,4 MB)
     ap.add_argument('--no-master', action='store_true')
+    ap.add_argument('--name', default='messi_edit_1080p.mp4')
     a = ap.parse_args()
     lst = concat_list()
     music = os.path.join(BUILD, 'music.wav')
     master = os.path.join(BUILD, 'messi_edit_master.mp4')
-    out = os.path.join(BUILD, 'messi_edit_1080p.mp4')
+    out = os.path.join(BUILD, a.name)
     if not a.no_master:
         encode_master(lst, music, master)
     vk = encode_delivery(lst, music, out, a.mb)
@@ -113,7 +114,10 @@ def main():
         idx[os.path.basename(p)] = info
         print(os.path.basename(p), json.dumps(info))
     idx['delivery_video_kbps'] = vk
-    json.dump(idx, open(os.path.join(BUILD, 'deliver.json'), 'w'), indent=1)
+    jp = os.path.join(BUILD, 'deliver.json')
+    old = json.load(open(jp)) if os.path.exists(jp) else {}
+    old.update(idx)
+    json.dump(old, open(jp, 'w'), indent=1)
 
 
 if __name__ == '__main__':
