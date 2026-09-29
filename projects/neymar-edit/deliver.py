@@ -101,7 +101,7 @@ def main():
     a = ap.parse_args()
     lst = concat_list()
     music = os.path.join(BUILD, 'music.wav')
-    master = os.path.join(BUILD, 'messi_edit_master.mp4')
+    master = os.path.join(BUILD, 'neymar_edit_master.mp4')
     out = os.path.join(BUILD, a.name)
     if not a.no_master:
         encode_master(lst, music, master)
