@@ -70,17 +70,16 @@ def verify(path):
     lum = np.frombuffer(raw, np.uint8).reshape(-1, 54 * 96).mean(1)
     f_vid = int(np.argmax(np.diff(lum))) + 1
     t_vid = t0 + f_vid / tl.FPS
-    # Ton: Hüllkurvensprung des Jubels
+    # Ton: stärkster Onset am Refrain-Beat. Nicht die Hüllkurve — deren Anstieg
+    # misst die 30-ms-Rampe der Absenkung, die vor dem Beat öffnet (40 ms Fehlalarm).
+    import librosa
     pcm = subprocess.run(['ffmpeg', '-v', 'quiet', '-ss', f'{t0:.3f}', '-i', path, '-t', '1.0', '-vn', '-ac', '1',
-                          '-ar', '8000', '-f', 'f32le', '-'], capture_output=True).stdout
+                          '-ar', '22050', '-f', 'f32le', '-'], capture_output=True).stdout
     x = np.frombuffer(pcm, np.float32)
-    hop = 80                                          # 10-ms-RMS; Fensterränder ausgenommen
-    rms = np.sqrt(np.convolve(x ** 2, np.ones(hop) / hop, 'valid')[::hop])
-    tt = t0 + np.arange(len(rms)) * hop / 8000
-    pre = np.median(rms[(tt > t_hit - 0.45) & (tt < t_hit - 0.1)])     # Stadion im Aussetzer
-    post = np.median(rms[(tt > t_hit + 0.05) & (tt < t_hit + 0.45)])   # Refrain
-    i = np.where((tt > t_hit - 0.3) & (rms > (pre + post) / 2))[0][0]  # erster Durchgang der Mitte
-    t_aud = tt[i]
+    env = librosa.onset.onset_strength(y=x, sr=22050, hop_length=64)
+    te = t0 + librosa.times_like(env, sr=22050, hop_length=64)
+    m = (te > t_hit - 0.08) & (te < t_hit + 0.08)
+    t_aud = float(te[m][np.argmax(env[m])])
     return dict(frames=frames, frames_expected=tl.NFRAMES, v_dur=float(v['duration']), a_dur=float(a['duration']),
                 chorus_t=round(t_hit, 3), flash_t=round(t_vid, 3), roar_t=round(t_aud, 3),
                 av_offset_ms=round((t_vid - t_aud) * 1000, 1))
