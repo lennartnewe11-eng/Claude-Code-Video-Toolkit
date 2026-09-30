@@ -29,18 +29,18 @@ B0, B_END = 248, 438
 
 # burned-in broadcast graphics (scorebugs, channel logos) cut away per source,
 # as (x0, y0, x1, y1) with equal width and height so 16:9 survives
-CROP = {
-    "r_pompey": (0.0, 0.09, 0.91, 1.0),     # Sky Sports bug top right
-    "n_spurs07": (0.0, 0.09, 0.91, 1.0),
-    "n_boro": (0.0, 0.09, 0.91, 1.0),
-    "r_fulham": (0.0, 0.09, 0.91, 1.0),
-    "r_city09": (0.0, 0.09, 0.91, 1.0),
-    "r_roma": (0.07, 0.14, 0.93, 1.0),      # MUTV score top left, logo top right
-    "r_arsfk": (0.055, 0.11, 0.945, 1.0),   # ITV score bar + logo
-    "r_arscounter": (0.055, 0.11, 0.945, 1.0),
-    "n_city": (0.055, 0.11, 0.945, 1.0),    # Sky score + logo
-    "n_rooney": (0.055, 0.11, 0.945, 1.0),
-    "n_ars82": (0.10, 0.10, 0.99, 0.99),    # score, logo, LIVE badge bottom left
+CROP = {  # measured on a 5 % grid (contact sheet dbg_bugs), not estimated
+    "r_pompey": (0.0, 0.10, 0.90, 1.0),     # Sky logo top right, red-button icon bottom right
+    "n_spurs07": (0.0, 0.10, 0.90, 1.0),
+    "n_boro": (0.0, 0.10, 0.90, 1.0),
+    "r_fulham": (0.0, 0.10, 0.90, 1.0),
+    "r_city09": (0.0, 0.10, 0.90, 1.0),
+    "r_roma": (0.07, 0.16, 0.91, 1.0),      # MUTV bar to 15 %, logo from 92 %
+    "r_arsfk": (0.06, 0.12, 0.94, 1.0),     # ITV bar and logo to 10.5 %
+    "r_arscounter": (0.06, 0.12, 0.94, 1.0),
+    "n_city": (0.06, 0.12, 0.94, 1.0),      # Sky score and logo to 10 %
+    "n_rooney": (0.06, 0.12, 0.94, 1.0),
+    "n_ars82": (0.15, 0.16, 0.99, 1.0),     # score to 15 %, LIVE badge to 14 % from the left
 }
 
 
