@@ -35,7 +35,7 @@ CROP = {
     "n_boro": (0.0, 0.09, 0.91, 1.0),
     "r_fulham": (0.0, 0.09, 0.91, 1.0),
     "r_city09": (0.0, 0.09, 0.91, 1.0),
-    "r_roma": (0.07, 0.12, 0.95, 1.0),      # MUTV score top left, logo top right
+    "r_roma": (0.07, 0.14, 0.93, 1.0),      # MUTV score top left, logo top right
     "r_arsfk": (0.055, 0.11, 0.945, 1.0),   # ITV score bar + logo
     "r_arscounter": (0.055, 0.11, 0.945, 1.0),
     "n_city": (0.055, 0.11, 0.945, 1.0),    # Sky score + logo
