@@ -1,6 +1,6 @@
-# Paul Pogba Edit (9:16)
+# Paul Pogba Edit (9:16 + 16:9)
 
-A 1:36 beat-synced vertical edit (1080×1920, 30 fps) of prime Pogba (Juventus 2012–16, Man United 2016–19, France 2018), cut to a French track at 120 BPM. This folder holds the scripts and the edit decision list (EDL). The footage and the song are not committed.
+A 1:36 beat-synced edit in two formats, vertical 1080×1920 and landscape 1920×1080 (30 fps), of prime Pogba (Juventus 2012–16, Man United 2016–19, France 2018), cut to a French track at 120 BPM. This folder holds the scripts and the edit decision list (EDL). The footage and the song are not committed.
 
 ## Structure (song time → edit)
 
@@ -21,9 +21,20 @@ Audio: intro + verse 1 + pre-chorus 1 are spliced into chorus 2 + breakdown. Bot
 ./download_sources.sh             # 13 Bilibili sources, 1080p, video only
 ./build_audio.sh song.mp3         # -> audio_edit.wav (96.26 s)
 python3 make_edl.py               # -> edl.json (37 clips on the beat grid)
-python3 render.py edl.json video.mp4
-ffmpeg -i video.mp4 -i audio_edit.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -shortest out.mp4
+python3 render.py edl.json v916.mp4 --size 1080x1920 --override overrides_9x16.json
+python3 render.py edl.json v169.mp4 --size 1920x1080 --override overrides_16x9.json
+ffmpeg -i v169.mp4 -i audio_edit.wav -map 0:v -map 1:a -c:v copy -c:a aac -b:a 320k -shortest out.mp4
 ```
+
+Both formats use the same EDL: same clips, in-points and cuts. The override files only change what the wider frame
+needs:
+- `ylim`/`xlim`: a per-clip "clean rectangle" that keeps uploader watermarks, broadcaster bugs, scoreboards,
+  burnt-in subtitles and letterbox bars out of the frame
+- `fit`: shows the two square (1080×1080) sources on a blurred fill instead of cropping heads or feet
+- `clone`: a feathered clone stamp for watermarks over blurred background (available, currently unused)
+
+The renderer renders clips in parallel into cached segments (a clip only re-renders when its settings change), then
+concatenates them and applies the grade in the final encode.
 
 `render.py` renders each clip for a whole number of beats. For each clip it:
 - crops a 9:16 window whose centre follows keyframes (`cx`), picked by eye from frame strips so Pogba stays centred
@@ -38,6 +49,8 @@ Tools used for clip selection (`tools/`):
 - `contact_sheet.py`: scene-detect a source and write one thumbnail per shot
 - `frame_strip.py`: frame strips with a 10 % grid for choosing crop positions
 - `review_sheet.py`: sample every clip of a rendered edit for QA
+- `overlay_sheet.py`: full source frames with a grid, to map logos and subtitles for the 16:9 clean rectangles
+- `letterbox_check.py`: find burnt-in black bars in the sources
 - `analyze_song.py`, `beat_grid.py`: tempo, downbeats and section boundaries
 
 Requirements: ffmpeg, yt-dlp, Python with numpy, opencv-contrib-python-headless, pillow and librosa, plus `fonts/BebasNeue-Regular.ttf` (Google Fonts, OFL).
