@@ -33,7 +33,7 @@ c(S+"BV1VP4y1k7eP.mp4",12.0,4,1.0,ylim=[0,0.84],cx=[[0,0.36],[0.7,0.3],[1.3,0.42
 c(S+"BV1ZP4y1H7BF.mp4",45.95,4,1.0,ylim=[0,0.9],cx=[[0,0.4],[1,0.42],[2,0.46]],fx=["punch","shake"])  # dance w/ Evra (Juve)
 c(S+"BV1ZP4y1H7BF.mp4",64.9,4,1.0,ylim=[0,0.9],cx=[[0,0.4],[0.6,0.43],[1.4,0.39],[2,0.45]])            # Napoli volley strike
 c(S+"BV1ZP4y1H7BF.mp4",68.1,4,0.9,ylim=[0,0.9],cx=[[0,0.38],[1,0.55],[2,0.6]])                          # ...into the net
-c(S+"BV1Ja41197y4.mp4",191.8,4,1.0,ylim=[0.08,1],h=0.75,cy=0.55,cx=[[0,0.56],[1,0.6],[2,0.66]],fx=["punch"])          # City goal 1
+c(S2+"BV1hs411j7J5.mp4",161.5,4,1.0,cx=[[0,0.37],[0.4,0.34],[0.8,0.32],[1.2,0.35],[1.6,0.4],[2,0.44]],fx=["punch"])  # both arms to the sky (official MUFC)
 c(S+"BV1JsGT6pESA.mp4",73.0,4,1.0,cx=0.5,fx=["punch","shake"])                                         # celebration
 c(S+"BV1JsGT6pESA.mp4",89.9,4,1.0,cx=[[0,0.62],[0.9,0.68],[2,0.58]],fx=["punch"])                       # City header
 c(S+"BV1JsGT6pESA.mp4",95.8,8,1.0,cx=[[0,0.65],[1.6,0.63],[2.4,0.56],[3.2,0.52],[4,0.58]])                           # slow-mo look up

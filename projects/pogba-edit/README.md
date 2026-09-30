@@ -10,7 +10,7 @@ A 1:36 beat-synced vertical edit (1080×1920, 30 fps) of prime Pogba (Juventus 2
 | 0:08–0:20 | Verse: "…le bout du tunnel" | Smile (Juve), tunnel walk, Etihad walkout, POGBA 6 |
 | 0:20–0:30 | Verse B | Skills: vs Bayern, USA, Inter, Verona, chest-and-volley |
 | 0:32–0:48 | Pre-chorus: "graver ton image…" | Slow-motion stares, then the WC final goal replay. The ball hits the net on the drop |
-| 0:48–1:20 | Chorus | Final celebration, Udinese volley, Napoli volley, City brace, Europa League final goal, arms crossed, hand to ear, trophy dance |
+| 0:48–1:20 | Chorus | Final celebration, Udinese volley, Napoli volley, both arms to the sky, Etihad celebration and header, Europa League final goal, arms crossed, hand to ear, trophy dance |
 | 1:20–1:36 | Breakdown: "j'sais pas si je t'aime" | Finger to the sky, calm celebration, back view, eyes closed, title card |
 
 Audio: intro + verse 1 + pre-chorus 1 are spliced into chorus 2 + breakdown. Both chorus entries follow identical bars (mel correlation 0.99), so the splice is inaudible (`build_audio.sh`).
