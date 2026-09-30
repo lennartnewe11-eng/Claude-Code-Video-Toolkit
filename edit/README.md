@@ -8,13 +8,29 @@ Die Schnittregeln stammen aus den Erkenntnissen aus Akt 1 (Raster, Leseeinheiten
 Bewegung statt Schnitt, Effektkurve, nachsehen statt erinnern); wie sie hier
 angewendet werden, steht unten.
 
-## Status
+## Quellen
 
-Die Pipeline steht und ist gegen synthetische Testclips geprüft (Timing, Anker,
-Ton-Sync). **Es fehlt noch das Spielmaterial**: YouTube lässt aus der
-Cloud-Umgebung keine Videodaten zu (403), deshalb gibt es `build/fetch.sh` für
-einen normalen Rechner. Die Quell-Zeitpunkte in `build/edl.py` sind Platzhalter,
-bis jeder Clip auf einem Contact Sheet angesehen wurde.
+Alle Szenen stammen aus Mitschnitten auf archive.org, keine YouTube-Downloads
+(von dort lässt YouTube aus der Cloud-Umgebung keine Videodaten zu):
+
+| Quelle | Inhalt | verwendet für |
+|---|---|---|
+| CL-Finale 2008 (ITV, 720p) | Vollspiel | Ronaldos Kopfball in Moskau, Jubel |
+| CL-VF Roma–United 2008 (MUTV, 1080p) | Vollspiel | Flugkopfball |
+| CL-HF Arsenal–United 2009 (ITV, 576p) | Vollspiel | Freistoß aus 40 m, Konter mit Hackentrick |
+| PL United–City 2010/11 (Sky, 720p) | Vollspiel | Nanis Tor, Salto, Flanke zu Rooneys Fallrückzieher |
+| PL United–Arsenal 2011/12, 2. HZ (576p) | Halbzeit | Nanis Lupfer beim 8:2 |
+| Premier League Years 06/07, 07/08, 08/09 (1080p) | Saisonrückblicke | Fulham 2007, Portsmouth-Freistoß, Nani gegen Spurs und Boro, City-Freistoß 2009 |
+
+`build/archive_sources.txt` nennt die Dateien, `build/segments.txt` die
+Ausschnitte. Ganze Spiele werden nie komplett geladen: ffmpeg springt per
+HTTP-Range an die Stelle. Die Saisonrückblicke (je 2,7 GB) liegen lokal, weil
+`build/ply_index.py` sie einmal ganz durchläuft und die Spiel-Einblendungen
+per Texterkennung zu einem Inhaltsverzeichnis macht (`build/ply_index/`).
+
+Senderlogos und Spielstände werden je Quelle weggeschnitten (`CROP` in
+`build/edl.py`, gleiche Breite und Höhe, damit 16:9 bleibt). TV-Bauchbinden
+lassen sich so nicht entfernen, die Schnitte weichen ihnen aus.
 
 ## Musik
 
@@ -24,12 +40,12 @@ bis jeder Clip auf einem Contact Sheet angesehen wurde.
 
 | Beats | Teil | Inhalt |
 |---|---|---|
-| 248–256 | Build | Intro, Einzelbeats in den Drop |
-| 256–288 | Drop 2 | **Ronaldo**: Porto, Arsenal-Freistoß, Portsmouth-Freistoß, Roma, Moskau |
-| 288–352 | Breakdown | **Nani**, kalter Grade, Zeitlupe, 8-Beat-Einheiten |
-| 352–368 | Build | Splitscreen Ronaldo \| Nani, Layout springt auf jedem Beat; 366 ist der stille Beat → schwarz |
-| 368–432 | Drop 3 | beide im Wechsel, warmer Grade; 396–399 Bass-Pause → vier Einzelbeats |
-| 432–438 | Outro | letztes Bild, Abblende |
+| 248–256 | Build | „RONALDO 7“, „NANI 17“, dann vier Einzelbeats in den Drop |
+| 256–288 | Drop 2 | **Ronaldo**: Portsmouth-Freistoß, Arsenal-Freistoß, Roma-Kopfball, Moskau-Kopfball |
+| 288–352 | Breakdown | **Nani**, kalter Grade, Zeitlupe: Spurs, Boro, Vorlage zu Rooney, City, Salti |
+| 352–368 | Build | Splitscreen 7 gegen 17, Layout springt auf jedem Beat; 366 ist der stille Beat → schwarz |
+| 368–432 | Drop 3 | beide im Wechsel, warmer Grade: Arsenal-Konter, Nanis Lupfer, Fulham, City-Freistoß; 396–399 Bass-Pause → vier Gesichter |
+| 432–438 | Outro | Ronaldo und Nani, Abblende |
 
 Kein Musikschnitt: der Ausschnitt läuft am Stück bis zum natürlichen Songende.
 
@@ -52,16 +68,22 @@ Kein Musikschnitt: der Ausschnitt läuft am Stück bis zum natürlichen Songende
 ## Ablauf
 
 ```bash
-pip install librosa numpy opencv-python-headless pillow yt-dlp   # + ffmpeg
+pip install librosa numpy opencv-python-headless pillow   # + ffmpeg, tesseract
 cp <song>.mp3 media/blame.mp3
-./build/fetch.sh                          # Quellen → media/src/ (auf einem normalen Rechner)
-python3 build/grid.py media/blame.mp3     # Raster → build/grid.json
-python3 build/contact.py src r_porto 0 12 0.25   # Clip ansehen, Anker setzen
-python3 build/render.py                   # → out/edit_video.mp4 (--half, --from/--to für Vorschau)
-python3 build/contact.py edit out/edit_video.mp4
-python3 build/deliver.py --mb 60          # Ton auf dem Raster, 2-Pass → out/ronaldo_nani_blame.mp4
-python3 build/shotliste.py                # SHOTLISTE.md
+python3 build/grid.py media/blame.mp3          # Raster -> build/grid.json
+python3 build/cut_segments.py                  # Ausschnitte -> media/src/
+python3 build/cuts.py r_pompey                 # Kameraschnitte in einem Clip
+python3 build/contact.py src r_pompey 22 34 0.25   # ansehen, Anker setzen
+python3 build/render.py --half                 # Vorschau 960x540
+python3 build/render.py                        # -> out/edit_video.mp4
+python3 build/contact.py edit out/edit_video.mp4   # In / Anker / Out je Shot
+python3 build/deliver.py --mb 60               # Song auf dem Raster, 2 Pässe
+python3 build/shotliste.py                     # SHOTLISTE.md
 ```
+
+Die Quellen laufen mit 24–30 fps, der Schnitt mit 50. Zwischenbilder rechnet
+`render.py` per optischem Fluss (DIS), das trägt vor allem die Zeitlupen. An
+Kameraschnitten fällt es auf das nächste echte Bild zurück.
 
 `media/` und `out/` sind nicht im Repo (Song und Spielszenen).
 
@@ -69,11 +91,13 @@ python3 build/shotliste.py                # SHOTLISTE.md
 
 | Datei | Zweck |
 |---|---|
-| `build/grid.py` | Beat-Raster aus den Kicks messen → `grid.json` |
-| `build/edl.py` | die Schnittliste: Shots, Anker, Rampen, fx, Texte |
-| `build/render.py` | Bild für Bild rendern (Grades, Zoom-Pulse, Splitscreen, Text) |
+| `build/grid.py` | Beat-Raster aus den Kicks messen -> `grid.json` |
+| `build/edl.py` | die Schnittliste: Shots, Anker, Rampen, fx, Texte, Crops |
+| `build/render.py` | Bild für Bild rendern (Zwischenbilder, Grades, Zoom-Pulse, Splitscreen, Text) |
 | `build/deliver.py` | Song auf dem Raster schneiden, muxen, 2-Pass auf Zielgröße |
-| `build/contact.py` | Contact Sheets für Quellen und Schnitt |
+| `build/contact.py` | Contact Sheets für Quellen, URLs und den Schnitt |
+| `build/cuts.py` | Kameraschnitte in einem Quellclip finden |
+| `build/cut_segments.py` | Ausschnitte aus archive.org schneiden |
+| `build/ply_index.py` | Saisonrückblicke per Texterkennung indizieren |
 | `build/shotliste.py` | `SHOTLISTE.md` aus der EDL |
-| `build/sources.txt`, `build/fetch.sh` | Quellen-Liste und Download |
 | `assets/fonts/` | Anton, Bebas Neue, Oswald (OFL) |

@@ -65,6 +65,39 @@ def probe(key):
     return _probe[key]
 
 
+_DIS = None
+
+
+def interpolate(A, B, a, cache, key):
+    """In-between frame at fraction a from A to B via dense optical flow.
+    Across a camera cut (large difference) it falls back to the nearer frame."""
+    global _DIS
+    if key not in cache:
+        cache.clear()
+        h, w = A.shape[:2]
+        sw, sh = w // 4, h // 4
+        ga = cv2.cvtColor(cv2.resize(A, (sw, sh), interpolation=cv2.INTER_AREA), cv2.COLOR_RGB2GRAY)
+        gb = cv2.cvtColor(cv2.resize(B, (sw, sh), interpolation=cv2.INTER_AREA), cv2.COLOR_RGB2GRAY)
+        if np.abs(ga.astype(np.int16) - gb).mean() > 38:
+            cache[key] = None
+        else:
+            if _DIS is None:
+                _DIS = cv2.DISOpticalFlow_create(cv2.DISOPTICAL_FLOW_PRESET_MEDIUM)
+            fab = cv2.resize(_DIS.calc(ga, gb, None), (w, h)) * 4
+            fba = cv2.resize(_DIS.calc(gb, ga, None), (w, h)) * 4
+            gy, gx = np.mgrid[0:h, 0:w].astype(np.float32)
+            cache[key] = (fab, fba, gx, gy)
+    f = cache[key]
+    if f is None:
+        return A if a < 0.5 else B
+    fab, fba, gx, gy = f
+    a = float(a)  # a numpy float64 would promote the maps out of float32
+    wa = cv2.remap(A, gx - a * fab[..., 0], gy - a * fab[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    wb = cv2.remap(B, gx - (1 - a) * fba[..., 0], gy - (1 - a) * fba[..., 1], cv2.INTER_LINEAR,
+                   borderMode=cv2.BORDER_REPLICATE)
+    return cv2.addWeighted(wa, 1 - a, wb, a, 0)
+
+
 class Reader:
     """Sequential decoder for one source window, cover-scaled to (w, h).
 
@@ -104,20 +137,40 @@ class Reader:
              "-t", f"{t1 - self.t0 + 0.5:.4f}", "-filter_complex", chain,
              "-f", "rawvideo", "-pix_fmt", "rgb24", "-"],
             stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, bufsize=w * h * 3 * 4)
-        self.n, self.frame = -1, None
+        self.n, self.frames = -1, {}
         self.size = w * h * 3
+        self.flow_cache = {}
+
+    def _frame(self, i):
+        """Source frame i of the window; past the end the last one is held."""
+        while self.n < i:
+            buf = self.proc.stdout.read(self.size)
+            if len(buf) < self.size:
+                break
+            self.n += 1
+            self.frames[self.n] = np.frombuffer(buf, np.uint8).reshape(self.h, self.w, 3)
+            self.frames.pop(self.n - 3, None)
+        if not self.frames:
+            raise RuntimeError(f"no frames decoded at index {i}")
+        if i in self.frames:
+            return self.frames[i]
+        return self.frames[min(self.frames, key=lambda k: abs(k - i))]
 
     def get(self, t):
-        want = max(0, round((t - self.t0) * self.rate))
-        while self.n < want:
-            buf = self.proc.stdout.read(self.size)
-            if len(buf) < self.size:  # ran off the end: hold the last frame
-                break
-            self.frame = np.frombuffer(buf, np.uint8).reshape(self.h, self.w, 3)
-            self.n += 1
-        if self.frame is None:
-            raise RuntimeError(f"no frames decoded at t={t:.3f}")
-        return self.frame
+        """Frame at source time t; between two source frames, a motion-compensated
+        in-between (the sources run at 24-30 fps, the edit at 50 and in slow motion)."""
+        x = max(0.0, (t - self.t0) * self.rate)
+        i = int(math.floor(x))
+        a = x - i
+        A = self._frame(i)
+        if a < 0.12:
+            return A
+        B = self._frame(i + 1)
+        if B is A:
+            return A
+        if a > 0.88:
+            return B
+        return interpolate(A, B, a, self.flow_cache, i)
 
     def close(self):
         self.proc.stdout.close()

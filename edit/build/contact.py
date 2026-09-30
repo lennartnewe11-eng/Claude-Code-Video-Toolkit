@@ -36,7 +36,7 @@ def grab(path, times=None, frames=None, deint=False):
                  "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
             return (np.frombuffer(buf, np.uint8).reshape(TH, TW, 3) if len(buf) == TW * TH * 3
                     else np.zeros((TH, TW, 3), np.uint8))
-        with ThreadPoolExecutor(8) as ex:
+        with ThreadPoolExecutor(4) as ex:
             out = list(ex.map(one, times))
     else:
         sel = "+".join(f"eq(n\\,{f})" for f in frames)
@@ -54,13 +54,17 @@ def grab(path, times=None, frames=None, deint=False):
 
 
 def sheet(tiles, labels, cols, dst):
+    # the label sits inside its own tile: a caption under the tile gets read
+    # against the row below it (that happened once, Portsmouth, 2 s off)
     rows = (len(tiles) + cols - 1) // cols
-    im = Image.new("RGB", (cols * TW, rows * (TH + 22)), (16, 16, 16))
+    im = Image.new("RGB", (cols * (TW + 4), rows * (TH + 4)), (16, 16, 16))
     d = ImageDraw.Draw(im)
     for i, (t, lab) in enumerate(zip(tiles, labels)):
-        x, y = (i % cols) * TW, (i // cols) * (TH + 22)
+        x, y = (i % cols) * (TW + 4), (i // cols) * (TH + 4)
         im.paste(Image.fromarray(t), (x, y))
-        d.text((x + 4, y + TH + 3), lab, font=FONT, fill=(240, 240, 240))
+        w = d.textlength(lab, font=FONT)
+        d.rectangle([x, y, x + w + 8, y + 20], fill=(0, 0, 0))
+        d.text((x + 4, y + 2), lab, font=FONT, fill=(255, 230, 0))
     dst.parent.mkdir(parents=True, exist_ok=True)
     im.save(dst, quality=88)
     print("wrote", dst)

@@ -1,3 +1,14 @@
 # Ausschnitte aus Quellen auf archive.org -> media/src/<key>.mp4
-# key            quelle                                   start_s  dauer_s  was
-r_final          final08                                  1712     120      CL-Finale 2008, Kopfball Ronaldo + Wiederholungen
+# key            quelle     start_s  dauer_s  was
+r_final          final08    1712     120      CL-Finale 2008: Kopfball Ronaldo, Jubel, Wiederholungen
+r_pompey         ply0708    3298     42       Portsmouth 2008: beide Freistöße, Jubel, Ronaldo mit Nani
+r_roma           roma08     2315     85       Roma 2008: Flugkopfball, Wiederholungen
+r_arsfk          ars09      630      75       Arsenal 2009: Freistoß aus 40 m, Jubel, Ferguson
+r_arscounter     ars09      3700     125      Arsenal 2009: Konter mit Hackentrick, Abschluss, Rückenansicht
+n_spurs07        ply0708    558      30       Tottenham 2007: Fernschuss Nani, Salto
+n_boro           ply0708    1583     20       Middlesbrough 2007: Dribbling, Tor, Salto
+n_city           city11     2430     85       Man City 2011: Tor Nani, Wiederholung, Salto
+n_rooney         city11     4830     80       Man City 2011: Nanis Flanke zu Rooneys Fallrückzieher
+n_ars82          ars11h2    1300     35       Arsenal 2011 (8:2): Lupfer Nani, Nahaufnahme
+r_fulham         ply0607    3798     36       Fulham 2007: Solo-Siegtor Ronaldo, Jubel, Wiederholung
+r_city09         ply0809    5228     20       Man City 2009: Freistoß, Jubel mit ausgebreiteten Armen, Rückenansicht
