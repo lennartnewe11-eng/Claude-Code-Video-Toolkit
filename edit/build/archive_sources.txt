@@ -1,0 +1,11 @@
+# alias      archive.org-Datei (items/<id>/<datei>)                                                     inhalt
+final08      manchester-united-vs-chelsea-champions-league-final-2008/Manchester United vs Chelsea Champions League Final 2008 (ITV).mp4   CL-Finale 2008, ITV, 720p
+roma08       cl-roma-vs-man-utd-2007-08/CL Roma vs Man Utd 2007-08 1st Leg (MUTV).mp4                   CL-VF 2008 Roma-United, MUTV, 1080p
+ars09        ucl-arsenal-vs-man-utd-2008-2009/UCL — Arsenal [vs] Man Utd 2008-2009.mp4                  CL-HF 2009 Arsenal-United, 576p
+spurs10      2010-11-man-utd-vs-tottenham/2010-11 Man Utd vs Tottenham.mp4                              PL 2010/11 United-Spurs, 720p
+city11       2010-11-manchester-united-vs-manchester-city/2010-11 Manchester United vs Manchester City.mp4   PL 2010/11 United-City, 720p
+ars11h2      2011-12-man-utd-vs-arsenal/2011-12 Man Utd vs Arsenal H2.mp4                               PL 2011/12 United-Arsenal 8-2, 2. HZ, 576p
+ply0607      premier-league-years-2006-2007/Premier League Years 2006-2007.mp4                          Saisonrückblick 06/07, 1080p
+ply0708      the-premier-league-years-2007-2008/The Premier League Years 2007-2008.mp4                  Saisonrückblick 07/08, 1080p
+ply0809      the-premier-league-years-2008-2009/The Premier League Years 2008-2009.mp4                  Saisonrückblick 08/09, 1080p
+ply1011      the-premier-league-years-2010-2011/The Premier League Years 2010-2011.mp4                  Saisonrückblick 10/11, 1080p

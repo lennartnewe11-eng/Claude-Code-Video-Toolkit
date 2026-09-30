@@ -1,0 +1,3 @@
+# Ausschnitte aus Quellen auf archive.org -> media/src/<key>.mp4
+# key            quelle                                   start_s  dauer_s  was
+r_final          final08                                  1712     120      CL-Finale 2008, Kopfball Ronaldo + Wiederholungen

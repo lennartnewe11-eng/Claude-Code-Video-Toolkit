@@ -1,12 +1,15 @@
 """Contact sheets -- look instead of assume.
 
     python3 build/contact.py src KEY T0 T1 [STEP]   frames of a source clip, with timestamps
+    python3 build/contact.py scan PATH|URL T0 T1 STEP NAME   same for any file or URL (HTTP seeks,
+                                                     no full download), larger tiles
     python3 build/contact.py edit VIDEO [SHOT0 SHOT1] first / anchor / last frame per shot
 
 Sheets are written to out/sheets/.
 """
 import subprocess
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import numpy as np
@@ -26,13 +29,15 @@ def grab(path, times=None, frames=None, deint=False):
     out = []
     pre = "bwdif=mode=send_field," if deint else ""
     if times is not None:
-        for t in times:
+        def one(t):
             buf = subprocess.run(
                 ["ffmpeg", "-v", "error", "-ss", f"{t:.3f}", "-i", str(path), "-frames:v", "1",
                  "-vf", f"{pre}scale={TW}:{TH}:force_original_aspect_ratio=decrease,pad={TW}:{TH}:(ow-iw)/2:(oh-ih)/2",
                  "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], capture_output=True).stdout
-            out.append(np.frombuffer(buf, np.uint8).reshape(TH, TW, 3) if len(buf) == TW * TH * 3
-                       else np.zeros((TH, TW, 3), np.uint8))
+            return (np.frombuffer(buf, np.uint8).reshape(TH, TW, 3) if len(buf) == TW * TH * 3
+                    else np.zeros((TH, TW, 3), np.uint8))
+        with ThreadPoolExecutor(8) as ex:
+            out = list(ex.map(one, times))
     else:
         sel = "+".join(f"eq(n\\,{f})" for f in frames)
         buf = subprocess.run(
@@ -62,7 +67,16 @@ def sheet(tiles, labels, cols, dst):
 
 
 def main():
+    global TW, TH
     mode = sys.argv[1]
+    if mode == "scan":
+        TW, TH = 480, 270
+        path, t0, t1, step, name = sys.argv[2], *map(float, sys.argv[3:6]), sys.argv[6]
+        ts = list(np.arange(t0, t1, step))
+        tiles = grab(path, times=ts)
+        sheet(tiles, [f"{name} {t:.1f}s ({int(t // 60)}:{t % 60:04.1f})" for t in ts], 5,
+              OUT / f"scan_{name}_{t0:g}-{t1:g}.jpg")
+        return
     if mode == "src":
         key, t0, t1 = sys.argv[2], float(sys.argv[3]), float(sys.argv[4])
         step = float(sys.argv[5]) if len(sys.argv) > 5 else 0.5
