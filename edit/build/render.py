@@ -54,15 +54,21 @@ def probe(key, ai=True):
     already cropped, 1920x1080, same timeline) is preferred over the original."""
     ck = (key, ai)
     if ck not in _probe:
+        def ffprobe(path):
+            return subprocess.run(
+                ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
+                 "stream=width,height,r_frame_rate,field_order", "-show_entries", "format=duration",
+                 "-of", "json", str(path)], capture_output=True, text=True)
+
         cand = SRC / f"{key}_ai.mp4"
-        if ai and cand.exists():
+        res = ffprobe(cand) if ai and cand.exists() else None
+        if res is not None and res.returncode == 0:
             path = cand
-        else:
-            path = next(p for p in SRC.glob(key + ".*") if p.suffix in (".mp4", ".webm", ".mkv", ".mov"))
-        out = subprocess.run(
-            ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
-             "stream=width,height,r_frame_rate,field_order", "-show_entries", "format=duration",
-             "-of", "json", str(path)], capture_output=True, text=True, check=True).stdout
+        else:  # no AI version, or one still being written
+            path = SRC / f"{key}.mp4"
+            res = ffprobe(path)
+            res.check_returncode()
+        out = res.stdout
         j = json.loads(out)
         s = j["streams"][0]
         num, den = map(int, s["r_frame_rate"].split("/"))

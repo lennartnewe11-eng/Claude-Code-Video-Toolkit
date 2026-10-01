@@ -119,12 +119,13 @@ def upscale_clip(key):
     crop = edl.CROP.get(key)
     wins = used_windows(key)
     dst = p["path"].with_name(f"{key}_ai.mp4")
+    tmp = dst.with_name(f"{key}_ai.part.mp4")  # renamed when complete, so render.py never reads half a file
     rate = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
                            "stream=r_frame_rate", "-of", "csv=p=0", str(p["path"])],
                           capture_output=True, text=True).stdout.strip()
     enc = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
                             "-r", rate, "-i", "-", "-c:v", "libx264", "-preset", "fast", "-crf", "12",
-                            "-g", "12", "-pix_fmt", "yuv420p", str(dst)], stdin=subprocess.PIPE)
+                            "-g", "12", "-pix_fmt", "yuv420p", str(tmp)], stdin=subprocess.PIPE)
     n_ai = n = 0
     t0 = time.time()
     for i, f in enumerate(frames(p["path"], p["w"], p["h"])):
@@ -143,6 +144,7 @@ def upscale_clip(key):
         n += 1
     enc.stdin.close()
     enc.wait()
+    tmp.replace(dst)
     print(f"{key}: {n} frames, {n_ai} AI-upscaled in {time.time() - t0:.0f}s -> {dst.name}  windows {wins}")
 
 
