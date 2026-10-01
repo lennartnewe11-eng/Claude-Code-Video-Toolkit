@@ -49,9 +49,16 @@ def fb(b):
 _probe = {}
 
 
-def probe(key):
-    if key not in _probe:
-        path = next(p for p in SRC.glob(key + ".*") if p.suffix in (".mp4", ".webm", ".mkv", ".mov"))
+def probe(key, ai=True):
+    """Source clip info. With ai=True an AI-upscaled <key>_ai.mp4 (build/upscale.py:
+    already cropped, 1920x1080, same timeline) is preferred over the original."""
+    ck = (key, ai)
+    if ck not in _probe:
+        cand = SRC / f"{key}_ai.mp4"
+        if ai and cand.exists():
+            path = cand
+        else:
+            path = next(p for p in SRC.glob(key + ".*") if p.suffix in (".mp4", ".webm", ".mkv", ".mov"))
         out = subprocess.run(
             ["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries",
              "stream=width,height,r_frame_rate,field_order", "-show_entries", "format=duration",
@@ -59,10 +66,10 @@ def probe(key):
         j = json.loads(out)
         s = j["streams"][0]
         num, den = map(int, s["r_frame_rate"].split("/"))
-        _probe[key] = dict(path=path, w=s["width"], h=s["height"], fps=num / den,
-                           dur=float(j["format"]["duration"]),
-                           interlaced=s.get("field_order", "progressive") not in ("progressive", "unknown"))
-    return _probe[key]
+        _probe[ck] = dict(path=path, w=s["width"], h=s["height"], fps=num / den,
+                          dur=float(j["format"]["duration"]), ai=path.stem.endswith("_ai"),
+                          interlaced=s.get("field_order", "progressive") not in ("progressive", "unknown"))
+    return _probe[ck]
 
 
 _DIS = None
@@ -116,7 +123,7 @@ class Reader:
         vf = []
         if p["interlaced"]:
             vf.append("bwdif=mode=send_field")
-        if crop:  # (x0, y0, x1, y1) normalised: cut away burned-in graphics first
+        if crop and not p["ai"]:  # (x0, y0, x1, y1) normalised: cut away burned-in graphics first
             x0, y0, x1, y1 = crop
             vf.append(f"crop=iw*{x1 - x0:.4f}:ih*{y1 - y0:.4f}:iw*{x0:.4f}:ih*{y0:.4f}")
         fx, fy = focus

@@ -41,6 +41,8 @@ CROP = {  # measured on a 5 % grid (contact sheet dbg_bugs), not estimated
     "n_city": (0.06, 0.12, 0.94, 1.0),      # Sky score and logo to 10 %
     "n_rooney": (0.06, 0.12, 0.94, 1.0),
     "n_ars82": (0.15, 0.16, 0.99, 1.0),     # score to 15 %, LIVE badge to 14 % from the left
+    "n_derby_hd": (0.0, 0.10, 0.90, 1.0),   # 2010/11 review, Sky logo top right
+    "n_ars82_hd": (0.0, 0.10, 0.90, 1.0),   # 2011/12 review
 }
 
 
@@ -91,7 +93,7 @@ def shots():
         # ---- build_2: whose edit this is ---------------------------------
         S(248, 250, "r_arscounter", at=(114.2, 248), speed=0.8, fx=("open", "grain"), open_beats=1,
           push=(1.0, 1.05), title="RONALDO|7"),
-        S(250, 252, "n_city", at=(79.1, 250), speed=0.8, fx=("punch", "grain"), title="NANI|17"),
+        S(250, 252, "n_derby_hd", at=(11.2, 250), speed=0.7, fx=("punch", "grain"), title="NANI|17"),
         S(252, 253, "r_pompey", at=(7.0, 252), fx=("punch",)),
         S(253, 254, "n_spurs07", at=(13.62, 253), speed=0.9, fx=("punch",)),  # caption bar from 14.1
         S(254, 255, "r_city09", at=(6.0, 254), fx=("punch",)),
@@ -100,37 +102,36 @@ def shots():
         # ---- drop_2: Ronaldo ---------------------------------------------
         # Portsmouth 2008: the strike from low behind him, then the dip under the bar
         S(256, 260, "r_pompey", at=(29.8, 258), speed=slow_after(258.1, 0.55),
-          fx=("flash", "punch", "thump"), label="VS PORTSMOUTH  ·  2008"),
+          fx=("flash", "punch", "thump")),
         S(260, 264, "r_pompey", at=(32.5, 262), speed=slow_after(262.1, 0.5),
           fx=("punch", "thump"), shake=(262,)),
         # Arsenal 2009: from behind the run-up, the net, the celebration
         S(264, 268, "r_arsfk", at=(48.05, 267), speed=slow_after(267.1, 0.6),
-          fx=("punch", "thump"), label="VS ARSENAL  ·  2009"),
+          fx=("punch", "thump")),
         S(268, 270, "r_arsfk", at=(54.6, 269), speed=0.8, fx=("punch",), shake=(269,)),
         S(270, 272, "r_arsfk", at=(64.4, 270), fx=("punch",)),
         # Roma 2008: the diving header from the side, then the net
         S(272, 278, "r_roma", at=(55.3, 274), speed=slow_after(274.2, 0.45),
-          fx=("punch", "thump"), shake=(274,), label="VS AS ROMA  ·  2008"),
+          fx=("punch", "thump"), shake=(274,)),
         S(278, 280, "r_roma", at=(69.9, 278), fx=("punch",)),
         # Moscow 2008: header from behind the goal, then the scream
         S(280, 286, "r_final", at=(82.1, 283), speed=slow_after(283.2, 0.5),
-          fx=("punch", "thump"), label="CL-FINALE  ·  MOSKAU 2008"),
+          fx=("punch", "thump")),
         S(286, 288, "r_final", at=(27.1, 286), speed=0.8, fx=("punch",)),
 
         # ---- breakdown: Nani, cold, slow ---------------------------------
         S(288, 296, "n_ars82", at=(24.0, 288), speed=0.7, grade="cold", fx=("dip", "grain"),
           push=(1.0, 1.08)),
         S(296, 304, "n_spurs07", at=(12.9, 301), speed=slow_after(301, 0.4), grade="cold",
-          fx=("grain",), push=(1.0, 1.06), label="VS TOTTENHAM  ·  2007"),
+          fx=("grain",), push=(1.0, 1.06)),
         S(304, 306, "n_spurs07", at=(13.6, 304), speed=0.48, grade="cold", fx=("grain",)),
         S(306, 312, "n_spurs07", at=(19.4, 306), speed=0.68, grade="cold", fx=("grain",)),
-        S(312, 320, "n_boro", at=(8.65, 312), grade="cold", fx=("grain",), label="VS MIDDLESBROUGH  ·  2007"),
+        S(312, 320, "n_boro", at=(8.65, 312), grade="cold", fx=("grain",)),
         S(320, 324, "n_boro", at=(13.2, 320), speed=0.6, grade="cold", fx=("grain",)),
         S(324, 328, "n_rooney", at=(53.5, 324), grade="cold", fx=("grain",)),
-        S(328, 332, "n_rooney", at=(62.45, 330), speed=slow_after(330, 0.5), grade="cold", fx=("grain",),
-          label="VORLAGE NANI  ·  2011"),
+        S(328, 332, "n_derby_hd", at=(58.36, 330), speed=slow_after(330, 0.5), grade="cold", fx=("grain",)),
         S(332, 340, "n_city", at=(66.6, 336), speed=slow_after(336.3, 0.45), grade="cold",
-          fx=("grain",), push=(1.0, 1.05), label="VS MAN CITY  ·  2011"),
+          fx=("grain",), push=(1.0, 1.05)),
         S(340, 344, "n_city", at=(77.1, 340), speed=0.9, grade="cold", fx=("grain",)),
         S(344, 352, "n_city", at=(29.4, 344), speed=0.4, grade="cold", fx=("grain_heavy",),
           push=(1.0, 1.1)),
@@ -147,32 +148,32 @@ def shots():
         # Arsenal 2009 counter: the back-heel that starts it, the finish, the net
         S(368, 370, "r_arscounter", at=(86.7, 368), grade=W, fx=("flash", "punch")),
         S(370, 374, "r_arscounter", at=(90.35, 371.75), speed=slow_after(371.85, 0.8), grade=W,
-          fx=("punch", "thump"), label="VS ARSENAL  ·  2009"),
+          fx=("punch", "thump")),
         S(374, 376, "r_arscounter", at=(96.6, 374), grade=W, fx=("punch",)),
         S(376, 378, "r_fulham", at=(13.0, 376), grade=W, fx=("punch",)),
         # Nani's chip, Arsenal 2011
-        S(378, 384, "n_ars82", at=(19.95, 381), grade=W, fx=("punch", "thump"),
-          label="VS ARSENAL  ·  2011"),
+        S(378, 382, "n_ars82", at=(19.95, 380.5), grade=W, fx=("punch", "thump")),
+        S(382, 384, "n_ars82_hd", at=(11.15, 382), speed=0.9, grade=W, fx=("punch",)),
         S(384, 386, "n_spurs07", at=(22.9, 384), grade=W, fx=("punch",)),
         # Fulham 2007, the late winner
         S(386, 392, "r_fulham", at=(30.0, 389), speed=slow_after(389.1, 0.6), grade=W,
-          fx=("punch", "thump"), shake=(389.5,), label="VS FULHAM  ·  2007"),
+          fx=("punch", "thump"), shake=(389.5,)),
         S(392, 396, "r_fulham", at=(15.4, 392), speed=0.95, grade=W, fx=("punch", "thump_soft")),
         # bass break: four faces, one beat each
         S(396, 397, "r_pompey", at=(7.6, 396), grade=W, fx=("punch", "rgbhit")),
         S(397, 398, "n_boro", at=(14.75, 397), grade=W, fx=("punch",)),
         S(398, 399, "r_arsfk", at=(65.0, 398), grade=W, fx=("punch",)),
-        S(399, 400, "n_city", at=(79.2, 399), grade=W, fx=("punch",)),
+        S(399, 400, "n_derby_hd", at=(10.8, 399), speed=0.6, grade=W, fx=("punch",)),
         # Man City 2009 free kick, arms out
         S(400, 406, "r_city09", at=(3.35, 402), speed=slow_after(404, 0.6), grade=W,
-          fx=("flash", "punch", "thump"), label="VS MAN CITY  ·  2009"),
+          fx=("flash", "punch", "thump")),
         S(406, 408, "r_city09", at=(5.95, 406), grade=W, fx=("punch",)),
         # Moscow again, from behind the net: the ball hits the camera
         S(408, 414, "r_final", at=(73.25, 413), speed=slow_after(413, 0.5), grade=W,
           fx=("punch", "thump"), shake=(413,)),
         S(414, 416, "r_arsfk", at=(68.8, 414), grade=W, fx=("punch",)),
         # Nani: City 2011 from the main camera, then the Boro dribble
-        S(416, 420, "n_city", at=(21.1, 418), speed=slow_after(418.2, 0.6), grade=W,
+        S(416, 420, "n_derby_hd", at=(6.06, 418), speed=slow_after(418.2, 0.6), grade=W,
           fx=("punch", "thump"), shake=(418.2,)),
         S(420, 424, "n_boro", at=(5.8, 420), speed=1.1, grade=W, fx=("punch", "thump")),
         S(424, 428, "r_final", at=(33.0, 424), grade=W, fx=("punch", "thump_soft")),

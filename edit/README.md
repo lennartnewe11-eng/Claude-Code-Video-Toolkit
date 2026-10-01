@@ -2,7 +2,7 @@
 
 Edit der besten Tore und Highlights von Cristiano Ronaldo und Nani bei Manchester
 United, geschnitten auf „Blame“ (Calvin Harris feat. John Newman). 16:9, 1920×1080,
-50 fps, 89,16 s. Fast ausschließlich Spielszenen, Text nur als kleine Torangabe.
+50 fps, 89,16 s. Fast ausschließlich Spielszenen; Text nur als Namenstitel am Anfang und Abspann.
 
 Die Schnittregeln stammen aus den Erkenntnissen aus Akt 1 (Raster, Leseeinheiten,
 Bewegung statt Schnitt, Effektkurve, nachsehen statt erinnern); wie sie hier
@@ -21,6 +21,7 @@ Alle Szenen stammen aus Mitschnitten auf archive.org, keine YouTube-Downloads
 | PL United–City 2010/11 (Sky, 720p) | Vollspiel | Nanis Tor, Salto, Flanke zu Rooneys Fallrückzieher |
 | PL United–Arsenal 2011/12, 2. HZ (576p) | Halbzeit | Nanis Lupfer beim 8:2 |
 | Premier League Years 06/07, 07/08, 08/09 (1080p) | Saisonrückblicke | Fulham 2007, Portsmouth-Freistoß, Nani gegen Spurs und Boro, City-Freistoß 2009 |
+| Premier League Years 10/11, 11/12 (1080p) | Saisonrückblicke | City 2011 in HD (Nanis Tor, Fallrückzieher), Nanis Jubel beim 8:2 |
 
 `build/archive_sources.txt` nennt die Dateien, `build/segments.txt` die
 Ausschnitte. Ganze Spiele werden nie komplett geladen: ffmpeg springt per
@@ -31,6 +32,16 @@ per Texterkennung zu einem Inhaltsverzeichnis macht (`build/ply_index/`).
 Senderlogos und Spielstände werden je Quelle weggeschnitten (`CROP` in
 `build/edl.py`, gleiche Breite und Höhe, damit 16:9 bleibt). TV-Bauchbinden
 lassen sich so nicht entfernen, die Schnitte weichen ihnen aus.
+
+## Auflösung
+
+Wo es eine Szene auch in einem 1080p-Saisonrückblick gibt, kommt sie von dort.
+Was nur als 576p/720p-Mitschnitt existiert, rechnet `build/upscale.py` mit
+Real-ESRGAN (`realesr-general-x4v3`, BSD-3) auf der CPU hoch: Crop, 4×, dann
+flächengemittelt auf 1920×1080. Nur die Bilder, die der Schnitt wirklich liest,
+gehen durchs Netz (~8 s je 576p-Bild, ~13 s je 720p-Bild); das Ergebnis
+`<key>_ai.mp4` hat dieselbe Zeitachse und wird von `render.py` automatisch
+bevorzugt. Die Gewichte liegen in `media/models/` (nicht im Repo).
 
 ## Musik
 
@@ -69,11 +80,13 @@ Kein Musikschnitt: der Ausschnitt läuft am Stück bis zum natürlichen Songende
 
 ```bash
 pip install librosa numpy opencv-python-headless pillow   # + ffmpeg, tesseract
+pip install torch --index-url https://download.pytorch.org/whl/cpu   # für upscale.py
 cp <song>.mp3 media/blame.mp3
 python3 build/grid.py media/blame.mp3          # Raster -> build/grid.json
 python3 build/cut_segments.py                  # Ausschnitte -> media/src/
 python3 build/cuts.py r_pompey                 # Kameraschnitte in einem Clip
 python3 build/contact.py src r_pompey 22 34 0.25   # ansehen, Anker setzen
+python3 build/upscale.py r_arsfk r_arscounter   # schwache Quellen -> media/src/<key>_ai.mp4
 python3 build/render.py --half                 # Vorschau 960x540
 python3 build/render.py                        # -> out/edit_video.mp4
 python3 build/contact.py edit out/edit_video.mp4   # In / Anker / Out je Shot
@@ -99,5 +112,6 @@ Kameraschnitten fällt es auf das nächste echte Bild zurück.
 | `build/cuts.py` | Kameraschnitte in einem Quellclip finden |
 | `build/cut_segments.py` | Ausschnitte aus archive.org schneiden |
 | `build/ply_index.py` | Saisonrückblicke per Texterkennung indizieren |
+| `build/upscale.py` | KI-Hochskalierung (Real-ESRGAN) der genutzten Bilder schwacher Quellen |
 | `build/shotliste.py` | `SHOTLISTE.md` aus der EDL |
 | `assets/fonts/` | Anton, Bebas Neue, Oswald (OFL) |
