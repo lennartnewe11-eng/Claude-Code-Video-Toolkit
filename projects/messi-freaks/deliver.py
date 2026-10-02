@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Chunks + Musik -> Master und Lieferfassung, danach Prüfung am fertigen File.
 
-    python3 deliver.py [--mb 28.5] [--name messi_freaks_1080p.mp4]
+    python3 deliver.py [--mb 28.5] [--name messi_freaks_tiktok_1080p.mp4]
 
 - Master: CRF 17 (Qualität konstant, Größe egal).
 - Lieferfassung: Zielgröße trifft man nicht mit CRF, also zwei Durchgänge auf Bitrate.
 - Prüfung am Ergebnis, nicht an der Arbeitskopie: Framezahl, Dauer, und Bild/Ton-Sync
-  am zweiten Refrain (Weißblitz auf Montiels Treffer vs. Einsatz im Song müssen auf
+  bei Montiels Treffer (Weißblitz vs. Anschlag im Song bei audio.CHORUS_K müssen auf
   demselben Frame liegen). Schreibt build/deliver.json.
 """
 import argparse
@@ -97,7 +97,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--mb', type=float, default=28.5)   # Upload-Limit 30 MiB (= 31,4 MB)
     ap.add_argument('--no-master', action='store_true')
-    ap.add_argument('--name', default='messi_freaks_1080p.mp4')
+    ap.add_argument('--name', default='messi_freaks_tiktok_1080p.mp4')
     a = ap.parse_args()
     lst = concat_list()
     music = os.path.join(BUILD, 'music.wav')

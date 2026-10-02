@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Musikbett: „Freaks“ läuft an einem Stück, nichts geschnitten, nichts darübergelegt.
+"""Musikbett: „Freaks“ von 0:00 bis zum Ende von Refrain 1, nichts geschnitten, nichts darübergelegt.
 
 Das Video ist für TikTok gedacht: dort wird der Originalton stumm geschaltet und
 derselbe Song aus der TikTok-Bibliothek ab 0:00 daruntergelegt. Deshalb gibt es
@@ -20,10 +20,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SR = 48000
 SONG = os.path.join(HERE, 'media', 'audio', 'song.mp3')
 
-CHORUS_K = 296             # Refrain 2: Montiels Elfmeter ist im Netz (render.py, Sync-Punkt MONTIEL)
+CHORUS_K = 160             # viertes "I'm just a freak": Montiels Elfmeter ist im Netz (render.py, Sync-Punkt MONTIEL)
 ROAR_HIT = 106.90          # Quellzeit in final22_hl.mp4: Ball im Netz, Jubel setzt ein (nachgemessen)
 DROPOUT = (CHORUS_K - 2, CHORUS_K)   # nur für das Renderer-FX 'squeeze' (hier ungenutzt)
-FADE_OUT = 1.5
+FADE_OUT = 0.08           # nur gegen das Knacken: Schluss auf der Eins, kein Ausblenden
 PEAK = 0.95
 
 
@@ -47,7 +47,7 @@ def build(out):
     mix *= PEAK / peak
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', '-',
                     '-c:a', 'pcm_s16le', out], input=mix.tobytes(), check=True)
-    print(out, f'{total / SR:.2f}s', 'Song ab', f'{a / SR:.3f}s', 'Refrain 2 bei', f'{tl.kt(CHORUS_K):.3f}s',
+    print(out, f'{total / SR:.2f}s', 'Song ab', f'{a / SR:.3f}s', 'Montiel bei', f'{tl.kt(CHORUS_K):.3f}s',
           'peak vorher', round(float(peak), 3))
 
 

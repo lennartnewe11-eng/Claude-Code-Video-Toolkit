@@ -6,7 +6,10 @@ das Schnitt-Vokabular bleibt dasselbe. Alle Zeiten werden aus absoluten
 Song-Zeiten gerechnet (beats[n] - beats[a] + Offset), nie aus aufaddierten
 Shotlängen, und erst ganz am Ende auf Frames gerundet: frame(k) = round(T(k) * FPS).
 
-Der Song läuft an einem Stück, vom ersten Gitarrenanschlag bis zum Ende.
+TikTok-Fassung: der Song läuft an einem Stück vom ersten Gitarrenanschlag bis zum
+Ende von Refrain 1 (k 176, ~59 s) und hört auf einer Takt-Eins auf. Dort setzt im
+Song der Zwischenteil ein; das Video endet davor, und in der TikTok-Schleife folgt
+wieder das Intro-Riff, ebenfalls auf einer Eins.
 Der Mechanismus für mehrere Segmente bleibt; jeder Sprung müsste
 (b - a) % 8 == 0 erfüllen (ein Takt = 8 Achtel), build() prüft das.
 """
@@ -19,14 +22,13 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 FPS = 50                    # Quellen sind PAL (25/50p) → 50 fps ohne Pulldown-Ruckeln
 LEAD = 0.06                 # s vor dem ersten Anschlag: Video und TikTok-Sound starten beide bei 0:00
 
-# (erster Song-Beat, letzter Anschlag). Der ganze Song, Ausgabe-Beat k = Song-Achtel n:
-#     0– 56 Intro (Gitarre)            56–120 Strophe 1         120–176 Refrain 1
-#   176–240 Zwischenteil ("My head is") 240–296 Strophe 2        296–352 Refrain 2
-#   352–416 Outro (Gitarre)            416 letzter Anschlag, danach Ausklang
+# (erster Song-Beat, Ende). Ausgabe-Beat k = Song-Achtel n:
+#     0– 56 Intro (Gitarre)    56–120 Strophe 1    120–176 Refrain 1
+#   (176 Zwischenteil "My head is" — hier ist Schluss)
 SEGMENTS = [
-    (0, 416),
+    (0, 176),
 ]
-CODA = 5.0       # s nach dem letzten Anschlag: Ausklang, letztes Bild, Titel
+CODA = 0.0       # kein Ausklang: Schluss auf der Eins, TikTok spielt in Schleife
 
 # Abschnitte in Ausgabe-Beats (werden aus SEGMENTS abgeleitet, s. u.)
 SECTIONS = {}
