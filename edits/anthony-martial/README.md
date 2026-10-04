@@ -2,7 +2,7 @@
 
 A 14.2 s, 1080p30 edit that loops seamlessly. It uses the same German rap track as the [Ronaldo edit](../cristiano-ronaldo/), but this time its opening hook ("*Bin auf Cartier, nicht auf Ray-Ban …*"). Almost every shot is match footage: goals, solo runs and the celebrations straight after them.
 
-The footage, the song and the font binary are **not** in git (`media/` is ignored). This folder holds only the pipeline to rebuild the edit.
+The footage, the song and the font binary (only needed if `CAPTION` is set) are **not** in git (`media/` is ignored). This folder holds only the pipeline to rebuild the edit.
 
 ## Pipeline
 
@@ -34,7 +34,7 @@ Two reasons for the second pass:
 
 | Metric | What the edit does |
 |---|---|
-| **Hook rate (0–2 s)** | Frame 1 is already the run on his debut vs Liverpool, with the caption **"DEBÜT MIT 19. GEGEN LIVERPOOL."** (debut at 19, against Liverpool) for context and curiosity. The first strike lands at 1.3 s. |
+| **Hook rate (0–2 s)** | Frame 1 is already the run on his debut vs Liverpool, with no on-screen text. The first strike lands at 1.3 s. A hook caption can be switched on with `CAPTION` in `render.py`. |
 | **Retention** | Each bar is one goal told in three shots (run, strike on the kick, ball in or celebration), so there is a payoff every 3.6 s. |
 | **Mid-point spike** | In bar 3 the drums drop out: the Fulham solo runs in slow-mo (0.48×, motion-interpolated) and the **strike lands exactly when the kick returns**, with a flash and shake. |
 | **Completion & rewatch** | 14.2 s total. The last bar speeds up (a goal, then three one-beat flashes on the kick roll) and ends on Martial's look, which loops straight back into the debut run. |
@@ -45,7 +45,7 @@ All shots come from `plcomp.mp4`. `B(k) = 32.030 + 0.4444·k` (song time); the e
 
 | Beats | Song | Shot | Source time |
 |---|---|---|---|
-| −39 → −36 | "Bin auf Cartier" | **Debut vs Liverpool 2015**: run past Clyne, strike on the kick (with caption) | 17.59–18.92 |
+| −39 → −36 | "Bin auf Cartier" | **Debut vs Liverpool 2015**: run past Clyne, strike on the kick | 17.59–18.92 |
 | −36 → −34 | | ball in, behind-the-line angle | 19.48–20.37 |
 | −34 → −31 | | corner-flag celebration jump | 9.40–10.73 |
 | −31 → −28 | "Mach kein Rückzug" | **Stoke 2016**: solo, strike on the kick | 202.59–203.92 |

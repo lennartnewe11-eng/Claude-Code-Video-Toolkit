@@ -5,7 +5,7 @@ Song window: the second pass of the song's opening hook ("Bin auf Cartier, nicht
 from the downbeat after the first kick roll (14.70 s) to the downbeat after the second kick roll
 (28.92 s). Same lyric, same roll on both ends, so the loop is musically invisible.
 
-  bar 1  debut vs Liverpool 2015 – run, strike on the kick, ball in, celebration   (+ hook caption)
+  bar 1  debut vs Liverpool 2015 – run, strike on the kick, ball in, celebration
   bar 2  Stoke 2016 – solo, strike on the kick, ball in, arms-wide celebration
   bar 3  drums drop out ("Ich bin Selfmade, 100%") – Fulham 2019 solo in slow-mo,
          strike exactly when the kick returns, keeper beaten, net
@@ -63,7 +63,7 @@ EDL = [
     ( -8,  -7, 32.25, 32.69, dict(cx=980, cy=460, h=900), {}),      # Cardiff, the look -> loop
 ]
 
-CAPTION = (B(-39) - PRE, B(-34), "DEBÜT MIT 19. GEGEN LIVERPOOL.")
+CAPTION = None   # optional hook text: (t_in, t_out, "TEXT"), e.g. (B(-39) - PRE, B(-34), "DEBÜT MIT 19. GEGEN LIVERPOOL.")
 
 IMPACT = {-36: dict(flash=0.25, shake=10, punch=0.10),
           -28: dict(flash=0.50, shake=0, punch=0.10),
@@ -204,7 +204,7 @@ def main():
     flash_ev = [(fidx(B(k)), d["flash"]) for k, d in IMPACT.items()]
     shake_ev = [(fidx(B(k)), d["shake"]) for k, d in IMPACT.items() if d["shake"]]
     rgb_ev = [(fidx(B(k)), 14) for k in IMPACT] + [(fidx(B(k)), 7) for k in cuts if k not in IMPACT]
-    cap = (fidx(CAPTION[0]), fidx(CAPTION[1]), caption_sprite(CAPTION[2]))
+    cap = (fidx(CAPTION[0]), fidx(CAPTION[1]), caption_sprite(CAPTION[2])) if CAPTION else None
 
     enc = None
     if not PREVIEW:
@@ -252,7 +252,7 @@ def main():
             fl = min(1.0, env(f, flash_ev, 2.2))
             if fl > 0.01:
                 img = cv2.addWeighted(img, 1 - fl, np.full_like(img, 255), fl, 0)
-            if cap[0] <= f < cap[1]:
+            if cap and cap[0] <= f < cap[1]:
                 scale = 1.0 + 0.12 * math.exp(-(f - cap[0]) / 1.6)
                 img = overlay(img.copy(), cap[2], OW / 2, OH * 0.085, scale)
             if PREVIEW:
