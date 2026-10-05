@@ -1,7 +1,7 @@
-# LETZTE RUNDE: TikTok-Sport-Clip (16 s, 9:16)
+# LETZTE RUNDE / FINAL ROUND: TikTok-Sport-Clip (16 s, 9:16)
 
 Ein Boxing-Edit, gebaut auf die Werte aus [RESEARCH.md](RESEARCH.md): Hook-Rate, Completion,
-Rewatch und Shares. Alles ist programmatisch erzeugt: Die Schnittliste ist Code, Speed-Ramps,
+Rewatch und Shares. Die Texte im Video sind auf Englisch. Alles ist programmatisch erzeugt: Die Schnittliste ist Code, Speed-Ramps,
 Grading, Typo und Sounddesign rechnet eine eigene Python/OpenCV-Engine. Das Ergebnis lässt sich
 damit exakt reproduzieren.
 
@@ -14,15 +14,15 @@ damit exakt reproduzieren.
 
 | Zeit | Akt | Bild | Text | Sound |
 |---|---|---|---|---|
-| 0,0 | **Hook** | Der Sieger schaut in die Linse, bei 1,0 s fliegt ein Schlag in die Kamera | **LETZTE RUNDE.** + Uhr **0:12** | 808 auf Frame 0, Whoosh, Impact |
-| 1,0 | Druck | Er kassiert Treffer (blauer Handschuh exakt auf dem 808 bei 1,5 s), Gegner, Ecke mit Wasser | ALLE HABEN IHN **ANGEZÄHLT.** | Punches, Atem |
-| 4,0 | Erinnerung | S/W-Flashback, ein Schnitt pro Beat: Pads, Bandagen, Sandsack, Schattenboxen | KEINER SAH SEINE **NÄCHTE** IM GYM. | Tape-Rewind, Musik per Tiefpass „wie erinnert" |
+| 0,0 | **Hook** | Der Sieger schaut in die Linse, bei 1,0 s fliegt ein Schlag in die Kamera | **FINAL ROUND.** + Uhr **0:12** | 808 auf Frame 0, Whoosh, Impact |
+| 1,0 | Druck | Er kassiert Treffer (blauer Handschuh exakt auf dem 808 bei 1,5 s), Gegner, Ecke mit Wasser | THEY COUNTED HIM **OUT.** | Punches, Atem |
+| 4,0 | Erinnerung | S/W-Flashback, ein Schnitt pro Beat: Pads, Bandagen, Sandsack, Schattenboxen | NOBODY SAW HIS **NIGHTS** IN THE GYM. (eine Zeile pro Beat) | Tape-Rewind, Musik per Tiefpass „wie erinnert" |
 | 8,0 | Comeback | Zurück in Farbe: sein Schlag landet (Slow-Mo mit Schweiß-Spray), die Schnitte werden schneller | – | Treffer auf jedem Cut |
 | 10,0 | Der Blick | Kopf hebt sich, Blick in die Kamera, langsamer Push-in | – | Whoosh |
 | 11,1 | Stille | Musik bricht ab, der Handschuh fliegt in 0,3× an, Uhr pulsiert rot **0:01** | – | nur Herzschlag + Atem |
 | 12,0 | **K.O.** | Treffer exakt auf dem Drop: Weißblitz, Shake, Speed-Ramp 1× → 3,5×, die Kamera folgt dem Fall | **K.O.** · Uhr **0:00** | Impact-Stack, Ringglocke, Crowd |
 | 13,5 | Danach | Der Gegner blutend in der Ecke | – | Crowd |
-| 14,0 | Botschaft | Der Sieger in Deckung, Blick in die Kamera | ES IST ERST VORBEI, WENN **[DU]** AUFGIBST. | – |
+| 14,0 | Botschaft | Der Sieger in Deckung, Blick in die Kamera | IT'S NOT OVER UNTIL **[YOU]** QUIT. | – |
 | 16,0 | **Loop** | Der letzte Frame geht nahtlos in Frame 0 über | – | Musik taktgenau geloopt |
 
 Musik: „Sparta" (Mixkit #370), 120 BPM, Ausschnitt 0:36–0:52. Die Beat-Map wurde mit librosa gemessen:
@@ -42,7 +42,7 @@ Der Track hat bei 11,1–11,95 s selbst einen Drop-out. Genau dort sitzt der Fre
   Treffer exponentiell ab.
 - **Grading:** Schwarzpunkt, filmische S-Kurve, Teal-Schatten und warme Highlights, Bloom bzw. Halation,
   Vignette, feines luminanzabhängiges Filmkorn. Der Flashback läuft als Silber-S/W mit Gate-Weave und Flicker.
-- **Typo:** Anton in Versalien, Slam-in mit Motion-Blur, ein Akzent in Rot, „DU" in einer roten Box.
+- **Typo:** Anton in Versalien, Slam-in mit Motion-Blur, ein Akzent in Rot, „YOU" in einer roten Box.
   Ein weicher Scrim sichert die Lesbarkeit. Alles liegt in TikToks Safe Zone, also frei von der Like-Leiste
   rechts und der Caption unten.
 - **Round-Clock-HUD** als Retention-Mechanik: 0:12 → 0:00, Tick pro Sekunde, pulsiert im Herzschlag.

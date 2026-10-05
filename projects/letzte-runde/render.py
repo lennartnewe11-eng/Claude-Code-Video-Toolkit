@@ -88,9 +88,12 @@ def draw_texts(img, t, shake):
             dt = t - ta
             if dt < -1e-6:
                 continue
+            mblur = 60
             if card.get("first_frame_solid") and ta == 0:
                 s = 1 + 0.14 * (1 - ease_out_cubic(dt / 0.20))
                 op = 1.0
+                if dt < 0.5 / FPS:      # frame 0 is the hook/preview frame: keep it crisp
+                    mblur = 0
             else:
                 k = (0.6 if heavy else 0.28)
                 s = 1 + k * (1 - ease_out_cubic(dt / (0.20 if heavy else 0.15)))
@@ -107,7 +110,7 @@ def draw_texts(img, t, shake):
                     composite(img, echo, edl.TEXT_X + sx, top + i * lh + sy, s * (1 + 0.55 * ease_out_cubic(e)),
                               (1 - e) * 0.55 * out_k)
             composite(img, layer, edl.TEXT_X + sx, top + i * lh + sy, s, op * out_k,
-                      blur_y=max(0.0, (s - 1) * 60))
+                      blur_y=max(0.0, (s - 1) * mblur))
     return img
 
 

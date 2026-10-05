@@ -1,4 +1,4 @@
-"""Edit decision list for "LETZTE RUNDE" – a 16 s TikTok boxing edit.
+"""Edit decision list for "LETZTE RUNDE" (on-screen: FINAL ROUND) – a 16 s TikTok boxing edit.
 
 Timeline = 16.0 s @ 30 fps = 480 frames, cut to the beat grid of
 "Sparta" (Mixkit #370, 120 BPM) played from 0:36.0 to 0:52.0.
@@ -10,17 +10,17 @@ The track's built-in drop-out (11.1–11.95 s) is where the KO punch is held,
 the drop at 12.0 s is the impact.
 
 Story (retention logic in brackets):
-  0.0  HOOK      – eyes into the lens + "LETZTE RUNDE." + 0:12 round clock,
+  0.0  HOOK      – eyes into the lens + "FINAL ROUND." + 0:12 round clock,
                    then a punch into the camera on the 1.0 s snare
                    [4th-wall break, key message < 1 s, open loop via countdown]
-  1.0  PRESSURE  – he takes punches, "ALLE HABEN IHN ANGEZÄHLT."
-  4.0  MEMORY    – B/W training flashback on every beat, "KEINER SAH SEINE NÄCHTE IM GYM."
+  1.0  PRESSURE  – he takes punches, "THEY COUNTED HIM OUT."
+  4.0  MEMORY    – B/W training flashback on every beat, "NOBODY SAW HIS NIGHTS IN THE GYM."
                    [pattern interrupt every 0.5 s]
   8.0  COMEBACK  – back to colour, he lands punches, cuts accelerate
  10.0  THE LOOK  – head lifts, stares into the lens
  11.1  SILENCE   – music drops out, ultra slow-mo glove, heartbeat, clock 0:01
  12.0  K.O.      – impact exactly on the drop, clock hits 0:00
- 14.0  MESSAGE   – "ES IST ERST VORBEI, WENN DU AUFGIBST." over his stare
+ 14.0  MESSAGE   – "IT'S NOT OVER UNTIL YOU QUIT." over his stare
  16.0  LOOP      – last frame (stare) flows into first frame (stare) [rewatch]
 """
 from engine import Shot
@@ -145,11 +145,11 @@ IMPACTS = [
 TEXT_X = 520
 TEXT_Y = 1210
 TEXTS = [
-    dict(lines=[("LETZTE", 0.00), ("RUNDE.", 0.00)], size=236, t_out=1.46, first_frame_solid=True),
-    dict(lines=[("ALLE HABEN IHN", 1.50), ("{ANGEZÄHLT.}", 2.00)], size=150, t_out=3.96),
-    dict(lines=[("KEINER SAH SEINE", 4.50), ("{NÄCHTE} IM GYM.", 5.00)], size=140, t_out=7.96),
+    dict(lines=[("FINAL", 0.00), ("ROUND.", 0.00)], size=236, t_out=1.46, first_frame_solid=True),
+    dict(lines=[("THEY COUNTED", 1.50), ("HIM {OUT.}", 2.00)], size=160, t_out=3.96),
+    dict(lines=[("NOBODY SAW", 4.50), ("HIS {NIGHTS}", 5.00), ("IN THE GYM.", 5.50)], size=150, t_out=7.96),
     dict(lines=[("{K.O.}", 12.00)], size=420, t_out=13.46, y=1180, heavy=True),
-    dict(lines=[("ES IST ERST VORBEI,", 14.00), ("WENN [DU] AUFGIBST.", 14.50)], size=124, t_out=99,
+    dict(lines=[("IT'S NOT OVER", 14.00), ("UNTIL [YOU] QUIT.", 14.50)], size=144, t_out=99,
          y=1400),
 ]
 

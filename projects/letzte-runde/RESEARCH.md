@@ -1,6 +1,6 @@
 # TikTok-Viralität: Metriken & Benchmarks (Stand Oktober 2026)
 
-Recherche als Grundlage für den Clip **„LETZTE RUNDE"**. Wichtig vorab: TikTok veröffentlicht
+Recherche als Grundlage für den Clip **„LETZTE RUNDE"** (Texte im Video auf Englisch: *FINAL ROUND*). Wichtig vorab: TikTok veröffentlicht
 **keine** Schwellenwerte für Viralität. Offizielle Aussagen gibt es nur zu den *Arten* von Signalen
 und zu kreativen Best Practices (mit ✅ markiert). Alle konkreten Prozentwerte stammen aus
 Drittanbieter-Analysen und Branchenblogs. Sie taugen als Orientierung, sind aber keine harten Grenzen (⚠️).
@@ -68,22 +68,22 @@ Drittanbieter-Analysen und Branchenblogs. Sie taugen als Orientierung, sind aber
 
 | Ziel-KPI | Umsetzung im Clip | Timecode |
 |---|---|---|
-| Hook-Rate | Frame 0: Der Protagonist **schaut direkt in die Kamera** (vierte Wand). **„LETZTE RUNDE."** steht ab dem ersten Frame da (Kernbotschaft < 1 s). Ein 808-Hit setzt auf Frame 0 ein, bei 1,0 s kommt **ein Schlag direkt in die Linse**. | 0,0–1,0 s |
+| Hook-Rate | Frame 0: Der Protagonist **schaut direkt in die Kamera** (vierte Wand). **„FINAL ROUND."** steht ab dem ersten Frame da (Kernbotschaft < 1 s). Ein 808-Hit setzt auf Frame 0 ein, bei 1,0 s kommt **ein Schlag direkt in die Linse**. | 0,0–1,0 s |
 | Completion | **Countdown-Uhr 0:12 → 0:00** als offene Schleife: Man will sehen, was bei 0:00 passiert, und genau dort landet der K.O. Länge 16 s. | 0–12 s |
 | Completion | Mustbrüche im Beat-Raster: alle 0,25–1,0 s ein Schnitt, ein Farbwechsel (S/W-Flashback) und ein Sound-Wechsel (Tiefpass-„Erinnerung"), sodass kein Durchhänger entsteht. | 4–10 s |
 | Watch Time / Spannung | Die Musik bricht ab, Herzschlag, Ultra-Slow-Motion (0,3×) auf den anfliegenden Handschuh, Uhr pulsiert rot auf **0:01**. | 11,1–12,0 s |
 | Payoff / Shares | **K.O. exakt auf dem Drop**: Weißblitz, Shake, Chromatic Split, Speed-Ramp 1× → 3,5×, Ringglocke, Crowd. | 12,0 s |
 | Rewatch/Loop | Der **letzte Frame geht nahtlos in den ersten über** (gleicher Shot und Bildausschnitt, Musik taktgenau geloopt). So beginnt der Zweitdurchlauf, bevor man es merkt. | 16,0 → 0,0 s |
-| Shares / Kommentare | Die Schlusszeile spricht den Zuschauer direkt an: **„Es ist erst vorbei, wenn [DU] aufgibst."** Das liefert eine Identifikations- und Teilbotschaft. | 14–16 s |
-| Text-Overlays | 5 kurze Textkarten (Anton, Versalien), alle in der Safe Zone (x 120–960, y 1100–1530) | durchgehend |
+| Shares / Kommentare | Die Schlusszeile spricht den Zuschauer direkt an: **„It's not over until [YOU] quit."** Das liefert eine Identifikations- und Teilbotschaft. | 14–16 s |
+| Text-Overlays | 5 kurze Textkarten (Anton, Versalien), alle in der Safe Zone (x 90–950, y 960–1560) | durchgehend |
 | Sound-on | 120 BPM Trap, Schnitte auf 808-/Snare-Hits, Sounddesign auf jedem Treffer, −13,9 LUFS / −1,7 dBTP | durchgehend |
 | Technik | 1080 × 1920, 30 fps, H.264 High ~16 Mbit/s, AAC 192 kbit/s 44,1 kHz, BT.709 | – |
 
 ## 6. Posting-Empfehlung
 
 - **Cover:** Frame bei 12,5 s („K.O."-Frame, `output/cover.jpg`) oder der Hook-Frame.
-- **Caption mit Kommentar-Trigger:** *„Wer wurde schon mal angezählt – und ist wieder aufgestanden? 👇🥊"*
-- **Hashtags (3–5, Nische vor Breite):** `#boxen #kampfsport #comeback #motivation #boxing`
+- **Caption mit Kommentar-Trigger (englisch, passend zu den Texten im Video):** *„Ever been counted out – and got back up? 👇🥊"*
+- **Hashtags (3–5, Nische vor Breite):** `#boxing #fightnight #comeback #boxingtraining #motivation`
 - **Sound:** Den Original-Sound posten. Er ist Royalty-free (Mixkit) und beat-synchron geschnitten.
   Wird er gegen einen Trend-Sound getauscht, verschiebt sich die Synchronität. Ein Ersatz-Track
   braucht ~120 BPM und einen Break vor dem Drop.
