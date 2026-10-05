@@ -14,6 +14,7 @@ Skills, MCP servers, and tools for producing video with Claude Code. Covers prog
 - [YouTube Clipping & Subtitles](#youtube-clipping--subtitles) — Download, chapter, clip, translate
 - [FFmpeg & Post-Processing](#ffmpeg--post-processing) — Encode, resize, compress, concat
 - [Recommended Stacks](#recommended-stacks)
+- [Example Project: TikTok Sport Clip](#example-project-tiktok-sport-clip)
 - [Further Reading](#further-reading)
 
 ---
@@ -202,6 +203,19 @@ npx skills add https://github.com/op7418/Youtube-clipper-skill
 pip install yt-dlp pysrt
 brew install ffmpeg  # needs libass support
 ```
+
+---
+
+## Example Project: TikTok Sport Clip
+
+[`projects/letzte-runde`](projects/letzte-runde) is a 16-second boxing edit, optimized for TikTok and built entirely in code with Python, OpenCV and FFmpeg. It starts from researched virality benchmarks ([RESEARCH.md](projects/letzte-runde/RESEARCH.md), in German): hook rate, completion, rewatch and share rate. Techniques in the build:
+
+- an edit decision list written as code
+- optical-flow slow motion and speed ramps
+- cuts synced to the beat grid
+- a countdown HUD as a retention device
+- a seamless loop
+- loudness-normalized sound design
 
 ---
 

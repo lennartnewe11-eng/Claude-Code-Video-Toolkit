@@ -1,0 +1,5 @@
+assets/
+output/still_*.png
+output/picture.mp4
+output/mix*.wav
+__pycache__/
