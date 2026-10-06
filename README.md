@@ -14,7 +14,7 @@ Skills, MCP servers, and tools for producing video with Claude Code. Covers prog
 - [YouTube Clipping & Subtitles](#youtube-clipping--subtitles) — Download, chapter, clip, translate
 - [FFmpeg & Post-Processing](#ffmpeg--post-processing) — Encode, resize, compress, concat
 - [Recommended Stacks](#recommended-stacks)
-- [Example Project: TikTok Sport Clip](#example-project-tiktok-sport-clip)
+- [Example Projects: TikTok Clips](#example-projects-tiktok-clips)
 - [Further Reading](#further-reading)
 
 ---
@@ -206,7 +206,7 @@ brew install ffmpeg  # needs libass support
 
 ---
 
-## Example Project: TikTok Sport Clip
+## Example Projects: TikTok Clips
 
 [`projects/letzte-runde`](projects/letzte-runde) is a 16-second boxing edit, optimized for TikTok and built entirely in code with Python, OpenCV and FFmpeg. It starts from researched virality benchmarks ([RESEARCH.md](projects/letzte-runde/RESEARCH.md), in German): hook rate, completion, rewatch and share rate. Techniques in the build:
 
@@ -216,6 +216,12 @@ brew install ffmpeg  # needs libass support
 - a countdown HUD as a retention device
 - a seamless loop
 - loudness-normalized sound design
+
+[`projects/eagle-has-landed`](projects/eagle-has-landed) is a 21-second Apollo 11 landing edit that follows the same benchmarks. It combines public-domain NASA material with motion graphics:
+
+- real NASA footage, Hasselblad photos and the original air-to-ground audio
+- motion graphics built and rendered with [HyperFrames](https://github.com/heygen-com/hyperframes) (HTML + GSAP): an alarm panel, a live mission-clock HUD, a targeting overlay, a fuel countdown and word-synced captions
+- an inverse-telecine footage prep and a Python finishing pass
 
 ---
 

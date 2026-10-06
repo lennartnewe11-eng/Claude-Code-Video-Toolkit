@@ -363,7 +363,7 @@
   [0, 0.43, 0.86, 1.29].forEach((a) => tl.fromTo("#hook-red", { opacity: 1 }, { opacity: 0.25, duration: 0.38, ease: "power2.out" }, a));
   // frame 0 is the hook: everything that carries the message is already on screen, then settles
   tl.fromTo("#hook-dsky", { opacity: 1, scale: 1.16 }, { opacity: 1, scale: 1, duration: 0.24, ease: "power4.out" }, 0);
-  tl.fromTo("#hook-chip", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.14, ease: "power3.out" }, 0.06);
+  tl.fromTo("#hook-chip", { opacity: 1, x: -40 }, { opacity: 1, x: 0, duration: 0.16, ease: "power3.out" }, 0);
   tl.fromTo("#hook-prog", { opacity: 1 }, { opacity: 0.25, duration: 0.11, repeat: 15, yoyo: true, ease: "steps(1)" }, 0.05);
   tl.fromTo("#hook-chip", { scale: 1 }, { scale: 1.06, immediateRender: false, duration: 0.11, repeat: 13, yoyo: true, ease: "sine.inOut" }, 0.2);
   tl.fromTo("#h1", { opacity: 1, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.out", transformOrigin: "0% 100%" }, 0);
@@ -397,9 +397,9 @@
   tl.fromTo("#a-prog", { opacity: 1 }, { opacity: 0.25, duration: 0.11, repeat: 19, yoyo: true, ease: "steps(1)" }, 3.10);
   slam("#a1", 3.42); slam("#a2", 3.78);
   tl.fromTo("#a3", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.2, ease: "power3.out" }, 3.95);
-  tl.to("#a1, #a2, #a3", { opacity: 0, y: -24, duration: 0.12, ease: "power2.in" }, 4.62);
+  tl.to("#a1, #a2, #a3", { opacity: 0, y: -24, duration: 0.10, ease: "power2.in" }, 4.52);
   tl.to("#a-dsky .code", { color: "#ffffff" }, 4.30);
-  tl.fromTo("#a-cap", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, 4.70);
+  tl.fromTo("#a-cap", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, 4.68);
   tl.to("#a-dsky", { opacity: 0, scale: 0.8, duration: 0.15, ease: "power2.in" }, 5.62);
   tl.to("#w-alarm", { opacity: 0, duration: 0.08 }, 5.79);
 
