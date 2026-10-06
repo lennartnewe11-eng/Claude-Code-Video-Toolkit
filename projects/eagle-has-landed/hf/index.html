@@ -1,0 +1,469 @@
+<!doctype html>
+<!--
+  THE EAGLE HAS LANDED – 21 s vertical edit, HyperFrames composition.
+  Real NASA footage/photos/audio (public domain) + motion graphics.
+  Timeline (s):
+    0.00 HOOK      1202 alarm, DSKY, "THE MOON LANDING CAME DOWN TO SECONDS."
+    1.79 MONTAGE   6 flash cuts on the half-beat, date + 384,400 km counter
+    3.02 ALARM     16 mm window footage, 1201, "THE COMPUTER WAS OVERLOADED."
+    5.80 BOULDERS  targeting overlay, "ARMSTRONG TOOK MANUAL CONTROL."
+    8.32 FUEL      60 → 30 s fuel callout countdown, altitude to 20 ft
+   12.40 CONTACT   "CONTACT LIGHT."
+   13.80 LANDED    Aldrin portrait, "HOUSTON, TRANQUILITY BASE HERE. THE EAGLE HAS LANDED."
+   17.85 BREATHING Mission Control, Earth over the Moon, "WE'RE BREATHING AGAIN."
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1080, height=1920" />
+<title>The Eagle Has Landed</title>
+<script src="vendor/gsap.min.js"></script>
+<style>
+  @font-face { font-family: "Barlow Condensed"; font-weight: 900; src: url("assets/fonts/BarlowCondensed-Black.ttf"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 800; src: url("assets/fonts/BarlowCondensed-ExtraBold.ttf"); }
+  @font-face { font-family: "Barlow Condensed"; font-weight: 600; src: url("assets/fonts/BarlowCondensed-SemiBold.ttf"); }
+  @font-face { font-family: "JetBrains Mono"; font-weight: 100 800; src: url("assets/fonts/JetBrainsMono.ttf"); }
+
+  :root {
+    --ink: #f3efe6;
+    --dim: rgba(243, 239, 230, 0.56);
+    --line: rgba(243, 239, 230, 0.20);
+    --amber: #ffb23e;
+    --red: #ff3b2f;
+    --green: #a6ff7d;
+    --bg: #030508;
+  }
+  html, body { margin: 0; background: var(--bg); }
+  body { color: var(--ink); font-family: "Barlow Condensed", sans-serif; -webkit-font-smoothing: antialiased; }
+  #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+
+  .layer { position: absolute; inset: 0; }
+  .clip { position: absolute; inset: 0; }
+  .mono { font-family: "JetBrains Mono", monospace; }
+
+  /* ---------- starfield ---------- */
+  #stars { position: absolute; inset: 0; z-index: 0; }
+  .star { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; }
+
+  /* ---------- media frames ---------- */
+  .full { position: absolute; inset: 0; overflow: hidden; }
+  .full img { position: absolute; left: 50%; top: 50%; width: 1350px; height: 2400px; margin: -1200px 0 0 -675px; }
+  .full img.hi { width: 2160px; height: 3840px; margin: -1920px 0 0 -1080px; }
+  .vwrap { position: absolute; overflow: hidden; z-index: 3; }
+  .vwrap video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .win { border-radius: 22px; box-shadow: 0 0 0 2px var(--line), 0 40px 120px rgba(0,0,0,0.6); }
+  .tag {
+    position: absolute; left: 22px; top: 20px; padding: 7px 14px 6px; border-radius: 8px;
+    font: 600 22px/1 "JetBrains Mono", monospace; letter-spacing: 0.10em; color: var(--amber);
+    background: rgba(3,5,8,0.66); border: 1px solid rgba(255,178,62,0.45);
+  }
+
+  /* ---------- typography ---------- */
+  .hl { position: absolute; left: 72px; width: 900px; }
+  .hl .ln { display: block; font-weight: 900; font-size: 116px; line-height: 0.9; letter-spacing: 0.005em;
+            text-transform: uppercase; text-shadow: 0 6px 40px rgba(0,0,0,0.55); white-space: nowrap; }
+  .hl .ln.big { font-size: 196px; line-height: 0.86; }
+  .red { color: var(--red); }
+  .amber { color: var(--amber); }
+  .speaker { display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+             font: 600 24px/1 "JetBrains Mono", monospace; letter-spacing: 0.16em; color: var(--amber); text-transform: uppercase; }
+  .speaker::before { content: ""; width: 34px; height: 3px; background: var(--amber); display: block; }
+  .quote .w { display: inline-block; font-weight: 800; font-size: 96px; line-height: 0.98; text-transform: uppercase;
+              margin-right: 18px; text-shadow: 0 6px 36px rgba(0,0,0,0.7); }
+  .quote .w.xl { font-size: 150px; font-weight: 900; }
+  .cap { position: absolute; left: 72px; width: 880px; }
+  .cap .q { font-weight: 800; font-size: 74px; line-height: 0.98; text-transform: uppercase; text-shadow: 0 6px 30px rgba(0,0,0,0.7); }
+
+  /* ---------- HUD ---------- */
+  #hud { position: absolute; inset: 0; z-index: 30; pointer-events: none; }
+  #hud .bar { position: absolute; left: 60px; right: 120px; top: 132px; display: flex; justify-content: space-between;
+              font: 600 26px/1 "JetBrains Mono", monospace; letter-spacing: 0.12em; color: var(--dim); }
+  #hud .bar2 { top: 176px; color: var(--ink); }
+  #hud .rule { position: absolute; left: 60px; right: 120px; top: 222px; height: 2px; background: var(--line); }
+  #hud .rule i { position: absolute; left: 0; top: 0; height: 2px; width: 100%; background: var(--amber); transform-origin: 0 0; display: block; }
+  #rec { display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: var(--red); margin-right: 12px; vertical-align: 1px; }
+  .val { color: var(--amber); }
+  #fuelv.warn { color: var(--red); }
+  .tick { position: absolute; width: 18px; height: 2px; background: var(--line); }
+
+  /* ---------- DSKY ---------- */
+  .dsky { position: absolute; width: 760px; height: 330px; border-radius: 26px; background: linear-gradient(180deg, #15181c, #0a0c0f);
+          box-shadow: 0 0 0 2px rgba(255,255,255,0.10), inset 0 2px 0 rgba(255,255,255,0.06), 0 50px 120px rgba(0,0,0,0.7); }
+  .dsky .lamps { position: absolute; left: 28px; top: 30px; width: 250px; display: grid; grid-template-columns: 1fr; gap: 14px; }
+  .lamp { height: 58px; border-radius: 8px; background: #23262b; color: #4a4d52; display: flex; align-items: center; justify-content: center;
+          font: 700 24px/1 "JetBrains Mono", monospace; letter-spacing: 0.08em; }
+  .lamp.on { background: var(--amber); color: #1a1205; box-shadow: 0 0 40px rgba(255,178,62,0.6); }
+  .dsky .screen { position: absolute; right: 28px; top: 30px; width: 420px; height: 270px; border-radius: 12px; background: #050806;
+                  box-shadow: inset 0 0 0 2px rgba(166,255,125,0.12); }
+  .dsky .lbl { position: absolute; left: 22px; top: 18px; font: 700 24px/1 "JetBrains Mono", monospace; color: #050806;
+               background: var(--green); padding: 6px 10px; border-radius: 4px; letter-spacing: 0.1em; }
+  .dsky .code { position: absolute; left: 0; right: 0; bottom: 18px; text-align: center; font: 800 170px/1 "JetBrains Mono", monospace;
+                color: var(--green); text-shadow: 0 0 22px rgba(166,255,125,0.75), 0 0 60px rgba(166,255,125,0.35); letter-spacing: 0.02em; }
+  .alarm-chip { position: absolute; padding: 12px 20px 10px; border-radius: 10px; background: var(--red); color: #fff;
+                font: 800 30px/1 "JetBrains Mono", monospace; letter-spacing: 0.14em; box-shadow: 0 0 60px rgba(255,59,47,0.55); }
+
+  /* ---------- overlays ---------- */
+  .redwash { position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 40%, rgba(255,40,30,0.0), rgba(255,30,20,0.55)); mix-blend-mode: multiply; }
+  .grade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3,5,8,0.70) 0%, rgba(3,5,8,0.0) 22%, rgba(3,5,8,0.0) 55%, rgba(3,5,8,0.88) 82%, rgba(3,5,8,0.96) 100%); }
+  .grid { position: absolute; inset: 0; opacity: 0.22;
+          background-image: linear-gradient(rgba(243,239,230,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(243,239,230,0.12) 1px, transparent 1px);
+          background-size: 90px 90px; }
+  #scan { position: absolute; inset: 0; z-index: 40; pointer-events: none; opacity: 0.18;
+          background: repeating-linear-gradient(0deg, rgba(0,0,0,0.0) 0px, rgba(0,0,0,0.0) 3px, rgba(0,0,0,0.55) 4px); }
+  #flash { position: absolute; inset: 0; z-index: 45; background: #fff; opacity: 0; }
+  #black { position: absolute; inset: 0; z-index: 44; background: #000; opacity: 0; }
+
+  /* boulder targeting */
+  .reticle { position: absolute; width: 300px; height: 230px; border: 3px solid var(--amber); border-radius: 6px; }
+  .reticle::before, .reticle::after { content: ""; position: absolute; left: 50%; top: 50%; background: var(--amber); }
+  .reticle::before { width: 26px; height: 3px; margin: -1px 0 0 -13px; }
+  .reticle::after { width: 3px; height: 26px; margin: -13px 0 0 -1px; }
+  .rlabel { position: absolute; font: 700 26px/1 "JetBrains Mono", monospace; letter-spacing: 0.12em; color: #0b0803; background: var(--amber);
+            padding: 8px 12px 6px; border-radius: 4px; white-space: nowrap; }
+  .xmark { position: absolute; font: 900 120px/1 "Barlow Condensed"; color: var(--red); }
+
+  /* fuel readout */
+  #fuelbox { position: absolute; left: 72px; top: 1330px; width: 880px; }
+  #fuelbox .k { font: 700 30px/1 "JetBrains Mono", monospace; letter-spacing: 0.18em; color: var(--amber); }
+  #fuelnum { font-weight: 900; font-size: 300px; line-height: 0.82; letter-spacing: -0.01em; display: inline-block; }
+  #fuelbox .u { font-weight: 800; font-size: 90px; margin-left: 14px; color: var(--dim); }
+  #fuelbar { position: absolute; left: 0; top: 300px; width: 880px; height: 10px; background: rgba(243,239,230,0.12); border-radius: 5px; }
+  #fuelbar i { display: block; width: 100%; height: 100%; border-radius: 5px; background: var(--amber); transform-origin: 0 0; }
+  .lens { position: absolute; inset: 0; background: radial-gradient(60% 40% at 50% 38%, rgba(255,214,150,0.35), rgba(255,214,150,0) 70%); mix-blend-mode: screen; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="root" data-composition-id="eagle" data-start="0" data-width="1080" data-height="1920" data-duration="21">
+
+  <div id="stars"></div>
+
+  <!-- =========================== 0.00 HOOK =========================== -->
+  <section id="s-hook" class="clip" data-start="0" data-duration="1.79" style="z-index:2">
+    <div class="full"><img id="hook-img" src="assets/p_landing.jpg" alt="" /></div>
+    <div class="redwash" id="hook-red"></div>
+    <div class="grade"></div>
+    <div class="alarm-chip" id="hook-chip" style="left:160px; top:318px;">PROGRAM ALARM</div>
+    <div class="dsky" id="hook-dsky" style="left:160px; top:380px;">
+      <div class="lamps"><div class="lamp">UPLINK ACTY</div><div class="lamp">TEMP</div><div class="lamp on" id="hook-prog">PROG</div></div>
+      <div class="screen"><div class="lbl">PROG</div><div class="code">1202</div></div>
+    </div>
+    <div class="hl" style="top:1130px">
+      <span class="ln" id="h1">The moon landing</span>
+      <span class="ln" id="h2">came down to</span>
+      <span class="ln big red" id="h3">seconds.</span>
+    </div>
+  </section>
+
+  <!-- =========================== 1.79 MONTAGE =========================== -->
+  <section id="s-mont" class="clip" data-start="1.79" data-duration="1.23" style="z-index:2">
+    <div class="full" id="m1"><img src="assets/p_launch.jpg" alt="" /></div>
+    <div class="full" id="m3" style="opacity:0"><img src="assets/p_earth.jpg" alt="" /></div>
+    <div class="full" id="m5" style="opacity:0"><img src="assets/p_lm.jpg" alt="" /></div>
+    <div class="full" id="m6" style="opacity:0"><img src="assets/p_boot.jpg" alt="" /></div>
+  </section>
+  <div class="vwrap" id="w-crew" style="left:0; top:420px; width:1080px; height:1080px;">
+    <video class="clip" id="v-crew" src="assets/crew.mp4" muted playsinline data-start="2.00" data-duration="0.21"></video>
+  </div>
+  <div class="vwrap" id="w-mocrw" style="left:0; top:555px; width:1080px; height:810px;">
+    <video class="clip" id="v-mocrw" src="assets/mocr_wide.mp4" muted playsinline data-start="2.41" data-duration="0.21"></video>
+  </div>
+  <section id="s-mont-top" class="clip" data-start="1.79" data-duration="1.23" style="z-index:6">
+    <div class="grade"></div>
+    <div class="tag" id="mtag" style="left:72px; top:262px; font-size:24px;">T-0 · 16 JUL 1969</div>
+    <div class="hl" style="top:1205px">
+      <span class="ln amber mono" id="mdate" style="font: 700 44px/1 'JetBrains Mono'; letter-spacing:0.14em; margin-bottom:22px;">20 JULY 1969</span>
+      <span class="ln big" id="mkm" style="font-size:168px">0 KM</span>
+      <span class="ln" id="mkm2" style="font-size:84px; color:var(--dim); margin-top:14px">from home</span>
+    </div>
+  </section>
+
+  <!-- =========================== 3.02 ALARM =========================== -->
+  <section id="s-alarm" class="clip" data-start="3.02" data-duration="2.78" style="z-index:2">
+    <div class="grid"></div>
+  </section>
+  <div class="vwrap win" id="w-alarm" style="left:60px; top:282px; width:960px; height:720px;">
+    <video class="clip" id="v-alarm" src="assets/desc_alarm.mp4" muted playsinline data-start="3.02" data-duration="2.78"></video>
+  </div>
+  <section id="s-alarm-top" class="clip" data-start="3.02" data-duration="2.78" style="z-index:6">
+    <div class="tag" style="left:82px; top:302px;">16 MM · LM WINDOW</div>
+    <div class="dsky" id="a-dsky" style="left:160px; top:860px; transform-origin:50% 50%;">
+      <div class="lamps"><div class="lamp">UPLINK ACTY</div><div class="lamp">TEMP</div><div class="lamp on" id="a-prog">PROG</div></div>
+      <div class="screen"><div class="lbl">PROG</div><div class="code">1201</div></div>
+    </div>
+    <div class="hl" id="a-hl" style="top:1255px">
+      <span class="ln" id="a1">The computer</span>
+      <span class="ln red" id="a2">was overloaded.</span>
+      <span class="ln mono amber" id="a3" style="font:700 34px/1 'JetBrains Mono'; letter-spacing:0.14em; margin-top:22px;">GUIDANCE COMPUTER · 4 KB OF MEMORY</span>
+    </div>
+    <div class="cap" id="a-cap" style="top:1290px; opacity:0">
+      <div class="speaker">Mission Control</div>
+      <div class="q">“We're go. Same type. We're go.”</div>
+    </div>
+  </section>
+
+  <!-- =========================== 5.80 BOULDERS =========================== -->
+  <div class="vwrap" id="w-boulders" style="left:0; top:250px; width:1080px; height:1080px;">
+    <video class="clip" id="v-boulders" src="assets/desc_boulders.mp4" muted playsinline data-start="5.80" data-duration="2.52"></video>
+  </div>
+  <section id="s-boulders" class="clip" data-start="5.80" data-duration="2.52" style="z-index:6">
+    <div class="grade" style="background:linear-gradient(180deg, rgba(3,5,8,0.9) 0%, rgba(3,5,8,0) 16%, rgba(3,5,8,0) 58%, rgba(3,5,8,0.92) 70%, var(--bg) 100%)"></div>
+    <div class="reticle" id="ret" style="left:520px; top:820px;"></div>
+    <div class="rlabel" id="retl" style="left:520px; top:770px;">BOULDER FIELD</div>
+    <svg id="path" width="1080" height="1080" viewBox="0 0 1080 1080" style="position:absolute; left:0; top:250px;">
+      <path id="trk" d="M 160 1020 C 300 820, 520 760, 640 560 S 860 300, 980 220" fill="none" stroke="#a6ff7d" stroke-width="7" stroke-dasharray="22 16" stroke-linecap="round"/>
+    </svg>
+    <div class="rlabel" id="newsite" style="left:700px; top:420px; background:var(--green);">NEW SITE →</div>
+    <div class="hl" style="top:1300px">
+      <span class="ln" id="b1">Boulders in the</span>
+      <span class="ln red" id="b2">landing zone.</span>
+    </div>
+    <div class="hl" style="top:1300px">
+      <span class="ln" id="b3">Armstrong took</span>
+      <span class="ln amber" id="b4">manual control.</span>
+    </div>
+  </section>
+
+  <!-- =========================== 8.32 FUEL / 12.40 CONTACT =========================== -->
+  <div class="vwrap" id="w-fuel" style="left:0; top:250px; width:1080px; height:1080px;">
+    <video class="clip" id="v-fuel-a" src="assets/desc_fuel_a.mp4" muted playsinline data-start="8.32" data-duration="2.00"></video>
+    <video class="clip" id="v-fuel-b" src="assets/desc_fuel_b.mp4" muted playsinline data-start="10.32" data-duration="2.08"></video>
+    <video class="clip" id="v-contact" src="assets/desc_contact.mp4" muted playsinline data-start="12.40" data-duration="1.40"></video>
+  </div>
+  <section id="s-fuel" class="clip" data-start="8.32" data-duration="4.08" style="z-index:6">
+    <div class="grade" style="background:linear-gradient(180deg, rgba(3,5,8,0.9) 0%, rgba(3,5,8,0) 16%, rgba(3,5,8,0) 58%, rgba(3,5,8,0.92) 70%, var(--bg) 100%)"></div>
+    <div class="cap" id="f-cap1" style="top:1090px; opacity:0"><div class="speaker">Capcom · Charlie Duke</div></div>
+    <div class="cap" id="f-cap2" style="top:1090px; opacity:0"><div class="speaker">Buzz Aldrin · “Picking up some dust”</div></div>
+    <div id="fuelbox">
+      <div class="k" id="fuelk">FUEL CALLOUT</div>
+      <div><span id="fuelnum">60</span><span class="u">SEC</span></div>
+      <div id="fuelbar"><i id="fuelfill"></i></div>
+    </div>
+  </section>
+  <section id="s-contact" class="clip" data-start="12.40" data-duration="1.40" style="z-index:6">
+    <div class="grade" style="background:linear-gradient(180deg, rgba(3,5,8,0.9) 0%, rgba(3,5,8,0) 16%, rgba(3,5,8,0) 58%, rgba(3,5,8,0.92) 70%, var(--bg) 100%)"></div>
+    <div class="cap" style="top:1300px">
+      <div class="speaker" id="c-sp">Buzz Aldrin</div>
+      <div class="quote"><span class="w xl" id="c1">“Contact</span><span class="w xl" id="c2">light.”</span></div>
+    </div>
+  </section>
+
+  <!-- =========================== 13.80 LANDED =========================== -->
+  <section id="s-landed" class="clip" data-start="13.80" data-duration="4.05" style="z-index:2">
+    <div class="full"><img id="aldrin" class="hi" src="assets/p_aldrin.jpg" alt="" /></div>
+    <div class="lens" id="lens"></div>
+    <div class="tag" style="left:72px; top:272px;">BUZZ ALDRIN · PHOTO: NEIL ARMSTRONG</div>
+    <div class="grade" style="background:linear-gradient(180deg, rgba(3,5,8,0.55) 0%, rgba(3,5,8,0) 18%, rgba(3,5,8,0) 52%, rgba(3,5,8,0.86) 76%, rgba(3,5,8,0.97) 100%)"></div>
+    <div class="cap" style="top:1130px; width:900px">
+      <div class="speaker" id="l-sp">Neil Armstrong · 20:17 UTC</div>
+      <div class="quote">
+        <span class="w" id="l1">“Houston,</span><span class="w" id="l2">Tranquility</span><span class="w" id="l3">Base here.</span>
+      </div>
+      <div class="quote" style="margin-top:6px">
+        <span class="w xl" id="l4">The Eagle</span><span class="w xl red" id="l5">has landed.”</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== 17.85 BREATHING =========================== -->
+  <div class="vwrap" id="w-faces" style="left:0; top:250px; width:1080px; height:1080px;">
+    <video class="clip" id="v-faces" src="assets/mocr_faces.mp4" muted playsinline data-start="17.85" data-duration="1.50"></video>
+  </div>
+  <section id="s-faces" class="clip" data-start="17.85" data-duration="1.50" style="z-index:6">
+    <div class="grade" style="background:linear-gradient(180deg, rgba(3,5,8,0.9) 0%, rgba(3,5,8,0) 16%, rgba(3,5,8,0) 58%, rgba(3,5,8,0.92) 70%, var(--bg) 100%)"></div>
+    <div class="tag" style="left:72px; top:272px;">MISSION CONTROL · HOUSTON</div>
+    <div class="cap" style="top:1300px">
+      <div class="speaker">Capcom · Charlie Duke</div>
+      <div class="q" id="bq">“You got a bunch of guys about to turn blue.”</div>
+    </div>
+  </section>
+  <section id="s-end" class="clip" data-start="19.35" data-duration="1.65" style="z-index:2">
+    <div class="full"><img id="earth" src="assets/p_earth.jpg" alt="" /></div>
+    <div class="grade" style="background:linear-gradient(180deg, rgba(3,5,8,0.3) 0%, rgba(3,5,8,0) 30%, rgba(3,5,8,0.35) 60%, rgba(3,5,8,0.92) 82%, rgba(3,5,8,0.98) 100%)"></div>
+    <div class="cap" style="top:1080px; width:900px">
+      <div class="speaker">Capcom · Charlie Duke</div>
+      <div class="quote"><span class="w xl" id="e1">“We're</span><span class="w xl" id="e2">breathing</span><span class="w xl amber" id="e3">again.”</span></div>
+      <div class="mono" id="e4" style="font:600 26px/1.4 'JetBrains Mono'; letter-spacing:0.12em; color:var(--dim); margin-top:26px;">APOLLO 11 · 20 JULY 1969 · SEA OF TRANQUILITY</div>
+    </div>
+  </section>
+
+  <!-- =========================== HUD (0 – 12.6) =========================== -->
+  <div id="hud" class="clip" data-start="0" data-duration="13.2">
+    <div class="bar"><span><i id="rec"></i>APOLLO 11 · LM EAGLE</span><span>MET <span class="val" id="met">102:38:26</span></span></div>
+    <div class="bar bar2"><span>ALT <span class="val" id="alt">-----</span></span><span>FUEL <span class="val" id="fuelv">--</span></span></div>
+    <div class="rule"><i id="prog"></i></div>
+  </div>
+
+  <div id="scan"></div>
+  <div id="black"></div>
+  <div id="flash"></div>
+</div>
+
+<script>
+(function () {
+  const $ = (s) => document.querySelector(s);
+  const tl = gsap.timeline({ paused: true });
+
+  // ---------- deterministic starfield ----------
+  let seed = 7;
+  const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const stars = $("#stars");
+  for (let i = 0; i < 140; i++) {
+    const s = document.createElement("div");
+    s.className = "star";
+    const sz = 1 + rnd() * 2.6;
+    s.style.cssText = `left:${rnd() * 1080}px;top:${rnd() * 1920}px;width:${sz}px;height:${sz}px;opacity:${0.15 + rnd() * 0.55}`;
+    stars.appendChild(s);
+  }
+
+  // ---------- HUD data: real mission elapsed time + callouts ----------
+  // anchor points: (timeline s, MET s past 102:00:00)
+  const METK = [[0, 38*60+26], [3.02, 42*60+19], [5.80, 43*60+10], [8.45, 45*60+2], [11.40, 45*60+31], [12.45, 45*60+40], [13.8, 45*60+58]];
+  // altitude callouts from the Apollo Lunar Surface Journal (MET s → feet)
+  const ALT = [[42*60+13, 3000], [42*60+24, 2000], [42*60+37, 1000], [43*60+7, 700], [43*60+26, 400], [43*60+46, 300],
+               [44*60+7, 250], [44*60+24, 200], [44*60+40, 120], [44*60+45, 100], [44*60+54, 75], [45*60+8, 60],
+               [45*60+17, 40], [45*60+21, 30], [45*60+25, 20], [45*60+40, 0]];
+  const lerpK = (K, x) => {
+    if (x <= K[0][0]) return K[0][1];
+    for (let i = 0; i < K.length - 1; i++) if (x <= K[i + 1][0]) {
+      const u = (x - K[i][0]) / (K[i + 1][0] - K[i][0]); return K[i][1] + (K[i + 1][1] - K[i][1]) * u; }
+    return K[K.length - 1][1];
+  };
+  const pad = (n) => String(Math.floor(n)).padStart(2, "0");
+  const metEl = $("#met"), altEl = $("#alt"), fuelEl = $("#fuelv");
+  const hudProxy = { t: 0 };
+  function drawHud() {
+    const t = hudProxy.t;
+    const met = lerpK(METK, t);
+    metEl.textContent = `102:${pad(met / 60)}:${pad(met % 60)}`;
+    if (t < 3.02) altEl.textContent = "-----";
+    else { const a = lerpK(ALT, met); altEl.textContent = a < 0.5 ? "0 FT" : `${Math.round(a).toLocaleString("en-US")} FT`; }
+    let f = "--";
+    if (met >= 44*60) f = met < 44*60+45 ? "8%" : "5%";
+    if (t >= 8.45) f = t < 11.40 ? "60 SEC" : "30 SEC";
+    if (t >= 12.45) f = "CONTACT";
+    fuelEl.textContent = f;
+    fuelEl.classList.toggle("warn", t >= 8.05);
+  }
+  tl.to(hudProxy, { t: 13.2, duration: 13.2, ease: "none", onUpdate: drawHud }, 0);
+  tl.fromTo("#prog", { scaleX: 0 }, { scaleX: 1, duration: 12.45, ease: "none" }, 0);
+  // REC dot blink (finite repeat)
+  tl.fromTo("#rec", { opacity: 1 }, { opacity: 0.15, duration: 0.25, repeat: 25, yoyo: true, ease: "steps(1)" }, 0);
+  tl.to("#hud .bar, #hud .rule", { opacity: 0, duration: 0.3, ease: "power2.in" }, 12.85);
+
+  // ---------- helpers ----------
+  const slam = (sel, at, from = 1.18, dy = 40) =>
+    tl.fromTo(sel, { opacity: 0, scale: from, y: dy, filter: "blur(10px)" },
+                   { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.16, ease: "power4.out", transformOrigin: "0% 100%" }, at);
+  const out = (sel, at, d = 0.12) => tl.to(sel, { opacity: 0, y: -26, duration: d, ease: "power2.in" }, at);
+  const word = (sel, at) =>
+    tl.fromTo(sel, { opacity: 0, y: 30, scale: 1.08 }, { opacity: 1, y: 0, scale: 1, duration: 0.18, ease: "power3.out", transformOrigin: "0% 100%" }, at);
+
+  // ================= HOOK =================
+  tl.fromTo("#hook-img", { scale: 1.10, rotation: -1.2 }, { scale: 1.46, rotation: 1.2, duration: 1.79, ease: "power2.in" }, 0);
+  [0, 0.43, 0.86, 1.29].forEach((a) => tl.fromTo("#hook-red", { opacity: 1 }, { opacity: 0.25, duration: 0.38, ease: "power2.out" }, a));
+  // frame 0 is the hook: everything that carries the message is already on screen, then settles
+  tl.fromTo("#hook-dsky", { opacity: 1, scale: 1.16 }, { opacity: 1, scale: 1, duration: 0.24, ease: "power4.out" }, 0);
+  tl.fromTo("#hook-chip", { opacity: 0, x: -60 }, { opacity: 1, x: 0, duration: 0.14, ease: "power3.out" }, 0.06);
+  tl.fromTo("#hook-prog", { opacity: 1 }, { opacity: 0.25, duration: 0.11, repeat: 15, yoyo: true, ease: "steps(1)" }, 0.05);
+  tl.fromTo("#hook-chip", { scale: 1 }, { scale: 1.06, immediateRender: false, duration: 0.11, repeat: 13, yoyo: true, ease: "sine.inOut" }, 0.2);
+  tl.fromTo("#h1", { opacity: 1, scale: 1.10 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.out", transformOrigin: "0% 100%" }, 0);
+  slam("#h2", 0.43); slam("#h3", 0.86, 1.35, 60);
+  tl.to("#hook-dsky, #hook-chip", { y: -40, opacity: 0, duration: 0.14, ease: "power2.in" }, 1.66);
+  tl.to("#h1, #h2, #h3", { opacity: 0, x: -80, duration: 0.12, ease: "power3.in", stagger: 0.02 }, 1.66);
+
+  // ================= MONTAGE (cuts on the half-beat) =================
+  const cuts = [1.79, 2.00, 2.20, 2.41, 2.62, 2.82];
+  const tags = ["T-0 · 16 JUL 1969", "COLUMBIA · CREW", "384,400 KM AWAY", "MISSION CONTROL", "LM EAGLE · LUNAR ORBIT", "TARGET · SEA OF TRANQUILITY"];
+  const mont = ["#m1", "#w-crew", "#m3", "#w-mocrw", "#m5", "#m6"];
+  mont.forEach((sel, i) => {
+    const a = cuts[i];
+    tl.fromTo(sel, { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1.0, duration: 0.2, ease: "power3.out" }, a);
+    if (i < mont.length - 1) tl.set(sel, { opacity: 0 }, cuts[i + 1]);
+    tl.set("#mtag", { textContent: tags[i] }, a);
+  });
+  tl.set("#w-crew, #w-mocrw, #w-alarm, #w-boulders, #w-fuel, #w-faces", { opacity: 0 }, 0);
+  tl.fromTo("#mtag", { opacity: 0 }, { opacity: 1, duration: 0.06 }, 1.79);
+  slam("#mdate", 1.80, 1.1, 20);
+  const km = { v: 0 };
+  tl.fromTo("#mkm", { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.15, ease: "power4.out", transformOrigin: "0% 100%" }, 1.84);
+  tl.to(km, { v: 384400, duration: 1.0, ease: "power3.out",
+              onUpdate: () => { $("#mkm").textContent = `${Math.round(km.v).toLocaleString("en-US")} KM`; } }, 1.84);
+  slam("#mkm2", 2.05, 1.1, 20);
+
+  // ================= ALARM (3.02) =================
+  tl.fromTo("#w-alarm", { clipPath: "inset(50% 0% 50% 0% round 22px)", opacity: 1 }, { clipPath: "inset(0% 0% 0% 0% round 22px)", duration: 0.22, ease: "power4.out" }, 3.02);
+  tl.fromTo("#w-alarm video", { scale: 1.0 }, { scale: 1.12, duration: 2.78, ease: "none" }, 3.02);
+  tl.fromTo("#a-dsky", { opacity: 0, scale: 1.3, filter: "blur(10px)" }, { opacity: 1, scale: 0.86, filter: "blur(0px)", duration: 0.18, ease: "power4.out" }, 3.10);
+  tl.fromTo("#a-prog", { opacity: 1 }, { opacity: 0.25, duration: 0.11, repeat: 19, yoyo: true, ease: "steps(1)" }, 3.10);
+  slam("#a1", 3.42); slam("#a2", 3.78);
+  tl.fromTo("#a3", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.2, ease: "power3.out" }, 3.95);
+  tl.to("#a1, #a2, #a3", { opacity: 0, y: -24, duration: 0.12, ease: "power2.in" }, 4.62);
+  tl.to("#a-dsky .code", { color: "#ffffff" }, 4.30);
+  tl.fromTo("#a-cap", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, 4.70);
+  tl.to("#a-dsky", { opacity: 0, scale: 0.8, duration: 0.15, ease: "power2.in" }, 5.62);
+  tl.to("#w-alarm", { opacity: 0, duration: 0.08 }, 5.79);
+
+  // ================= BOULDERS (5.80) =================
+  tl.fromTo("#w-boulders", { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power3.out" }, 5.80);
+  tl.fromTo("#ret", { opacity: 0, scale: 1.8 }, { opacity: 1, scale: 1, duration: 0.2, ease: "back.out(2)" }, 6.00);
+  tl.fromTo("#ret", { x: 0, y: 0 }, { x: 70, y: -110, immediateRender: false, duration: 2.3, ease: "none" }, 6.00);
+  tl.fromTo("#retl", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.15 }, 6.10);
+  tl.fromTo("#retl", { y: 0 }, { y: -110, immediateRender: false, duration: 2.2, ease: "none" }, 6.10);
+  tl.fromTo("#ret", { borderColor: "#ffb23e" }, { borderColor: "#ff3b2f", immediateRender: false, duration: 0.05, repeat: 5, yoyo: true, ease: "steps(1)" }, 6.4);
+  slam("#b1", 5.92); slam("#b2", 6.22);
+  tl.to("#b1, #b2", { opacity: 0, y: -24, duration: 0.12, ease: "power2.in" }, 6.90);
+  const trk = document.getElementById("trk");
+  const L = trk.getTotalLength();
+  tl.fromTo("#trk", { strokeDashoffset: L, strokeDasharray: `${L} ${L}` }, { strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 7.03);
+  tl.set("#trk", { strokeDasharray: "22 16" }, 7.95);
+  tl.fromTo("#newsite", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.18, ease: "back.out(2.5)" }, 7.70);
+  slam("#b3", 7.05); slam("#b4", 7.36);
+  tl.to("#w-boulders", { opacity: 0, duration: 0.06 }, 8.30);
+
+  // ================= FUEL (8.32) =================
+  tl.fromTo("#w-fuel", { opacity: 0 }, { opacity: 1, duration: 0.12 }, 8.32);
+  tl.fromTo("#w-fuel", { scale: 1.0 }, { scale: 1.08, immediateRender: false, duration: 5.4, ease: "power1.in", transformOrigin: "50% 45%" }, 8.32);
+  tl.fromTo("#fuelbox", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.18, ease: "power3.out" }, 8.40);
+  const fuel = { v: 60 };
+  tl.to(fuel, { v: 31, duration: 2.95, ease: "none",
+                onUpdate: () => { $("#fuelnum").textContent = String(Math.ceil(fuel.v)); } }, 8.45);
+  tl.fromTo("#fuelfill", { scaleX: 1 }, { scaleX: 0.5, duration: 2.95, ease: "none" }, 8.45);
+  tl.set("#fuelnum", { textContent: "30", color: "#ff3b2f" }, 11.40);
+  tl.set("#fuelfill", { backgroundColor: "#ff3b2f", scaleX: 0.5 }, 11.40);
+  tl.fromTo("#fuelnum", { scale: 1.25 }, { scale: 1, immediateRender: false, duration: 0.3, ease: "power3.out", transformOrigin: "0% 100%" }, 11.40);
+  [11.55, 12.0].forEach((a) => tl.fromTo("#fuelnum", { scale: 1.07 }, { scale: 1, immediateRender: false, duration: 0.25, ease: "power2.out", transformOrigin: "0% 100%" }, a));
+  tl.fromTo("#fuelfill", { scaleX: 0.5 }, { scaleX: 0.36, immediateRender: false, duration: 1.0, ease: "none" }, 11.40);
+  tl.fromTo("#f-cap1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.16 }, 8.45);
+  tl.to("#f-cap1", { opacity: 0, duration: 0.1 }, 10.20);
+  tl.fromTo("#f-cap2", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.16 }, 10.32);
+  tl.to("#f-cap2", { opacity: 0, duration: 0.1 }, 11.30);
+
+  // ================= CONTACT (12.40) =================
+  tl.fromTo("#c-sp", { opacity: 0 }, { opacity: 1, duration: 0.12 }, 12.42);
+  word("#c1", 12.45); word("#c2", 12.78);
+  tl.to("#w-fuel", { opacity: 0, duration: 0.35, ease: "power2.in" }, 13.40);
+  tl.to("#black", { opacity: 1, duration: 0.2 }, 13.60);
+  tl.set("#black", { opacity: 0 }, 13.80);
+
+  // ================= LANDED (13.80) =================
+  tl.fromTo("#aldrin", { scale: 0.56, x: 0, y: 140 }, { scale: 0.74, x: 30, y: 420, duration: 4.05, ease: "power1.inOut" }, 13.80);
+  tl.fromTo("#l-sp", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 13.85);
+  word("#l1", 13.90); word("#l2", 15.34); word("#l3", 16.00);
+  word("#l4", 17.04); word("#l5", 17.36);
+  tl.fromTo("#lens", { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" }, 17.04);
+  tl.to("#lens", { opacity: 0.35, duration: 0.6 }, 17.3);
+
+  // ================= BREATHING (17.85) =================
+  tl.fromTo("#w-faces", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1.0, duration: 0.25, ease: "power2.out" }, 17.85);
+  tl.fromTo("#w-faces video", { scale: 1.0 }, { scale: 1.08, duration: 1.5, ease: "none" }, 17.85);
+  tl.fromTo("#bq", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.2, ease: "power3.out" }, 17.95);
+  tl.to("#w-faces", { opacity: 0, duration: 0.08 }, 19.33);
+  tl.fromTo("#earth", { scale: 0.86, y: 60 }, { scale: 0.96, y: 0, duration: 1.65, ease: "power1.out" }, 19.35);
+  word("#e1", 19.99); word("#e2", 20.16); word("#e3", 20.40);
+  tl.fromTo("#e4", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 20.55);
+
+  window.__timelines["eagle"] = tl;
+})();
+</script>
+</body>
+</html>

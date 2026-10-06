@@ -1,0 +1,5 @@
+assets/
+build/
+hf/assets/
+hf/snapshots/
+__pycache__/
